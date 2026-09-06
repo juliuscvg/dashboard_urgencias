@@ -1,0 +1,653 @@
+{
+  "commit_specs": "3c6ed9cf08aca4821138f8499255423a874898fa",
+  "fecha": "2026-09-06",
+  "responsable": "Codex, evaluación documental solicitada; aprobación institucional no documentada",
+  "alcance": "Adopción documental, sin validación multidominio",
+  "totales": {
+    "ADOPTADO": 64,
+    "ADAPTADO": 5,
+    "NO_APLICA": 0,
+    "PENDIENTE": 2
+  },
+  "principios": [
+    {
+      "id": "HCG-CAL-001",
+      "principio": "`SIN DATO` permanece dentro del universo cuando la entidad cumple el criterio principal pero carece de la dimensión analizada.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "SIN DATO conserva pertenencia al universo por dimensión.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/CALIDAD_DATOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-CAL-002",
+      "principio": "`DATO INVÁLIDO` se distingue de ausencia de dato.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Separar ausencia de valores fuera de catálogo validado.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/CALIDAD_DATOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-CAL-003",
+      "principio": "Una clave con descripciones contradictorias se marca inconsistente y conserva sus variantes auditables.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Mantener variantes contradictorias de servicio/residencia auditables.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/CALIDAD_DATOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-CAL-004",
+      "principio": "No se elige una descripción mediante `MAX`, `MIN` o `DISTINCT` para ocultar contradicciones.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "No usar MAX/MIN/DISTINCT para ocultar contradicciones.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/CALIDAD_DATOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-CAL-005",
+      "principio": "Nulos y no evaluables se cuantifican y muestran; no se reemplazan por cero ni se eliminan sin declararlo en el universo.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Cuantificar no evaluables de cada par temporal.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/CALIDAD_DATOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-CAL-006",
+      "principio": "Negativos, ceros y extremos se conservan auditables; cualquier tratamiento en la fórmula se documenta por separado.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Conservar ceros, negativos y extremos con tratamiento explícito.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/CALIDAD_DATOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-CAL-007",
+      "principio": "Las anomalías se informan como calidad y no modifican el resultado principal sin una regla aprobada y versionada.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Ninguna anomalía autoriza corregir datos o cambiar KPI silenciosamente.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/CALIDAD_DATOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-CAL-008",
+      "principio": "Cobertura, consistencia descriptiva y validez son dimensiones distintas y se reconcilian contra su universo correspondiente.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Cobertura de hito no equivale a secuencia temporal válida.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/CALIDAD_DATOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-DET-001",
+      "principio": "Agregado, detalle y count aplican el mismo predicado conceptual para una categoría.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Mismo predicado de universo y categoría en agregado/page/count.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/DETALLE_Y_AUDITORIA.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-DET-002",
+      "principio": "El detalle expone campos suficientes para reconstruir pertenencia, exclusiones relevantes y valor del indicador.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Detalle expone evidencia de inclusión y duración con acceso autorizado.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/DETALLE_Y_AUDITORIA.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-DET-003",
+      "principio": "Paginar no cambia el universo, la cardinalidad ni los predicados del resultado.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Paginar no altera pertenencia ni representación del episodio.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/DETALLE_Y_AUDITORIA.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-DET-004",
+      "principio": "Cuando el total exacto es requisito, no se sustituye por una aproximación sin contrato explícito.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "No sustituir total exacto requerido con aproximaciones.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/DETALLE_Y_AUDITORIA.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-DET-005",
+      "principio": "El orden de paginación es determinista y contiene desempates suficientes para reproducir páginas.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Orden y desempates estables se definirán tras perfilar claves.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/DETALLE_Y_AUDITORIA.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-DET-006",
+      "principio": "Las discrepancias entre agregado, detalle y total permanecen visibles y detienen una validación declarada como reconciliada.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Discrepancia visible impide PASS reconciliado.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/DETALLE_Y_AUDITORIA.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-DET-007",
+      "principio": "La auditoría costosa o descriptiva se carga bajo demanda y no bloquea el agregado principal.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Auditoría costosa bajo demanda sin bloquear resumen.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/DETALLE_Y_AUDITORIA.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-DET-008",
+      "principio": "La primera página puede entregarse antes del total exacto; un fallo del count no elimina filas ya visibles.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "PENDIENTE",
+      "motivo": "Decidir arquitectura de entrega independiente página/count al implementar.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/DETALLE_Y_AUDITORIA.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-DET-009",
+      "principio": "Página y count independientes pueden observar estados distintos en una fuente mutable; esa limitación se documenta.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "PENDIENTE",
+      "motivo": "Decidir snapshot/consistencia y documentar mutabilidad de página/count.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/DETALLE_Y_AUDITORIA.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-FIL-001",
+      "principio": "La jerarquía de filtros se declara explícitamente y no se infiere de la disposición visual.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADAPTADO",
+      "motivo": "Centro→Servicio→Localización→Paciente/episodio requiere validar dependencias.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/FILTROS_Y_NAVEGACION.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-FIL-002",
+      "principio": "Cambiar un nivel superior limpia o revalida selecciones descendientes incompatibles.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Cambio de padre limpia o revalida descendientes incompatibles.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/FILTROS_Y_NAVEGACION.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-FIL-003",
+      "principio": "Periodo, filtros y demás selecciones relevantes se preservan en navegación, recarga e historial.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Conservar periodo y filtros compatibles al navegar.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/FILTROS_Y_NAVEGACION.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-FIL-004",
+      "principio": "Los identificadores técnicos viajan en URL/API y la interfaz resuelve etiquetas humanas mediante un fallback documentado por dominio.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADAPTADO",
+      "motivo": "Adaptar fallback y persistencia para no exponer identidad sensible.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/FILTROS_Y_NAVEGACION.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-FIL-005",
+      "principio": "La exploración contextual no modifica filtros globales salvo una acción explícita del usuario.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Exploración local no modifica globales sin acción explícita.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/FILTROS_Y_NAVEGACION.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-FIL-006",
+      "principio": "Seleccionar un intervalo temporal conserva filtros compatibles y actualiza el contexto sin recarga completa cuando la plataforma lo permite.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Seleccionar periodo conserva filtros compatibles.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/FILTROS_Y_NAVEGACION.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-ANA-001",
+      "principio": "Toda métrica declara su entidad o unidad analítica; cambiar de unidad exige una regla de representación explícita.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Declarar episodio, registro y paciente como unidades diferentes.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-ANA-002",
+      "principio": "El universo y el denominador se definen antes del resultado e incluyen criterios de inclusión, exclusión y deduplicación.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Definir U-ING, U-EGR, U-ABI, U-POB y U-RET antes de contar.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-ANA-003",
+      "principio": "Una fórmula reproducible identifica campos, predicados, tratamiento de nulos y orden de las transformaciones.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Cerrar campos, nulos y orden antes de implementar candidatos.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-ANA-004",
+      "principio": "Cada fuente declara su rol: primaria, complementaria, corroborativa o evaluada no usada. Una fuente secundaria no sustituye silenciosamente a la primaria.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Sólo vUrgencias es primaria; carencias justifican complementarias.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-ANA-005",
+      "principio": "Agregado, categorías y detalle deben reconciliar bajo el mismo universo conceptual.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Reconciliar categorías y detalle contra su propio universo.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-ANA-006",
+      "principio": "La calidad del dato se informa separada del resultado; una anomalía no cambia el KPI sin una decisión de negocio explícita.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Separar ausencias e inversiones de las duraciones principales.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-ANA-007",
+      "principio": "Los datos faltantes que pertenecen al universo permanecen visibles y reconciliables.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Mantener SIN DATO para dimensiones de episodios incluidos.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-ANA-008",
+      "principio": "No se resuelven discrepancias mediante agregaciones arbitrarias, selección conveniente de valores o cambios de fórmula orientados a recuperar una cifra previa.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "No ajustar rangos o conteos para recuperar cifras FAA.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-ANA-009",
+      "principio": "La selección de una fila representativa debe ser determinista, explicable y anterior a la proyección de atributos derivados.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Representación de episodio pendiente de cardinalidad y desempates.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-ANA-010",
+      "principio": "Las comparaciones temporales usan periodos equivalentes y explicitan cuándo no existe una base válida de comparación.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Comparar eventos y periodos equivalentes, señalando cortes parciales.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-ANA-011",
+      "principio": "Mayor o menor volumen describe magnitud; no constituye por sí mismo un juicio de calidad, desempeño o riesgo.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Volumen de urgencias no demuestra calidad asistencial.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/PRINCIPIOS_ANALITICOS.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-TEM-001",
+      "principio": "Un periodo de días completos se expresa preferentemente como intervalo semiabierto: inicio inclusivo y límite superior exclusivo del día posterior.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Periodo [desde,hasta_exclusivo) por evento seleccionado.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TEMPORALIDAD.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-TEM-002",
+      "principio": "Los cálculos dependientes del tiempo usan la fecha del evento representado, no la fecha actual, salvo que el contrato diga expresamente lo contrario.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADAPTADO",
+      "motivo": "Edad ligada al evento por decidir; abiertos usan corte explícito.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TEMPORALIDAD.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-TEM-003",
+      "principio": "La semántica temporal de cada campo se documenta antes de convertirlo: fecha, instante zonificado o tiempo civil.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Tipos, precisión y zona de los seis campos pendientes de SQL.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TEMPORALIDAD.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-TEM-004",
+      "principio": "No se asume UTC ni se aplica un offset cuando la fuente representa tiempo civil sin zona.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "No convertir horas civiles a UTC sin evidencia.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TEMPORALIDAD.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-TEM-005",
+      "principio": "Los datos recientes se consideran potencialmente mutables y toda variación posterior se distingue de un cambio de fórmula.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Vista potencialmente mutable; separar actualización de cambio de regla.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TEMPORALIDAD.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-TEM-006",
+      "principio": "Un benchmark registra fecha y hora de observación, además del periodo de negocio consultado.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Registrar observación además de periodo de ingresos/egresos.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TEMPORALIDAD.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-TEM-007",
+      "principio": "La equivalencia de periodos comparados se define explícitamente, incluidos longitud, calendario, zona y cierres parciales.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Calendario, zona y cierre parcial deben acompañar la comparación.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TEMPORALIDAD.md",
+      "documento": "../REGLAS_NEGOCIO.md"
+    },
+    {
+      "id": "HCG-TRZ-001",
+      "principio": "Cada eslabón identifica una referencia concreta o declara que no está documentado.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Cada candidato enlaza regla, diccionario, plan y vacíos de implementación.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TRAZABILIDAD.md",
+      "documento": "TRAZABILIDAD.md"
+    },
+    {
+      "id": "HCG-TRZ-002",
+      "principio": "La regla portable se separa del nombre de archivo, clase, componente o tecnología de la implementación actual.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Contrato funcional independiente de tecnología.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TRAZABILIDAD.md",
+      "documento": "TRAZABILIDAD.md"
+    },
+    {
+      "id": "HCG-TRZ-003",
+      "principio": "La fuente registra rol, granularidad, claves, temporalidad, campos, límites y consumidores.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Fuente con rol, claves, temporalidad y granularidad provisional.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TRAZABILIDAD.md",
+      "documento": "TRAZABILIDAD.md"
+    },
+    {
+      "id": "HCG-TRZ-004",
+      "principio": "Una prueba técnica se vincula con un caso y una reconciliación; su mera existencia no equivale a evidencia funcional.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Una comprobación de enlaces no prueba la métrica.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TRAZABILIDAD.md",
+      "documento": "TRAZABILIDAD.md"
+    },
+    {
+      "id": "HCG-TRZ-005",
+      "principio": "Una decisión sustituida conserva referencia histórica y motivo, sin competir con el contrato vigente.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Conservar decisiones y checkpoints sin competir con reglas vigentes.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TRAZABILIDAD.md",
+      "documento": "TRAZABILIDAD.md"
+    },
+    {
+      "id": "HCG-TRZ-006",
+      "principio": "La trazabilidad no impone nombres de archivos idénticos entre proyectos; exige equivalencia local verificable.",
+      "estado_origen": "CANDIDATO",
+      "estado": "ADOPTADO",
+      "motivo": "Rutas propias con mapeo verificable de plantillas HCG.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/TRAZABILIDAD.md",
+      "documento": "TRAZABILIDAD.md"
+    },
+    {
+      "id": "HCG-UX-001",
+      "principio": "El contexto navegable se persiste de forma reproducible; recarga, Back/Forward y enlaces compartidos reconstruyen la selección.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADAPTADO",
+      "motivo": "Persistir contexto no sensible en navegación e historial.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-002",
+      "principio": "Las interfaces muestran etiquetas humanas y preservan identificadores técnicos en contratos y navegación. Los fallbacks se definen por dominio.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADAPTADO",
+      "motivo": "Etiquetas locales y fallbacks; proteger identidad del paciente.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-003",
+      "principio": "Cada módulo contempla `loading`, `error` con reintento, `empty` y `success`.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Cuatro estados independientes para cada módulo futuro.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-004",
+      "principio": "El error o lentitud de un módulo no borra ni bloquea resultados válidos de módulos independientes.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Error aislado no elimina resultados de módulos válidos.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-005",
+      "principio": "Un KPI auditable abre detalle con el mismo contexto y una métrica explícita.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "KPI abre detalle con episodio, evento y universo explícitos.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-006",
+      "principio": "Una discrepancia entre resumen y detalle se muestra; la UI no la oculta ni la corrige localmente.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Diferencias de resumen y detalle permanecen visibles.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-007",
+      "principio": "Los detalles se cargan bajo demanda, conservan contexto y ofrecen cierre y navegación accesibles.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Detalle bajo demanda, cierre accesible y retorno al contexto.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-008",
+      "principio": "Los tooltips explican definición, universo y denominador; no introducen reglas no aprobadas.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Tooltip explica candidato y límites sin inventar metas.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-009",
+      "principio": "Universo, evaluables, no evaluables, numerador y denominador son visibles cuando resultan necesarios para interpretar una cifra.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Mostrar evaluables, no evaluables y denominador pertinente.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-010",
+      "principio": "Un resultado no calculable se representa como ausencia explícita, nunca como cero fabricado.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Denominador cero o ausencia se muestra NO CALCULABLE.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-011",
+      "principio": "La comparación con referencias usa lenguaje neutral mientras el sentido y la meta no tengan aprobación institucional.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Rangos descriptivos sin semáforo institucional.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-012",
+      "principio": "Conceptos con fuentes, granularidades o significados distintos se presentan separados.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Separar episodio/paciente y alta médica/egreso.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-013",
+      "principio": "La vista ejecutiva puede simplificar información sin eliminarla del contrato técnico o de la auditoría.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Resumen ejecutivo conserva auditoría completa.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-014",
+      "principio": "La visualización y composición quedan libres para cada dominio si preservan semántica, contexto y auditabilidad.",
+      "estado_origen": "CANDIDATO",
+      "estado": "ADOPTADO",
+      "motivo": "Tres perspectivas conceptuales con composición libre.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-UX-015",
+      "principio": "Los conjuntos que no se cargan completos usan paginación del lado servidor; la navegación no depende de materializar todo el universo en el navegador.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Paginar conjuntos grandes sin descargar todo al navegador.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/UX_FUNCIONAL.md",
+      "documento": "../CONTRATO_UX_FUNCIONAL.md"
+    },
+    {
+      "id": "HCG-VAL-001",
+      "principio": "Toda validación relevante se asocia con proyecto, commit, fecha/hora, periodo, filtros, configuración, universo, resultado, método, reconciliación y estado.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Manifiesto con SHA, observación, filtros, universo y reconciliación.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
+      "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
+    },
+    {
+      "id": "HCG-VAL-002",
+      "principio": "Un `PASS` exige reconciliación verificable o tolerancia aprobada; HTTP exitoso o build correcto no prueban una métrica.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "PASS documental no acredita validez del candidato clínico.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
+      "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
+    },
+    {
+      "id": "HCG-VAL-003",
+      "principio": "El esperado procede de una regla o caso versionado independiente del resultado observado en la misma corrida.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Casos sintéticos propios con esperado independiente de la corrida.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
+      "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
+    },
+    {
+      "id": "HCG-VAL-004",
+      "principio": "SQL, API y UI se contrastan cuando existen; las capas no ejecutadas se declaran.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Declarar SQL/API/UI no ejecutadas; comparar cuando existan.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
+      "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
+    },
+    {
+      "id": "HCG-VAL-005",
+      "principio": "Los benchmarks vigentes se separan de referencias e históricos; cada sustitución conserva ubicación, criterio anterior y motivo.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Cifras FAA sólo históricas, sin benchmark vigente.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
+      "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
+    },
+    {
+      "id": "HCG-VAL-006",
+      "principio": "Rendimiento frío y caliente, número de ejecuciones, concurrencia y plan se distinguen cuando afectan la interpretación.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Medir frío/caliente y concurrencia cuando exista runtime.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
+      "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
+    },
+    {
+      "id": "HCG-VAL-007",
+      "principio": "Lecturas o tiempos aislados no justifican por sí solos índices, hints, caché o aumentos de timeout.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "No proponer índices/hints por mediciones aisladas.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
+      "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
+    },
+    {
+      "id": "HCG-VAL-008",
+      "principio": "La evidencia faltante se marca explícitamente; no se completa por inferencia retrospectiva.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Vacíos se marcan sin reconstrucción retrospectiva inventada.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
+      "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
+    },
+    {
+      "id": "HCG-VAL-009",
+      "principio": "La evidencia compartida omite credenciales, datos sensibles, nombres de servidor no autorizados y stacks internos.",
+      "estado_origen": "VALIDADO_EN_CEX",
+      "estado": "ADOPTADO",
+      "motivo": "Evidencia pública sin pacientes, credenciales o infraestructura sensible.",
+      "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
+      "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
+    }
+  ]
+}

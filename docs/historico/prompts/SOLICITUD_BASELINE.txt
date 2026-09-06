@@ -1,0 +1,640 @@
+PROYECTO NUEVO:
+Dashboard Urgencias
+
+REPOSITORIO DESTINO:
+juliuscvg/dashboard_urgencias
+
+REPOSITORIOS DE REFERENCIA:
+
+1. Especificación transversal:
+   juliuscvg/dashboard_hcg_specs
+   commit:
+   3c6ed9cf08aca4821138f8499255423a874898fa
+
+2. Proyecto de referencia metodológica:
+   juliuscvg/dashboard_cex
+   commit canónico de referencia:
+   0ea66780893ef62ff328c92806a888e693d1c5fb
+
+IMPORTANTE:
+CEX NO es una plantilla funcional que deba copiarse.
+Debe utilizarse únicamente para comprender metodología,
+trazabilidad, gobierno, evidencia, UX funcional y disciplina analítica.
+
+dashboard_hcg_specs es la referencia transversal principal.
+
+============================================================
+1. OBJETIVO
+============================================================
+
+Crear el baseline inicial del proyecto Dashboard Urgencias.
+
+Queremos iniciar un dashboard institucional para analizar la operación,
+población y desempeño de Urgencias del Hospital Civil de Guadalajara.
+
+Debe aprovechar criterios transversales ya desarrollados y documentados,
+pero adaptar completamente:
+
+- entidad analítica;
+- fuentes;
+- reglas de negocio;
+- universos;
+- indicadores;
+- filtros;
+- flujo;
+- temporalidad;
+- excepciones;
+- terminología;
+
+al dominio real de Urgencias.
+
+NO copiar fórmulas CEX.
+NO copiar estados CEX como equivalentes.
+NO copiar capacidad CEX.
+NO copiar D01-D05.
+NO asumir equivalencias funcionales sin evidencia.
+
+============================================================
+2. PRINCIPIO DE ARQUITECTURA
+============================================================
+
+Este proyecto debe quedar independiente.
+
+Debe tener:
+
+- su propio repositorio;
+- su propio gobierno;
+- sus propias fuentes;
+- sus propias reglas;
+- sus propios indicadores;
+- sus propios casos patrón;
+- sus propios descubrimientos;
+- su propia trazabilidad.
+
+Debe adoptar o adaptar principios de dashboard_hcg_specs
+de manera explícita.
+
+============================================================
+3. ESTADO INICIAL DEL DOMINIO URGENCIAS
+============================================================
+
+La fuente principal conocida para el análisis inicial es:
+
+dbo.vUrgencias
+o dbo.vurgencias según casing real del entorno.
+
+NO consultar otras tablas/vistas indiscriminadamente.
+
+La vista vUrgencias debe considerarse la fuente principal inicial.
+
+Fuentes adicionales sólo deben incorporarse cuando se identifique una
+carencia concreta.
+
+No asumir que información faltante requiere buscar toda la base.
+
+============================================================
+4. ENTIDAD ANALÍTICA PRINCIPAL
+============================================================
+
+La unidad principal esperada es el episodio de Urgencias.
+
+Campo conocido:
+
+episodio_pk
+
+También existen identificadores propios de Urgencias como id_urgencia
+según la vista/datos disponibles.
+
+Durante el inventario inicial debe documentarse claramente:
+
+- entidad principal;
+- clave principal funcional;
+- diferencias entre episodio y registro de urgencia;
+- granularidad de vUrgencias;
+- posibles duplicados;
+- condiciones necesarias para una fila representativa.
+
+NO reutilizar n_solic ni reglas de cita CEX.
+
+============================================================
+5. FECHAS Y MOMENTOS PRINCIPALES
+============================================================
+
+Campos conocidos:
+
+fechaing
+= ingreso a Urgencias
+
+fechatri
+= triage
+
+fechaate
+= atención
+
+fechamed
+= alta médica
+
+fechaegr
+= egreso
+
+fecha_modif
+= modificación administrativa/técnica
+  NO debe asumirse como fecha clínica principal.
+
+Orden analítico esperado:
+
+Ingreso
+→ Triage
+→ Atención
+→ Alta médica
+→ Egreso
+
+Pero debe permitirse detectar:
+
+- pasos faltantes;
+- secuencias imposibles;
+- mismo minuto;
+- fechas invertidas;
+- datos parciales.
+
+La calidad de datos debe mostrarse separada del indicador principal.
+
+============================================================
+6. ESTADO DEL EPISODIO
+============================================================
+
+Criterios iniciales ya trabajados:
+
+ACTIVO PROBABLE:
+fechaegr IS NULL
+AND motivo_alta_pk IS NULL
+
+CASOS ANTIGUOS / INCONSISTENTES:
+fechaegr IS NULL
+AND motivo_alta_pk IS NOT NULL
+
+Existen registros históricos muy antiguos sin fechaegr.
+No deben interpretarse automáticamente como pacientes actualmente activos.
+
+Debe analizarse antigüedad del episodio.
+
+Los casos de más de 5 años detectados previamente pueden tratarse como
+evidencia histórica/inconsistencia para análisis, no como censo actual.
+
+NO introducir correcciones de datos.
+
+============================================================
+7. ESTRUCTURA DE ANÁLISIS
+============================================================
+
+Mantener inicialmente tres perspectivas conceptuales:
+
+OPERACIÓN
+POBLACIÓN
+DESEMPEÑO
+
+Estas perspectivas son una convención útil, no una obligación de UI
+idéntica a CEX.
+
+------------------------------------------------------------
+7.1 OPERACIÓN
+------------------------------------------------------------
+
+Inventariar y estructurar inicialmente:
+
+- ingresos;
+- egresos;
+- episodios abiertos;
+- activos probables;
+- abiertos por antigüedad;
+- localización actual;
+- servicio de ingreso;
+- destino;
+- motivo de alta;
+- flujo ingreso→triage→atención→alta médica→egreso;
+- tiempos entre etapas;
+- permanencia;
+- reingresos;
+- inconsistencias;
+- tendencias;
+- comparación de periodos.
+
+------------------------------------------------------------
+7.2 POBLACIÓN
+------------------------------------------------------------
+
+Analizar inicialmente:
+
+- pacientes únicos;
+- episodios;
+- sexo;
+- edad;
+- grupo de edad;
+- estado;
+- municipio;
+- localidad;
+- cobertura de datos;
+- SIN DATO;
+- DATO INVÁLIDO cuando corresponda.
+
+La edad debe calcularse o interpretarse respecto al evento adecuado,
+no copiar mecánicamente la regla CEX sin validar.
+
+Si la vista ya contiene edad, documentar su semántica antes de
+recalcularla.
+
+------------------------------------------------------------
+7.3 DESEMPEÑO
+------------------------------------------------------------
+
+NO definir todavía numeración institucional definitiva.
+
+Preparar candidatos analíticos basados en:
+
+- tiempo ingreso→triage;
+- tiempo ingreso→atención;
+- tiempo atención→alta médica;
+- tiempo ingreso→egreso / permanencia;
+- permanencia >12 h;
+- permanencia >24 h;
+- reingreso <24 h;
+- reingreso <72 h;
+- secuencias temporales inconsistentes;
+- episodios abiertos de antigüedad elevada;
+- cobertura de triage;
+- cobertura de atención;
+- cobertura de egreso.
+
+Estos son CANDIDATOS.
+
+No declarar metas ni umbrales institucionales salvo los rangos ya
+acordados para análisis descriptivo.
+
+============================================================
+8. RANGOS ANALÍTICOS INICIALES
+============================================================
+
+Tiempo hasta atención:
+
+- 0–30 min
+- 31–60 min
+- 61–120 min
+- 121–240 min
+- >240 min
+
+Permanencia:
+
+- 0–2 h
+- 2–6 h
+- 6–12 h
+- 12–24 h
+- >24 h
+
+Estos rangos deben documentarse como clasificación analítica inicial,
+no como metas institucionales.
+
+============================================================
+9. REINGRESOS
+============================================================
+
+Existe una regla previamente trabajada:
+
+Reingreso 24 h:
+nuevo ingreso después de un egreso previo dentro de 24 horas.
+
+Reingreso 72 h:
+nuevo ingreso después de un egreso previo dentro de 72 horas.
+
+Criterio adicional:
+debe corresponder al mismo servicio.
+
+El tiempo debe poder expresarse en horas.
+
+Para presentación analítica se ha utilizado redondeo en múltiplos de 0.5 h.
+
+Antes de convertir esto en indicador oficial:
+
+- documentar fuente;
+- ordenar episodios correctamente;
+- validar paciente;
+- validar servicio;
+- validar egreso previo;
+- evitar falsos positivos.
+
+============================================================
+10. FILTROS INICIALES
+============================================================
+
+Evaluar jerarquía adecuada para Urgencias.
+
+Base conocida:
+
+Centro
+→ Servicio
+→ Localización
+→ Paciente / episodio
+
+No copiar automáticamente:
+Centro → División → Servicio → Agenda → Profesional
+
+porque Agenda no es eje natural de Urgencias.
+
+Evaluar también filtros por:
+
+- periodo;
+- sexo;
+- grupo edad;
+- servicio;
+- localización;
+- motivo de alta;
+- destino;
+- estado activo/cerrado;
+- rangos de permanencia;
+- reingreso.
+
+============================================================
+11. CAMPOS CONOCIDOS DE vUrgencias
+============================================================
+
+Documentar y validar, según estén disponibles:
+
+Paciente:
+- folio/registro;
+- codigo_cliente;
+- nombre;
+- sexo;
+- edad;
+- residencia.
+
+Ingreso:
+- centro;
+- servicio_ingreso;
+- tipo_ingreso;
+- médico;
+- localización.
+
+Tiempos:
+- fechaing;
+- fechatri;
+- fechaate;
+- fechamed;
+- fechaegr;
+- fecha_modif.
+
+Triage:
+- fecha;
+- nivel;
+- responsable, cuando esté disponible.
+
+Estado:
+- motivo_alta_pk;
+- motivo de alta;
+- destino_urg_pk;
+- destino;
+- cama;
+- episodio_pk.
+
+No inventar columnas.
+
+Si la documentación o código disponible demuestra nombres adicionales,
+incorporarlos con evidencia.
+
+============================================================
+12. DATOS DE REFERENCIA YA OBSERVADOS
+============================================================
+
+Usar únicamente como evidencia histórica inicial, no como verdad actual
+si no se vuelve a validar.
+
+Ejemplos previamente observados en FAA:
+
+URG ADULTOS:
+total aproximado 12,490
+con atención 12,019
+con egreso 12,356
+
+URG PEDIATRIA:
+total aproximado 5,320
+con atención 5,292
+con egreso 5,307
+
+URG TOCO:
+total aproximado 3,200
+con atención 2,579
+con egreso 3,179
+
+Distribución de atención observada en URG ADULTOS FAA:
+
+0–30: 3,607
+31–60: 1,766
+61–120: 2,531
+121–240: 2,812
+>240: 1,305
+
+Permanencia observada:
+
+0–2h: 461
+2–6h: 997
+6–12h: 1,232
+12–24h: 2,510
+>24h: 7,158
+
+Estos valores deben quedar marcados:
+
+HISTÓRICO / REQUIERE REVALIDACIÓN
+
+No convertirlos en tests actuales todavía.
+
+============================================================
+13. ADOPCIÓN DE dashboard_hcg_specs
+============================================================
+
+Revisar los 71 principios existentes.
+
+Para cada principio evaluar en Urgencias:
+
+ADOPTADO
+ADAPTADO
+NO_APLICA
+PENDIENTE
+
+No promover todavía ninguno a VALIDADO_MULTIDOMINIO automáticamente.
+
+Registrar motivo breve.
+
+Especial atención a candidatos como:
+
+- periodo con límite superior exclusivo;
+- trazabilidad;
+- benchmark versionado;
+- calidad separada del resultado;
+- SIN DATO;
+- KPI→detalle;
+- detalle reconciliable;
+- mismo predicado agregado/page/count;
+- filtros persistentes;
+- loading/error/empty/success;
+- tooltips;
+- semántica neutral;
+- diferencia fuente primaria/corroborativa;
+- evidencia asociada a commit.
+
+============================================================
+14. ESTRUCTURA DOCUMENTAL INICIAL
+============================================================
+
+Usar templates de dashboard_hcg_specs.
+
+Crear como mínimo:
+
+README.md
+docs/00_LEEME_PRIMERO.md
+
+docs/gobierno/
+- ESTADO_PROYECTO.md
+- CATALOGO_FUNCIONAL.md
+- REGLAS_Y_CRITERIOS.md
+- DECISIONES_Y_CAMBIOS.md
+- TRAZABILIDAD.md
+
+docs/
+- REGLAS_NEGOCIO.md
+- DESCUBRIMIENTOS_Y_LIMITACIONES.md
+- CONTRATO_UX_FUNCIONAL.md
+
+docs/diccionarios/
+- FUENTES_Y_GRANULARIDAD.md
+- DICCIONARIO_vUrgencias.md
+
+docs/evidencia/
+- README.md
+- CASOS_PATRON_VIGENTES.md
+- BENCHMARKS_VIGENTES.md
+- MANIFIESTO_VALIDACION.md
+
+docs/indicadores/
+- 00_CATALOGO_INDICADORES.md
+- 01_CONVENCIONES_Y_REGLAS_COMUNES.md
+
+docs/historico/
+- checkpoints/
+- prompts/
+
+config/
+scripts/
+
+No crear todavía fichas de indicadores definitivos si la definición
+funcional aún no está cerrada.
+
+============================================================
+15. FASE INICIAL: DOCUMENTAR ANTES DE PROGRAMAR
+============================================================
+
+En esta tarea:
+
+NO construir todavía el dashboard completo.
+
+NO copiar frontend CEX.
+
+NO copiar backend CEX.
+
+NO implementar indicadores antes de definir universos.
+
+Primero crear:
+
+- baseline documental;
+- fuentes;
+- entidad analítica;
+- reglas;
+- candidatos KPI;
+- adopción transversal;
+- vacíos pendientes;
+- plan de validación.
+
+La implementación vendrá después.
+
+============================================================
+16. TRANSVERSALIDAD REAL
+============================================================
+
+Esta es la primera oportunidad de validar dashboard_hcg_specs fuera de CEX.
+
+Al finalizar, producir un reporte de adopción:
+
+Principios HCG:
+- adoptados sin cambio;
+- adaptados;
+- no aplicables;
+- pendientes.
+
+NO editar dashboard_hcg_specs en esta tarea.
+
+Sólo reportar recomendaciones.
+
+La promoción a VALIDADO_MULTIDOMINIO debe hacerse posteriormente mediante
+una decisión separada.
+
+============================================================
+17. VACÍOS Y PREGUNTAS
+============================================================
+
+No bloquear la creación del baseline por información no conocida.
+
+Registrar explícitamente:
+
+NO DOCUMENTADO
+POR VALIDAR
+REQUIERE DECISIÓN FUNCIONAL
+REQUIERE CONSULTA SQL
+
+No inventar respuestas.
+
+Crear una sección:
+PREGUNTAS PARA DEFINICIÓN FUNCIONAL
+
+con únicamente preguntas que realmente requieran decisión humana.
+
+============================================================
+18. VALIDACIÓN DOCUMENTAL
+============================================================
+
+Crear comprobador de enlaces equivalente al patrón CEX.
+
+Requerir:
+
+0 enlaces rotos.
+
+No introducir dependencias innecesarias.
+
+============================================================
+19. GIT
+============================================================
+
+Crear un único commit inicial:
+
+[URG][BASE] Baseline funcional y transversal
+
+NO hacer push automáticamente.
+
+============================================================
+20. RESULTADO FINAL
+============================================================
+
+Reportar:
+
+- SHA;
+- estructura creada;
+- fuente principal;
+- entidad analítica;
+- reglas iniciales;
+- candidatos operativos;
+- candidatos poblacionales;
+- candidatos de desempeño;
+- principios HCG adoptados/adaptados/no aplicables/pendientes;
+- preguntas funcionales pendientes;
+- vacíos de datos;
+- documentos creados;
+- enlaces rotos;
+- git status.
+
+Detenerse después del commit.

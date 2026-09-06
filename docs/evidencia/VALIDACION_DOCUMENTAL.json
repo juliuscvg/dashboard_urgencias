@@ -1,0 +1,40 @@
+{
+  "id": "URG-VAL-DOC-001",
+  "proyecto": "juliuscvg/dashboard_urgencias",
+  "fecha_hora_observacion": "2026-09-06T14:40:14.9536818-06:00",
+  "estado": "PASS_DOCUMENTAL",
+  "arbol_previo_al_resultado": "836d2016864f5fe5fbfcaffffcef380ecd581bb8",
+  "commit_probado": "NO DOCUMENTADO antes del único commit inicial; resolver con git rev-parse HEAD",
+  "node": "v20.19.6",
+  "comandos": [
+    "node scripts/check-markdown-links.mjs",
+    "node scripts/check-baseline.mjs",
+    "git diff --cached --check"
+  ],
+  "enlaces": {
+    "markdown": 25,
+    "enlaces_locales": 358,
+    "enlaces_rotos": 0,
+    "externos_no_comprobados": 86,
+    "anclas": "No verificadas, igual que patrón CEX",
+    "errores": []
+  },
+  "baseline": {
+    "principios": 71,
+    "adopcion": {
+      "ADOPTADO": 64,
+      "ADAPTADO": 5,
+      "NO_APLICA": 0,
+      "PENDIENTE": 2
+    },
+    "elementos_requeridos": 25,
+    "errores": []
+  },
+  "diferencia_enlaces_rotos": 0,
+  "capas_no_ejecutadas": [
+    "SQL",
+    "API",
+    "UI"
+  ],
+  "observaciones": "El árbol previo contiene el placeholder del presente resultado; el commit final contiene el resultado completo. No es validación clínica."
+}
