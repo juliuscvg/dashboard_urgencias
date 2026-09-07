@@ -1,0 +1,44 @@
+{
+  "id": "URG-VAL-DOC-RECONCILIACION-2026-09-07",
+  "estado": "PASS_DOCUMENTAL",
+  "fecha_hora_registro": "2026-09-07T16:35:52.1926154-06:00",
+  "base_commit": "717f681e6d979798a2b1d680dda64d765bb3b051",
+  "arbol_previo_al_resultado": "e5a2e44667cb784d29a6414f51b9d9e9a6bd6db6",
+  "observaciones": "Árbol verificado antes de sustituir el placeholder de este resultado. El commit contenedor se resuelve mediante git log sobre la matriz. No es validación SQL ni funcional ejecutada.",
+  "comandos": [
+    "node scripts/check-markdown-links.mjs",
+    "node scripts/check-baseline.mjs",
+    "git diff --check",
+    "git diff --cached --check"
+  ],
+  "enlaces": {
+    "markdown": 28,
+    "enlaces_locales": 412,
+    "enlaces_rotos": 0,
+    "externos_no_comprobados": 145,
+    "anclas": "No verificadas por el comprobador existente"
+  },
+  "adopcion": {
+    "principios": 71,
+    "ADOPTADO": 64,
+    "ADAPTADO": 5,
+    "NO_APLICA": 0,
+    "PENDIENTE": 2,
+    "errores": 0
+  },
+  "cobertura": {
+    "temas_contexto": 23,
+    "candidatos_historicos_mapeados": 28,
+    "archivos_baseline_mapeados": 32,
+    "elementos_catalogo_vigente": 20,
+    "kpi_portada_propuestos": 6,
+    "casos_documentales_disenados": 16,
+    "casos_funcionales_ejecutados": 0,
+    "archivos_historicos_y_scripts_preservados_por_hash": 6
+  },
+  "alcance": "README, documentación y configuración documental",
+  "implementacion": "NINGUNA",
+  "SQL_API_UI": "NO_EJECUTADOS",
+  "push": "NO_REALIZADO_EN_ESTA_ITERACION",
+  "diferencias_esperado_documental": 0
+}

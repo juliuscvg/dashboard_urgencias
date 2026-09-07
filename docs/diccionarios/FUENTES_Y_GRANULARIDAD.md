@@ -1,19 +1,16 @@
 # Fuentes y granularidad — Urgencias
 
-## Roles
+[Contexto vigente](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt), no consulta SQL. PRIMARIA sostiene episodios; COMPLEMENTARIA cubre carencia concreta; CORROBORATIVA contrasta sin sustituir; EVALUADA_NO_USADA documenta evaluación descartada.
 
-PRIMARIA: sostiene el universo principal. COMPLEMENTARIA: cubre una carencia demostrada sin sustituirla. CORROBORATIVA: contrasta resultados. EVALUADA_NO_USADA: investigada y descartada con motivo.
+| Fuente | Rol/carencia | Claves/granularidad | Temporalidad/campos | Consumidores/límites |
+|---|---|---|---|---|
+| dbo.vUrgencias | PRIMARIA | epis_pk/id_urgencia, representación pendiente | Fechaing/fechaegr principales; [diccionario](DICCIONARIO_vUrgencias.md) | Todos los módulos; no asumir fila=episodio |
+| dbo.servicios | COMPLEMENTARIA: universo institucional | Clave de servicio y unión NO DOCUMENTADO | codigo_area=2 AND serv_activo_sn=1; serv_ing_urg_sn informativo | Centro→Servicio; vigencia histórica pendiente |
+| Centros (objeto físico NO DOCUMENTADO) | COMPLEMENTARIA prevista: pertenencia, código/descripción | Claves y cardinalidad pendientes | Vigencia NO DOCUMENTADO | Catálogo dinámico incluido HCO; no inventar dbo.centros |
+| dbo.motivos_alta_ing | COMPLEMENTARIA identificada: descripción motivo | Clave de unión NO DOCUMENTADO | motivo_alta_desc comunicado | Resolución/detalle; exposición futura en vista, no modificación actual |
 
-| Fuente | Función autorizada | Rol | Granularidad | Claves | Temporalidad | Campos | Límites | Consumidores | Evidencia |
-|---|---|---|---|---|---|---|---|---|---|
-| dbo.vUrgencias / dbo.vurgencias | Inventario y análisis inicial | PRIMARIA | POR VALIDAR; fila no equivale todavía a episodio | episodio_pk candidata; id_urgencia por confirmar | Cinco hitos clínicos y modificación técnica | [Diccionario](DICCIONARIO_vUrgencias.md) | Sin consulta SQL; casing, tipos, duplicados y mutabilidad no comprobados | Operación, población, desempeño candidatos | [Solicitud](../historico/prompts/SOLICITUD_BASELINE.txt) |
+Complementarias autorizadas documentalmente por carencias expresas, ninguna integrada/consultada. HCG y CEX son referencias documentales. No explorar toda la base.
 
-No hay fuentes adicionales incorporadas ni evaluadas en esta tarea. HCG specs es referencia normativa documental y CEX es referencia metodológica; ninguno es fuente de datos de Urgencias.
+Entidad episodio/evento, identificador expuesto epis_pk sustituye episodio_pk provisional. id_urgencia registro; codigo_cliente longitudinal candidato; registro y foliounico adicionales. Perfilar nulos, duplicados, variantes, cardinalidad bidireccional, ámbito por centro y estabilidad paciente. Fila determinista antes de derivados, sin selección arbitraria por fecha_modif.
 
-## Entidad y cardinalidad
-
-La clave funcional esperada es episodio_pk. Debe comprobarse si es única globalmente o necesita centro, si admite nulos y cuántos id_urgencia corresponden a cada episodio y viceversa. No declarar clave primaria física de una vista. La representación requiere semántica y desempate estable, según [URG-R01](../REGLAS_NEGOCIO.md).
-
-## Incorporación dirigida
-
-Primero validar las columnas expuestas y sus catálogos. Si falta identidad fiable, semántica de edad, historia de localización o algún evento, registrar carencia, impacto, consulta dirigida propuesta, rol y decisión antes de incorporar otra fuente. No explorar tablas/vistas indiscriminadamente ni corregir datos.
+Validar joins sin fan-out ni pérdidas silenciosas; motivos/destino independientes. Nueva fuente exige carencia, rol, impacto y decisión. [Plan](../evidencia/PLAN_VALIDACION.md).

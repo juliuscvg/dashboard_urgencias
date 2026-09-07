@@ -1,14 +1,15 @@
 {
   "proyecto": "juliuscvg/dashboard_urgencias",
-  "fase": "DOCUMENTAL",
+  "fase": "RECONCILIACION_DOCUMENTAL_FUNCIONAL",
   "fuente_principal_comunicada": "dbo.vUrgencias",
   "casing_verificado": false,
   "entidad_esperada": "episodio de Urgencias",
-  "clave_candidata": "episodio_pk",
+  "clave_candidata": "epis_pk",
   "granularidad_validada": false,
   "specs_commit": "3c6ed9cf08aca4821138f8499255423a874898fa",
   "cex_commit": "0ea66780893ef62ff328c92806a888e693d1c5fb",
   "indicadores_implementados": false,
   "exclusiones_productivas": [],
-  "nota": "Configuración documental; no contrato de ejecución de indicadores."
+  "nota": "Referencia documental vigente; versión original preservada en SHA base. Sin contrato ejecutable ni exclusiones productivas aplicadas.",
+  "baseline_historico_commit": "717f681e6d979798a2b1d680dda64d765bb3b051"
 }

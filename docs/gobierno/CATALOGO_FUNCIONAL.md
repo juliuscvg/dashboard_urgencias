@@ -1,36 +1,30 @@
 # Catálogo funcional — Urgencias
 
-| ID | Elemento | Definición breve | Unidad/universo | Fuente principal | Documento canónico | Estado |
-|---|---|---|---|---|---|---|
-| URG-CAND-OP-01 | ingresos | Conteo de episodios representados | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-OP-02 | egresos | Conteo por fecha de egreso | U-EGR | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-OP-03 | abiertos y activos probables | Separar motivo de alta, antigüedad y no evaluables | U-ABI | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-OP-04 | abiertos por antigüedad | Corte explícito y >5 años histórico | U-ABI | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-OP-05 | localización, servicio, destino y motivo de alta | Distribuciones con SIN DATO; semántica actual/ingreso pendiente | Universo declarado por módulo | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-OP-06 | flujo y tiempos entre etapas | Cobertura por etapa y duraciones por par | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-OP-07 | permanencia | Completada separada del transcurrido de abiertos | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-OP-08 | reingresos | Vínculo con egreso previo elegible | U-RET | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-OP-09 | inconsistencias | Faltantes, inversiones, contradicciones y duplicados | Universo correspondiente | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-OP-10 | tendencias y comparación | Periodos equivalentes, sin juicio de calidad | U-ING o U-EGR explícito | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-POB-01 | pacientes únicos y episodios | Dos unidades separadas; identidad validable | U-POB | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-POB-02 | sexo | Categorías, SIN DATO y DATO INVÁLIDO | U-POB por episodio; paciente pendiente | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-POB-03 | edad y grupos de edad | Semántica de edad y grupos pendientes | U-POB | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-POB-04 | estado, municipio y localidad | Geografía con cobertura y catálogos por validar | U-POB | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-POB-05 | cobertura de población | Con dato, sin dato, inválido; universo explícito | U-POB y pacientes según dimensión | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-01 | ingreso → triage | Campos: fechaing / fechatri | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-02 | ingreso → atención | Campos: fechaing / fechaate | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-03 | atención → alta médica | Campos: fechaate / fechamed | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-04 | ingreso → egreso / permanencia | Campos: fechaing / fechaegr | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-05 | permanencia >12 h | Campos: fechaing / fechaegr | Duraciones completadas evaluables en U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-06 | permanencia >24 h | Campos: fechaing / fechaegr | Duraciones completadas evaluables en U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-07 | reingreso <24 h | Campos: Identidad/servicio POR VALIDAR; fechaing / fechaegr previas | U-RET evaluable | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-08 | reingreso <72 h | Campos: Identidad/servicio POR VALIDAR; fechaing / fechaegr previas | U-RET evaluable | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-09 | secuencias temporales inconsistentes | Campos: Cinco hitos clínicos | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-10 | abiertos de antigüedad elevada | Campos: fechaing / corte / fechaegr | U-ABI evaluable | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-11 | cobertura de triage | Campos: fechatri | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-12 | cobertura de atención | Campos: fechaate | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
-| URG-CAND-DES-13 | cobertura de egreso | Campos: fechaegr | U-ING | vUrgencias | [Candidatos](../indicadores/00_CATALOGO_INDICADORES.md) | CANDIDATO / no implementado |
+Inventario vigente por papel futuro. Todos pendientes de SQL y no implementados. Fórmulas en [reglas](../REGLAS_NEGOCIO.md); estados en [catálogo analítico](../indicadores/00_CATALOGO_INDICADORES.md).
+
+| ID | Papel | Elemento | Universo | Regla | Estado |
+|---|---|---|---|---|---|
+| URG-EJ-01 | Ejecutivo | Atenciones | U-ING | URG-R01/R02 | CANDIDATO: confirmar etiqueta/unidad |
+| URG-EJ-02 | Ejecutivo | Promedio diario | U-ING / días | URG-R02/R08 | CANDIDATO: días parciales y denominador |
+| URG-EJ-03 | Ejecutivo | Permanencia promedio | Completados evaluables; U-ING heredado propuesto | URG-R04/R05 | DEFINIDO FUNCIONALMENTE promedio; cohorte CANDIDATO |
+| URG-EJ-04 | Ejecutivo | Hospitalización | Universo resolución por cerrar | URG-R11 | CANDIDATO: conteo/tasa, cohorte y mapeo |
+| URG-EJ-05 | Ejecutivo | Reingresos <72 h | U-RET | URG-R06 | DEFINIDO FUNCIONALMENTE predicado; presentación CANDIDATO |
+| URG-EJ-06 | Ejecutivo | Pacientes únicos | Identificables U-POB | URG-R01/R07 | DEFINIDO FUNCIONALMENTE, identidad pendiente SQL |
+| URG-ACT-01 | Situación actual | Activos probables | U-ACT | URG-R03 | DEFINIDO FUNCIONALMENTE |
+| URG-ACT-02 | Situación actual | Activos >24/>48/>72 h | U-ACT evaluable | URG-R03 | DEFINIDO FUNCIONALMENTE |
+| URG-MOD-01 | Módulo | Demanda | U-ING; U-EGR separado | URG-R02/R09/R12 | DEFINIDO FUNCIONALMENTE |
+| URG-MOD-02 | Módulo | Permanencia | Completados/abiertos separados | URG-R04/R05 | DEFINIDO FUNCIONALMENTE |
+| URG-MOD-03 | Módulo | Reingresos | U-RET | URG-R06 | DEFINIDO FUNCIONALMENTE principal; referencia 48 propuesta |
+| URG-MOD-04 | Módulo | Triage | U-ING, cobertura por componente | URG-R10 | DEFINIDO FUNCIONALMENTE |
+| URG-MOD-05 | Módulo | Resolución | U-ING o U-EGR explícito por cerrar | URG-R11 | DEFINIDO FUNCIONALMENTE dimensiones; mapeo CANDIDATO |
+| URG-MOD-06 | Módulo | Población | U-POB | URG-R07 | DEFINIDO FUNCIONALMENTE grupos; precedencia edad pendiente |
+| URG-MOD-07 | Módulo | Clínica y actividad asociada | Episodios del contexto | URG-R12 | DEFINIDO FUNCIONALMENTE |
+| URG-MOD-08 | Módulo | Detalle/auditoría | Mismo universo/categoría | URG-R13 | DEFINIDO FUNCIONALMENTE |
+| URG-CAL-01 | Cobertura/calidad | Cobertura/no evaluables | Universo de cada componente | URG-R04/R07/R10/R11 | DEFINIDO FUNCIONALMENTE |
+| URG-CAL-02 | Cobertura/calidad | Inconsistencias/deuda | Universo correspondiente | URG-R01/R03/R04 | DEFINIDO FUNCIONALMENTE |
+| URG-PEND-01 | Candidato | Tiempos complementarios | Pares evaluables U-ING | URG-R04/R05 | CANDIDATO secundario |
+| URG-PEND-02 | Candidato | Censo retrospectivo/tasas adicionales | POR DEFINIR | URG-R03/R05/R06 | CANDIDATO |
 
 ## Límites
 
-Sólo baseline. No dashboard, API, cálculo productivo, capacidad, metas ni equivalencias CEX. Las fórmulas completas futuras se gobernarán desde reglas y fichas cerradas.
+Sólo reconciliación documental/funcional. Sin frontend/backend/conexión SQL/consultas productivas/ETL/API/caché. Navegación, catálogos, filtros, privacidad y arquitectura son contratos futuros. [Origen de candidatos](RECONCILIACION_BASELINE_717f681.md).

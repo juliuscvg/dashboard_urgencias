@@ -1,6 +1,6 @@
 {
   "commit_specs": "3c6ed9cf08aca4821138f8499255423a874898fa",
-  "fecha": "2026-09-06",
+  "fecha": "2026-09-07",
   "responsable": "Codex, evaluación documental solicitada; aprobación institucional no documentada",
   "alcance": "Adopción documental, sin validación multidominio",
   "totales": {
@@ -168,7 +168,7 @@
       "principio": "La jerarquía de filtros se declara explícitamente y no se infiere de la disposición visual.",
       "estado_origen": "VALIDADO_EN_CEX",
       "estado": "ADAPTADO",
-      "motivo": "Centro→Servicio→Localización→Paciente/episodio requiere validar dependencias.",
+      "motivo": "Centro→Servicio jerárquico; drill-down actual Centro→Servicio→Antigüedad→Localización→Episodio, uniones pendientes de SQL.",
       "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/FILTROS_Y_NAVEGACION.md",
       "documento": "../CONTRATO_UX_FUNCIONAL.md"
     },
@@ -649,5 +649,6 @@
       "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
       "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
     }
-  ]
+  ],
+  "baseline_origen": "717f681e6d979798a2b1d680dda64d765bb3b051"
 }

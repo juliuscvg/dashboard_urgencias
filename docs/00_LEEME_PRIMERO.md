@@ -2,7 +2,7 @@
 
 ## Prevalencia
 
-Solicitud delimita alcance. Decisiones vigentes gobiernan el contrato local; reglas de negocio definen semántica, catálogos inventarían candidatos y evidencia acredita únicamente lo ejecutado. HCG es referencia transversal, CEX metodológica. Histórico no sustituye contrato vigente. Ante contradicción, registrar decisión; no elegir una cifra conveniente.
+El contexto de reconciliación 2026-09-07 delimita alcance vigente; el prompt inicial y 717f681 son antecedentes. Decisiones vigentes gobiernan el contrato local; reglas de negocio definen semántica, catálogos inventarían candidatos y evidencia acredita únicamente lo ejecutado. HCG es referencia transversal, CEX metodológica. Histórico no sustituye contrato vigente. Ante contradicción, registrar decisión; no elegir una cifra conveniente.
 
 ## Estado y gobierno
 
@@ -14,6 +14,8 @@ Solicitud delimita alcance. Decisiones vigentes gobiernan el contrato local; reg
 - [ADOPCION_HCG.md](gobierno/ADOPCION_HCG.md)
 - [PROCEDENCIA.md](gobierno/PROCEDENCIA.md)
 
+- [Reconciliación de 717f681](gobierno/RECONCILIACION_BASELINE_717f681.md)
+
 ## Datos y contratos
 
 - [REGLAS_NEGOCIO.md](REGLAS_NEGOCIO.md)
@@ -22,7 +24,10 @@ Solicitud delimita alcance. Decisiones vigentes gobiernan el contrato local; reg
 - [FUENTES_Y_GRANULARIDAD.md](diccionarios/FUENTES_Y_GRANULARIDAD.md)
 - [DICCIONARIO_vUrgencias.md](diccionarios/DICCIONARIO_vUrgencias.md)
 
-## Indicadores candidatos
+- [Arquitectura futura, no implementada](ARQUITECTURA_FUTURA.md)
+- [Configuración documental vigente](../config/criterios-funcionales.json)
+
+## Indicadores y candidatos
 
 - [00_CATALOGO_INDICADORES.md](indicadores/00_CATALOGO_INDICADORES.md)
 - [01_CONVENCIONES_Y_REGLAS_COMUNES.md](indicadores/01_CONVENCIONES_Y_REGLAS_COMUNES.md)
@@ -39,3 +44,8 @@ Solicitud delimita alcance. Decisiones vigentes gobiernan el contrato local; reg
 
 - [README.md](historico/checkpoints/README.md)
 - [README.md](historico/prompts/README.md)
+
+
+## Iteración 2026-09-07
+
+[Checkpoint](historico/checkpoints/CHECKPOINT_FUNCIONAL_2026-09-07.md) · [Solicitud](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) · [Validación documental nueva](evidencia/VALIDACION_FUNCIONAL_DOCUMENTAL_2026-09-07.json). DEFINIDO FUNCIONALMENTE, PENDIENTE DE VALIDACIÓN SQL y CANDIDATO son estados distintos; no hay implementación ni metas institucionales.

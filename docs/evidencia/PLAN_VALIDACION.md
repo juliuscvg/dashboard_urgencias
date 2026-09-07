@@ -1,20 +1,24 @@
-# Plan de validación — Urgencias
+# Plan de validación — reconciliación funcional
 
-## Secuencia y puertas de avance
+Origen 717f681 preservado; [contexto vigente](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Esta fase ejecuta sólo comprobadores documentales; no SQL/API/UI ni consultas de ejemplo.
 
-1. Documental: comprobar estructura, 71 IDs únicos, clasificación de adopción y enlaces locales; conservar resultados antes del único commit.
-2. Inventario SQL dirigido, pendiente: confirmar acceso de lectura autorizado y objeto exacto dbo.vUrgencias/dbo.vurgencias; consultar sólo metadatos de ese objeto (columnas/tipos/nulabilidad). No enumerar toda la base.
-3. Perfilar esa vista: filas, claves nulas/distintas, multiplicidad episodio↔id_urgencia, ámbito por centro, identidad y servicio. Separar duplicados técnicos y variantes; guardar resultados agregados sin identificadores personales.
-4. Verificar campos y semántica: cobertura/nulos, códigos/descripciones contradictorias, edad, residencia, localización, precisión temporal, zona y actualización. Registrar carencia concreta antes de proponer fuente adicional.
-5. Perfilar tiempos: cinco hitos, pares presentes, faltantes, inversiones y ceros; abiertos por motivo y antigüedad con corte explícito. No ejecutar cambios de datos.
-6. Resolver decisiones funcionales y cerrar universos, representación, límites y exclusiones. No implementar candidatos cuyo contrato continúe abierto.
-7. Materializar casos sintéticos versionados con esperados independientes de la ejecución y probar fronteras, duplicados, reingresos e historia fuera del periodo. Revalidar cifras FAA únicamente con contexto recuperado y misma vista.
-8. Cuando existan SQL/API/UI, contrastar las tres capas bajo el mismo contexto/snapshot o documentar mutabilidad. Ejecutar contexto persistente, detalle, paginación, estados y reintento. Capturar manifiesto por corrida y benchmark reproducible.
+## Orden dirigido
 
-## Aceptación
+1. Documental: ambos scripts existentes, matriz de 23 temas / 28 candidatos/32 archivos, ausencia de reglas vigentes contradictorias, diff y cambios limitados a documentación/configuración. 0 enlaces locales rotos.
+2. Cuando se autorice SQL: metadatos de dbo.vUrgencias; sólo catálogos complementarios identificados. Confirmar objeto de centros a partir de relación documentada, no enumerar base.
+3. Perfil de claves: epis_pk, id_urgencia, codigo_cliente, registro, foliounico; nulos/duplicados/variantes/cardinalidad bidireccional y ámbito. Cerrar representación determinista antes de métricas.
+4. Universo: dbo.servicios.codigo_area=2 AND serv_activo_sn=1; comprobar cobertura/joins sin fan-out, centros/códigos/descripciones dinámicos, HCO sin actividad y con actividad, serv_ing_urg_sn sólo informativo. Medir impacto histórico de vigencia actual sin cambiar criterio tácitamente.
+5. Temporalidad: Fechaing/fechaegr, tres etapas complementarias, derivados/fechas fuente, precisión/zona; faltantes/invertidos/ceros/extremos. Perfil de activos doble nulo, deuda con motivo y antigüedad >24/>48/>72 sin recorte.
+6. Resolución: catálogo destino y mapeo a 8 grupos sin adivinar códigos; motivo independiente, catálogo dbo.motivos_alta_ing y descripción futura en vista. No modificar vista.
+7. Población/triage: semántica edad al evento, precedencia/discordancias, nueve grupos y meses/días pediátricos; cobertura geográfica; fecha/nivel/responsable triage independientes.
+8. Reingreso: mismo paciente/servicio, egreso previo válido fuera del periodo/ventana inicial; pares múltiples, empates, solapamientos, identidad ambigua. Cerrar algoritmo sin falsos positivos; contar nuevos episodios una sola vez.
+9. Resolver subcontratos del [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) y [preguntas](../DESCUBRIMIENTOS_Y_LIMITACIONES.md). Materializar casos sintéticos con esperado independiente, luego revalidar FAA sólo con contexto recuperado.
+10. Cuando exista implementación: contrastar SQL/API/UI, agregado/detalle/count/exportación, filtros/turnos/drill-down, permisos y estados. Medir rendimiento antes de caches/índices, registrar frío/caliente/concurrencia.
 
-Documentación: 0 enlaces locales rotos y 71 principios sin duplicación/omisión. Funcional: claves y fila representativa justificadas; denominadores cerrados; reconciliaciones exactas o tolerancia aprobada; anomalías visibles; 24 h subconjunto de 72 h cuando aplique; ningún histórico presentado como actual. Un PASS técnico no valida indicadores.
+## Aceptación y evidencia
 
-## Estado
+DEFINIDO FUNCIONALMENTE no implica PASS SQL. Casos R2 sólo diseñados; no reutilizar esperados históricos al cambiar definición. Reconciliar universo/evaluables/no evaluables, particiones disjuntas, pacientes no aditivos, rangos y bandas, subtotales sin fan-out, comparación con base cero y estados sin actividad.
 
-Sólo la fase documental se ejecuta en esta tarea. SQL, API, UI, rendimiento y validación institucional: NO EJECUTADOS. Consultas concretas se escribirán tras confirmar esquema; no se inventan columnas. Responsables de negocio/datos/QA: NO DOCUMENTADO, por asignar.
+Toda corrida futura: SHA completo, fecha/hora con zona, dataset no sensible, periodo/evento/corte, filtros, configuración, inclusiones/exclusiones/representación, esperado independiente, obtenido, diferencia, método y estado. SQL/API/UI no ejecutados se declaran. Ver [manifiesto](MANIFIESTO_VALIDACION.md).
+
+No se escribe SQL de referencia en esta iteración: las expresiones de reglas son notación documental. Responsables datos/negocio/QA por asignar.

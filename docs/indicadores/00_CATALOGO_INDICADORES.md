@@ -1,40 +1,32 @@
-# Catálogo de candidatos analíticos — Urgencias
+# Catálogo analítico reconciliado — Urgencias
 
-Los IDs URG-CAND son referencias documentales provisionales; no numeración institucional definitiva. Todos son CANDIDATO / POR VALIDAR, sin metas ni ficha oficial. Fuente prevista: vUrgencias.
+IDs documentales, no numeración institucional. Reorganiza 28 candidatos sin convertirlos automáticamente en oficiales. Portada de seis propuesta vigente. Estado funcional y evidencia separados: **todos PENDIENTES DE VALIDACIÓN SQL**, ninguno implementado.
 
-| ID provisional | Candidato | Universo propuesto | Definición inicial / campos | Regla |
-|---|---|---|---|---|
-| URG-CAND-OP-01 | ingresos | U-ING | Conteo de episodios representados | URG-R01/R02 |
-| URG-CAND-OP-02 | egresos | U-EGR | Conteo por fecha de egreso | URG-R02 |
-| URG-CAND-OP-03 | abiertos y activos probables | U-ABI | Separar motivo de alta, antigüedad y no evaluables | URG-R03 |
-| URG-CAND-OP-04 | abiertos por antigüedad | U-ABI | Corte explícito y >5 años histórico | URG-R03 |
-| URG-CAND-OP-05 | localización, servicio, destino y motivo de alta | Universo declarado por módulo | Distribuciones con SIN DATO; semántica actual/ingreso pendiente | URG-R08 |
-| URG-CAND-OP-06 | flujo y tiempos entre etapas | U-ING | Cobertura por etapa y duraciones por par | URG-R04 |
-| URG-CAND-OP-07 | permanencia | U-ING | Completada separada del transcurrido de abiertos | URG-R04/R05 |
-| URG-CAND-OP-08 | reingresos | U-RET | Vínculo con egreso previo elegible | URG-R06 |
-| URG-CAND-OP-09 | inconsistencias | Universo correspondiente | Faltantes, inversiones, contradicciones y duplicados | URG-R01/R04 |
-| URG-CAND-OP-10 | tendencias y comparación | U-ING o U-EGR explícito | Periodos equivalentes, sin juicio de calidad | URG-R08 |
-| URG-CAND-POB-01 | pacientes únicos y episodios | U-POB | Dos unidades separadas; identidad validable | URG-R01/R07 |
-| URG-CAND-POB-02 | sexo | U-POB por episodio; paciente pendiente | Categorías, SIN DATO y DATO INVÁLIDO | URG-R07 |
-| URG-CAND-POB-03 | edad y grupos de edad | U-POB | Semántica de edad y grupos pendientes | URG-R07 |
-| URG-CAND-POB-04 | estado, municipio y localidad | U-POB | Geografía con cobertura y catálogos por validar | URG-R07 |
-| URG-CAND-POB-05 | cobertura de población | U-POB y pacientes según dimensión | Con dato, sin dato, inválido; universo explícito | URG-R07 |
-| URG-CAND-DES-01 | ingreso → triage | U-ING | Campos: fechaing / fechatri | URG-R04/R05 |
-| URG-CAND-DES-02 | ingreso → atención | U-ING | Campos: fechaing / fechaate | URG-R04/R05 |
-| URG-CAND-DES-03 | atención → alta médica | U-ING | Campos: fechaate / fechamed | URG-R04/R05 |
-| URG-CAND-DES-04 | ingreso → egreso / permanencia | U-ING | Campos: fechaing / fechaegr | URG-R04/R05 |
-| URG-CAND-DES-05 | permanencia >12 h | Duraciones completadas evaluables en U-ING | Campos: fechaing / fechaegr | URG-R04/R05 |
-| URG-CAND-DES-06 | permanencia >24 h | Duraciones completadas evaluables en U-ING | Campos: fechaing / fechaegr | URG-R04/R05 |
-| URG-CAND-DES-07 | reingreso <24 h | U-RET evaluable | Campos: Identidad/servicio POR VALIDAR; fechaing / fechaegr previas | URG-R06 |
-| URG-CAND-DES-08 | reingreso <72 h | U-RET evaluable | Campos: Identidad/servicio POR VALIDAR; fechaing / fechaegr previas | URG-R06 |
-| URG-CAND-DES-09 | secuencias temporales inconsistentes | U-ING | Campos: Cinco hitos clínicos | URG-R04/R05 |
-| URG-CAND-DES-10 | abiertos de antigüedad elevada | U-ABI evaluable | Campos: fechaing / corte / fechaegr | URG-R03 |
-| URG-CAND-DES-11 | cobertura de triage | U-ING | Campos: fechatri | URG-R04/R05 |
-| URG-CAND-DES-12 | cobertura de atención | U-ING | Campos: fechaate | URG-R04/R05 |
-| URG-CAND-DES-13 | cobertura de egreso | U-ING | Campos: fechaegr | URG-R04/R05 |
+| ID | Grupo | Elemento | Universo | Definición | Estado funcional | Regla |
+|---|---|---|---|---|---|---|
+| URG-EJ-01 | Ejecutivo | Atenciones | U-ING | Conteo propuesto de episodios registrados, no filas ni fechaate presente | CANDIDATO: confirmar etiqueta/unidad | URG-R01/R02 |
+| URG-EJ-02 | Ejecutivo | Promedio diario | U-ING / días | Atenciones / días, incluyendo días sin actividad con datos completos | CANDIDATO: días parciales y denominador | URG-R02/R08 |
+| URG-EJ-03 | Ejecutivo | Permanencia promedio | Completados evaluables; U-ING heredado propuesto | Suma duraciones / episodios evaluables, extremos válidos incluidos | DEFINIDO FUNCIONALMENTE promedio; cohorte CANDIDATO | URG-R04/R05 |
+| URG-EJ-04 | Ejecutivo | Hospitalización | Universo resolución por cerrar | Destino agrupado Hospitalización, no motivo alta | CANDIDATO: conteo/tasa, cohorte y mapeo | URG-R11 |
+| URG-EJ-05 | Ejecutivo | Reingresos <72 h | U-RET | Nuevos episodios con vínculo elegible estricto, tasa no cerrada | DEFINIDO FUNCIONALMENTE predicado; presentación CANDIDATO | URG-R06 |
+| URG-EJ-06 | Ejecutivo | Pacientes únicos | Identificables U-POB | Conteo distinto codigo_cliente validado | DEFINIDO FUNCIONALMENTE, identidad pendiente SQL | URG-R01/R07 |
+| URG-ACT-01 | Situación actual | Activos probables | U-ACT | Doble nulo al corte; antigüedad no evaluable visible | DEFINIDO FUNCIONALMENTE | URG-R03 |
+| URG-ACT-02 | Situación actual | Activos >24/>48/>72 h | U-ACT evaluable | Acumulativos, énfasis >48/>72, sin recorte | DEFINIDO FUNCIONALMENTE | URG-R03 |
+| URG-MOD-01 | Módulo | Demanda | U-ING; U-EGR separado | Volumen/tendencia/hora/día/turno/centro/servicio | DEFINIDO FUNCIONALMENTE | URG-R02/R09/R12 |
+| URG-MOD-02 | Módulo | Permanencia | Completados/abiertos separados | Promedio y cinco rangos, transcurrido aparte | DEFINIDO FUNCIONALMENTE | URG-R04/R05 |
+| URG-MOD-03 | Módulo | Reingresos | U-RET | <72 principal, referencia 48 y bandas, historia previa | DEFINIDO FUNCIONALMENTE principal; referencia 48 propuesta | URG-R06 |
+| URG-MOD-04 | Módulo | Triage | U-ING, cobertura por componente | Fecha/nivel/responsable, estandarización futura | DEFINIDO FUNCIONALMENTE | URG-R10 |
+| URG-MOD-05 | Módulo | Resolución | U-ING o U-EGR explícito por cerrar | Destino/motivo independientes, agrupación configurable | DEFINIDO FUNCIONALMENTE dimensiones; mapeo CANDIDATO | URG-R11 |
+| URG-MOD-06 | Módulo | Población | U-POB | Sexo, nueve grupos, geografía, pacientes separados | DEFINIDO FUNCIONALMENTE grupos; precedencia edad pendiente | URG-R07 |
+| URG-MOD-07 | Módulo | Clínica y actividad asociada | Episodios del contexto | Top 5/10/20/Todos; libre detalle; médico no productividad | DEFINIDO FUNCIONALMENTE | URG-R12 |
+| URG-MOD-08 | Módulo | Detalle/auditoría | Mismo universo/categoría | Paginación servidor y exportación agregada/episodio | DEFINIDO FUNCIONALMENTE | URG-R13 |
+| URG-CAL-01 | Cobertura/calidad | Cobertura/no evaluables | Universo de cada componente | Fechas, triage triple, identidad, población, destino/motivo | DEFINIDO FUNCIONALMENTE | URG-R04/R07/R10/R11 |
+| URG-CAL-02 | Cobertura/calidad | Inconsistencias/deuda | Universo correspondiente | Duplicados/inversiones/variantes/abiertos con motivo; flags no aditivos | DEFINIDO FUNCIONALMENTE | URG-R01/R03/R04 |
+| URG-PEND-01 | Candidato | Tiempos complementarios | Pares evaluables U-ING | Registro→triage/atención; atención→alta; rangos atención heredados | CANDIDATO secundario | URG-R04/R05 |
+| URG-PEND-02 | Candidato | Censo retrospectivo/tasas adicionales | POR DEFINIR | No inferir historia stock ni tasas >12/>24 o retorno<24 oficiales | CANDIDATO | URG-R03/R05/R06 |
 
-## Condiciones de definición
+## Cierres antes del cálculo
 
-Duraciones: describir distribución y proponer mediana/percentiles sólo tras cerrar evaluabilidad; no declarar estadístico oficial. Permanencias >12 y >24: numerador con duración estrictamente superior al límite, denominador de permanencias completadas evaluables; informar cobertura sobre U-ING. Coberturas: episodios con fecha de etapa presente / U-ING; presencia no equivale a secuencia válida. Reingresos requieren decisión de límites exactos y antecedente. Los demás conteos dependen de representación e identidad comprobadas.
+Atenciones se propone como episodios U-ING sin exigir fechaate; confirmar etiqueta para no presentar registro como atención clínica probada. Promedio diario requiere días completos/parciales, disponibilidad y denominador (nunca sólo días con actividad). Permanencia conserva U-ING completados como cohorte candidata heredada; U-EGR es análisis distinto, elegir explícitamente portada. Hospitalización requiere mapeo y decidir conteo/tasa/denominador. Reingreso tiene <72 cerrado pero antecedente y presentación conteo/tasa pendientes. Referencia 48 inclusiva propuesta se etiqueta hasta 48, no <48.
 
-[Convenciones](01_CONVENCIONES_Y_REGLAS_COMUNES.md) · [Reglas canónicas](../REGLAS_NEGOCIO.md).
+Suficiencia, exclusiones adicionales y metas no definidas. SIN DATOS/NO APLICA/DATOS INSUFICIENTES no fabrican ceros. No mediana/percentiles principales. [Convenciones](01_CONVENCIONES_Y_REGLAS_COMUNES.md) · [Reglas](../REGLAS_NEGOCIO.md) · [Destino de los 28 candidatos](../gobierno/RECONCILIACION_BASELINE_717f681.md).

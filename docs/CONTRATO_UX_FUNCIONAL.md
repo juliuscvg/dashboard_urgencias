@@ -1,29 +1,45 @@
 # Contrato UX funcional — Urgencias
 
-Contrato de comportamiento candidato, no apariencia ni framework. Sin UI implementada ni validada.
+Definido funcionalmente por [contexto vigente](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt); no implementado ni validado visualmente. [Evolución del baseline](gobierno/RECONCILIACION_BASELINE_717f681.md).
 
-| ID | Comportamiento que debe conservarse | Estado | Evidencia |
-|---|---|---|---|
-| URG-UX-CONTEXTO | Contexto reproducible, filtros compatibles persistentes en recarga e historial | CANDIDATO | Adopción HCG-UX-001 y FIL |
-| URG-UX-ESTADOS | loading, error con reintento, empty y success por módulo; fallo aislado conserva resultados válidos | CANDIDATO | HCG-UX-003/004 |
-| URG-UX-DETALLE | KPI → detalle con misma métrica/universo; discrepancias visibles | CANDIDATO | HCG-DET y UX-005/006 |
-| URG-UX-SEMANTICA | Tooltips explican regla, evento, universo, denominador, calidad y límites | CANDIDATO | HCG-UX-008/009/010/011 |
+## Portada y navegación
 
-## Contexto y navegación
+Aproximadamente seis KPI: Atenciones, Promedio diario, Permanencia promedio, Hospitalización, Reingresos <72 h y Pacientes únicos. Situación actual separada con corte explícito, total activo probable y >24/>48/>72 h, énfasis >48/>72 sin ocultar varios días. Triage/población secundarios frente a registro/egreso. No metas ni semáforos.
 
-Centro → Servicio → Localización → Paciente/episodio es jerarquía candidata, pendiente de relaciones reales. Cambiar padre revalida o limpia descendientes incompatibles y conserva filtros compatibles. Filtros adicionales y semántica: [URG-R08](REGLAS_NEGOCIO.md). Explorar detalle no cambia globales sin acción explícita. Seleccionar intervalos conserva contexto y evita recarga completa si la plataforma lo permite.
-IDs técnicos en contratos; etiquetas humanas en pantalla: SIN DATO para ausencia, descripción no disponible para clave sin etiqueta, DATO INVÁLIDO sólo tras validación de catálogo, inconsistencia para variantes contradictorias. No exponer nombres o identificadores personales en URLs compartibles; el contexto de paciente se resolverá con control de acceso y referencias adecuadas. Diseño de permisos pendiente.
+Secciones futuras: Resumen, Demanda, Permanencia, Reingresos, Triage, Resolución, Población, Clínica, Detalle. Click sobre visual aplica filtro/contexto como acción explícita con chips; Ver detalle abre episodios del mismo contexto. Persistir filtros entre secciones, recarga, Back/Forward y enlaces no sensibles. Exploración sin acción de filtrado no cambia globales silenciosamente. Advertencias interpretativas visibles, no sólo tooltip.
 
-## Estados
+## Filtros
 
-Empty significa universo vacío; falta de dato o denominador cero significa NO CALCULABLE. Error ofrece reintento y no borra resultados independientes. Datos recientes deben informar corte y mutabilidad; no presentar una carga pendiente como cero.
+Visibles periodo, centro, servicio, turno. Centro→Servicio jerárquico; cambiar padre limpia/revalida descendiente incompatible, conserva compatibles. Catálogo dinámico, incluido HCO sin hardcode. Drill-down actual Centro→Servicio→Antigüedad→Localización→Episodio; periodo/turno históricos no limitan silenciosamente stock actual.
 
-## Detalle y auditoría
+Rápidos: Hoy, Ayer, Últimos 7 días, Últimos 30 días, Este mes, Mes anterior, Este año, Personalizado. Ventana inicial configurable tres años móviles; anteriores consultables con aviso discreto de captura histórica diferente.
 
-Mismo predicado conceptual para agregado/page/count, misma representación de episodio, filtros y evento. Detalle expone campos necesarios para reconstruir inclusión y valor con acceso autorizado. Paginación servidor para conjuntos incompletos, orden determinista y desempates validados. Total exacto cuando se requiera, sin sustitución por aproximaciones. Carga bajo demanda, cierre accesible y retorno al contexto; conservar filas si falla count. Estrategia técnica de page/count y consistencia de snapshot pendiente. Discrepancias impiden declarar reconciliación PASS.
+Avanzados: sexo, grupo edad, estado, municipio, triage, nivel triage, motivo urgencia, diagnóstico, destino, motivo alta, reingreso, permanencia, médico, seguridad social, pagador, origen. Diagnóstico/médico mediante búsqueda dinámica, no catálogos gigantes. Compatibilidad avanzada con situación actual pendiente de contrato, no aplicación tácita. [Reglas](REGLAS_NEGOCIO.md).
 
-## Libertad visual
+## Estados y semántica
 
-Operación, población y desempeño son perspectivas conceptuales. Composición y tecnología libres. Presentar magnitud con lenguaje neutral; no confundir abierto/activo probable con censo actual ni alta médica con egreso. La simplificación ejecutiva conserva información en auditoría. No existen metas institucionales ni UI CEX copiada.
+loading/error con reintento/empty/success por módulo; fallo aislado conserva otros resultados.
 
-[Matriz de adopción](gobierno/ADOPCION_HCG.md) · [Plan de validación](evidencia/PLAN_VALIDACION.md).
+| Estado funcional | Significado |
+|---|---|
+| SIN DATOS | Consulta válida sin actividad; posible en HCO |
+| NO APLICA | Fuera de alcance por definición explícita, no ausencia de actividad por sí sola |
+| DATOS INSUFICIENTES | Hay actividad pero falta cobertura/evidencia necesaria |
+
+SIN DATO describe atributo ausente; DATO INVÁLIDO requiere semántica validada. No confundir con error ni fabricar cero. No hay umbral cuantitativo de suficiencia autorizado. Denominador cero no calculable con motivo pertinente. Etiquetas humanas/fallback para clave sin descripción, variantes contradictorias auditables. Sin identificación personal en URL compartible.
+
+## Tooltips y comparación
+
+Explican qué mide, fórmula, periodo/evento, numerador, denominador, cobertura, exclusiones, comparación y advertencias. Límites esenciales también visibles fuera. Triage siempre muestra cobertura por fecha/nivel/responsable; localidad muestra calidad. Destino separado de motivo.
+
+Comparación principal equivalente anterior, opcional año anterior. Conteos variación porcentual, porcentajes puntos porcentuales, tiempos minutos/horas; base cero y cortes parciales explícitos. No saturar ni inferir calidad, gravedad o causalidad.
+
+## Detalle y exportación
+
+Mismo predicado agregado/detalle/count: entidad, deduplicación, filtros, evento, categoría/drill-down. Paginación servidor, orden determinista, total exacto requerido. Discrepancias visibles impiden PASS. Carga bajo demanda y cierre accesible; count fallido conserva filas; mecanismo page/count y snapshot pendientes.
+
+Columnas base candidatas: ingreso, centro, servicio, registro, paciente, edad, sexo, triage, atención, alta médica, egreso, permanencia, destino, motivo alta, diagnóstico, médico. Añadir sólo contexto necesario, no todas las columnas de vUrgencias. Exportación agregada/por episodio separadas, ambas respetan filtros, categoría/drill-down y permisos. Todos usa servidor, no descarga completa en navegador.
+
+Datos personales sólo para auditoría autorizada; roles/exportación identificable pendientes. Sin logs con nombres, CURP, teléfonos, direcciones o datos personales innecesarios. Médico: Atenciones asociadas / Actividad registrada, no productividad ni mejor/peor; staff triage separado y registro/egreso en auditoría.
+
+[Adopción HCG](gobierno/ADOPCION_HCG.md) · [Arquitectura](ARQUITECTURA_FUTURA.md) · [Casos](evidencia/CASOS_PATRON_VIGENTES.md).

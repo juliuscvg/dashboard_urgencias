@@ -1,18 +1,21 @@
 # Reglas y criterios — Urgencias
 
-El contrato reproducible reside en [Reglas de negocio](../REGLAS_NEGOCIO.md). Evidencia inicial: [solicitud](../historico/prompts/SOLICITUD_BASELINE.txt), no consulta SQL.
+Contrato en [reglas](../REGLAS_NEGOCIO.md), sustituciones en [decisiones](DECISIONES_Y_CAMBIOS.md). Decisiones del contexto DEFINIDAS FUNCIONALMENTE, subcontratos candidatos señalados; aplicación a datos PENDIENTE DE VALIDACIÓN SQL.
 
-| ID | Alcance | Unidad/universo | Fuente/campos | Nulos/calidad | Clasificación | Evidencia |
-|---|---|---|---|---|---|---|
-| URG-R01 | Entidad y representación | Episodio / filas | vUrgencias: episodio_pk; id_urgencia | Conservar y cuantificar; ver regla | ESPECÍFICA / inicial, POR VALIDAR | [Contrato](../REGLAS_NEGOCIO.md) |
-| URG-R02 | Universos y periodo | U-ING/U-EGR/U-ABI/U-POB/U-RET | vUrgencias: fechaing; fechaegr | Conservar y cuantificar; ver regla | ESPECÍFICA / inicial, POR VALIDAR | [Contrato](../REGLAS_NEGOCIO.md) |
-| URG-R03 | Estado y antigüedad | Abiertos observados | vUrgencias: fechaegr; motivo_alta_pk; fechaing | Conservar y cuantificar; ver regla | ESPECÍFICA / inicial, POR VALIDAR | [Contrato](../REGLAS_NEGOCIO.md) |
-| URG-R04 | Flujo y calidad | Pares de eventos en U-ING | vUrgencias: fechaing; fechatri; fechaate; fechamed; fechaegr | Conservar y cuantificar; ver regla | ESPECÍFICA / inicial, POR VALIDAR | [Contrato](../REGLAS_NEGOCIO.md) |
-| URG-R05 | Rangos descriptivos | Duraciones evaluables | vUrgencias: fechaing; fechaate; fechaegr | Conservar y cuantificar; ver regla | ESPECÍFICA / inicial, POR VALIDAR | [Contrato](../REGLAS_NEGOCIO.md) |
-| URG-R06 | Reingreso | U-RET | vUrgencias: Identidad/servicio POR VALIDAR; fechaing; fechaegr | Conservar y cuantificar; ver regla | ESPECÍFICA / inicial, POR VALIDAR | [Contrato](../REGLAS_NEGOCIO.md) |
-| URG-R07 | Población | U-POB / pacientes identificables | vUrgencias: codigo_cliente; sexo; edad; residencia POR VALIDAR | Conservar y cuantificar; ver regla | ESPECÍFICA / inicial, POR VALIDAR | [Contrato](../REGLAS_NEGOCIO.md) |
-| URG-R08 | Filtros y comparación | Universo correspondiente | vUrgencias: Centro/servicio/localización POR VALIDAR | Conservar y cuantificar; ver regla | ESPECÍFICA / inicial, POR VALIDAR | [Contrato](../REGLAS_NEGOCIO.md) |
+| ID | Alcance | Campos/fuente | Universo | Caso diseñado |
+|---|---|---|---|---|
+| URG-R01 | Entidad/representación | epis_pk; id_urgencia; codigo_cliente; registro; foliounico | U-ING/U-POB | URG-CP-01/R2 |
+| URG-R02 | Eventos/ventana | Fechaing; fechaegr; fechatri; derivados | Por evento | URG-CP-02/R2 |
+| URG-R03 | Activos/antigüedad | fechaegr; motivo_alta_pk; Fechaing; corte | U-ACT/U-ABI | URG-CP-04/R2 |
+| URG-R04 | Flujo/calidad | Cinco hitos | Pares evaluables | URG-CP-05/R2 |
+| URG-R05 | Permanencia/rangos | Fechaing; fechaegr; corte | Completados/abiertos separados | URG-CP-06/R2 |
+| URG-R06 | Reingreso | codigo_cliente; servicio por mapear; fechas | U-RET | URG-CP-08/R2 |
+| URG-R07 | Población | fecha_nac; edadaños; EdadMeses; EdadDias; sexo | U-POB | URG-CP-09/R2 |
+| URG-R08 | Filtros/comparaciones | Evento/dimensiones | Contexto compatible | URG-CP-12/R2 |
+| URG-R09 | Servicios | codigo_area; serv_activo_sn; centros | Catálogo canónico | URG-CP-13/R2 |
+| URG-R10 | Triage | fechatri; triage y responsables | Componentes separados | URG-CP-15/R2 |
+| URG-R11 | Resolución | destino_urg_pk/urgencias; motivo_alta_pk/desc | Independientes | URG-CP-14/R2 |
+| URG-R12 | Demanda/clínica/personal | Fechaing; motivos; diagnósticos; médico | Episodios contexto | URG-CP-16/R2 |
+| URG-R13 | Portada/UX/arquitectura | Campos mínimos/contextuales | Universo origen | URG-CP-10/R2 |
 
-## Periodo y deduplicación
-
-Evento según universo; periodo semiabierto. Episodio como entidad esperada. Fila representativa y desempates POR VALIDAR mediante inventario dirigido. No promover reglas específicas a transversales.
+Primaria vUrgencias; complementarias servicios/centros por identificar/motivos sólo por carencia concreta. Periodo semiabierto, episodio unidad y representación determinista pendiente. Nulos/calidad visibles sin correcciones ni exclusiones silenciosas.

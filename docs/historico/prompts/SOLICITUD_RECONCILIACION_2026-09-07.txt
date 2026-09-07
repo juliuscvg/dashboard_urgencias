@@ -1,0 +1,968 @@
+Continuemos Dashboard Urgencias a partir del baseline publicado y validado.
+
+Repositorio:
+C:\personal\git\dashboard_urgencias
+
+Remoto:
+https://github.com/juliuscvg/dashboard_urgencias.git
+
+Baseline histórico inmutable:
+717f681e6d979798a2b1d680dda64d765bb3b051
+[URG][BASE] Baseline funcional y transversal
+
+IMPORTANTE:
+Ese commit YA está publicado y debe conservarse como fotografía histórica.
+NO reescribas su historia.
+NO hagas squash/rebase.
+Trabaja a partir de main actual.
+
+================================================================
+OBJETIVO DE ESTA ITERACIÓN
+================================================================
+
+Reconciliar el baseline documental original con las decisiones
+funcionales y analíticas que se definieron posteriormente para
+Dashboard Urgencias.
+
+Esta iteración sigue siendo principalmente DOCUMENTAL/FUNCIONAL.
+
+NO implementar todavía:
+- frontend;
+- backend;
+- API;
+- conexión SQL;
+- consultas productivas;
+- ETL;
+- caché;
+- componentes visuales.
+
+Sí puedes:
+- actualizar documentación;
+- corregir el diccionario;
+- consolidar reglas;
+- reorganizar candidatos;
+- registrar decisiones;
+- preparar SQL de validación sólo si queda como referencia documental
+  y NO se ejecuta ni se presenta como validado.
+
+================================================================
+PRINCIPIO DE RECONCILIACIÓN
+================================================================
+
+Para cada tema del baseline clasifica la decisión como:
+
+- CONSERVAR
+- MODIFICAR
+- AMPLIAR
+- REEMPLAZAR
+- DESCARTAR
+- PENDIENTE DE VALIDACIÓN
+
+No borres silenciosamente una regla anterior.
+
+Toda modificación relevante debe quedar trazable en:
+docs/gobierno/DECISIONES_Y_CAMBIOS.md
+
+El baseline 717f681 debe seguir siendo identificable como origen.
+
+================================================================
+CONTEXTO FUNCIONAL ACTUALIZADO Y VIGENTE
+================================================================
+
+Usa las siguientes decisiones como contexto funcional vigente.
+
+------------------------------------------------------------
+1. FUENTE PRINCIPAL
+------------------------------------------------------------
+
+Fuente analítica principal:
+
+dbo.vUrgencias
+
+No explorar indiscriminadamente toda la base.
+
+La mayoría de la información necesaria ya existe en vUrgencias.
+
+Fuentes complementarias sólo cuando exista una carencia concreta
+identificada y documentada.
+
+------------------------------------------------------------
+2. ENTIDAD Y CLAVES
+------------------------------------------------------------
+
+La entidad analítica sigue siendo el episodio/evento de Urgencias.
+
+En la vista existe:
+- epis_pk
+- id_urgencia
+- codigo_cliente
+- foliounico
+- registro
+
+El baseline usó provisionalmente `episodio_pk`.
+
+Debes corregir la documentación para distinguir:
+
+- `epis_pk`: identificador de episodio expuesto por vUrgencias;
+- `id_urgencia`: identificador propio del registro de Urgencias;
+- `codigo_cliente`: identificador candidato de paciente para análisis
+  longitudinal;
+- `registro`: identificador clínico/administrativo;
+- `foliounico`: identificador adicional disponible.
+
+NO declares todavía unicidad o cardinalidad 1:1 si no está validada.
+
+Mantén la necesidad de perfilar:
+- nulos;
+- duplicados;
+- cardinalidad epis_pk/id_urgencia;
+- estabilidad de codigo_cliente.
+
+------------------------------------------------------------
+3. SEMÁNTICA DE FECHAS
+------------------------------------------------------------
+
+Confirmado funcionalmente:
+
+Fechaing
+= fecha/hora de registro del paciente en Urgencias.
+
+fechatri
+= fecha/hora de registro de triage.
+
+fechaate
+= inicio de atención.
+
+fechamed
+= alta médica.
+
+fechaegr
+= salida/egreso administrativo y final del evento de Urgencias.
+
+fecha_modif
+= modificación técnica de registro.
+NO usar como actividad clínica ni KPI operativo.
+
+También existen campos fuente/equivalentes:
+- atencion_fecha ~ fechaate
+- altamed_fecha ~ fechamed
+
+Para análisis utilizar preferentemente los datetime derivados:
+fechaate y fechamed.
+
+Eje temporal principal ejecutivo:
+- Fechaing
+- fechaegr
+
+Secundario:
+- fechatri
+
+Complementario:
+- fechaate
+- fechamed
+
+NO exigir triage, atención o alta médica para considerar válido un
+episodio de Urgencias.
+
+------------------------------------------------------------
+4. VENTANA HISTÓRICA
+------------------------------------------------------------
+
+Ventana analítica inicial:
+
+últimos 3 años móviles.
+
+No hardcodear años calendario.
+
+Datos anteriores:
+HISTÓRICOS.
+
+No eliminarlos.
+Deben seguir siendo consultables.
+
+Cuando se utilicen, mostrar advertencia discreta de que las prácticas
+de captura históricas pueden diferir.
+
+El número de años debe quedar configurable.
+
+------------------------------------------------------------
+5. UNIVERSO INSTITUCIONAL DE SERVICIOS
+------------------------------------------------------------
+
+NO hardcodear FAA/JIM/HCO ni listas de servicios.
+
+Universo canónico de servicios de Urgencias:
+
+dbo.servicios.codigo_area = 2
+AND dbo.servicios.serv_activo_sn = 1
+
+Cruzar con centros para obtener centro/código/descripción.
+
+`serv_ing_urg_sn` es incompleto.
+Puede conservarse sólo como campo informativo o de validación,
+NO como filtro principal.
+
+Esto debe permitir que HCO aparezca automáticamente cuando empiece
+a registrar actividad.
+
+HCO actualmente puede no tener actividad.
+La UI futura debe distinguir:
+- SIN DATOS
+- NO APLICA
+- DATOS INSUFICIENTES
+
+No confundir ausencia de actividad con error.
+
+------------------------------------------------------------
+6. PACIENTE ACTIVO / SITUACIÓN ACTUAL
+------------------------------------------------------------
+
+Regla vigente de activo probable:
+
+fechaegr IS NULL
+AND motivo_alta_pk IS NULL
+
+NO usar únicamente fechaegr IS NULL.
+
+Los casos:
+
+fechaegr IS NULL
+AND motivo_alta_pk IS NOT NULL
+
+son predominantemente deuda histórica/cierres administrativos y no
+deben incorporarse al censo operativo actual.
+
+El baseline usaba además >5 años como separación histórica.
+
+Mantener la idea de deuda histórica, pero NO utilizar cinco años como
+la regla ejecutiva principal.
+
+Para situación actual interesa la antigüedad operacional:
+
+- total activos probables
+- >24 h
+- >48 h
+- >72 h
+
+Especial énfasis:
+>48 h y >72 h.
+
+Casos de varios días NO deben ocultarse ni recortarse.
+Son relevantes para acción directiva.
+
+Drill-down futuro:
+Centro → Servicio → Antigüedad → Localización → Episodio
+
+------------------------------------------------------------
+7. PERMANENCIA
+------------------------------------------------------------
+
+Permanencia de episodio completado:
+
+fechaegr - Fechaing
+
+Permanencia/transcurrido de abierto:
+
+corte_actual - Fechaing
+
+Presentarlos por separado.
+
+NO mezclar abiertos y completados en un mismo promedio.
+
+Indicador ejecutivo principal:
+PROMEDIO.
+
+No usar mediana/percentiles como indicador principal.
+
+No eliminar extremos automáticamente.
+
+Los valores extremos válidos:
+- permanecen incluidos;
+- deben ser auditables;
+- pueden exponerse en detalle.
+
+Distribución descriptiva preferida:
+
+<12 h
+12–24 h
+24–48 h
+48–72 h
+>72 h
+
+Los límites deben implementarse sin huecos ni solapamientos y sin
+redondear antes de clasificar.
+
+Documentar claramente inclusión/exclusión de cada frontera.
+
+------------------------------------------------------------
+8. REINGRESOS
+------------------------------------------------------------
+
+Indicador principal:
+reingreso dentro de 72 horas.
+
+Referencia secundaria:
+48 horas.
+
+Regla funcional obligatoria:
+
+mismo paciente
+AND mismo servicio de Urgencias
+AND nuevo Fechaing > fechaegr previa válida
+AND nuevo Fechaing < DATEADD(HOUR, 72, fechaegr previa)
+
+Un retorno a otro servicio NO es reingreso.
+
+Ejemplo:
+Urgencias Pediatría → Urgencias Pediatría = candidato.
+Urgencias Pediatría → Ortopedia = NO reingreso.
+
+Debe buscarse el egreso previo elegible aunque esté fuera del periodo
+seleccionado del dashboard.
+
+No requerir:
+- mismo diagnóstico;
+- mismo médico;
+- mismo motivo.
+
+Bandas visuales mutuamente excluyentes:
+
+0–24 h
+>24–48 h
+>48–72 h
+
+Clasificación:
+timestamps reales.
+
+Visualización de horas:
+puede redondearse a múltiplos de 0.5 h.
+
+Nunca usar el redondeo para determinar pertenencia.
+
+Mantener pendiente técnico:
+cómo resolver empates, solapamientos o múltiples egresos previos sin
+introducir clasificaciones incorrectas.
+
+------------------------------------------------------------
+9. TRIAGE
+------------------------------------------------------------
+
+Triage sigue siendo importante, pero la captura es heterogénea.
+
+Analizar tres componentes:
+
+1. fecha/hora de triage;
+2. nivel/clasificación;
+3. responsable.
+
+Campos disponibles incluyen:
+
+triage_pk
+triage_codigo
+triage_desc
+area
+desc_area
+tipo_urgencia
+login_triage
+usuario_triage
+categoria_triage
+fechatri
+
+NO considerar ausencia de triage automáticamente un error del episodio.
+
+Toda visualización de triage debe mostrar cobertura.
+
+El triage tendrá menor peso que ingreso/egreso en la portada ejecutiva.
+
+Preparar documentación para futura estandarización institucional.
+
+------------------------------------------------------------
+10. RESOLUCIÓN / DESTINO / MOTIVO DE ALTA
+------------------------------------------------------------
+
+Destino principal:
+
+destino_urg_pk
+destino_urgencias
+
+Motivo de alta:
+
+motivo_alta_pk
+
+Catálogo identificado:
+dbo.motivos_alta_ing
+
+Descripción:
+motivo_alta_desc
+
+La vista deberá en el futuro exponer la descripción de motivo de alta,
+pero NO modificar la vista en esta fase salvo que se solicite
+expresamente.
+
+Destino y motivo de alta son DIMENSIONES INDEPENDIENTES.
+
+NO fusionarlos en una categoría única.
+
+Agrupación ejecutiva inicial de destino:
+
+- Domicilio
+- Hospitalización
+- Consulta Externa
+- Salida no programada
+- Traslado
+- Defunción
+- No especificado
+- Otros
+
+La agrupación debe quedar configurable.
+
+------------------------------------------------------------
+11. POBLACIÓN
+------------------------------------------------------------
+
+Indicadores secundarios:
+
+- sexo
+- grupos de edad
+- estado
+- municipio
+- localidad
+
+Grupos etarios definidos:
+
+<1
+1–5
+6–12
+13–17
+18–29
+30–44
+45–59
+60–74
+75+
+
+Campos de edad disponibles incluyen:
+
+fecha_nac
+edadaños
+EdadMeses
+EdadDias
+
+Usar los grupos como regla funcional vigente.
+
+Edad pediátrica puede apoyarse en meses/días cuando corresponda.
+
+Localidad tiene calidad heterogénea.
+Mantenerla como dimensión secundaria y con cobertura/calidad visible.
+
+------------------------------------------------------------
+12. DEMANDA
+------------------------------------------------------------
+
+Analizar:
+
+- volumen
+- tendencia
+- hora
+- día
+- turno
+- centro
+- servicio
+
+Turno actual:
+
+Matutino 08:00–13:59
+Vespertino 14:00–19:59
+Nocturno 20:00–07:59
+
+Respetarlo inicialmente.
+
+Preparar para parametrización futura.
+
+------------------------------------------------------------
+13. CLÍNICA
+------------------------------------------------------------
+
+Dimensiones secundarias:
+
+motivo_urgencia
+motivo_urg_libre
+cdiag_ing
+diag_ing
+cdiag_egr
+diag_egr
+
+Usos:
+
+- Top 5
+- Top 10
+- Top 20
+- Todos
+
+`motivo_urg_libre`:
+detalle/búsqueda, no ranking ejecutivo principal.
+
+NO inferir:
+- gravedad;
+- calidad;
+- desempeño;
+- causalidad clínica.
+
+------------------------------------------------------------
+14. PERSONAL
+------------------------------------------------------------
+
+Médico:
+
+usar conceptos como:
+- Atenciones asociadas a médico
+- Actividad registrada
+
+NO llamar automáticamente “productividad”.
+
+NO crear rankings:
+- mejor médico
+- peor médico
+
+Triage staff se analiza separado.
+
+Usuarios de registro/egreso:
+principalmente auditoría y detalle.
+
+------------------------------------------------------------
+15. KPI EJECUTIVO
+------------------------------------------------------------
+
+Mantener portada simple.
+
+Máximo aproximado:
+6 KPI principales.
+
+Propuesta vigente de portada:
+
+1. Atenciones
+2. Promedio diario
+3. Permanencia promedio
+4. Hospitalización
+5. Reingresos <72 h
+6. Pacientes únicos
+
+La situación actual de pacientes abiertos debe ir en bloque separado,
+no mezclada con los KPI históricos del periodo.
+
+No crear todavía metas ni semáforos institucionales.
+
+------------------------------------------------------------
+16. COMPARACIONES
+------------------------------------------------------------
+
+Principal:
+periodo actual vs periodo equivalente anterior.
+
+Opcional:
+mismo periodo del año anterior.
+
+Reglas:
+
+conteos:
+variación porcentual.
+
+porcentajes:
+puntos porcentuales.
+
+tiempos:
+variación en minutos/horas.
+
+No mostrar múltiples comparaciones simultáneas si saturan la portada.
+
+------------------------------------------------------------
+17. FILTROS
+------------------------------------------------------------
+
+Filtros visibles:
+
+- periodo
+- centro
+- servicio
+- turno
+
+Periodos rápidos:
+
+- Hoy
+- Ayer
+- Últimos 7 días
+- Últimos 30 días
+- Este mes
+- Mes anterior
+- Este año
+- Personalizado
+
+Filtros avanzados:
+
+- sexo
+- grupo de edad
+- estado
+- municipio
+- triage
+- nivel triage
+- motivo urgencia
+- diagnóstico
+- destino
+- motivo alta
+- reingreso
+- permanencia
+- médico
+- seguridad social
+- pagador
+- origen
+
+Centro → Servicio debe ser jerárquico.
+
+Diagnóstico/médico:
+búsqueda dinámica, no cargar catálogos gigantes en navegador.
+
+------------------------------------------------------------
+18. NAVEGACIÓN FUTURA
+------------------------------------------------------------
+
+Propuesta:
+
+Resumen
+Demanda
+Permanencia
+Reingresos
+Triage
+Resolución
+Población
+Clínica
+Detalle
+
+Click sobre visual:
+aplica filtro/contexto.
+
+“Ver detalle”:
+abre episodios.
+
+Filtros activos:
+chips visibles.
+
+Persistencia:
+mantener filtros entre secciones.
+
+------------------------------------------------------------
+19. DETALLE Y AUDITORÍA
+------------------------------------------------------------
+
+Detalle server-side en futura implementación.
+
+No devolver todas las columnas de vUrgencias.
+
+Columnas base candidatas:
+
+- ingreso
+- centro
+- servicio
+- registro
+- paciente
+- edad
+- sexo
+- triage
+- atención
+- alta médica
+- egreso
+- permanencia
+- destino
+- motivo alta
+- diagnóstico
+- médico
+
+Agregar columnas contextuales según indicador.
+
+Agregado, detalle y count:
+MISMO PREDICADO conceptual.
+
+Paginación:
+server-side.
+
+Exportación futura:
+debe respetar exactamente filtros y categoría/drill-down.
+
+Distinguir:
+- exportación agregada
+- exportación por episodio
+
+------------------------------------------------------------
+20. UX
+------------------------------------------------------------
+
+Diseño ejecutivo.
+
+Tooltips KPI deben explicar:
+
+- qué mide;
+- fórmula;
+- periodo;
+- numerador;
+- denominador;
+- cobertura;
+- exclusiones;
+- comparación;
+- advertencias.
+
+Advertencias que cambien interpretación:
+deben ser visibles y NO sólo tooltip.
+
+Estados explícitos:
+
+SIN DATOS
+NO APLICA
+DATOS INSUFICIENTES
+
+------------------------------------------------------------
+21. ARQUITECTURA FUTURA
+------------------------------------------------------------
+
+Cuando llegue la implementación, reutilizar arquitectura de CEX
+cuando sea transversalmente válida, pero NO sus reglas de negocio.
+
+Conceptualmente:
+
+SQL Server
+→ Repository
+→ Urgencias Domain Rules
+→ Services
+→ Cache
+→ API
+→ Frontend
+
+Centralizar:
+
+- activo probable
+- permanencia
+- reingreso
+- resolución
+- grupos etarios
+- comparaciones
+
+Endpoints semánticos previstos:
+
+/api/urgencias/summary
+/api/urgencias/current
+/api/urgencias/demand
+/api/urgencias/stay
+/api/urgencias/readmissions
+/api/urgencias/triage
+/api/urgencias/resolution
+/api/urgencias/population
+/api/urgencias/clinical
+/api/urgencias/services
+/api/urgencias/episodes
+
+NO implementarlos en esta fase.
+
+------------------------------------------------------------
+22. PERFORMANCE FUTURA
+------------------------------------------------------------
+
+SQL:
+
+evento >= @Inicio
+AND evento < @FinExclusivo
+
+Filtrar temprano.
+
+Agregaciones server-side.
+
+Detalle paginado server-side.
+
+NO cargar todas las filas al navegador.
+
+NO introducir todavía:
+- ETL;
+- tablas resumen;
+- infraestructura adicional.
+
+Primero medir.
+
+Cache futura:
+
+situación actual:
+TTL corto.
+
+periodo reciente:
+TTL medio.
+
+histórico:
+TTL largo.
+
+Keys:
+incluir todos los filtros relevantes.
+
+------------------------------------------------------------
+23. PRIVACIDAD
+------------------------------------------------------------
+
+Endpoints agregados:
+NO devolver datos personales innecesarios.
+
+Detalle:
+sólo los necesarios para auditoría autorizada.
+
+Evitar logs con:
+- nombres;
+- CURP;
+- teléfonos;
+- direcciones;
+- otros datos personales innecesarios.
+
+================================================================
+TRABAJO SOLICITADO
+================================================================
+
+1. Lee TODO el baseline existente antes de editar.
+
+2. Construye una matriz de reconciliación entre:
+
+baseline 717f681
+vs
+contexto funcional vigente anterior.
+
+Para cada regla/documento indica:
+
+- estado anterior;
+- nueva decisión;
+- acción:
+  CONSERVAR / MODIFICAR / AMPLIAR / REEMPLAZAR / DESCARTAR /
+  PENDIENTE;
+- archivo afectado;
+- motivo.
+
+3. Actualiza de forma coherente como mínimo:
+
+README.md
+
+docs/00_LEEME_PRIMERO.md
+
+docs/gobierno/ESTADO_PROYECTO.md
+
+docs/gobierno/CATALOGO_FUNCIONAL.md
+
+docs/gobierno/REGLAS_Y_CRITERIOS.md
+
+docs/gobierno/DECISIONES_Y_CAMBIOS.md
+
+docs/gobierno/TRAZABILIDAD.md
+
+docs/REGLAS_NEGOCIO.md
+
+docs/DESCUBRIMIENTOS_Y_LIMITACIONES.md
+
+docs/CONTRATO_UX_FUNCIONAL.md
+
+docs/diccionarios/FUENTES_Y_GRANULARIDAD.md
+
+docs/diccionarios/DICCIONARIO_vUrgencias.md
+
+docs/indicadores/00_CATALOGO_INDICADORES.md
+
+docs/indicadores/01_CONVENCIONES_Y_REGLAS_COMUNES.md
+
+docs/evidencia/PLAN_VALIDACION.md
+
+docs/evidencia/CASOS_PATRON_VIGENTES.md
+
+docs/evidencia/BENCHMARKS_VIGENTES.md
+
+4. No conviertas automáticamente los 28 candidatos en indicadores
+oficiales.
+
+Reorganízalos, si procede, para reflejar:
+
+- indicadores ejecutivos;
+- situación actual;
+- módulos analíticos;
+- indicadores de cobertura/calidad;
+- candidatos todavía pendientes.
+
+Distingue claramente:
+DEFINIDO FUNCIONALMENTE
+vs
+PENDIENTE DE VALIDACIÓN SQL
+vs
+CANDIDATO.
+
+5. Corrige el diccionario usando únicamente los campos ya conocidos del
+contexto entregado.
+
+NO inventes tipos físicos.
+
+Mantén como pendientes:
+- tipo;
+- longitud;
+- nulabilidad;
+- cardinalidad;
+- unicidad;
+cuando todavía requieran SQL real.
+
+6. Crea un documento específico:
+
+docs/gobierno/RECONCILIACION_BASELINE_717f681.md
+
+Debe registrar:
+
+- baseline de origen;
+- decisiones conservadas;
+- decisiones modificadas;
+- decisiones agregadas;
+- pendientes;
+- decisiones que requieren evidencia SQL;
+- reglas que NO deben importarse de CEX.
+
+7. Crea un checkpoint documental nuevo en:
+
+docs/historico/checkpoints/
+
+Nombre sugerido:
+
+CHECKPOINT_FUNCIONAL_2026-09-07.md
+
+Debe incluir:
+
+- SHA base 717f681...
+- alcance;
+- decisiones cerradas;
+- pendientes;
+- indicadores;
+- estado de validación;
+- próximos pasos.
+
+8. Ejecuta los comprobadores documentales existentes:
+
+node scripts/check-markdown-links.mjs
+node scripts/check-baseline.mjs
+
+Corrige únicamente problemas documentales derivados de esta iteración.
+
+9. Revisa `git diff`.
+
+10. CREA UN COMMIT, pero NO hagas push todavía.
+
+Mensaje:
+
+[URG][FUNC] Reconciliación funcional posterior al baseline
+
+11. Al terminar reporta:
+
+A. SHA del nuevo commit.
+B. Archivos modificados.
+C. Archivos nuevos.
+D. Matriz resumida de reconciliación.
+E. Decisiones funcionales que quedaron cerradas.
+F. Decisiones todavía pendientes.
+G. Qué requiere validación SQL.
+H. Resultado de comprobadores.
+I. `git status`.
+J. Confirmación explícita de que NO hubo implementación.
+K. Confirmación de que NO se hizo push.
+
+DETENTE después del informe.
+NO continúes a implementación.

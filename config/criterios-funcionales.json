@@ -1,0 +1,102 @@
+{
+  "version": "2026-09-07",
+  "alcance": "DOCUMENTAL_NO_EJECUTABLE",
+  "baseline_origen": "717f681e6d979798a2b1d680dda64d765bb3b051",
+  "validacion_sql": "NO_EJECUTADA",
+  "ventana_historica": {
+    "anios_moviles": 3,
+    "datos_anteriores_consultables": true,
+    "anclaje_propuesto": "aniversario N años anterior al corte, último día válido en bisiesto",
+    "limitar_situacion_actual": false,
+    "limitar_antecedentes_reingreso": false
+  },
+  "servicios": {
+    "fuente": "dbo.servicios",
+    "codigo_area": 2,
+    "serv_activo_sn": 1,
+    "serv_ing_urg_sn": "INFORMATIVO_NO_FILTRO",
+    "listas_hardcodeadas": false,
+    "claves_union": "PENDIENTES_SQL"
+  },
+  "activo_probable": {
+    "predicado_documental": "fechaegr IS NULL AND motivo_alta_pk IS NULL",
+    "antiguedad_horas_mayor_que": [
+      24,
+      48,
+      72
+    ],
+    "cinco_anios_ejecutivo": false
+  },
+  "permanencia": {
+    "principal": "PROMEDIO",
+    "mezclar_abiertos_completados": false,
+    "recortar_extremos_validos": false,
+    "rangos_documentales": [
+      "0<=t<12",
+      "12<=t<24",
+      "24<=t<48",
+      "48<=t<=72",
+      "t>72"
+    ]
+  },
+  "reingreso": {
+    "principal_horas": 72,
+    "limite_superior_exclusivo": true,
+    "mismo_paciente": true,
+    "mismo_servicio": true,
+    "bandas_documentales": [
+      "0<t<=24",
+      "24<t<=48",
+      "48<t<72"
+    ],
+    "referencia_secundaria_horas": 48,
+    "referencia_inclusion": "PROPUESTA_VISUAL_HASTA48_INCLUSIVA",
+    "redondeo_visual_horas": 0.5,
+    "redondeo_para_pertenencia": false,
+    "antecedente": "PENDIENTE"
+  },
+  "grupos_edad": [
+    "<1",
+    "1–5",
+    "6–12",
+    "13–17",
+    "18–29",
+    "30–44",
+    "45–59",
+    "60–74",
+    "75+"
+  ],
+  "turnos": [
+    {
+      "nombre": "Matutino",
+      "desde": "08:00",
+      "hasta_exclusivo": "14:00"
+    },
+    {
+      "nombre": "Vespertino",
+      "desde": "14:00",
+      "hasta_exclusivo": "20:00"
+    },
+    {
+      "nombre": "Nocturno",
+      "desde": "20:00",
+      "hasta_exclusivo": "08:00",
+      "cruza_medianoche": true
+    }
+  ],
+  "destino": {
+    "grupos": [
+      "Domicilio",
+      "Hospitalización",
+      "Consulta Externa",
+      "Salida no programada",
+      "Traslado",
+      "Defunción",
+      "No especificado",
+      "Otros"
+    ],
+    "mapeo_codigos": {},
+    "estado_mapeo": "PENDIENTE_NO_VALIDADO"
+  },
+  "metas_institucionales": null
+}

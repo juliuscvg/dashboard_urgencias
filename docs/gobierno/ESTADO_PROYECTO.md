@@ -1,21 +1,20 @@
 # Estado vigente — Urgencias
 
-- Proyecto/rama: `juliuscvg/dashboard_urgencias` / `main`.
-- Fecha de corte documental: 2026-09-06, America/Mexico_City; no es fecha de extracción SQL.
-- Fase: baseline documental inicial. Estado: documentación preparada; validación del dominio ABIERTA.
-- Commit auditado: NO DOCUMENTADO antes del commit inicial. El árbol y la comprobación documental se identifican según el [manifiesto](../evidencia/MANIFIESTO_VALIDACION.md); obtener SHA definitivo con `git rev-parse HEAD` tras crear el commit.
+- Proyecto/rama: juliuscvg/dashboard_urgencias / main.
+- Fecha documental: 2026-09-07, America/Mexico_City; no extracción de datos.
+- Origen publicado: 717f681e6d979798a2b1d680dda64d765bb3b051, preservado.
+- Fase: RECONCILIACIÓN DOCUMENTAL/FUNCIONAL. Contexto reconciliado; validación SQL ABIERTA y NO EJECUTADA.
+- Cambio local previsto: [URG][FUNC] Reconciliación funcional posterior al baseline. SHA nuevo: resolver en Git con git log -1 --format=%H -- docs/gobierno/RECONCILIACION_BASELINE_717f681.md; no insertar un SHA autorreferente.
+- Publicación de esta iteración: NO AUTORIZADA / no push solicitado.
 
-## Capacidades disponibles
+## Capacidades documentales
 
-Gobierno propio, diccionario provisional, reglas de análisis inicial, candidatos, matriz de adopción, casos diseñados y comprobadores sin dependencias externas. Ningún resultado SQL, API o UI está validado.
-
-## Decisiones vigentes
-
-Rige [URG-GOV-001](DECISIONES_Y_CAMBIOS.md): documentar primero y limitar la fuente a vUrgencias.
+23 temas reconciliados, 28 candidatos originales con destino explícito, catálogo por seis KPI propuestos/situación actual/módulos/calidad/candidatos. Reglas y campos nuevos comunicados, configuración documental, arquitectura futura, casos R2 y plan. [Decisiones](DECISIONES_Y_CAMBIOS.md) · [Matriz](RECONCILIACION_BASELINE_717f681.md).
 
 ## Pendientes
 
-- Funcionales: [preguntas que requieren decisión humana](../DESCUBRIMIENTOS_Y_LIMITACIONES.md).
-- Técnicos: inventario dirigido de vUrgencias; tipos, claves, cardinalidad, semántica temporal e identidad.
-- QA: ejecutar el [plan de validación](../evidencia/PLAN_VALIDACION.md) antes de programar métricas.
-- Responsables institucionales y aprobación de indicadores: NO DOCUMENTADO.
+SQL: metadatos/clave/cobertura/cardinalidad, uniones sin multiplicación, semántica edad, identidad longitudinal, antecedente y mapeos de catálogo. Funcionales: precisiones del catálogo, corte diario/cohorte, tasa/conteo Hospitalización, referencia 48, jornada nocturna, permisos/responsables. [Registro](../DESCUBRIMIENTOS_Y_LIMITACIONES.md).
+
+## Validación
+
+[Resultado documental nuevo](../evidencia/VALIDACION_FUNCIONAL_DOCUMENTAL_2026-09-07.json); conserva [resultado original](../evidencia/VALIDACION_DOCUMENTAL.json) como histórico. Casos sólo DISEÑADOS, no pruebas ejecutadas. SQL/API/UI/rendimiento NO EJECUTADOS. No implementación.

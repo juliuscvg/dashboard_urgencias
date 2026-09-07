@@ -1,26 +1,20 @@
 # Dashboard Urgencias
 
-Dashboard institucional del dominio Urgencias del Hospital Civil de Guadalajara.
+Proyecto institucional del Hospital Civil de Guadalajara. Fase vigente: reconciliación documental/funcional 2026-09-07; no aplicación implementada.
 
-## Propósito
+Fuente principal dbo.vUrgencias; unidad episodio/evento, identificador expuesto comunicado epis_pk. Claves, cardinalidad, tipos y uniones pendientes de validación SQL. Catálogos complementarios sólo por carencias documentadas.
 
-Preparar el análisis de operación, población y desempeño con reglas propias, fuentes explícitas y resultados auditables.
+Origen histórico publicado e inmutable: 717f681e6d979798a2b1d680dda64d765bb3b051, [URG][BASE] Baseline funcional y transversal. Esta iteración conserva su historia y registra decisiones posteriores, sin squash/rebase.
 
-## Alcance y límites
+[Inicio documental](docs/00_LEEME_PRIMERO.md) · [Estado](docs/gobierno/ESTADO_PROYECTO.md) · [Matriz de reconciliación](docs/gobierno/RECONCILIACION_BASELINE_717f681.md) · [Checkpoint](docs/historico/checkpoints/CHECKPOINT_FUNCIONAL_2026-09-07.md).
 
-- Baseline documental independiente en `juliuscvg/dashboard_urgencias`.
-- Entidad esperada: episodio de Urgencias; clave funcional candidata `episodio_pk`.
-- Fuente principal inicial: `dbo.vUrgencias`; casing, esquema efectivo y granularidad POR VALIDAR.
-- No existe frontend, backend, conexión SQL ni indicador implementado. No se trasladan fórmulas, estados, capacidad ni indicadores D01–D05 de CEX.
+Portada propuesta de seis KPI, situación actual separada, ventana de tres años móviles configurable, promedio de permanencia, reingreso <72 h y catálogos dinámicos. Definición funcional no equivale a SQL validado ni indicador oficial. [Candidatos/estados](docs/indicadores/00_CATALOGO_INDICADORES.md).
 
-## Estado y documentación
+## Comprobación documental
 
-[Inicio documental](docs/00_LEEME_PRIMERO.md) · [Estado](docs/gobierno/ESTADO_PROYECTO.md) · [Adopción de 71 principios HCG](docs/gobierno/ADOPCION_HCG.md).
+Con Node.js, sin instalar dependencias:
 
-Las [referencias y plantillas](docs/gobierno/PROCEDENCIA.md) están fijadas a commits. La adopción es documental; no equivale a validación multidominio.
+- node scripts/check-markdown-links.mjs
+- node scripts/check-baseline.mjs
 
-## Ejecución
-
-Node.js, sin instalar paquetes: `node scripts/check-markdown-links.mjs`.
-Comprobación estructural: `node scripts/check-baseline.mjs`.
-No hay aplicación que ejecutar. Git conserva un único commit inicial; no se realiza push.
+No hay frontend, backend, API, conexión SQL, consulta productiva, ETL ni caché. [Arquitectura futura](docs/ARQUITECTURA_FUTURA.md) sólo referencia. No reglas de negocio CEX importadas. La iteración genera un commit local sin push; HCG no se modifica ni se promueve automáticamente a multidominio.

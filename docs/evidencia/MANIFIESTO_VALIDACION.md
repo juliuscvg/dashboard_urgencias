@@ -1,12 +1,12 @@
 # Manifiesto de validación — Urgencias
 
-## Validación documental del baseline
+## Validación documental histórica del baseline 717f681
 
 - Proyecto: juliuscvg/dashboard_urgencias.
 - Fecha: 2026-09-06; fecha/hora efectiva registrada en [resultado documental](VALIDACION_DOCUMENTAL.json).
-- Commit probado: NO DOCUMENTADO durante preparación. El resultado contiene el árbol staged exacto previo a añadir ese resultado, evitando la autorreferencia de un SHA dentro de su propio commit. El único commit final contiene ambos; el SHA definitivo se entrega al usuario y se obtiene con `git rev-parse HEAD`.
+- Commit probado: NO DOCUMENTADO durante preparación. El resultado contiene el árbol staged exacto previo a añadir ese resultado, evitando la autorreferencia de un SHA dentro de su propio commit. El commit histórico 717f681e6d979798a2b1d680dda64d765bb3b051 contiene ambos; no resolver este registro histórico contra un HEAD posterior.
 - Dataset: archivos locales del baseline y referencias Git inmutables; sin datos de pacientes.
-- Periodo/filtros clínicos: NO APLICA. Configuración: [baseline.json](../../config/baseline.json).
+- Periodo/filtros clínicos: NO APLICA. Configuración histórica: [baseline.json en 717f681](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/config/baseline.json).
 - Universo: Markdown de trabajo (comprobador de enlaces) y 71 principios extraídos de la specs fijada.
 - Esperado: 0 enlaces locales rotos, 71 IDs únicos y estructura mínima completa.
 - Obtenido, diferencia, comandos y versiones: [resultado](VALIDACION_DOCUMENTAL.json).
@@ -47,3 +47,10 @@ observaciones: Sin ejecución funcional en baseline
 ```
 
 PASS requiere reconciliación y esperado independiente; HTTP o build exitoso no bastan. Registrar campos faltantes explícitos, frío/caliente y concurrencia cuando corresponda; omitir datos sensibles. Cualquier discrepancia entre agregado/detalle/count impide PASS reconciliado.
+
+
+## Validación documental de reconciliación
+
+Registro separado [VALIDACION_FUNCIONAL_DOCUMENTAL_2026-09-07.json](VALIDACION_FUNCIONAL_DOCUMENTAL_2026-09-07.json). Universo: documentación/configuración del cambio local derivado de 717f681. Esperado0 enlaces rotos,71 principios únicos y matriz completa. Comandos existentes, sin alterarlos. Fuente de decisión nueva: solicitud funcional versionada.
+
+El registro identifica fecha/hora, SHA padre y árbol Git previo a incorporar su propio resultado; evita SHA autorreferente. El commit que contiene esta iteración se obtiene con git log -1 --format=%H -- docs/gobierno/RECONCILIACION_BASELINE_717f681.md. Resultado PASS_DOCUMENTAL no prueba candidatos ni SQL/API/UI. Casos 16 DISEÑADOS/NO EJECUTADOS. Dataset clínico, consulta, obtenido funcional y SHA probado SQL: NO DOCUMENTADO.

@@ -25,3 +25,8 @@ Se conserva el propósito y las secciones/tablas aplicables; se sustituyen place
 | [MANIFIESTO_VALIDACION](https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/templates/MANIFIESTO_VALIDACION.template.md) | [docs/evidencia/MANIFIESTO_VALIDACION.md](../../docs/evidencia/MANIFIESTO_VALIDACION.md) | Contenido propio; estados y evidencia limitados a baseline documental |
 
 El comprobador de enlaces adapta el patrón CEX con recorrido de archivos de trabajo (incluidos nuevos), sin paquetes. Los enlaces remotos fijados se acreditan por lectura del objeto Git local; el comprobador no verifica disponibilidad HTTP ni anchors.
+
+
+## Reconciliación posterior al baseline
+
+Origen publicado 717f681e6d979798a2b1d680dda64d765bb3b051; [solicitud posterior](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Las referencias HCG/CEX fijadas permanecen; nuevos campos son comunicados por contexto, no extraídos de SQL. [Matriz por tema/archivo/candidato](RECONCILIACION_BASELINE_717f681.md). No se editan repositorios de referencia.

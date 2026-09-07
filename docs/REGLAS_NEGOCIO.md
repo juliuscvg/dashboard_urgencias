@@ -1,69 +1,144 @@
 # Reglas de negocio — Urgencias
 
-Contrato local inicial, basado en la [solicitud original](historico/prompts/SOLICITUD_BASELINE.txt). Las hipótesis no son definiciones institucionales aprobadas.
+Vigencia funcional: 2026-09-07, según [contexto entregado](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Origen inmutable: [reglas en 717f681](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/REGLAS_NEGOCIO.md). Ver [decisiones](gobierno/DECISIONES_Y_CAMBIOS.md) y [reconciliación](gobierno/RECONCILIACION_BASELINE_717f681.md).
 
-## URG-R01 — Entidad y representación
+DEFINIDO FUNCIONALMENTE acredita una decisión, no una consulta. PENDIENTE DE VALIDACIÓN SQL identifica evidencia física ausente. CANDIDATO identifica elecciones adicionales aún abiertas. Son ejes separados: una regla definida puede seguir pendiente de SQL. Sin implementación ni metas institucionales.
 
-La unidad esperada es el episodio. `episodio_pk` es clave funcional candidata, no unicidad comprobada. `id_urgencia` identifica un registro propio de Urgencias cuando exista; no se ha probado su relación 1:1, 1:N o N:1 con episodio. Una fila de la vista no equivale automáticamente a episodio ni a paciente.
+## URG-R01 — Fuente, entidad y representación
 
-Antes de contar episodios: medir filas, claves nulas, duplicados idénticos y variantes contradictorias; validar ámbito de unicidad por centro; distinguir repeticiones técnicas de múltiples registros legítimos. La fila representativa requiere orden determinista, semántica documentada y desempate estable antes de derivar atributos. NO DOCUMENTADO el criterio concreto. No usar MAX/MIN/DISTINCT ni la última `fecha_modif` para resolverlo silenciosamente. Los registros sin clave se reportan en calidad; no se inventa episodio.
+Fuente principal dbo.vUrgencias. Entidad: episodio/evento de Urgencias. epis_pk es el identificador expuesto comunicado, que reemplaza episodio_pk provisional del baseline. id_urgencia identifica registro de Urgencias; codigo_cliente es candidato longitudinal de paciente; registro es clínico/administrativo; foliounico es adicional. No intercambiarlos ni asumir cardinalidad 1:1.
 
-## URG-R02 — Universos y periodo
+Perfilar nulos, duplicados, variantes, relación epis_pk/id_urgencia, ámbito de claves por centro y estabilidad de codigo_cliente. Fila representativa y desempates pendientes; no usar MAX/MIN, DISTINCT o última fecha_modif para ocultar contradicciones. Separar filas crudas, episodios y pacientes; claves ausentes se mantienen auditables como no evaluables para conteo de episodios. No importar n_solic, estados, fórmulas de capacidad o D01–D05 CEX.
 
-Contrato temporal: `evento >= desde AND evento < hasta_exclusivo`. Para días completos, hasta_exclusivo es el comienzo del día posterior al último solicitado. La semántica de zona y precisión requiere validación; no asumir UTC ni aplicar offsets.
+## URG-R02 — Eventos, universos y ventana móvil
 
-| Universo candidato | Pertenencia | Unidad y límites |
+Periodo semiabierto: evento >= Inicio AND evento < FinExclusivo. Días completos incluyen inicio y excluyen comienzo del día posterior al final solicitado. Tipos, precisión y zona PENDIENTES DE VALIDACIÓN SQL; no asumir UTC ni aplicar offsets.
+
+| Campo comunicado | Semántica vigente | Prioridad |
 |---|---|---|
-| U-ING | fechaing en el periodo y filtros compatibles | Episodio representado, deduplicación POR VALIDAR |
-| U-EGR | fechaegr en el periodo y filtros compatibles | Episodio con egreso; puede haber ingresado antes del periodo |
-| U-ABI | fechaegr nula en extracción, fechaing no futura respecto al corte | Abiertos observados; ingresos nulos/futuros separados como no evaluables |
-| U-POB | Episodios U-ING; pacientes identificables por separado | No confundir distribuciones de episodios con pacientes únicos |
-| U-RET | Nuevos ingresos U-ING con identidad y servicio validables | Historia previa debe buscarse fuera del inicio del periodo en la misma vista |
+| Fechaing | Registro del paciente en Urgencias | Ejecutivo principal |
+| fechaegr | Salida/egreso administrativo y final del evento | Ejecutivo principal |
+| fechatri | Registro de triage | Secundario |
+| fechaate | Inicio de atención, datetime derivado preferido frente a atencion_fecha | Complementario |
+| fechamed | Alta médica, datetime derivado preferido frente a altamed_fecha | Complementario |
+| fecha_modif | Modificación técnica, nunca actividad clínica ni KPI operativo | Auditoría técnica |
 
-El filtro de periodo de ingresos no se aplica silenciosamente al egreso ni al stock de abiertos. Un censo histórico a un corte anterior requiere historia y semántica de actualización; la vista actual podría no reconstruirlo. U-ABI no es censo clínico validado. Exclusiones institucionales: NO DOCUMENTADO; no hay exclusiones configuradas.
+Fechaing/fechaing es variación comunicada de casing, no dos columnas. Equivalencias atencion_fecha~fechaate y altamed_fecha~fechamed son funcionales aproximadas; transformaciones pendientes de SQL. No exigir triage, atención o alta médica para considerar válido un episodio ni para pertenecer al universo principal.
 
-## URG-R03 — Estado y antigüedad
-
-| fechaegr | motivo_alta_pk | Clasificación inicial |
+| Universo | Pertenencia funcional | Límite |
 |---|---|---|
-| NULL | NULL | ACTIVO PROBABLE, condicionado por antigüedad; no confirma presencia actual |
-| NULL | No NULL | Abierto con motivo de alta: caso antiguo/inconsistente, no activo probable |
-| No NULL | NULL | Egreso registrado sin motivo; calidad de motivo separada |
-| No NULL | No NULL | Egreso registrado con motivo |
+| U-ING | Episodios registrados por Fechaing en periodo/filtros, en servicios canónicos | Representación pendiente; no exige fechaate |
+| U-EGR | Episodios finalizados por fechaegr en periodo/filtros | Incluye ingresos anteriores al periodo |
+| U-ABI | fechaegr NULL al corte de observación | Incluye deuda; no equivale a activo probable |
+| U-ACT | U-ABI con motivo_alta_pk NULL | Situación actual separada de periodo histórico |
+| U-POB | Episodios U-ING; pacientes identificables por separado | No sumar pacientes únicos de grupos solapados |
+| U-RET | Nuevos episodios U-ING con identidad, servicio e historia evaluables | Buscar antecedente fuera del periodo |
 
-Abierto describe ausencia de fechaegr; cerrado provisional describe egreso registrado, no equivalencia con códigos CEX. Ambos estados requieren revisión de semántica real.
-Antigüedad: intervalo entre fechaing y corte de observación explícito. Nulos y fechas futuras son no evaluables/inconsistentes. Más de cinco años se interpreta por aniversario calendario anterior al corte menos cinco años, no por conteo de cambios de año. Exactamente cinco años no pertenece a «más de cinco». Los abiertos mayores de cinco años se separan como históricos/inconsistentes y no se presentan como censo actual, incluso si cumplen el predicado de activo probable. Otros tramos de antigüedad y la ventana operativa requieren decisión funcional. No corregir ni cerrar datos en origen.
+Convención heredada: permanencia por cohorte U-ING completada; análisis U-EGR separado. La cohorte definitiva del KPI ejecutivo sigue candidata hasta cierre funcional, sin mezclar ambas. SIN DATO de una dimensión no elimina una entidad que cumple el universo; filtros explícitos sí restringen el contexto y deben mostrarse.
 
-## URG-R04 — Flujo, tiempos y calidad
+Ventana inicial: últimos N años móviles, N=3 configurable en [criterios documentales](../config/criterios-funcionales.json). Convención de anclaje propuesta en esta reconciliación: aniversario N años anterior al corte de consulta hasta ese corte, registrado; ajuste de 29 de febrero a último día válido del mes. No hardcodear años calendario. Los selectores de días declaran corte parcial cuando corresponda. Los anteriores son HISTÓRICOS, consultables mediante periodo personalizado con aviso discreto de prácticas de captura distintas. La ventana no es retención ni exclusión permanente; no truncar U-ACT ni antecedentes de reingreso a tres años.
 
-Ingreso `fechaing` → triage `fechatri` → atención `fechaate` → alta médica `fechamed` → egreso `fechaegr`.
-`fecha_modif` es administrativa/técnica y no sustituye eventos clínicos.
-Conservar ausencias por etapa, pares invertidos, secuencias imposibles, mismo minuto y registros parciales. Comprobar también pares presentes no adyacentes si faltan etapas intermedias. Dos eventos en el mismo minuto no prueban simultaneidad exacta cuando la fuente carece de segundos.
+## URG-R03 — Activos y situación actual
 
-Propuesta descriptiva, POR VALIDAR: para cada par, U = evaluables con fechas presentes y duración no negativa + faltantes + invertidos, con categorías excluyentes (primero faltantes, luego invertidos). Un cero es evaluable; no reemplaza ausencia. Extremos positivos permanecen auditables y no se recortan. El número de episodios U no cambia por anomalías; la distribución de duraciones declara su subconjunto evaluable. Flags de calidad por etapa pueden solaparse y no se suman como episodios únicos.
+Regla vigente: fechaegr IS NULL AND motivo_alta_pk IS NULL. Ausencia de egreso sola no basta.
 
-Permanencia completada: fechaegr − fechaing. Tiempo transcurrido de un abierto: corte − fechaing, presentado por separado; no imputar egreso ni mezclarlo en permanencia completada. Alta médica no equivale a egreso.
+| fechaegr | motivo_alta_pk | Tratamiento |
+|---|---|---|
+| NULL | NULL | Activo probable, no confirmación clínica de presencia |
+| NULL | No NULL | Deuda histórica/cierre administrativo predominante; fuera del censo operativo actual |
+| No NULL | NULL | Evento finalizado, motivo SIN DATO |
+| No NULL | No NULL | Evento finalizado con motivo |
 
-## URG-R05 — Rangos descriptivos
+Mostrar total y subconjuntos acumulativos >24 h, >48 h, >72 h; énfasis >48/>72. Antigüedad = corte_actual − Fechaing. Límites estrictos: exactamente 24/48/72 no pertenece al subconjunto que exige superar ese valor. Son subconjuntos solapados, no se suman. Casos de varios días y extremos válidos siguen incluidos y auditables. >5 años permanece como referencia histórica, no filtro ejecutivo ni recorte.
 
-Rangos aportados: atención 0–30, 31–60, 61–120, 121–240 y >240 min; permanencia 0–2, 2–6, 6–12, 12–24 y >24 h. No son metas institucionales.
-Para evitar huecos en fracciones, propuesta explícita POR VALIDAR: atención [0,30], (30,60], (60,120], (120,240], (240,+∞) minutos, con etiquetas precisas «>30–60» etc. No redondear antes de clasificar. Si se exige mantener las etiquetas 31–60, se deberá decidir la conversión a minutos enteros.
-Permanencia propuesta: [0,2], (2,6], (6,12], (12,24], (24,+∞) horas. Exactamente 2, 6, 12 y 24 se asigna al tramo que termina ahí; >12 y >24 son estrictos. El rango >12 incluye los dos últimos tramos y no se suma con >24 como categorías disjuntas. Resolver convenciones antes de implementar.
+Fechaing nula/futura: conservar pertenencia al predicado activo probable y mostrar antigüedad no evaluable/inconsistente, sin inventar duración. Total activos = antigüedad evaluable + no evaluable, tras representación validada. Bloque actual usa corte explícito y filtros compatibles; no arrastra automáticamente periodo o turno históricos. La compatibilidad de filtros avanzados queda pendiente y debe ser visible.
 
-## URG-R06 — Reingresos candidatos
+Drill-down: Centro → Servicio → Antigüedad → Localización → Episodio. Censo retrospectivo histórico sigue candidato por mutabilidad de la vista. No corregir ni cerrar datos de origen.
 
-Mismo paciente validado y mismo servicio validado; nuevo ingreso posterior a un egreso previo. Diferencia positiva en horas sin redondear. La solicitud combina «dentro de» con candidatos «<24/<72»; límite exacto de 24/72 h REQUIERE DECISIÓN FUNCIONAL. Hasta resolverlo no existe indicador oficial.
+## URG-R04 — Flujo, calidad y cobertura
 
-Ordenar episodios tras resolver granularidad, por ingreso y desempate estable. Buscar episodios anteriores distintos con egreso anterior al nuevo ingreso y mismo servicio; propuesta: egreso elegible más reciente. Verificar transferencias, solapamientos y episodios intermedios antes de aceptar un enlace. No basta un LAG sobre filas crudas ni filtrar historia al periodo del nuevo ingreso. Un paciente sin identidad o servicio válido es no evaluable. Duplicados, empate de egresos sin desempate o identidad contradictoria deben impedir clasificación positiva automática.
+Registro → triage → inicio de atención → alta médica → egreso es secuencia esperada, no exigencia de completitud. Detectar faltantes, invertidos, secuencias imposibles y mismo minuto, también entre pares no adyacentes. Mismo minuto no demuestra simultaneidad exacta.
 
-24 h será subconjunto de 72 h si comparten universo y límites; no sumar ambos conteos. Tasa candidata: nuevos episodios reingresados / nuevos episodios evaluables, con cobertura de historia explicitada; no declararla vigente hasta validar antecedente y denominador. Presentación trabajada en múltiplos de 0.5 h: propuesta redondeo al más cercano, empates hacia arriba para duraciones positivas. Nunca usar ese redondeo para decidir pertenencia. Ventanas exactas, tratamiento de transferencias e historia incompleta pendientes.
+Por par temporal, clasificar primero faltantes; entre pares presentes separar invertidos de evaluables no negativos. Cero es evaluable, no reemplaza ausencia. Extremos positivos válidos siguen incluidos, sin recorte ni winsorización. U = evaluables + faltantes + invertidos, clases excluyentes por par. Flags entre pares pueden solaparse; no sumarlos como episodios únicos. Ausencia de etapas complementarias no reduce el universo principal.
+
+Cobertura = episodios con componente presente / universo explícito del módulo. Presencia no implica validez temporal. SIN DATO distinto de DATO INVÁLIDO; catálogos y contradicciones descriptivas auditables, sin MAX/MIN arbitrarios. Denominador cero: no calculable con estado explicativo, nunca 0% fabricado. Cambiar exclusiones requiere decisión versionada.
+
+## URG-R05 — Permanencia y rangos
+
+Completado: fechaegr − Fechaing. Abierto: corte_actual − Fechaing, aclarando U-ABI o U-ACT. Presentar separados; nunca mezclar abiertos/completados en un promedio. Principal ejecutivo: PROMEDIO aritmético = suma de duraciones evaluables / número de episodios evaluables. No mediana/percentiles como principal. Extremos válidos incluidos y auditables; faltantes/invertidos se cuantifican según R04.
+
+Convención de fronteras explícita de esta reconciliación:
+
+| Etiqueta | Horas reales t |
+|---|---|
+| <12 h | 0 <= t < 12 |
+| 12–24 h | 12 <= t < 24 |
+| 24–48 h | 24 <= t < 48 |
+| 48–72 h | 48 <= t <= 72 |
+| >72 h | t > 72 |
+
+Sin huecos ni solapamientos; exactamente 12 entra en segundo tramo, 24 en tercero, 48 y 72 en cuarto. Clasificar timestamps reales antes de redondear. Reemplaza distribución 0–2/2–6/6–12/12–24/>24 del baseline; no son metas. Rangos de atención del baseline se conservan sólo como candidato secundario: [0,30], (30,60], (60,120], (120,240], >240 min.
+
+## URG-R06 — Reingresos
+
+Principal <72 h: mismo paciente AND mismo servicio de Urgencias AND nuevo Fechaing > fechaegr previa válida AND nuevo Fechaing < DATEADD(HOUR,72,fechaegr previa). Esta expresión es regla documental, no SQL ejecutado. No requiere mismo diagnóstico, médico o motivo. Pediatría→Pediatría puede ser candidato; Pediatría→Ortopedia NO es reingreso. No añadir mismo centro sin validar ámbito de identidad del servicio.
+
+Buscar egreso previo elegible de otro episodio aunque esté fuera del periodo seleccionado y de la ventana inicial. No basta LAG sobre filas crudas ni aplicar los filtros del nuevo episodio indiscriminadamente al antecedente. Validar egreso previo, identidad y secuencia; empates, solapamientos, múltiples egresos y episodios intermedios siguen pendientes técnicos. «Egreso más reciente» del baseline es propuesta no validada. Casos ambiguos no positivos automáticamente; informar no evaluables e historia incompleta. Contar cada nuevo episodio una vez, no cada par.
+
+| Banda visual dentro de <72 h | Pertenencia exacta |
+|---|---|
+| 0–24 h | 0 < t <= 24 |
+| >24–48 h | 24 < t <= 48 |
+| >48–72 h | 48 < t < 72 |
+
+Exactamente 0/72 excluidos; 24 pertenece a primera banda y 48 a segunda. La etiqueta final explica 72 exclusivo. Referencia secundaria 48 h: convención documental propuesta «hasta 48 h» inclusiva, suma de las dos primeras bandas; la definición de un indicador secundario estricto <48, si se desea, sigue CANDIDATO y no debe confundirse con esa suma.
+
+Visualización permitida a múltiplos de 0.5 h, nunca para pertenencia. Convención candidata conservada: más cercano, empates hacia arriba en valores positivos; 71.99 puede mostrarse 72 sin ser el límite excluido. Tasa requiere cerrar denominador de nuevos episodios evaluables y cobertura; no confundir conteos con tasa ni pacientes únicos.
 
 ## URG-R07 — Población
 
-Pacientes únicos necesitan identificador validado y alcance entre centros; folio/registro y codigo_cliente no se asumen equivalentes. Contar episodios y pacientes por separado. Sexo, edad y residencia faltantes permanecen como SIN DATO; valores presentes fuera de dominios validados como DATO INVÁLIDO. No inventar catálogos válidos.
-Si existe edad, documentar unidad, fecha de referencia y forma de cálculo antes de recalcular. Edad al ingreso es candidata; fecha de nacimiento y su columna no están demostradas. Grupos etarios y representación de residencia de un paciente con varios episodios requieren decisión. La distribución de pacientes no debe duplicar al mismo paciente entre categorías sin explicarlo.
+Pacientes únicos requieren codigo_cliente validado; registro/foliounico no son sustitutos. Separar pacientes y episodios. Sexo, grupos etarios y geografía secundarios; localidad con cobertura/calidad por heterogeneidad. SIN DATO permanece y DATO INVÁLIDO requiere semántica/catálogo verificados.
 
-## URG-R08 — Dimensiones y comparaciones
+Grupos vigentes: <1, 1–5, 6–12, 13–17, 18–29, 30–44, 45–59, 60–74, 75+. Sobre edad exacta no negativa equivalen a [0,1), [1,6), [6,13), [13,18), [18,30), [30,45), [45,60), [60,75), [75,+∞). Nulo/negativo no se clasifica <1.
 
-Jerarquía candidata: Centro → Servicio → Localización → Paciente/episodio. Validar si localización es actual o al ingreso y si depende realmente de servicio. Servicio de ingreso no se sustituye por servicio actual. Inventariar destino, motivo de alta, médico y cama sin asumir capacidad ni ocupación institucional. Filtros adicionales: periodo, sexo, grupo de edad, motivo de alta, destino, estado, permanencia y reingreso; activación condicionada a campos/universos validados.
-Tendencias y comparación requieren el mismo evento, unidad, filtros, longitud de periodo y calendario declarados; periodo incompleto y referencia no disponible deben ser visibles. Más volumen no implica mejor desempeño.
+Campos comunicados fecha_nac, edadaños, EdadMeses, EdadDias. Referencia temporal y forma de cálculo expuesta PENDIENTES DE VALIDACIÓN SQL; edad al registro sigue candidata hasta validar coherencia. Meses/días apoyan pediatría; no sumar unidades sin semántica ni recalcular a fecha actual. Precedencia ante discordancias y representación de paciente con múltiples episodios pendientes. Grupos cerrados no significan cálculo de edad validado.
+
+## URG-R08 — Filtros y comparación
+
+Visibles: periodo, centro, servicio, turno. Centro→Servicio jerárquico. Avanzados: sexo, grupo edad, estado, municipio, triage, nivel triage, motivo urgencia, diagnóstico, destino, motivo alta, reingreso, permanencia, médico, seguridad social, pagador, origen. Nombres físicos no entregados permanecen NO DOCUMENTADO.
+
+Rápidos: Hoy, Ayer, Últimos 7 días, Últimos 30 días, Este mes, Mes anterior, Este año, Personalizado. Convención candidata: últimos N días incluye hoy y N−1 previos; cortes parciales explícitos. Comparación parcial requiere corte/duración equivalente, no día incompleto contra completo sin advertirlo.
+
+Principal actual vs periodo equivalente anterior; opcional mismo periodo año anterior. Mantener evento, filtros y universo. Conteos: 100*(actual−previo)/previo si previo>0; previo=0 muestra sin base porcentual y valores absolutos. Porcentajes: puntos porcentuales. Tiempos: diferencias en minutos/horas. Calendario, bisiestos, cierres parciales y meses de distinta longitud requieren contrato concreto al implementar selectores. No saturar portada ni inferir calidad por volumen.
+
+## URG-R09 — Servicios institucionales
+
+Universo canónico: dbo.servicios.codigo_area = 2 AND dbo.servicios.serv_activo_sn = 1. Cruce con centros para centro/código/descripción; objeto físico y claves de unión NO DOCUMENTADO. No hardcodear FAA/JIM/HCO ni listas de servicios. serv_ing_urg_sn incompleto: sólo informativo/validación, nunca filtro principal.
+
+dbo.servicios cubre carencia de universo institucional; centros, pertenencia/etiquetas. Validar uniones sin multiplicar episodios y mapeo del servicio de vista. HCO aparece por catálogo/actividad sin cambiar código; ausencia de actividad no es error ni NO APLICA automática. Vigencia de servicios actualmente inactivos y efecto sobre series históricas requiere validación y eventual decisión, no excepción silenciosa al criterio canónico.
+
+## URG-R10 — Triage
+
+Separar fecha/hora, nivel/clasificación y responsable. Campos: triage_pk, triage_codigo, triage_desc, area, desc_area, tipo_urgencia, login_triage, usuario_triage, categoria_triage, fechatri. No asumir que todos representan nivel ni equiparar catálogos.
+
+Cada visualización muestra cobertura por componente/universo; contemplar nivel sin fecha, responsable sin nivel. Ausencia no invalida episodio ni constituye error automático. Menor peso que registro/egreso en portada. Preparar estandarización con catálogo, prácticas por servicio/periodo, completitud y responsables; sin normalización silenciosa.
+
+## URG-R11 — Resolución
+
+Destino: destino_urg_pk, destino_urgencias. Motivo: motivo_alta_pk, catálogo dbo.motivos_alta_ing con motivo_alta_desc. Son dimensiones independientes; no fusionar. Descripción de motivo en vUrgencias es futura: no afirmar presencia actual validada ni modificar vista. Clave física de unión pendiente.
+
+Grupos ejecutivos configurables: Domicilio, Hospitalización, Consulta Externa, Salida no programada, Traslado, Defunción, No especificado, Otros. Mapeo de códigos pendiente de SQL/revisión funcional; no adivinar códigos ni inferir Hospitalización de motivo. Mostrar cobertura de mapeo; no usar Otros/No especificado para esconder códigos desconocidos. Tratamiento de nulos/códigos sin mapear debe cerrarse antes del cálculo.
+
+## URG-R12 — Demanda, clínica y personal
+
+Demanda por volumen, tendencia, hora, día, turno, centro, servicio; Fechaing mide registro, no acredita atención clínica. Turnos civiles: Matutino [08:00,14:00), Vespertino [14:00,20:00), Nocturno [20:00,24:00) unión [00:00,08:00). Parametrización futura prevista; atribución de madrugada a jornada previa sigue pendiente, sin cambiar fecha calendario silenciosamente.
+
+Clínica secundaria: motivo_urgencia, motivo_urg_libre, cdiag_ing, diag_ing, cdiag_egr, diag_egr. Top 5/10/20/Todos; conservar resto reconciliable. Todos no implica cargar todo en navegador. motivo_urg_libre sólo búsqueda/detalle, no ranking ejecutivo. No inferir gravedad, calidad, desempeño o causalidad.
+
+Personal: Atenciones asociadas a médico / Actividad registrada; no productividad automática ni rankings mejor/peor. Staff triage separado; usuarios registro/egreso para auditoría. Nombres físicos de médico/usuarios no entregados siguen pendientes; no sustituirlos por usuario_triage.
+
+## URG-R13 — Portada, detalle y arquitectura
+
+Seis KPI propuestos: Atenciones, Promedio diario, Permanencia promedio, Hospitalización, Reingresos <72 h, Pacientes únicos. Situación actual separada. No convierte 28 candidatos del origen en oficiales. Cierres adicionales de presentación/denominadores en [catálogo](indicadores/00_CATALOGO_INDICADORES.md).
+
+[UX](CONTRATO_UX_FUNCIONAL.md) y [arquitectura futura](ARQUITECTURA_FUTURA.md): predicado agregado/detalle/count/exportación compartido, paginación servidor, filtros persistentes, advertencias interpretativas visibles y privacidad. Datos personales sólo para auditoría autorizada; no devolver toda la vista ni logs con nombres, CURP, teléfonos o direcciones. No se implementó frontend, backend, API, SQL, ETL ni caché.

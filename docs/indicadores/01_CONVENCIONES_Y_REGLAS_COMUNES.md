@@ -1,15 +1,16 @@
-# Convenciones y reglas comunes — Urgencias
+# Convenciones y reglas comunes
 
-Antes de implementar, cada candidato debe cerrar unidad, fuente, periodo, inclusiones, exclusiones, deduplicación, campos, nulos, evaluabilidad, numerador, denominador y reconciliación. No hay fórmulas institucionales definitivas en este baseline.
+Contexto vigente y SQL validado son estados distintos. Rigen [URG-R01 a R13](../REGLAS_NEGOCIO.md), pendientes en [catálogo](00_CATALOGO_INDICADORES.md). Antes de implementar cerrar unidad, fuente, universo, evento, periodo, filtros, representación/desempates, campos, nulos, numerador/denominador y reconciliación. No deduplicación arbitraria ni joins que multipliquen episodios.
 
-Rigen [URG-R01 a URG-R08](../REGLAS_NEGOCIO.md). Calcular diferencias con precisión validada, convertir a minutos/horas y clasificar antes de redondear presentación. Evitar contar fronteras de minuto/hora como si fueran duración exacta. No convertir fecha_modif en tiempo clínico.
+- Universo = evaluables + no evaluables por cálculo; clases excluyentes. Flags solapados no sumables.
+- Distribución = categorías + SIN DATO + DATO INVÁLIDO/contradicción según partición explícita.
+- Duraciones reales, no conteo de fronteras horarias; convertir sin redondear antes de clasificar. Ceros/extremos válidos incluidos; faltantes/negativos separados.
+- Promedio aritmético completados y transcurrido abiertos separados; denominador cero no calculable.
+- Reingreso 0<t<72; bandas (0,24], (24,48], (48,72). Referencia visual hasta 48 propuesta, suma primeras dos. Redondeo0.5 no determina pertenencia.
+- Activos >24/>48/>72 acumulativos; stock no restringido al periodo histórico ni ventana móvil.
+- Mismo predicado agregado/detalle/count/exportación y snapshot o discrepancia documentada.
+- Pacientes únicos no aditivos entre servicios/periodos; conservar intersecciones.
+- Comparación conteos %, proporciones pp, tiempos minutos/horas; base cero/periodo parcial explícitos.
+- No extrapolar FAA ni usarlo como esperado actual. No metas, semáforos o tasas oficiales inventadas.
 
-- Total de episodios representados = evaluables + no evaluables por candidato; particiones excluyentes declaradas.
-- Distribución de dimensión = categorías conocidas + SIN DATO + DATO INVÁLIDO, con regla para contradicciones y sin doble conteo.
-- Distribución de duraciones = suma de rangos entre evaluables; calidad se reconcilia aparte.
-- Resumen de categoría = total exacto de detalle con mismo predicado; cada página mantiene pertenencia y orden estable.
-- Denominador cero: NO CALCULABLE; no fabricar 0%.
-- Pacientes únicos no son aditivos entre servicios/periodos; documentar intersecciones antes de reconciliar subtotales.
-- No extrapolar conteos históricos ni usarlos como esperados actuales.
-
-Rangos y ventanas son descriptivos. La pertenencia exacta a 24/72 h en reingreso está pendiente de decisión. No existen metas, semáforos de cumplimiento ni fichas definitivas.
+Fronteras de permanencia/grupos en reglas/configuración documental; contrato no acredita SQL.

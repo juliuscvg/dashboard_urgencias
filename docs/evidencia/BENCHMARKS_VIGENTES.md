@@ -35,3 +35,8 @@ Suma aritmética 12,021; difiere +2 de 12,019 con atención. No se conoce si com
 Suma aritmética 12,358; difiere +2 de 12,356 con egreso. No ajustar cifras ni fórmulas para forzar coincidencia. La aritmética no constituye validación de la fuente.
 
 Uso permitido: orientar revalidación dirigida; nunca censo actual ni tests actuales. Motivo de no vigencia: falta contexto reproducible y reconciliación. Criterio anterior: NO DOCUMENTADO. Ningún benchmark sustituido todavía. Los futuros registros seguirán la plantilla HCG con observación, filtros, universo/configuración, resultado/reconciliación, método/rendimiento, commit y evidencia.
+
+
+## Reconciliación 2026-09-07
+
+Se conservan literalmente cifras y discrepancias del baseline 717f681. Los rangos antiguos aquí son HISTÓRICOS, reemplazados en el contrato vigente por URG-R05; no convertir sus cifras a rangos nuevos sin datos de origen. La ventana móvil no vuelve vigentes esos valores. No hubo nueva extracción, benchmark SQL ni medición. [Reglas vigentes](../REGLAS_NEGOCIO.md) · [Decisión URG-GOV-027](../gobierno/DECISIONES_Y_CAMBIOS.md).
