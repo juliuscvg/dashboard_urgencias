@@ -2,6 +2,14 @@
 
 Origen 717f681 preservado; [contexto vigente](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Esta fase ejecuta sólo comprobadores documentales; no SQL/API/UI ni consultas de ejemplo.
 
+## Fase 1 — estructura física de dbo.vUrgencias
+
+**Estado: PREPARADA / NO EJECUTADA.** Se preparó el [script dirigido](../../scripts/sql/01_validacion_estructura_vUrgencias.sql) y su [guía de evidencia](SQL_VALIDACION_01_ESTRUCTURA.md) sobre el checkpoint funcional `6bd730e911f350c1de57d15740c6d9c9f3102c7d`.
+
+El alcance se limita a existencia y definición de la vista, metadatos de columnas, volumen, nulabilidad real, claves candidatas, granularidad, cardinalidad epis_pk/id_urgencia, perfil descriptivo de codigo_cliente y cobertura temporal básica. Los bloques A–H se pueden ejecutar por separado. D, E y F son perfiles exactos potencialmente costosos; G realiza el perfil temporal y H puede ordenar la vista.
+
+Esta preparación no ejecuta consultas, no cambia reglas ni decide claves, universo activo, equivalencias o indicadores. La ejecución futura debe conservar cada etiqueta de resultado, registrar contexto no sensible y entregar los TOP 100 pseudonimizados según la guía.
+
 ## Orden dirigido
 
 1. Documental: ambos scripts existentes, matriz de 23 temas / 28 candidatos/32 archivos, ausencia de reglas vigentes contradictorias, diff y cambios limitados a documentación/configuración. 0 enlaces locales rotos.
