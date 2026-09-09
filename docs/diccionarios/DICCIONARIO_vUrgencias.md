@@ -1,13 +1,13 @@
 # Diccionario funcional — vUrgencias
 
-Evidencia: [contexto 2026-09-07](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Existencia comunicada; no inspección física. Para TODOS los campos: tipo físico, longitud, nulabilidad, cardinalidad y unicidad **PENDIENTES DE VALIDACIÓN SQL**. No asignar tipos por nombre.
+Evidencia funcional inicial: [contexto 2026-09-07](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Evidencia física posterior: [validación SQL 2026-09-08](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md). La vista existe con aproximadamente 101 columnas. Los tipos y detalles físicos no reproducidos en la evidencia consolidada se consultan con el instrumento estructural; no asignar tipos por nombre.
 
 | Campo comunicado | Semántica/uso | Validación adicional |
 |---|---|---|
-| epis_pk | Episodio expuesto | Unicidad y relación id_urgencia |
-| id_urgencia | Registro de Urgencias | Cardinalidad y ámbito |
-| codigo_cliente | Paciente longitudinal candidato | Estabilidad y ámbito entre centros |
-| registro | Identificador clínico/administrativo | Formato y alcance |
+| epis_pk | Episodio XHIS asociado; foliounico es alias | Vínculo observado 1:1 cuando existe; 19 ausentes históricos |
+| id_urgencia | Identidad canónica del evento de Urgencias; alias folio | Único/no nulo en dbo.urgencias; deduplicar semánticamente la vista |
+| codigo_cliente | Identidad longitudinal analítica del paciente | Validada; conservar auditoría de cobertura y outliers |
+| registro | Identificador clínico/administrativo de enriquecimiento | No usar como identidad longitudinal |
 | foliounico | Identificador adicional | Semántica/cardinalidad |
 | Fechaing | Registro del paciente | Casing, precisión, zona |
 | fechatri | Registro de triage | Cobertura/precisión/zona |
@@ -32,7 +32,8 @@ Evidencia: [contexto 2026-09-07](../historico/prompts/SOLICITUD_RECONCILIACION_2
 | categoria_triage | Categoría triage | Relación con nivel |
 | destino_urg_pk | Clave destino | Mapeo ejecutivo |
 | destino_urgencias | Descripción destino | Consistencia |
-| motivo_alta_pk | Clave motivo alta | Unión catálogo pendiente |
+| motivo_alta_pk | Clave motivo alta | vUrgencias incorpora motivos_alta_ing |
+| motivo_alta | Descripción expuesta desde motivo_alta_desc | Presencia física validada |
 | motivo_urgencia | Motivo urgencia | Catálogo/granularidad |
 | motivo_urg_libre | Texto libre | Sólo búsqueda/detalle autorizado |
 | cdiag_ing | Código diagnóstico ingreso | Catálogo/cardinalidad |
@@ -52,6 +53,6 @@ Estado, municipio, localidad, médico, localización, cama, usuarios registro/eg
 |---|---|---|
 | dbo.servicios | codigo_area, serv_activo_sn, serv_ing_urg_sn | Primeros dos definen universo; tercero sólo informa; clave de unión pendiente |
 | Centros, objeto por identificar | Centro/código/descripción como conceptos | No afirmar nombres físicos |
-| dbo.motivos_alta_ing | motivo_alta_desc | Descripción de catálogo; futura exposición en vUrgencias, no presencia actual validada |
+| dbo.motivos_alta_ing | motivo_alta_desc | Dependencia validada; se expone como motivo_alta en vUrgencias |
 
-Clave de unión de motivos no demostrada por el nombre motivo_alta_pk de la vista. Destino y motivo separados. No se modifica la vista. [Fuentes](FUENTES_Y_GRANULARIDAD.md) · [Reglas](../REGLAS_NEGOCIO.md).
+Destino y motivo permanecen separados. La exposición de motivo_alta ya existe; no se modifica la vista y el mapeo ejecutivo de códigos sigue pendiente. [Fuentes](FUENTES_Y_GRANULARIDAD.md) · [Reglas](../REGLAS_NEGOCIO.md).

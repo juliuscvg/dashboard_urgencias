@@ -22,9 +22,10 @@ loading/error con reintento/empty/success por módulo; fallo aislado conserva ot
 
 | Estado funcional | Significado |
 |---|---|
-| SIN DATOS | Consulta válida sin actividad; posible en HCO |
-| NO APLICA | Fuera de alcance por definición explícita, no ausencia de actividad por sí sola |
-| DATOS INSUFICIENTES | Hay actividad pero falta cobertura/evidencia necesaria |
+| SIN ACTIVIDAD EN EL PERIODO | Servicio aplicable con cero eventos; esperado para HCO en el corte validado |
+| SIN DATOS | Información esperada no disponible o no capturada |
+| NO APLICA | Métrica conceptualmente no aplicable; no equivale a cero actividad |
+| DATOS INSUFICIENTES | Existe información, pero no alcanza para cálculo o interpretación |
 
 SIN DATO describe atributo ausente; DATO INVÁLIDO requiere semántica validada. No confundir con error ni fabricar cero. No hay umbral cuantitativo de suficiencia autorizado. Denominador cero no calculable con motivo pertinente. Etiquetas humanas/fallback para clave sin descripción, variantes contradictorias auditables. Sin identificación personal en URL compartible.
 

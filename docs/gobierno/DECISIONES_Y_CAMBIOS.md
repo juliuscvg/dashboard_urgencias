@@ -1,6 +1,6 @@
 # Decisiones y cambios — Urgencias
 
-Vigente: reconciliación 2026-09-07. Entradas iniciales conservadas como antecedente, no reabren preguntas ya resueltas.
+Vigente: reconciliación 2026-09-08. La sección posterior de validación SQL sustituye los pendientes que identifica expresamente. Entradas iniciales conservadas como antecedente, no reabren preguntas ya resueltas.
 
 ## Decisiones históricas del baseline (alcance inicial completado)
 
@@ -231,3 +231,55 @@ Fecha común 2026-09-07. Autoridad funcional: contexto del usuario; preparación
 - HCG mantiene 64/5/0/2; actualiza motivo FIL-001 a Centro→Servicio y drill-down operativo separado.
 - Casos R2 tienen nuevos esperados documentales sin ejecución; resultado original preservado y nuevo resultado separado.
 - Impacto: evidencia, adopción, config, checkpoint y trazabilidad. [Matriz](RECONCILIACION_BASELINE_717f681.md). Enlaces PASS no prueban SQL/API/UI.
+
+
+## Decisiones posteriores a validación SQL — 2026-09-08
+
+Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md). Autoridad de las conclusiones: resultados comunicados por el usuario. No implica implementación, aprobación institucional ni modificación de la base.
+
+### URG-GOV-028 — Identidad del evento y representación
+
+- Estado: VALIDADA CON ADVERTENCIA.
+- Sustituye URG-GOV-004 en lo relativo a identidad/cardinalidad pendientes.
+- Decisión: id_urgencia, exposición de dbo.urgencias.id_urgencia_pk y alias folio, es la identidad canónica. epis_pk es el episodio XHIS y foliounico su alias.
+- Evidencia: id_urgencia único/no nulo en la tabla base; vínculo epis_pk↔id_urgencia 1:1 cuando existe; 19 eventos históricos sin epis_pk.
+- Advertencia: vUrgencias puede multiplicar filas por enriquecimientos. Atenciones cuenta identidades id_urgencia, nunca COUNT(*) semántico.
+
+### URG-GOV-029 — Identidad longitudinal
+
+- Estado: VALIDADA.
+- Decisión: codigo_cliente es la identidad longitudinal analítica del paciente. registro no la sustituye.
+- Evidencia: aproximadamente 1,272,239 pacientes y 2.52 millones de eventos; outlier real de 1,493 eventos conservado.
+
+### URG-GOV-030 — Universo de servicios y estados UX
+
+- Estado: VALIDADA.
+- Confirma URG-GOV-007.
+- Decisión: codigo_area=2 AND serv_activo_sn=1; serv_ing_urg_sn sólo informa. Catálogo/centros dinámicos y servicios con cero actividad incluidos.
+- Diseño: “Sin actividad en el periodo”, “Sin datos”, “No aplica” y “Datos insuficientes” conservan significados distintos.
+
+### URG-GOV-031 — Activo probable y deuda histórica
+
+- Estado: VALIDADA CON ADVERTENCIA.
+- Confirma URG-GOV-008.
+- Decisión: fechaegr IS NULL AND motivo_alta_pk IS NULL. La ausencia de egreso sola incluye deuda histórica y no define el estado actual.
+- Evidencia: 349 activos probables y aproximadamente 190,588 casos con motivo/sin egreso en la corrida.
+
+### URG-GOV-032 — Reingresos y denominador
+
+- Estado: VALIDADA.
+- Sustituye URG-GOV-010 en algoritmo, referencia 48 y denominador.
+- Decisión: seleccionar por paciente/servicio el egreso previo válido más reciente, aun fuera del periodo; ordenar fechaegr, Fechaing e id_urgencia descendentes. Bandas (0,24], (24,48], (48,72); 72 h queda fuera.
+- Denominador: todos los eventos evaluables del periodo, con o sin antecedente. Evaluabilidad requiere id_urgencia, codigo_cliente, codigo_servicio_ingreso y Fechaing.
+- Presentación: <=48 h es corte secundario; el redondeo a 0.5 h nunca clasifica.
+
+### URG-GOV-033 — Motivo de alta ya expuesto
+
+- Estado: VALIDADA.
+- Corrige URG-GOV-012 sólo en la disponibilidad física.
+- Decisión: dbo.vUrgencias ya incorpora dbo.motivos_alta_ing y expone motivo_alta_desc como motivo_alta. Destino y motivo siguen separados; el mapeo ejecutivo permanece pendiente.
+
+### URG-GOV-034 — Benchmarks sobre fuente operacional
+
+- Estado: VALIDADA CON ADVERTENCIA.
+- Decisión: los resultados de reingreso son evidencia de reconciliación, no metas o umbrales. Comparaciones exactas entre corridas requieren timestamp, snapshot consistente o periodo cerrado.

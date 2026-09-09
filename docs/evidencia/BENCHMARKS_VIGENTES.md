@@ -2,7 +2,7 @@
 
 ## Vigentes
 
-Ninguno. No hubo consulta SQL ni medición de rendimiento. No existen esperados actuales.
+Existe evidencia de reconciliación de reingresos observada en una BD operacional. Los valores, contexto disponible y advertencias se registran en [validación SQL 2026-09-08](VALIDACION_SQL_FUNCIONAL_2026-09-08.md). Son referencias reproducibles sólo con corte/snapshot equivalente; no son metas, umbrales clínicos, semáforos ni esperados permanentes.
 
 ## Históricos — HISTÓRICO / REQUIERE REVALIDACIÓN
 

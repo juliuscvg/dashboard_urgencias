@@ -30,3 +30,7 @@ El comprobador de enlaces adapta el patrón CEX con recorrido de archivos de tra
 ## Reconciliación posterior al baseline
 
 Origen publicado 717f681e6d979798a2b1d680dda64d765bb3b051; [solicitud posterior](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Las referencias HCG/CEX fijadas permanecen; nuevos campos son comunicados por contexto, no extraídos de SQL. [Matriz por tema/archivo/candidato](RECONCILIACION_BASELINE_717f681.md). No se editan repositorios de referencia.
+
+## Validación SQL posterior
+
+El 2026-09-08 se consolidaron resultados de consultas dirigidas comunicados por el usuario. La [evidencia funcional](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md) distingue hechos observados, decisiones derivadas y límites de una BD operacional. Los scripts locales permiten repetir los bloques; no se importó código ni se modificaron fuentes productivas.

@@ -1,14 +1,16 @@
 # Reglas de negocio — Urgencias
 
-Vigencia funcional: 2026-09-07, según [contexto entregado](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Origen inmutable: [reglas en 717f681](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/REGLAS_NEGOCIO.md). Ver [decisiones](gobierno/DECISIONES_Y_CAMBIOS.md) y [reconciliación](gobierno/RECONCILIACION_BASELINE_717f681.md).
+Vigencia funcional: 2026-09-08, con evidencia SQL consolidada en [validación](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md); origen funcional según [contexto entregado](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Origen inmutable: [reglas en 717f681](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/REGLAS_NEGOCIO.md). Ver [decisiones](gobierno/DECISIONES_Y_CAMBIOS.md) y [reconciliación](gobierno/RECONCILIACION_BASELINE_717f681.md).
 
-DEFINIDO FUNCIONALMENTE acredita una decisión, no una consulta. PENDIENTE DE VALIDACIÓN SQL identifica evidencia física ausente. CANDIDATO identifica elecciones adicionales aún abiertas. Son ejes separados: una regla definida puede seguir pendiente de SQL. Sin implementación ni metas institucionales.
+DEFINIDO FUNCIONALMENTE acredita una decisión. VALIDADO acredita evidencia física o técnica registrada. VALIDADO CON ADVERTENCIA conserva límites de cobertura, calidad o reproducibilidad. PENDIENTE DE VALIDACIÓN SQL identifica evidencia física ausente. CANDIDATO identifica elecciones adicionales aún abiertas. Son ejes separados: una regla definida puede seguir pendiente de SQL. Sin implementación ni metas institucionales.
 
 ## URG-R01 — Fuente, entidad y representación
 
-Fuente principal dbo.vUrgencias. Entidad: episodio/evento de Urgencias. epis_pk es el identificador expuesto comunicado, que reemplaza episodio_pk provisional del baseline. id_urgencia identifica registro de Urgencias; codigo_cliente es candidato longitudinal de paciente; registro es clínico/administrativo; foliounico es adicional. No intercambiarlos ni asumir cardinalidad 1:1.
+Fuente principal dbo.vUrgencias. Entidad semántica: evento de Urgencias identificado canónicamente por id_urgencia, que expone dbo.urgencias.id_urgencia_pk y coincide con folio. Atenciones representa COUNT(DISTINCT id_urgencia) dentro del universo; COUNT(*) sobre la vista no define eventos.
 
-Perfilar nulos, duplicados, variantes, relación epis_pk/id_urgencia, ámbito de claves por centro y estabilidad de codigo_cliente. Fila representativa y desempates pendientes; no usar MAX/MIN, DISTINCT o última fecha_modif para ocultar contradicciones. Separar filas crudas, episodios y pacientes; claves ausentes se mantienen auditables como no evaluables para conteo de episodios. No importar n_solic, estados, fórmulas de capacidad o D01–D05 CEX.
+epis_pk identifica el episodio XHIS asociado y foliounico es su alias observado. Diecinueve eventos históricos carecieron de epis_pk; cuando existe vínculo, epis_pk↔id_urgencia fue 1:1 en la revisión. codigo_cliente queda validado como identidad longitudinal analítica del paciente; registro no la sustituye.
+
+La vista puede multiplicar un evento durante enriquecimientos. Se observó un caso por dos registros activos de vsegpop. No elegir filas mediante TOP(1), MAX(registro), fecha_modif o DISTINCT silencioso. Representar por id_urgencia y auditar conflictos de codigo_cliente, codigo_servicio_ingreso y Fechaing; la corrida observada devolvió cero conflictos. Conservar outliers reales. [Evidencia SQL](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md).
 
 ## URG-R02 — Eventos, universos y ventana móvil
 
@@ -27,12 +29,12 @@ Fechaing/fechaing es variación comunicada de casing, no dos columnas. Equivalen
 
 | Universo | Pertenencia funcional | Límite |
 |---|---|---|
-| U-ING | Episodios registrados por Fechaing en periodo/filtros, en servicios canónicos | Representación pendiente; no exige fechaate |
+| U-ING | Eventos id_urgencia registrados por Fechaing en periodo/filtros, en servicios canónicos | No exige fechaate; controlar multiplicación física |
 | U-EGR | Episodios finalizados por fechaegr en periodo/filtros | Incluye ingresos anteriores al periodo |
 | U-ABI | fechaegr NULL al corte de observación | Incluye deuda; no equivale a activo probable |
 | U-ACT | U-ABI con motivo_alta_pk NULL | Situación actual separada de periodo histórico |
-| U-POB | Episodios U-ING; pacientes identificables por separado | No sumar pacientes únicos de grupos solapados |
-| U-RET | Nuevos episodios U-ING con identidad, servicio e historia evaluables | Buscar antecedente fuera del periodo |
+| U-POB | Eventos U-ING; pacientes codigo_cliente por separado | No sumar pacientes únicos de grupos solapados |
+| U-RET | Nuevos eventos U-ING con identidad, servicio e historia evaluables | Buscar antecedente fuera del periodo |
 
 Convención heredada: permanencia por cohorte U-ING completada; análisis U-EGR separado. La cohorte definitiva del KPI ejecutivo sigue candidata hasta cierre funcional, sin mezclar ambas. SIN DATO de una dimensión no elimina una entidad que cumple el universo; filtros explícitos sí restringen el contexto y deben mostrarse.
 
@@ -40,7 +42,7 @@ Ventana inicial: últimos N años móviles, N=3 configurable en [criterios docum
 
 ## URG-R03 — Activos y situación actual
 
-Regla vigente: fechaegr IS NULL AND motivo_alta_pk IS NULL. Ausencia de egreso sola no basta.
+Regla validada: fechaegr IS NULL AND motivo_alta_pk IS NULL. Ausencia de egreso sola no basta. La corrida observó 349 activos probables frente a aproximadamente 190,588 casos con motivo y sin egreso, predominantemente deuda histórica.
 
 | fechaegr | motivo_alta_pk | Tratamiento |
 |---|---|---|
@@ -81,23 +83,23 @@ Sin huecos ni solapamientos; exactamente 12 entra en segundo tramo, 24 en tercer
 
 ## URG-R06 — Reingresos
 
-Principal <72 h: mismo paciente AND mismo servicio de Urgencias AND nuevo Fechaing > fechaegr previa válida AND nuevo Fechaing < DATEADD(HOUR,72,fechaegr previa). Esta expresión es regla documental, no SQL ejecutado. No requiere mismo diagnóstico, médico o motivo. Pediatría→Pediatría puede ser candidato; Pediatría→Ortopedia NO es reingreso. No añadir mismo centro sin validar ámbito de identidad del servicio.
+Contrato funcional y técnicamente validado. Para cada evento actual identificado por id_urgencia, usar codigo_cliente y el mismo codigo_servicio_ingreso; buscar eventos previos completados con fechaegr anterior a la nueva Fechaing y seleccionar exclusivamente el egreso válido más reciente. El orden determinista es fechaegr DESC, Fechaing DESC, id_urgencia DESC. El antecedente puede estar fuera del periodo; el periodo restringe el evento actual. El evento actual cuenta una sola vez.
 
-Buscar egreso previo elegible de otro episodio aunque esté fuera del periodo seleccionado y de la ventana inicial. No basta LAG sobre filas crudas ni aplicar los filtros del nuevo episodio indiscriminadamente al antecedente. Validar egreso previo, identidad y secuencia; empates, solapamientos, múltiples egresos y episodios intermedios siguen pendientes técnicos. «Egreso más reciente» del baseline es propuesta no validada. Casos ambiguos no positivos automáticamente; informar no evaluables e historia incompleta. Contar cada nuevo episodio una vez, no cada par.
+No usar LAG ingenuamente ante solapamientos o múltiples antecedentes. No exigir mismo diagnóstico, médico, motivo o centro. Un episodio de otro servicio queda excluido. La ausencia de antecedente válido significa “no se identificó reingreso”, pero no vuelve no evaluable al evento.
 
-| Banda visual dentro de <72 h | Pertenencia exacta |
+| Banda | Pertenencia exacta |
 |---|---|
-| 0–24 h | 0 < t <= 24 |
-| >24–48 h | 24 < t <= 48 |
-| >48–72 h | 48 < t < 72 |
+| 0–24 h | 0 < t <= 24 h |
+| >24–48 h | 24 < t <= 48 h |
+| >48–72 h | 48 < t < 72 h |
 
-Exactamente 0/72 excluidos; 24 pertenece a primera banda y 48 a segunda. La etiqueta final explica 72 exclusivo. Referencia secundaria 48 h: convención documental propuesta «hasta 48 h» inclusiva, suma de las dos primeras bandas; la definición de un indicador secundario estricto <48, si se desea, sigue CANDIDATO y no debe confundirse con esa suma.
+El KPI principal es Reingresos <72 h; t=72 h queda fuera. El corte secundario Reingresos <=48 h suma las dos primeras bandas. Clasificar con DATETIME real; redondear a múltiplos de 0.5 h sólo para presentación.
 
-Visualización permitida a múltiplos de 0.5 h, nunca para pertenencia. Convención candidata conservada: más cercano, empates hacia arriba en valores positivos; 71.99 puede mostrarse 72 sin ser el límite excluido. Tasa requiere cerrar denominador de nuevos episodios evaluables y cobertura; no confundir conteos con tasa ni pacientes únicos.
+Tasa = eventos evaluables clasificados como reingreso <72 h / eventos evaluables de Urgencias del periodo ×100. Un evento evaluable requiere id_urgencia, codigo_cliente, codigo_servicio_ingreso y Fechaing; no requiere antecedente. No usar “eventos con antecedente válido” como denominador. La corrida R07B v2 tuvo 159,822 eventos evaluables de 159,822, pero la cobertura debe auditarse siempre. [Evidencia y casos](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md).
 
 ## URG-R07 — Población
 
-Pacientes únicos requieren codigo_cliente validado; registro/foliounico no son sustitutos. Separar pacientes y episodios. Sexo, grupos etarios y geografía secundarios; localidad con cobertura/calidad por heterogeneidad. SIN DATO permanece y DATO INVÁLIDO requiere semántica/catálogo verificados.
+Pacientes únicos usan codigo_cliente, identidad longitudinal validada; registro y foliounico no son sustitutos. Separar pacientes y episodios. Sexo, grupos etarios y geografía secundarios; localidad con cobertura/calidad por heterogeneidad. SIN DATO permanece y DATO INVÁLIDO requiere semántica/catálogo verificados.
 
 Grupos vigentes: <1, 1–5, 6–12, 13–17, 18–29, 30–44, 45–59, 60–74, 75+. Sobre edad exacta no negativa equivalen a [0,1), [1,6), [6,13), [13,18), [18,30), [30,45), [45,60), [60,75), [75,+∞). Nulo/negativo no se clasifica <1.
 
@@ -113,7 +115,7 @@ Principal actual vs periodo equivalente anterior; opcional mismo periodo año an
 
 ## URG-R09 — Servicios institucionales
 
-Universo canónico: dbo.servicios.codigo_area = 2 AND dbo.servicios.serv_activo_sn = 1. Cruce con centros para centro/código/descripción; objeto físico y claves de unión NO DOCUMENTADO. No hardcodear FAA/JIM/HCO ni listas de servicios. serv_ing_urg_sn incompleto: sólo informativo/validación, nunca filtro principal.
+Universo canónico: dbo.servicios.codigo_area = 2 AND dbo.servicios.serv_activo_sn = 1. Cruce dinámico con centros para centro/código/descripción según las dependencias observadas; conservar comprobación de unión sin fan-out. No hardcodear FAA/JIM/HCO ni listas de servicios. serv_ing_urg_sn incompleto: sólo informativo/validación, nunca filtro principal.
 
 dbo.servicios cubre carencia de universo institucional; centros, pertenencia/etiquetas. Validar uniones sin multiplicar episodios y mapeo del servicio de vista. HCO aparece por catálogo/actividad sin cambiar código; ausencia de actividad no es error ni NO APLICA automática. Vigencia de servicios actualmente inactivos y efecto sobre series históricas requiere validación y eventual decisión, no excepción silenciosa al criterio canónico.
 
@@ -125,7 +127,7 @@ Cada visualización muestra cobertura por componente/universo; contemplar nivel 
 
 ## URG-R11 — Resolución
 
-Destino: destino_urg_pk, destino_urgencias. Motivo: motivo_alta_pk, catálogo dbo.motivos_alta_ing con motivo_alta_desc. Son dimensiones independientes; no fusionar. Descripción de motivo en vUrgencias es futura: no afirmar presencia actual validada ni modificar vista. Clave física de unión pendiente.
+Destino: destino_urg_pk y destino_urgencias. Motivo: motivo_alta_pk y motivo_alta. Son dimensiones independientes; no fusionar. Se validó que vUrgencias ya incorpora dbo.motivos_alta_ing y expone motivo_alta_desc como motivo_alta. No modificar la vista; el mapeo ejecutivo de códigos permanece pendiente.
 
 Grupos ejecutivos configurables: Domicilio, Hospitalización, Consulta Externa, Salida no programada, Traslado, Defunción, No especificado, Otros. Mapeo de códigos pendiente de SQL/revisión funcional; no adivinar códigos ni inferir Hospitalización de motivo. Mostrar cobertura de mapeo; no usar Otros/No especificado para esconder códigos desconocidos. Tratamiento de nulos/códigos sin mapear debe cerrarse antes del cálculo.
 

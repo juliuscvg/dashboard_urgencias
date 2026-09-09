@@ -1,9 +1,10 @@
 # Evidencia SQL 01 — estructura de dbo.vUrgencias
 
-**Estado:** PREPARADA / NO EJECUTADA
+**Estado:** EJECUTADA / VALIDADA CON ADVERTENCIA
 **Script:** [01_validacion_estructura_vUrgencias.sql](../../scripts/sql/01_validacion_estructura_vUrgencias.sql)
 **Compatibilidad:** SQL Server 2012, nivel de compatibilidad 100
 **Naturaleza:** solo lectura
+**Resultado consolidado:** [Validación SQL funcional 2026-09-08](VALIDACION_SQL_FUNCIONAL_2026-09-08.md)
 
 ## Objetivo
 
@@ -26,9 +27,9 @@ D, E y F contienen agrupaciones exactas que pueden consumir tiempo y memoria. G 
 
 ## Decisiones que la evidencia permitirá cerrar
 
-Los resultados permitirán confirmar el objeto y el casing físicos; tipos, precisión y nulabilidad; cobertura observada; si una fila puede aproximarse a un episodio; comportamiento de epis_pk e id_urgencia como candidatos; dirección y excepciones de su cardinalidad; y si codigo_cliente muestra estabilidad suficiente para seguir evaluándolo como identificador longitudinal. También harán visible la deuda histórica básica de egresos abiertos.
+La corrida confirmó dbo.vUrgencias como VIEW (object_id 1369940848), con aproximadamente 101 columnas y las dependencias registradas en la evidencia consolidada. Cerró id_urgencia como identidad canónica del evento, epis_pk como vínculo XHIS y codigo_cliente como identidad longitudinal. También hizo visible una multiplicación física por vsegpop y la deuda histórica de egresos abiertos.
 
-La evidencia no designa automáticamente una clave oficial, no convierte filas abiertas en censo, no prueba equivalencia entre codigo_cliente, registro y foliounico, y no autoriza cambios en reingresos, permanencia, edades, triage, destino, indicadores o reglas.
+La evidencia no convierte filas abiertas en censo, no declara equivalencia entre codigo_cliente y registro, no valida edad al evento ni mapeos ejecutivos de destino, y no autoriza cambios de datos. Las decisiones de identidad y reingreso se registran en gobierno con sus advertencias.
 
 ## Ejecución y formato de entrega
 
@@ -41,4 +42,6 @@ La evidencia no designa automáticamente una clave oficial, no convierte filas a
 7. Pseudonimizar de forma consistente las claves de los TOP 100 antes de compartirlas fuera del entorno autorizado. Omitir la definición de la vista si revela infraestructura sensible.
 8. No incluir nombres de pacientes, CURP, teléfonos, domicilios, credenciales ni nombres internos de servidores.
 
-No se ejecutó SQL durante la preparación de este documento.
+La primera corrida detectó una incompatibilidad del instrumento A03: sys.sql_expression_dependencies.referenced_minor_name no existe en SQL Server 2012. Se corrigió para exponer referenced_minor_id y resolver el nombre con COL_NAME(referenced_id, referenced_minor_id). Es un hallazgo del instrumento, sin efecto sobre reglas de negocio.
+
+Los resultados observados y sus límites quedaron consolidados en la evidencia enlazada.

@@ -48,4 +48,4 @@ El contexto de reconciliación 2026-09-07 delimita alcance vigente; el prompt in
 
 ## Iteración 2026-09-07
 
-[Checkpoint](historico/checkpoints/CHECKPOINT_FUNCIONAL_2026-09-07.md) · [Solicitud](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) · [Validación documental nueva](evidencia/VALIDACION_FUNCIONAL_DOCUMENTAL_2026-09-07.json). DEFINIDO FUNCIONALMENTE, PENDIENTE DE VALIDACIÓN SQL y CANDIDATO son estados distintos; no hay implementación ni metas institucionales.
+[Checkpoint](historico/checkpoints/CHECKPOINT_FUNCIONAL_2026-09-07.md) · [Solicitud](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) · [Validación documental nueva](evidencia/VALIDACION_FUNCIONAL_DOCUMENTAL_2026-09-07.json). DEFINIDO FUNCIONALMENTE, VALIDADO, VALIDADO CON ADVERTENCIA, PENDIENTE y CANDIDATO son estados distintos; no hay implementación ni metas institucionales. [Evidencia SQL 2026-09-08](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md).

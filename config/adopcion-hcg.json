@@ -600,7 +600,7 @@
       "principio": "SQL, API y UI se contrastan cuando existen; las capas no ejecutadas se declaran.",
       "estado_origen": "VALIDADO_EN_CEX",
       "estado": "ADOPTADO",
-      "motivo": "Declarar SQL/API/UI no ejecutadas; comparar cuando existan.",
+      "motivo": "SQL de dominio ejecutado; API/UI no ejecutadas y deberán contrastarse cuando existan.",
       "fuente": "https://github.com/juliuscvg/dashboard_hcg_specs/blob/3c6ed9cf08aca4821138f8499255423a874898fa/transversal/VALIDACION_Y_BENCHMARKS.md",
       "documento": "../evidencia/MANIFIESTO_VALIDACION.md"
     },

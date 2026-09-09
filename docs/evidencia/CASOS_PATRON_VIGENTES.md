@@ -1,16 +1,16 @@
 # Casos patrón — revisión R2 (2026-09-07)
 
-DISEÑADOS / NO EJECUTADOS. No fixtures reales ni tests clínicos ejecutados. Diseños R1 íntegros en [baseline](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/evidencia/CASOS_PATRON_VIGENTES.md). IDs /R2 distinguen cambios de esperado. Evidencia de regla: [contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt), no ejecución SQL.
+Diseños sintéticos; algunos contratos cuentan ya con evidencia SQL real, sin sustituir la futura automatización. No fixtures reales ni tests clínicos ejecutados. Diseños R1 íntegros en [baseline](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/evidencia/CASOS_PATRON_VIGENTES.md). IDs /R2 distinguen cambios de esperado. Evidencia de regla: [contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt); evidencia física/técnica: [validación SQL](VALIDACION_SQL_FUNCIONAL_2026-09-08.md).
 
 Contrato común: dataset sintético sin identificadores reales; entidades distintas salvo duplicado explícito; centro/servicio sintéticos sin hardcode productivo; configuración [criterios vigentes](../../config/criterios-funcionales.json), sin exclusiones adicionales. Periodo/corte concretos indicados por caso o por fijar antes de materializar. Universo por regla citada. Esperados derivan de reglas/diseño, no de resultados de la corrida. Obtenido y commit probado: NO DOCUMENTADO; ejecuciones0. Tolerancia para conteos0; precisión de tiempos por validar antes de ejecución.
 
 ## URG-CP-01/R2 — Granularidad
 
 - Regla/universo: URG-R01, [contrato](../REGLAS_NEGOCIO.md).
-- Entrada/escenario: Dos filas del mismo epis_pk y mismo id_urgencia, una repetición idéntica; variante contradictoria adicional.
-- Esperado independiente/reconciliación: Detectar repetición/variante; no afirmar 3 episodios ni seleccionar fila arbitraria; pendiente esperado numérico hasta regla de representación.
+- Entrada/escenario: Dos filas del mismo id_urgencia por enriquecimiento vsegpop; variante contradictoria adicional.
+- Esperado independiente/reconciliación: Contar una identidad id_urgencia; detectar la multiplicación y cualquier conflicto sin seleccionar fila arbitraria.
 - Relación histórica: Conserva objetivo 01; reemplaza episodio_pk.
-- Estado: DISEÑADO / NO EJECUTADO; condiciones pendientes no habilitan PASS.
+- Estado: DISEÑADO; identidad VALIDADA CON ADVERTENCIA, fixture NO EJECUTADO.
 
 ## URG-CP-02/R2 — Periodo y ventana
 
@@ -56,17 +56,17 @@ Contrato común: dataset sintético sin identificadores reales; entidades distin
 
 - Regla/universo: URG-R06, [contrato](../REGLAS_NEGOCIO.md).
 - Entrada/escenario: Egreso 2026-08-31T23:00 y nuevo registro 2026-09-01T01:00, mismo paciente/servicio; otro retorno a distinto servicio.
-- Esperado independiente/reconciliación: El primero es candidato2 h aunque antecedente fuera del periodo iniciado septiembre; distinto servicio no. Múltiples egresos/empates quedan no evaluables hasta resolver algoritmo.
-- Relación histórica: Modifica 07; no algoritmo inventado.
-- Estado: DISEÑADO / NO EJECUTADO; condiciones pendientes no habilitan PASS.
+- Esperado independiente/reconciliación: El primero es reingreso de 2 h aunque el antecedente quede fuera del periodo; distinto servicio no. Entre múltiples antecedentes se elige el egreso válido más reciente por fechaegr, Fechaing e id_urgencia descendentes.
+- Relación histórica: Modifica 07; algoritmo ahora validado.
+- Estado: CONTRATO DE ANTECEDENTE VALIDADO; fixture NO EJECUTADO.
 
 ## URG-CP-08/R2 — Fronteras retorno
 
 - Regla/universo: URG-R06, [contrato](../REGLAS_NEGOCIO.md).
 - Entrada/escenario: Pares inequívocos con t=0,0.01,24,24.01,48,48.01,71.99,72,-1 horas.
-- Esperado independiente/reconciliación: Seis dentro <72; bandas 2/2/2;0/72/-1 excluidos. Referencia hasta 48 propuesta 4.71.99 puede mostrarse72 pero clasificación permanece.
-- Relación histórica: Reemplaza 08:72 ya resuelto.
-- Estado: DISEÑADO / NO EJECUTADO; condiciones pendientes no habilitan PASS.
+- Esperado independiente/reconciliación: Seis dentro <72; bandas 2/2/2; 0/72/-1 excluidos. <=48 suma las dos primeras bandas; el redondeo visual no cambia clasificación.
+- Relación histórica: Reemplaza 08; fronteras validadas.
+- Estado: FRONTERAS VALIDADAS con evidencia real; caso exacto 72:00 queda sintético.
 
 ## URG-CP-09/R2 — Grupos/identidad
 
@@ -104,7 +104,7 @@ Contrato común: dataset sintético sin identificadores reales; entidades distin
 
 - Regla/universo: URG-R09/R12, [contrato](../REGLAS_NEGOCIO.md).
 - Entrada/escenario: Servicio activo área 2 con flag serv_ing_urg_sn=0; otro área distinta; HCO sin/con actividad;07:59:59,08:00,14:00,20:00.
-- Esperado independiente/reconciliación: Primero elegible aunque flag 0; otro fuera; HCO dinámico sin hardcode, sin actividad SIN DATOS. Turnos N/M/V/N.
+- Esperado independiente/reconciliación: Primero elegible aunque flag 0; otro fuera; HCO dinámico sin hardcode, sin actividad etiquetada SIN ACTIVIDAD EN EL PERIODO. Turnos N/M/V/N.
 - Relación histórica: Nuevo.
 - Estado: DISEÑADO / NO EJECUTADO; condiciones pendientes no habilitan PASS.
 
@@ -120,7 +120,7 @@ Contrato común: dataset sintético sin identificadores reales; entidades distin
 
 - Regla/universo: URG-R10/R13, [contrato](../REGLAS_NEGOCIO.md).
 - Entrada/escenario: Actividad sin triage; HCO sin actividad; contexto donde una métrica no aplica por definición.
-- Esperado independiente/reconciliación: Actividad conserva universo y cobertura triage0; métrica que necesite triage DATOS INSUFICIENTES. HCO SIN DATOS; tercero NO APLICA sólo con contrato.
+- Esperado independiente/reconciliación: Actividad conserva universo y cobertura triage0; métrica que necesite triage DATOS INSUFICIENTES. HCO SIN ACTIVIDAD EN EL PERIODO; tercero NO APLICA sólo con contrato.
 - Relación histórica: Nuevo.
 - Estado: DISEÑADO / NO EJECUTADO; condiciones pendientes no habilitan PASS.
 
@@ -131,3 +131,10 @@ Contrato común: dataset sintético sin identificadores reales; entidades distin
 - Esperado independiente/reconciliación: Top5 + resto reconcilia universo; libre sólo detalle/búsqueda; actividad asociada sin ranking mejor/peor; staff/usuarios separados.
 - Relación histórica: Nuevo.
 - Estado: DISEÑADO / NO EJECUTADO; condiciones pendientes no habilitan PASS.
+
+## URG-CP-17/R3 — Fronteras y denominador de reingreso
+
+- Entrada sintética obligatoria: 23:59, 24:00, 24:01, 47:59, 48:00, 48:01, 71:59, 72:00 y 72:01.
+- Esperado: 0–24, 0–24, >24–48, >24–48, >24–48, >48–72, >48–72, NO reingreso y NO reingreso.
+- Casos adicionales: otro servicio no cuenta; dos antecedentes eligen el egreso válido más reciente; antecedente fuera del periodo puede contar; evento sin antecedente es evaluable/no reingreso; filas multiplicadas cuentan un id_urgencia.
+- Estado: CONTRATO VALIDADO / PRUEBA SINTÉTICA DOCUMENTADA, automatización NO IMPLEMENTADA.

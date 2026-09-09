@@ -10,7 +10,7 @@
 - Universo: Markdown de trabajo (comprobador de enlaces) y 71 principios extraídos de la specs fijada.
 - Esperado: 0 enlaces locales rotos, 71 IDs únicos y estructura mínima completa.
 - Obtenido, diferencia, comandos y versiones: [resultado](VALIDACION_DOCUMENTAL.json).
-- Capas: documentación; SQL/API/UI NO EJECUTADAS. Rendimiento clínico: NO APLICA.
+- Capas: documentación y SQL dirigido ejecutados; API/UI NO EJECUTADAS. Rendimiento clínico: NO APLICA.
 - Estado: ver resultado documental; no implica PASS funcional.
 
 ## Esquema para futuras corridas funcionales
@@ -53,4 +53,4 @@ PASS requiere reconciliación y esperado independiente; HTTP o build exitoso no 
 
 Registro separado [VALIDACION_FUNCIONAL_DOCUMENTAL_2026-09-07.json](VALIDACION_FUNCIONAL_DOCUMENTAL_2026-09-07.json). Universo: documentación/configuración del cambio local derivado de 717f681. Esperado0 enlaces rotos,71 principios únicos y matriz completa. Comandos existentes, sin alterarlos. Fuente de decisión nueva: solicitud funcional versionada.
 
-El registro identifica fecha/hora, SHA padre y árbol Git previo a incorporar su propio resultado; evita SHA autorreferente. El commit que contiene esta iteración se obtiene con git log -1 --format=%H -- docs/gobierno/RECONCILIACION_BASELINE_717f681.md. Resultado PASS_DOCUMENTAL no prueba candidatos ni SQL/API/UI. Casos 16 DISEÑADOS/NO EJECUTADOS. Dataset clínico, consulta, obtenido funcional y SHA probado SQL: NO DOCUMENTADO.
+El registro identifica fecha/hora, SHA padre y árbol Git previo a incorporar su propio resultado; evita SHA autorreferente. El commit que contiene esta iteración se obtiene con git log -1 --format=%H -- docs/gobierno/RECONCILIACION_BASELINE_717f681.md. Resultado PASS_DOCUMENTAL no prueba candidatos ni API/UI. La validación SQL de dominio y sus limitaciones están en [evidencia 2026-09-08](VALIDACION_SQL_FUNCIONAL_2026-09-08.md); los fixtures sintéticos siguen sin automatizar.

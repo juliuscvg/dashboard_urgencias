@@ -22,10 +22,11 @@ SELECT N'A02_DEFINICION' resultado,@oid object_id,OBJECT_DEFINITION(@oid) defini
 
 BEGIN TRY
  SELECT N'A03_DEPENDENCIAS_DIRECTAS' resultado,d.referenced_server_name,d.referenced_database_name,
-  d.referenced_schema_name,d.referenced_entity_name,d.referenced_minor_name,
+  d.referenced_schema_name,d.referenced_entity_name,d.referenced_minor_id,
+  COL_NAME(d.referenced_id,d.referenced_minor_id) referenced_minor_name,
   d.is_schema_bound_reference,d.is_ambiguous
  FROM sys.sql_expression_dependencies d WHERE d.referencing_id=@oid
- ORDER BY d.referenced_schema_name,d.referenced_entity_name,d.referenced_minor_name;
+ ORDER BY d.referenced_schema_name,d.referenced_entity_name,d.referenced_minor_id;
 END TRY
 BEGIN CATCH
  SELECT N'A03_DEPENDENCIAS_DIRECTAS' resultado,N'NO DISPONIBLE: '+ERROR_MESSAGE() estado;
@@ -46,10 +47,10 @@ WHERE c.object_id=@oid ORDER BY c.column_id;
  (14,N'cod_centro'),(15,N'centro'),(16,N'codigo_servicio_ingreso'),(17,N'servicio_ingreso'),
  (18,N'triage_pk'),(19,N'triage_codigo'),(20,N'triage_desc'),(21,N'area'),(22,N'desc_area'),
  (23,N'tipo_urgencia'),(24,N'login_triage'),(25,N'usuario_triage'),(26,N'categoria_triage'),
- (27,N'destino_urg_pk'),(28,N'destino_urgencias'),(29,N'motivo_alta_pk'),
- (30,N'fecha_nac'),(31,N'edadaños'),(32,N'EdadMeses'),(33,N'EdadDias'),(34,N'sexo'),
- (35,N'localizacion_pk'),(36,N'localizacion'),(37,N'cod_cama'),
- (38,N'codigo_personal'),(39,N'NombreMedico')) v(orden,nombre))
+ (27,N'destino_urg_pk'),(28,N'destino_urgencias'),(29,N'motivo_alta_pk'),(30,N'motivo_alta'),
+ (31,N'fecha_nac'),(32,N'edadaños'),(33,N'EdadMeses'),(34,N'EdadDias'),(35,N'sexo'),
+ (36,N'localizacion_pk'),(37,N'localizacion'),(38,N'cod_cama'),
+ (39,N'codigo_personal'),(40,N'NombreMedico')) v(orden,nombre))
 SELECT N'B02_INVENTARIO_PRIORITARIO' resultado,e.orden,e.nombre nombre_esperado,
  CASE WHEN c.column_id IS NULL THEN N'NO ENCONTRADO' ELSE N'ENCONTRADO' END estado,
  c.name nombre_fisico,t.name tipo,c.max_length longitud_bytes,c.precision,c.scale,

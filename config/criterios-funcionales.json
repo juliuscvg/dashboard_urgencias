@@ -1,8 +1,8 @@
 {
-  "version": "2026-09-07",
+  "version": "2026-09-08",
   "alcance": "DOCUMENTAL_NO_EJECUTABLE",
   "baseline_origen": "717f681e6d979798a2b1d680dda64d765bb3b051",
-  "validacion_sql": "NO_EJECUTADA",
+  "validacion_sql": "VALIDADA_CON_ADVERTENCIAS",
   "ventana_historica": {
     "anios_moviles": 3,
     "datos_anteriores_consultables": true,
@@ -16,7 +16,7 @@
     "serv_activo_sn": 1,
     "serv_ing_urg_sn": "INFORMATIVO_NO_FILTRO",
     "listas_hardcodeadas": false,
-    "claves_union": "PENDIENTES_SQL"
+    "claves_union": "VALIDADAS_EN_CORRIDA_CON_CONTROL_FANOUT"
   },
   "activo_probable": {
     "predicado_documental": "fechaegr IS NULL AND motivo_alta_pk IS NULL",
@@ -25,7 +25,8 @@
       48,
       72
     ],
-    "cinco_anios_ejecutivo": false
+    "cinco_anios_ejecutivo": false,
+    "estado": "VALIDADO_CON_ADVERTENCIA_DEUDA_HISTORICA"
   },
   "permanencia": {
     "principal": "PROMEDIO",
@@ -50,10 +51,26 @@
       "48<t<72"
     ],
     "referencia_secundaria_horas": 48,
-    "referencia_inclusion": "PROPUESTA_VISUAL_HASTA48_INCLUSIVA",
+    "referencia_inclusion": "MENOR_O_IGUAL_48_VALIDADO",
     "redondeo_visual_horas": 0.5,
     "redondeo_para_pertenencia": false,
-    "antecedente": "PENDIENTE"
+    "antecedente": "EGRESO_VALIDO_MAS_RECIENTE_MISMO_PACIENTE_SERVICIO",
+    "identidad_evento": "id_urgencia",
+    "identidad_paciente": "codigo_cliente",
+    "campo_servicio": "codigo_servicio_ingreso",
+    "orden_antecedente": [
+      "fechaegr DESC",
+      "Fechaing DESC",
+      "id_urgencia DESC"
+    ],
+    "denominador": "EVENTOS_EVALUABLES_DEL_PERIODO",
+    "evaluabilidad": [
+      "id_urgencia",
+      "codigo_cliente",
+      "codigo_servicio_ingreso",
+      "Fechaing"
+    ],
+    "estado": "VALIDADO"
   },
   "grupos_edad": [
     "<1",
@@ -98,5 +115,18 @@
     "mapeo_codigos": {},
     "estado_mapeo": "PENDIENTE_NO_VALIDADO"
   },
-  "metas_institucionales": null
+  "metas_institucionales": null,
+  "identidad_evento": {
+    "campo": "id_urgencia",
+    "origen": "dbo.urgencias.id_urgencia_pk",
+    "alias": "folio",
+    "conteo": "DISTINCT",
+    "estado": "VALIDADO"
+  },
+  "identidad_paciente": {
+    "campo": "codigo_cliente",
+    "registro_es_identidad": false,
+    "estado": "VALIDADO"
+  },
+  "naturaleza_benchmark": "EVIDENCIA_RECONCILIACION_NO_META_BD_OPERACIONAL"
 }
