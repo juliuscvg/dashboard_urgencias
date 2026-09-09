@@ -11,7 +11,8 @@
     "build": "npm run build --workspace server && npm run build --workspace client",
     "test": "npm run test --workspace server && npm run test --workspace client",
     "start": "npm run start --workspace server",
-    "docs:check-links": "node scripts/check-markdown-links.mjs"
+    "docs:check-links": "node scripts/check-markdown-links.mjs",
+    "docs:check-portability": "node scripts/check-portability.mjs"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

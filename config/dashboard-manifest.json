@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "dashboard": "dashboard_urgencias",
+  "domain": "Urgencias HCG",
+  "contractVersion": "2026-09-08.1",
+  "hcgSpecs": {
+    "repository": "juliuscvg/dashboard_hcg_specs",
+    "commit": "ab245b2ab85371ac5b475b974c98488d0fd47432",
+    "adoption": "docs/gobierno/ADOPCION_HCG.md"
+  },
+  "paths": {
+    "rebuild": "docs/RECONSTRUIR_DASHBOARD.md",
+    "checkpoint": "docs/gobierno/CHECKPOINT_ACTUAL.md",
+    "status": "docs/gobierno/ESTADO_PROYECTO.md",
+    "indicatorContracts": [
+      "docs/indicadores/CONTRATOS_ACEPTADOS.md"
+    ],
+    "indicatorStates": "docs/gobierno/ESTADO_INDICADORES.md",
+    "dictionary": "docs/diccionarios/DICCIONARIO_vUrgencias.md",
+    "sources": "docs/diccionarios/FUENTES_Y_GRANULARIDAD.md",
+    "verifiableSql": "scripts/sql/indicadores/",
+    "evidence": "docs/evidencia/",
+    "benchmarks": "docs/evidencia/BENCHMARKS_VIGENTES.md",
+    "decisions": "docs/gobierno/DECISIONES_Y_CAMBIOS.md",
+    "traceability": "docs/gobierno/TRAZABILIDAD.md",
+    "architecture": "docs/ARQUITECTURA_FUTURA.md"
+  }
+}

@@ -4,6 +4,8 @@
 
 El contexto de reconciliación 2026-09-07 delimita alcance vigente; el prompt inicial y 717f681 son antecedentes. Decisiones vigentes gobiernan el contrato local; reglas de negocio definen semántica, catálogos inventarían candidatos y evidencia acredita únicamente lo ejecutado. HCG es referencia transversal, CEX metodológica. Histórico no sustituye contrato vigente. Ante contradicción, registrar decisión; no elegir una cifra conveniente.
 
+- [RECONSTRUIR_DASHBOARD.md](RECONSTRUIR_DASHBOARD.md) — inicio para reconstrucción semántica.
+
 ## Estado y gobierno
 
 - [ESTADO_PROYECTO.md](gobierno/ESTADO_PROYECTO.md)
@@ -32,6 +34,7 @@ El contexto de reconciliación 2026-09-07 delimita alcance vigente; el prompt in
 ## Indicadores y candidatos
 
 - [00_CATALOGO_INDICADORES.md](indicadores/00_CATALOGO_INDICADORES.md)
+- [CONTRATOS_ACEPTADOS.md](indicadores/CONTRATOS_ACEPTADOS.md)
 - [01_CONVENCIONES_Y_REGLAS_COMUNES.md](indicadores/01_CONVENCIONES_Y_REGLAS_COMUNES.md)
 
 ## Evidencia

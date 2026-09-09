@@ -1,5 +1,8 @@
-# Configuración documental
+# Configuración versionada
 
-[Baseline/procedencia](baseline.json) conserva SHA histórico y referencias HCG/CEX, evento canónico id_urgencia. [Criterios](criterios-funcionales.json) documenta ventana configurable, universo por catálogo, antigüedad, rangos, turnos, grupos etarios y destinos. No es motor de reglas ni conexión SQL, sin credenciales.
+- `dashboard-manifest.json`: índice machine-readable de fuentes canónicas; no contiene fórmulas.
+- `adopcion-hcg.json`: detalle machine-readable de adopción transversal.
+- `criterios-funcionales.json`: decisiones funcionales estructuradas; los documentos enlazados conservan autoridad.
+- `baseline.json`: integridad del baseline histórico.
 
-Mapeo códigos destino PENDIENTE; objeto vacío no es mapeo validado ni autoriza enviar todo a Otros. Identidades, servicios, activo probable y reingreso están validados; los demás candidatos siguen explícitos. Sin exclusiones productivas aplicadas ni metas. [Adopción HCG](adopcion-hcg.json) mantiene 71 registros/estados y motivo FIL-001 actualizado por [decisiones](../docs/gobierno/DECISIONES_Y_CAMBIOS.md). Versiones iniciales conservadas en 717f681.
+Credenciales y configuración de conexión residen exclusivamente en `.env`, que no se versiona.

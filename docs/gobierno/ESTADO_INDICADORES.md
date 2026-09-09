@@ -1,32 +1,30 @@
-# Estado de indicadores
+# Estado vigente de indicadores
 
-Corte documental: 2026-09-08. Los estados describen el contrato funcional; la columna técnica indica el alcance efectivamente entregado.
+Corte: 2026-09-08. Fuente canónica de estados; las fórmulas residen en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md).
 
-| Indicador o bloque | Estado funcional | Implementación en esta fase | Evidencia o condición |
-|---|---|---|---|
-| Atenciones | ACEPTADO | API, KPI, tendencia y detalle | Evento único `id_urgencia`; eje `Fechaing` |
-| Promedio diario | ACEPTADO | API y KPI | Días calendario completos; ceros en denominador; actual parcial visible |
-| Pacientes únicos | ACEPTADO | API y KPI | `COUNT(DISTINCT codigo_cliente)`; no aditivo |
-| Atenciones por paciente | ACEPTADO | API y contexto KPI | Mismo universo de atenciones y pacientes |
-| Frecuentación | ACEPTADO | Contrato documentado; distribución pendiente | Bandas 1, 2, 3, 4-5, 6-10, 11+ |
-| Permanencia registrada | ACEPTADO CON OBSERVACIONES | Promedio y detalle básicos | Completados interpretables; extremos conservados |
-| Activos probables | ACEPTADO | Indicador operacional separado | Doble nulo; sin filtro de periodo |
-| Reingresos <72 h | ACEPTADO | API y KPI | Antecedente válido más reciente, mismo paciente/servicio, corte estricto |
-| Reingresos <48 h | ACEPTADO | API y contexto secundario | Corte estricto, sin redondeo para pertenencia |
-| Resolución / destino | ACEPTADO | Destino nativo en detalle; módulo pendiente | `destino_urg_pk/destino_urgencias`; NULL y N.E. separados |
-| Hospitalización | ACEPTADO | API y KPI | Sólo destino 5; denominador completados |
-| Triage: cobertura | ACEPTADO | API y sección por servicio | Con Triage, universo total y porcentaje |
-| Triage: clasificación | ACEPTADO | Contrato; visualización pendiente | Catálogo nativo 1–6 |
-| Triage: tiempo registrado | ACEPTADO CON OBSERVACIONES | Resumen y señales de consistencia | `fechatri - Fechaing`; extremos visibles |
-| Atención médica | EN PROCESO | Estructura preparada | `Fechaing -> fechaate`; KPI definitivo pendiente |
-| Alta médica | POR DEFINIR | Estructura preparada | `fechamed`, desacoplado |
-| Secuencias temporales | POR DEFINIR | Señales iniciales de Triage | Ingreso, Triage, atención, alta, egreso |
-| Población | EN PROCESO | Módulo preparado | Edad al evento y soporte pediátrico por validar |
-| Diagnósticos | POR DEFINIR | Módulo preparado | Contrato clínico pendiente |
-| Motivo de urgencia | POR DEFINIR | Módulo preparado | Contrato pendiente |
-| Localización / cama | DIFERIDO | Sin implementación | Fuera de la primera fase |
-| Calidad de datos | EN PROCESO | Multiplicación, conflicto y Triage visibles | Capa adicional; no altera universo ni KPI |
+| ID | Indicador | Estado funcional | Estado técnico | Alcance técnico |
+|---|---|---|---|---|
+| URG-EJ-01 | Atenciones | ACEPTADO | VALIDADO TÉCNICAMENTE | SQL, API, UI y prueba estructural |
+| URG-EJ-02 | Promedio diario | ACEPTADO | VALIDADO TÉCNICAMENTE | SQL, API y UI |
+| URG-EJ-03 | Permanencia registrada | ACEPTADO CON OBSERVACIONES | VALIDADO TÉCNICAMENTE | SQL, promedio/API y detalle |
+| URG-EJ-04 | Hospitalización | ACEPTADO | VALIDADO TÉCNICAMENTE | SQL, API y UI |
+| URG-EJ-05 | Reingresos <72 h / <48 h | ACEPTADO | VALIDADO TÉCNICAMENTE | SQL, API y UI |
+| URG-EJ-06 | Pacientes únicos | ACEPTADO | VALIDADO TÉCNICAMENTE | SQL, API y UI |
+| URG-EJ-07 | Atenciones por paciente | ACEPTADO | VALIDADO TÉCNICAMENTE | SQL, API y contexto UI |
+| URG-ACT-01 | Activos probables | ACEPTADO | VALIDADO TÉCNICAMENTE | SQL y contexto API/UI separado |
+| URG-MOD-01 | Demanda diaria | ACEPTADO | VALIDADO TÉCNICAMENTE | SQL, API, tendencia y servicios |
+| URG-MOD-05 | Resolución / destino | ACEPTADO | IMPLEMENTADO NO VALIDADO | SQL y detalle; agregado pendiente |
+| URG-MOD-09 | Frecuentación | ACEPTADO | IMPLEMENTADO NO VALIDADO | SQL; API/UI pendientes |
+| URG-TRI-01 | Cobertura de Triage | ACEPTADO | VALIDADO TÉCNICAMENTE | SQL, API y UI |
+| URG-TRI-02 | Clasificación de Triage | ACEPTADO | IMPLEMENTADO NO VALIDADO | SQL; API/UI pendientes |
+| URG-TRI-03 | Tiempo registrado a Triage | ACEPTADO CON OBSERVACIONES | VALIDADO TÉCNICAMENTE | SQL y resumen API/UI |
+| URG-PEND-01 | Atención médica | EN PROCESO | NO IMPLEMENTADO | `Fechaing→fechaate`; contrato final pendiente |
+| URG-PEND-02 | Alta médica | EN VALIDACIÓN | NO IMPLEMENTADO | `fechamed`; no implementar |
+| URG-PEND-03 | Secuencias temporales completas | POR DEFINIR | NO IMPLEMENTADO | Señales parciales de Triage |
+| URG-PEND-04 | Población | EN PROCESO | NO IMPLEMENTADO | Edad al evento por validar |
+| URG-PEND-05 | Diagnósticos | POR DEFINIR | NO IMPLEMENTADO | Sin contrato suficiente |
+| URG-PEND-06 | Motivo de urgencia | POR DEFINIR | NO IMPLEMENTADO | Sin contrato suficiente |
+| URG-PEND-07 | Localización / cama | DIFERIDO | NO IMPLEMENTADO | Fuera de fase |
+| URG-CAL-01 | Calidad de datos | EN PROCESO | VALIDADO TÉCNICAMENTE | Conflictos, fan-out y Triage visibles |
 
-## Regla de mantenimiento
-
-Un cambio funcional debe actualizar esta matriz, [reglas](../REGLAS_NEGOCIO.md), [trazabilidad](TRAZABILIDAD.md), pruebas SQL y contrato API/UI afectado. No se promueve un indicador a ACEPTADO por existir código.
+Ningún indicador de aplicación está `RECONCILIADO CON FUENTE` en esta iteración porque falta configuración DB local. Un cambio de estado exige evidencia y decisión versionadas.

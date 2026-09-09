@@ -19,6 +19,8 @@ La interfaz queda en `http://localhost:5173` y la API en `http://localhost:3001`
 - `npm run docs:check-links`
 - `node scripts/check-baseline.mjs`
 
+La reconstrucción semántica comienza en [RECONSTRUIR_DASHBOARD.md](docs/RECONSTRUIR_DASHBOARD.md) y su índice machine-readable es [dashboard-manifest.json](config/dashboard-manifest.json).
+
 Consulte el [índice documental](docs/00_LEEME_PRIMERO.md), el [estado](docs/gobierno/ESTADO_PROYECTO.md), la [matriz de indicadores](docs/gobierno/ESTADO_INDICADORES.md), la [arquitectura](docs/ARQUITECTURA_FUTURA.md) y la [evidencia de implementación](docs/evidencia/IMPLEMENTACION_FASE_1.md).
 
 Dashboard CEX es únicamente una referencia transversal de arquitectura, UX y gobierno. Las reglas funcionales de Urgencias están definidas en este repositorio.

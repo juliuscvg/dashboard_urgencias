@@ -22,8 +22,6 @@ WITH RawScope AS
     V.fechatri,
     V.triage_codigo,
     V.triage_desc,
-    V.fechaate,
-    V.fechamed,
     V.destino_urg_pk,
     V.destino_urgencias,
     V.motivo_alta_pk,
@@ -53,10 +51,10 @@ EventScope AS
       THEN MIN(codigo_cliente) END AS codigo_cliente,
     CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(40), codigo_servicio), '<NULL>')) = 1
       THEN MIN(codigo_servicio) END AS codigo_servicio,
-    CASE WHEN COUNT(DISTINCT ISNULL(servicio, '<NULL>')) = 1
-      THEN MIN(servicio) END AS servicio,
-    CASE WHEN COUNT(DISTINCT ISNULL(centro, '<NULL>')) = 1
-      THEN MIN(centro) END AS centro,
+    CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(4000), servicio), '<NULL>')) = 1
+      THEN MIN(CONVERT(varchar(4000), servicio)) END AS servicio,
+    CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(40), centro), '<NULL>')) = 1
+      THEN MIN(CONVERT(varchar(40), centro)) END AS centro,
     CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(33), Fechaing, 126), '<NULL>')) = 1
       THEN MIN(Fechaing) END AS Fechaing,
     CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(33), fechaegr, 126), '<NULL>')) = 1
@@ -65,20 +63,16 @@ EventScope AS
       THEN MIN(fechatri) END AS fechatri,
     CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(40), triage_codigo), '<NULL>')) = 1
       THEN MIN(triage_codigo) END AS triage_codigo,
-    CASE WHEN COUNT(DISTINCT ISNULL(triage_desc, '<NULL>')) = 1
-      THEN MIN(triage_desc) END AS triage_desc,
-    CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(33), fechaate, 126), '<NULL>')) = 1
-      THEN MIN(fechaate) END AS fechaate,
-    CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(33), fechamed, 126), '<NULL>')) = 1
-      THEN MIN(fechamed) END AS fechamed,
+    CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(4000), triage_desc), '<NULL>')) = 1
+      THEN MIN(CONVERT(varchar(4000), triage_desc)) END AS triage_desc,
     CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(40), destino_urg_pk), '<NULL>')) = 1
       THEN MIN(destino_urg_pk) END AS destino_urg_pk,
-    CASE WHEN COUNT(DISTINCT ISNULL(destino_urgencias, '<NULL>')) = 1
-      THEN MIN(destino_urgencias) END AS destino_urgencias,
+    CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(4000), destino_urgencias), '<NULL>')) = 1
+      THEN MIN(CONVERT(varchar(4000), destino_urgencias)) END AS destino_urgencias,
     CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(40), motivo_alta_pk), '<NULL>')) = 1
       THEN MIN(motivo_alta_pk) END AS motivo_alta_pk,
-    CASE WHEN COUNT(DISTINCT ISNULL(motivo_alta, '<NULL>')) = 1
-      THEN MIN(motivo_alta) END AS motivo_alta,
+    CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(4000), motivo_alta), '<NULL>')) = 1
+      THEN MIN(CONVERT(varchar(4000), motivo_alta)) END AS motivo_alta,
     COUNT_BIG(*) AS filas_fisicas,
     CASE WHEN
       COUNT(DISTINCT ISNULL(CONVERT(varchar(40), codigo_cliente), '<NULL>')) > 1 OR

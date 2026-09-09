@@ -305,3 +305,29 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Estado: IMPLEMENTADA, pendiente de reconciliación en entorno SQL configurado.
 - Se adopta separación Repository→servicio→API→frontend y paginación server-side como patrones transversales.
 - CEX no aporta reglas de Urgencias. No se crean ETL, escrituras, listas fijas ni datos identificables en endpoints.
+
+
+### URG-GOV-038 — Autoridad y adopción transversal
+
+- Estado: ACEPTADO.
+- `dashboard_hcg_specs@ab245b2` es la referencia transversal para contrato de indicador, estados separados, anomalías, portabilidad y checkpoint.
+- Las fórmulas de Urgencias permanecen locales. CEX no fue modificado y sólo conserva deuda registrada en HCG Specs.
+
+### URG-GOV-039 — SQL verificable por indicador
+
+- Estado: VALIDADO TÉCNICAMENTE / pendiente de fuente.
+- Los indicadores aceptados se asocian a SQL individual en `scripts/sql/indicadores/`, separado de descubrimiento.
+- Cada consulta es read-only, parametrizable, compatible con nivel 100 y explícita en universo, NULL y anomalías.
+- La duplicación del CTE en artefactos independientes se controla estáticamente; el runtime mantiene una única construcción en `event-scope.sql.ts`.
+
+### URG-GOV-040 — Portabilidad y continuidad
+
+- Estado: ACEPTADO.
+- `docs/RECONSTRUIR_DASHBOARD.md` es índice, `config/dashboard-manifest.json` sólo apunta a fuentes y `CHECKPOINT_ACTUAL.md` es el único checkpoint operativo mutable.
+- Git preserva historia; no se crean checkpoints por iteración.
+
+### URG-GOV-041 — Hitos no cerrados
+
+- Estado: ACEPTADO.
+- Atención Médica permanece EN PROCESO. Alta Médica permanece EN VALIDACIÓN y NO IMPLEMENTADA.
+- No se crea SQL productivo para hitos EN VALIDACIÓN o POR DEFINIR.

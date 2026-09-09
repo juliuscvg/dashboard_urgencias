@@ -21,3 +21,10 @@ La validación de conexión y la reconciliación real dependen de variables `DB_
 ## Resultado técnico de esta corrida
 
 No existía archivo `.env` ni estaban definidas `DB_SERVER`, `DB_DATABASE`, `DB_USER` o `DB_PASSWORD`. Por ello no se abrió conexión, no se ejecutaron consultas y los endpoints no pudieron reconciliarse contra la base en esta corrida. La desviación queda aislada a disponibilidad de configuración; no se modificó ninguna fórmula para compensarla.
+
+
+## Consolidación portable 2026-09-09
+
+Se añadieron contratos completos, matriz de estados separada, diccionario normalizado, manifiesto de reconstrucción y 14 SQL canónicos. El validador `check-portability.mjs` comprueba asociación contrato/SQL, acceso read-only, compatibilidad 100, ausencia de centros hardcodeados, ausencia de reglas físicas en frontend y checkpoint operativo único.
+
+La conexión continúa no ejecutada: no existe configuración `DB_*` local. Por ello los SQL nuevos se clasifican como validados estáticamente o implementados no validados según su capa, nunca reconciliados con fuente. Los benchmarks permanecen sin modificación.

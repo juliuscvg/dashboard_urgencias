@@ -1,11 +1,22 @@
 # Estado vigente — Dashboard Urgencias
 
 - Proyecto/rama: `juliuscvg/dashboard_urgencias` / `main`.
-- Corte: 2026-09-08, America/Mexico_City.
-- Fase: primera implementación técnica de Resumen, Demanda, cobertura de Triage y detalle reconciliable.
-- Baseline funcional previo: `b7ecc2c9b3d2ea6e14d7c78b04bb87a3bc44682f`.
-- Publicación: no autorizada; esta iteración queda local.
+- HEAD base de iteración: `c89787ba35379b0a02aaabdaea8ca9bc96f771ed`.
+- Corte documental: 2026-09-09, America/Mexico_City.
+- Fase: consolidación portable, adopción HCG y SQL verificable.
+- Estado: COMPLETADA; validaciones técnicas/documentales aprobadas y cierre local preparado.
+- Publicación: no autorizada.
 
-La aplicación implementa SQL read-only, Repository con universo canónico por `id_urgencia`, servicio, API y frontend institucional. Los filtros de centro y servicio provienen de catálogos activos; no hay listas institucionales codificadas. La interfaz no recibe identidad longitudinal ni PII de paciente.
+## Capacidades disponibles
 
-Consulte la [matriz de indicadores](ESTADO_INDICADORES.md), la [arquitectura](../ARQUITECTURA_FUTURA.md), la [evidencia de fase](../evidencia/IMPLEMENTACION_FASE_1.md) y el [backlog](../BACKLOG_FUNCIONAL.md).
+Aplicación read-only con universo central por `id_urgencia`, filtros dinámicos, resumen, demanda, cobertura de Triage y detalle server-side sin PII. La documentación ahora separa contrato funcional, estado técnico, SQL canónico, evidencia y código.
+
+## Referencias vigentes
+
+[Reconstrucción](../RECONSTRUIR_DASHBOARD.md) · [manifiesto](../../config/dashboard-manifest.json) · [contratos](../indicadores/CONTRATOS_ACEPTADOS.md) · [estados](ESTADO_INDICADORES.md) · [checkpoint](CHECKPOINT_ACTUAL.md).
+
+## Pendientes
+
+- Funcionales: Atención Médica EN PROCESO; Alta Médica EN VALIDACIÓN; población y clínica sin cierre.
+- Técnicos: API/UI de frecuentación, resolución agregada y clasificación Triage.
+- QA: ejecución de SQL canónico y reconciliación de aplicación contra fuente cuando exista configuración DB.

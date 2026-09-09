@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "proyecto": "juliuscvg/dashboard_urgencias",
+  "fecha": "2026-09-09",
+  "timezone": "America/Mexico_City",
+  "head_base": "c89787ba35379b0a02aaabdaea8ca9bc96f771ed",
+  "hcg_specs_commit": "ab245b2ab85371ac5b475b974c98488d0fd47432",
+  "alcance": "Documentación, configuración, SQL canónico y aplicación local",
+  "resultados": {
+    "markdown_enlaces": {
+      "estado": "PASS",
+      "archivos_markdown": 38,
+      "enlaces_locales": 384,
+      "enlaces_rotos": 0
+    },
+    "baseline_hcg": {
+      "estado": "PASS",
+      "principios": 72,
+      "adoptada": 65,
+      "parcial": 5,
+      "pendiente": 2,
+      "no_aplica": 0,
+      "divergencia_dominio": 0
+    },
+    "portabilidad": {
+      "estado": "PASS",
+      "sql_indicadores": 14,
+      "solo_lectura": true,
+      "compatibilidad_100": true,
+      "hardcodes_centro_servicio": 0,
+      "reglas_fisicas_frontend": 0,
+      "checkpoints_operativos": 1
+    },
+    "json": {
+      "estado": "PASS",
+      "archivos_parseados": 7
+    },
+    "tests": {
+      "estado": "PASS",
+      "server": 5,
+      "client": 2,
+      "total": 7
+    },
+    "build": {
+      "estado": "PASS",
+      "server": "tsc",
+      "client": "tsc + vite"
+    },
+    "npm_audit": {
+      "estado": "PASS",
+      "vulnerabilidades": 0
+    },
+    "git_diff_check": {
+      "estado": "PASS"
+    }
+  },
+  "base_datos": {
+    "estado": "NO_EJECUTADA",
+    "motivo": "No existe configuración ni conexión DB disponible en el entorno",
+    "efecto": "No se declara reconciliación SQL/API/UI y no se alteran benchmarks"
+  },
+  "cex": {
+    "estado": "SOLO_LECTURA",
+    "detalle": "Deuda registrada en HCG Specs; repositorio con cambios locales ajenos preservado sin modificaciones"
+  },
+  "observaciones": "PASS técnico/documental no acredita métricas contra la fuente."
+}

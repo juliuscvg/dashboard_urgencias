@@ -1,8 +1,8 @@
 # Reglas de negocio — Urgencias
 
-Vigencia funcional: 2026-09-08, con evidencia SQL consolidada en [validación](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md); origen funcional según [contexto entregado](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Origen inmutable: [reglas en 717f681](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/REGLAS_NEGOCIO.md). Ver [decisiones](gobierno/DECISIONES_Y_CAMBIOS.md) y [reconciliación](gobierno/RECONCILIACION_BASELINE_717f681.md).
+Vigencia funcional: 2026-09-09, con evidencia SQL consolidada en [validación](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md); origen funcional según [contexto entregado](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Origen inmutable: [reglas en 717f681](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/REGLAS_NEGOCIO.md). Ver [decisiones](gobierno/DECISIONES_Y_CAMBIOS.md) y [reconciliación](gobierno/RECONCILIACION_BASELINE_717f681.md).
 
-DEFINIDO FUNCIONALMENTE acredita una decisión. VALIDADO acredita evidencia física o técnica registrada. VALIDADO CON ADVERTENCIA conserva límites de cobertura, calidad o reproducibilidad. PENDIENTE DE VALIDACIÓN SQL identifica evidencia física ausente. CANDIDATO identifica elecciones adicionales aún abiertas. Son ejes separados: una regla definida puede seguir pendiente de SQL. Sin implementación ni metas institucionales.
+DEFINIDO FUNCIONALMENTE acredita una decisión. VALIDADO acredita evidencia física o técnica registrada. VALIDADO CON ADVERTENCIA conserva límites de cobertura, calidad o reproducibilidad. PENDIENTE DE VALIDACIÓN SQL identifica evidencia física ausente. CANDIDATO identifica elecciones adicionales aún abiertas. Los ejes funcional y técnico permanecen separados según HCG Specs. La implementación no crea metas institucionales.
 
 ## URG-R01 — Fuente, entidad y representación
 
@@ -25,7 +25,7 @@ Periodo semiabierto: evento >= Inicio AND evento < FinExclusivo. Días completos
 | fechamed | Alta médica, datetime derivado preferido frente a altamed_fecha | Complementario |
 | fecha_modif | Modificación técnica, nunca actividad clínica ni KPI operativo | Auditoría técnica |
 
-Fechaing/fechaing es variación comunicada de casing, no dos columnas. Equivalencias atencion_fecha~fechaate y altamed_fecha~fechamed son funcionales aproximadas; transformaciones pendientes de SQL. No exigir triage, atención o alta médica para considerar válido un episodio ni para pertenecer al universo principal.
+Fechaing/fechaing es variación comunicada de casing, no dos columnas. Equivalencias atencion_fecha~fechaate y altamed_fecha~fechamed son funcionales aproximadas; transformaciones pendientes de SQL. No exigir triage, atención o alta médica para considerar válido un episodio ni para pertenecer al universo principal. Atención Médica permanece EN PROCESO sobre Fechaing→fechaate; Alta Médica permanece EN VALIDACIÓN, desacoplada y no implementada.
 
 | Universo | Pertenencia funcional | Límite |
 |---|---|---|
@@ -36,9 +36,9 @@ Fechaing/fechaing es variación comunicada de casing, no dos columnas. Equivalen
 | U-POB | Eventos U-ING; pacientes codigo_cliente por separado | No sumar pacientes únicos de grupos solapados |
 | U-RET | Nuevos eventos U-ING con identidad, servicio e historia evaluables | Buscar antecedente fuera del periodo |
 
-Convención heredada: permanencia por cohorte U-ING completada; análisis U-EGR separado. La cohorte definitiva del KPI ejecutivo sigue candidata hasta cierre funcional, sin mezclar ambas. SIN DATO de una dimensión no elimina una entidad que cumple el universo; filtros explícitos sí restringen el contexto y deben mostrarse.
+Permanencia registrada usa la cohorte U-ING completada y cronológicamente interpretable; U-EGR permanece como análisis separado. No mezclar ambas. SIN DATO de una dimensión no elimina una entidad que cumple el universo; filtros explícitos sí restringen el contexto y deben mostrarse.
 
-Ventana inicial: últimos N años móviles, N=3 configurable en [criterios documentales](../config/criterios-funcionales.json). Convención de anclaje propuesta en esta reconciliación: aniversario N años anterior al corte de consulta hasta ese corte, registrado; ajuste de 29 de febrero a último día válido del mes. No hardcodear años calendario. Los selectores de días declaran corte parcial cuando corresponda. Los anteriores son HISTÓRICOS, consultables mediante periodo personalizado con aviso discreto de prácticas de captura distintas. La ventana no es retención ni exclusión permanente; no truncar U-ACT ni antecedentes de reingreso a tres años.
+Ventana inicial: últimos N años móviles, N=3 configurable en [criterios documentales](../config/criterios-funcionales.json). Convención de anclaje propuesta en esta reconciliación: aniversario N años anterior al corte de consulta hasta ese corte, registrado; ajuste de 29 de febrero a último día válido del mes. No hardcodear años calendario. Los selectores de días declaran corte parcial cuando corresponda. Los anteriores son HISTÓRICOS, consultables mediante periodo personalizado con aviso discreto de prácticas de captura distintas. La ventana no es retención ni exclusión permanente; no truncar U-ACT ni antecedentes de reingreso a tres años. El histórico completo se conserva; para interpretación operativa se priorizan cualitativamente los últimos 2–3 años, sin ponderar por recencia ni alterar fórmulas.
 
 ## URG-R03 — Activos y situación actual
 
@@ -63,7 +63,7 @@ Registro → triage → inicio de atención → alta médica → egreso es secue
 
 Por par temporal, clasificar primero faltantes; entre pares presentes separar invertidos de evaluables no negativos. Cero es evaluable, no reemplaza ausencia. Extremos positivos válidos siguen incluidos, sin recorte ni winsorización. U = evaluables + faltantes + invertidos, clases excluyentes por par. Flags entre pares pueden solaparse; no sumarlos como episodios únicos. Ausencia de etapas complementarias no reduce el universo principal.
 
-Cobertura = episodios con componente presente / universo explícito del módulo. Presencia no implica validez temporal. SIN DATO distinto de DATO INVÁLIDO; catálogos y contradicciones descriptivas auditables, sin MAX/MIN arbitrarios. Denominador cero: no calculable con estado explicativo, nunca 0% fabricado. Cambiar exclusiones requiere decisión versionada.
+Cobertura = episodios con componente presente / universo explícito del módulo. Presencia no implica validez temporal. SIN DATO distinto de DATO INVÁLIDO; catálogos y contradicciones descriptivas auditables, sin MAX/MIN arbitrarios. Denominador cero: no calculable con estado explicativo, nunca 0% fabricado. Cambiar exclusiones requiere decisión versionada. ANÓMALO no equivale a INCORRECTO: no ocultar, eliminar, truncar, winsorizar, sustituir por límites ni corregir silenciosamente.
 
 ## URG-R05 — Permanencia y rangos
 
@@ -103,7 +103,7 @@ Pacientes únicos usan codigo_cliente, identidad longitudinal validada; registro
 
 Grupos vigentes: <1, 1–5, 6–12, 13–17, 18–29, 30–44, 45–59, 60–74, 75+. Sobre edad exacta no negativa equivalen a [0,1), [1,6), [6,13), [13,18), [18,30), [30,45), [45,60), [60,75), [75,+∞). Nulo/negativo no se clasifica <1.
 
-Campos comunicados fecha_nac, edadaños, EdadMeses, EdadDias. Referencia temporal y forma de cálculo expuesta PENDIENTES DE VALIDACIÓN SQL; edad al registro sigue candidata hasta validar coherencia. Meses/días apoyan pediatría; no sumar unidades sin semántica ni recalcular a fecha actual. Precedencia ante discordancias y representación de paciente con múltiples episodios pendientes. Grupos cerrados no significan cálculo de edad validado.
+Campos comunicados fecha_nac, edadaños, EdadMeses, EdadDias. Referencia temporal y forma de cálculo expuesta PENDIENTES DE VALIDACIÓN SQL; edad al registro sigue candidata hasta validar coherencia. Meses/días apoyan pediatría; no sumar unidades sin semántica ni recalcular a fecha actual. Precedencia ante discordancias y representación de paciente con múltiples episodios pendientes. Grupos cerrados no significan cálculo de edad validado. Población y servicio son dimensiones independientes: segmentar por servicio no redefine identidad, edad ni sexo, y los pacientes únicos entre servicios no son aditivos.
 
 ## URG-R08 — Filtros y comparación
 

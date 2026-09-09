@@ -1,6 +1,6 @@
-# Descubrimientos y limitaciones — reconciliación 2026-09-07
+# Descubrimientos y limitaciones — consolidado 2026-09-09
 
-Evidencia funcional: [contexto nuevo](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). [Registro original íntegro en 717f681](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/DESCUBRIMIENTOS_Y_LIMITACIONES.md). No se consultó SQL.
+Evidencia funcional: [contexto de reconciliación](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). [Registro original íntegro en 717f681](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/DESCUBRIMIENTOS_Y_LIMITACIONES.md). Se consolidaron consultas SQL canónicas de solo lectura, pero no se ejecutaron contra la fuente porque no existe configuración DB disponible.
 
 | ID histórico | Tratamiento vigente |
 |---|---|
@@ -15,27 +15,33 @@ Evidencia funcional: [contexto nuevo](historico/prompts/SOLICITUD_RECONCILIACION
 
 ## Pendientes y controles que requieren evidencia
 
-- Tipos/longitudes/precisión/zona no incluidos en la entrega consolidada y transformación exacta de fechas derivadas.
-- Monitoreo continuo de multiplicaciones futuras y conflictos dentro de id_urgencia; alcance institucional de codigo_cliente fuera del modelo analítico.
-- Claves/mapeo de servicio en vista, catálogo dbo.servicios, objeto/relación de centros, cardinalidad y vigencia de catálogos. No inventar dbo.centros.
-- Mapeo ejecutivo de destinos y motivos; motivo_alta ya está expuesto por la vista.
-- Semántica de fecha_nac/edadaños/EdadMeses/EdadDias; referencia temporal y discordancias; nombres físicos de geografía, médico, localización y filtros restantes.
-- Tres componentes triage, catálogos heterogéneos y cobertura por servicio/periodo.
-- Snapshot/corte reproducible para benchmarks sobre la BD operacional; monitoreo de empates extremos del antecedente.
-- Las fuentes adicionales quedan limitadas a carencias identificadas; no exploración indiscriminada ni modificación de vista/datos.
+- Tipos, longitudes, precisión, zona y transformación exacta de fechas derivadas no están documentados por completo.
+- Deben monitorearse multiplicaciones futuras y conflictos dentro de `id_urgencia`; el alcance institucional de `codigo_cliente` queda fuera del modelo analítico.
+- Faltan evidencia versionada del catálogo de centros, cardinalidad y vigencia de catálogos, y mapeos descriptivos.
+- Edad, residencia, geografía, médico, localización y filtros avanzados requieren contratos específicos.
+- Los tres componentes de triage y sus catálogos heterogéneos deben reconciliarse por servicio y periodo.
+- Los benchmarks sobre la base operacional requieren snapshot o corte reproducible.
+- Las fuentes adicionales se limitan a carencias identificadas; no se autoriza exploración indiscriminada ni modificación de vista o datos.
 
-## PREGUNTAS PARA DEFINICIÓN FUNCIONAL
+## Decisiones cerradas en esta iteración
 
-1. ¿La etiqueta Atenciones representará episodios registrados U-ING, independientemente de fechaate? El contexto no obliga a tener atención capturada.
-2. ¿Cómo se computan días parciales y disponibilidad de datos en Promedio diario? Días con cero actividad no deben eliminarse del denominador arbitrariamente.
-3. ¿Permanencia promedio de portada usa cohorte de ingresos completados (candidato heredado) o egresos del periodo?
-4. ¿Hospitalización se muestra como conteo, tasa o ambos, y con qué cohorte/denominador? Validar mapeo de códigos cuando exista catálogo.
-5. ¿Se adopta hasta 48 inclusivo para referencia secundaria (suma de bandas) o se requiere <48 separado? El principal <72 y 72 exclusivo ya están cerrados.
-6. ¿Qué evento/precedencia debe representar edad cuando el cálculo expuesto difiera, y cómo representar edad/residencia de pacientes con múltiples episodios?
-7. ¿La madrugada nocturna se atribuye a fecha calendario o jornada iniciada el día anterior? ¿Cómo concretar comparación de meses desiguales/cortes parciales?
-8. ¿Qué filtros avanzados son compatibles con situación actual, qué roles acceden/exportan identificables y quién aprueba las definiciones? Responsables nominales NO DOCUMENTADO.
+- Atenciones cuenta episodios U-ING por `id_urgencia`; `fechaate` no condiciona el universo.
+- Promedio diario divide episodios entre días calendario del intervalo semiabierto solicitado.
+- Permanencia registrada usa ingresos del periodo con egreso registrable y reporta evaluables/no evaluables.
+- Hospitalización presenta conteo y proporción sobre episodios del periodo con destino hospitalario aceptado.
+- Reingresos conserva las ventanas exclusivas `<72` y `<48` horas con antecedente válido más reciente.
+- Alta Médica permanece **EN VALIDACIÓN / NO IMPLEMENTADO** y no forma parte de los SQL aceptados.
 
-Estas preguntas precisan subcontratos, no reabren grupos etarios, turnos horarios, predicado activo, <72 ni promedio principal ya entregados. Anclaje móvil, últimos N días y redondeo más cercano son propuestas documentales identificadas, no hechos SQL. Efecto de servicios actualmente inactivos sobre histórico requiere primero evidencia de catálogo y luego decisión si procede.
+Los contratos completos, incluida la fórmula y la semántica de nulos, están en [Contratos aceptados](indicadores/CONTRATOS_ACEPTADOS.md).
+
+## Preguntas todavía abiertas
+
+1. ¿Qué evento o precedencia representa edad cuando los campos expuestos difieren, y cómo se presenta residencia en pacientes con múltiples episodios?
+2. ¿La madrugada nocturna se atribuye a fecha calendario o a la jornada iniciada el día anterior?
+3. ¿Qué filtros avanzados son compatibles con situación actual, qué roles acceden o exportan identificables y quién aprueba las definiciones? Los responsables nominales siguen **NO DOCUMENTADOS**.
+4. ¿Cómo se versionará el snapshot o corte reproducible para reconciliar consultas canónicas y benchmarks sobre la base operacional?
+
+Estas preguntas no reabren identidad, universo dinámico de servicios, predicado activo, ventanas de reingreso ni las fórmulas aceptadas. El efecto de servicios actualmente inactivos sobre el histórico requiere evidencia de catálogo antes de cualquier cambio.
 
 ## Límites
 
@@ -43,4 +49,4 @@ No definir umbrales de suficiencia, metas, exclusiones o reglas de antecedente s
 
 ## Hallazgos SQL consolidados
 
-VALIDADO: id_urgencia como identidad del evento, codigo_cliente como identidad longitudinal, universo dinámico de servicios y algoritmo/denominador de reingresos. VALIDADO CON ADVERTENCIA: representación física multiplicable por vsegpop, deuda histórica de fechaegr, fechas extremas y benchmarks sobre datos vivos. [Detalle](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md).
+VALIDADO: `id_urgencia` como identidad del evento, `codigo_cliente` como identidad longitudinal, universo dinámico de servicios y algoritmo/denominador de reingresos. VALIDADO CON ADVERTENCIA: representación física multiplicable por `vsegpop`, deuda histórica de `fechaegr`, fechas extremas y benchmarks sobre datos vivos. [Detalle](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md).

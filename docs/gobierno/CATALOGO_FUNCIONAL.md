@@ -1,30 +1,24 @@
 # Catálogo funcional — Urgencias
 
-Inventario vigente por papel futuro. Identidad, servicios, activos y reingresos cuentan con SQL validado; nada está implementado. Fórmulas en [reglas](../REGLAS_NEGOCIO.md); estados en [catálogo analítico](../indicadores/00_CATALOGO_INDICADORES.md).
+Inventario breve. [Estados](ESTADO_INDICADORES.md) y [contratos completos](../indicadores/CONTRATOS_ACEPTADOS.md) son las fuentes canónicas; este archivo no repite fórmulas.
 
-| ID | Papel | Elemento | Universo | Regla | Estado |
-|---|---|---|---|---|---|
-| URG-EJ-01 | Ejecutivo | Atenciones | U-ING | URG-R01/R02 | CANDIDATO: confirmar etiqueta/unidad |
-| URG-EJ-02 | Ejecutivo | Promedio diario | U-ING / días | URG-R02/R08 | CANDIDATO: días parciales y denominador |
-| URG-EJ-03 | Ejecutivo | Permanencia promedio | Completados evaluables; U-ING heredado propuesto | URG-R04/R05 | DEFINIDO FUNCIONALMENTE promedio; cohorte CANDIDATO |
-| URG-EJ-04 | Ejecutivo | Hospitalización | Universo resolución por cerrar | URG-R11 | CANDIDATO: conteo/tasa, cohorte y mapeo |
-| URG-EJ-05 | Ejecutivo | Reingresos <72 h | U-RET | URG-R06 | CONTRATO Y SQL VALIDADOS |
-| URG-EJ-06 | Ejecutivo | Pacientes únicos | Identificables U-POB | URG-R01/R07 | IDENTIDAD VALIDADA |
-| URG-ACT-01 | Situación actual | Activos probables | U-ACT | URG-R03 | DEFINIDO FUNCIONALMENTE |
-| URG-ACT-02 | Situación actual | Activos >24/>48/>72 h | U-ACT evaluable | URG-R03 | DEFINIDO FUNCIONALMENTE |
-| URG-MOD-01 | Módulo | Demanda | U-ING; U-EGR separado | URG-R02/R09/R12 | DEFINIDO FUNCIONALMENTE |
-| URG-MOD-02 | Módulo | Permanencia | Completados/abiertos separados | URG-R04/R05 | DEFINIDO FUNCIONALMENTE |
-| URG-MOD-03 | Módulo | Reingresos | U-RET | URG-R06 | CONTRATO Y SQL VALIDADOS |
-| URG-MOD-04 | Módulo | Triage | U-ING, cobertura por componente | URG-R10 | DEFINIDO FUNCIONALMENTE |
-| URG-MOD-05 | Módulo | Resolución | U-ING o U-EGR explícito por cerrar | URG-R11 | DEFINIDO FUNCIONALMENTE dimensiones; mapeo CANDIDATO |
-| URG-MOD-06 | Módulo | Población | U-POB | URG-R07 | DEFINIDO FUNCIONALMENTE grupos; precedencia edad pendiente |
-| URG-MOD-07 | Módulo | Clínica y actividad asociada | Episodios del contexto | URG-R12 | DEFINIDO FUNCIONALMENTE |
-| URG-MOD-08 | Módulo | Detalle/auditoría | Mismo universo/categoría | URG-R13 | DEFINIDO FUNCIONALMENTE |
-| URG-CAL-01 | Cobertura/calidad | Cobertura/no evaluables | Universo de cada componente | URG-R04/R07/R10/R11 | DEFINIDO FUNCIONALMENTE |
-| URG-CAL-02 | Cobertura/calidad | Inconsistencias/deuda | Universo correspondiente | URG-R01/R03/R04 | DEFINIDO FUNCIONALMENTE |
-| URG-PEND-01 | Candidato | Tiempos complementarios | Pares evaluables U-ING | URG-R04/R05 | CANDIDATO secundario |
-| URG-PEND-02 | Candidato | Censo retrospectivo/tasas adicionales | POR DEFINIR | URG-R03/R05/R06 | CANDIDATO |
+| ID | Elemento | Papel | Regla principal |
+|---|---|---|---|
+| URG-EJ-01 | Atenciones | Ejecutivo | URG-R01/R02 |
+| URG-EJ-02 | Promedio diario | Ejecutivo | URG-R02 |
+| URG-EJ-03 | Permanencia registrada | Ejecutivo | URG-R04/R05 |
+| URG-EJ-04 | Hospitalización | Ejecutivo | URG-R11 |
+| URG-EJ-05 | Reingresos <72 h / <48 h | Ejecutivo | URG-R06 |
+| URG-EJ-06 | Pacientes únicos | Ejecutivo | URG-R07 |
+| URG-EJ-07 | Atenciones por paciente | Ejecutivo contextual | URG-R01/R07 |
+| URG-ACT-01 | Activos probables | Situación actual | URG-R03 |
+| URG-MOD-01 | Demanda | Módulo | URG-R02/R09/R12 |
+| URG-MOD-05 | Resolución | Módulo | URG-R11 |
+| URG-MOD-09 | Frecuentación | Módulo | URG-R07 |
+| URG-TRI-01 | Cobertura de Triage | Módulo | URG-R10 |
+| URG-TRI-02 | Clasificación de Triage | Módulo | URG-R10 |
+| URG-TRI-03 | Tiempo registrado a Triage | Módulo | URG-R04/R10 |
+| URG-CAL-01 | Calidad y anomalías | Capa transversal | URG-R01/R04 |
+| URG-PEND-01..07 | Atención, alta, secuencias, población, clínica y localización | Pendientes | Ver matriz de estados |
 
-## Límites
-
-Sólo reconciliación documental/funcional. Sin frontend/backend/conexión SQL/consultas productivas/ETL/API/caché. Navegación, catálogos, filtros, privacidad y arquitectura son contratos futuros. [Origen de candidatos](RECONCILIACION_BASELINE_717f681.md).
+Los SQL canónicos están en `scripts/sql/indicadores/`; descubrimiento y validación exploratoria permanecen en `scripts/sql/01_*` y `02_*`.

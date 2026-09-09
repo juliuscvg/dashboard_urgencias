@@ -1,6 +1,6 @@
 # Reglas y criterios — Urgencias
 
-Contrato en [reglas](../REGLAS_NEGOCIO.md), sustituciones en [decisiones](DECISIONES_Y_CAMBIOS.md). Decisiones del contexto y validación SQL 2026-09-08: identidad, servicios, activos y reingresos validados; subcontratos restantes señalados.
+Contrato general en [reglas](../REGLAS_NEGOCIO.md), contratos completos por indicador en [contratos aceptados](../indicadores/CONTRATOS_ACEPTADOS.md), estado funcional/técnico en [estado de indicadores](ESTADO_INDICADORES.md) y sustituciones en [decisiones](DECISIONES_Y_CAMBIOS.md). Las consultas canónicas son verificables y de solo lectura; su reconciliación contra la fuente permanece pendiente de conexión DB.
 
 | ID | Alcance | Campos/fuente | Universo | Caso diseñado |
 |---|---|---|---|---|

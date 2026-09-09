@@ -1,60 +1,43 @@
-# Diccionario funcional — vUrgencias
+# Diccionario semántico — dbo.vUrgencias
 
-Evidencia funcional inicial: [contexto 2026-09-07](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Evidencia física posterior: [validación SQL 2026-09-08](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md). La vista existe con aproximadamente 101 columnas. Los tipos y detalles físicos no reproducidos en la evidencia consolidada se consultan con el instrumento estructural; no asignar tipos por nombre.
+Versión: 2026-09-08.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no incluidos en evidencia versionada se declaran `NO DOCUMENTADO`; deben verificarse con el script estructural antes de asumir conversiones.
 
-| Campo comunicado | Semántica/uso | Validación adicional |
-|---|---|---|
-| epis_pk | Episodio XHIS asociado; foliounico es alias | Vínculo observado 1:1 cuando existe; 19 ausentes históricos |
-| id_urgencia | Identidad canónica del evento de Urgencias; alias folio | Único/no nulo en dbo.urgencias; deduplicar semánticamente la vista |
-| codigo_cliente | Identidad longitudinal analítica del paciente | Validada; conservar auditoría de cobertura y outliers |
-| registro | Identificador clínico/administrativo de enriquecimiento | No usar como identidad longitudinal |
-| foliounico | Identificador adicional | Semántica/cardinalidad |
-| Fechaing | Registro del paciente | Casing, precisión, zona |
-| fechatri | Timestamp canónico de Triage y tiempo registrado | Cobertura, precisión y zona |
-| triage_fecha | Fecha calendario de Triage a las 00:00 | No usar para medir tiempos |
-| fechaate | Inicio atención, datetime derivado preferido | Transformación desde atencion_fecha |
-| fechamed | Alta médica, datetime derivado preferido | Transformación desde altamed_fecha |
-| fechaegr | Egreso administrativo y fin evento | Cobertura/secuencia/zona |
-| fecha_modif | Modificación técnica | No clínica ni KPI operativo |
-| atencion_fecha | Fuente/equivalente funcional fechaate | No asumir igualdad física |
-| altamed_fecha | Fuente/equivalente funcional fechamed | No asumir igualdad física |
-| fecha_nac | Nacimiento | Edad al evento y fechas imposibles |
-| edadaños | Edad en años comunicada | Referencia y cálculo |
-| EdadMeses | Edad en meses | Totales o componente NO DOCUMENTADO |
-| EdadDias | Edad en días | Totales o componente NO DOCUMENTADO |
-| triage_pk | Identificador triage | Catálogo/relación episodio |
-| triage_codigo | Código clasificación | Dominio/significado |
-| triage_desc | Descripción clasificación | Consistencia |
-| area | Área de contexto triage | No equiparar a nivel ni codigo_area de servicios |
-| desc_area | Descripción área | Correspondencia |
-| tipo_urgencia | Tipo comunicado | No inferir gravedad |
-| login_triage | Login responsable | Cobertura/privacidad |
-| usuario_triage | Usuario triage | Relación con login |
-| categoria_triage | Categoría triage | Relación con nivel |
-| destino_urg_pk | Clave destino | Mapeo ejecutivo |
-| destino_urgencias | Descripción destino | Consistencia |
-| motivo_alta_pk | Clave motivo alta | vUrgencias incorpora motivos_alta_ing |
-| motivo_alta | Descripción expuesta desde motivo_alta_desc | Presencia física validada |
-| motivo_urgencia | Motivo urgencia | Catálogo/granularidad |
-| motivo_urg_libre | Texto libre | Sólo búsqueda/detalle autorizado |
-| cdiag_ing | Código diagnóstico ingreso | Catálogo/cardinalidad |
-| diag_ing | Descripción diagnóstico ingreso | Consistencia |
-| cdiag_egr | Código diagnóstico egreso | Catálogo/cardinalidad |
-| diag_egr | Descripción diagnóstico egreso | Consistencia |
+| Campo físico | Tipo | Fuente | Semántica | Uso analítico | Rol | NULL | Relaciones/equivalencias | Limitaciones | Indicadores consumidores |
+|---|---|---|---|---|---|---|---|---|---|
+| id_urgencia | NO DOCUMENTADO | vUrgencias / urgencias | Atención de Urgencias | Identidad y conteo | CANÓNICO | No esperado | urgencias.id_urgencia_pk; alias folio | La vista puede repetirlo | Todos |
+| codigo_cliente | NO DOCUMENTADO | vUrgencias | Identidad longitudinal del paciente | Distintos y reingresos | CANÓNICO | Posible | No equivale a registro | No fabricar identidad | EJ-05/06/07, MOD-09 |
+| epis_pk | NO DOCUMENTADO | vUrgencias / episodios | Episodio XHIS asociado | Trazabilidad | AUXILIAR | Sí, observado | alias foliounico | No identifica el evento canónico | Auditoría |
+| registro | NO DOCUMENTADO | vUrgencias / vsegpop | Identificador administrativo enriquecido | Auditoría | AUXILIAR | Posible | No equivale a codigo_cliente | Puede multiplicar filas | Calidad |
+| Fechaing | NO DOCUMENTADO | vUrgencias | Registro de ingreso a Urgencias | Eje temporal y duraciones | CANÓNICO | Posible | casing fechaing no crea otro campo | Zona/precisión no documentadas | EJ-01..07, ACT-01, MOD-01/05/09, TRI-01..03 |
+| fechaegr | NO DOCUMENTADO | vUrgencias | Egreso administrativo | Completados y permanencia | CANÓNICO | Sí | Fin registrado del evento | Nulo no basta para activo | EJ-03/04/05, ACT-01 |
+| fechatri | NO DOCUMENTADO | vUrgencias | Timestamp de registro de Triage | Cobertura y tiempo registrado | CANÓNICO PARA TIEMPO TRIAGE | Sí | Diferente de triage_fecha | Captura heterogénea | TRI-01/03 |
+| triage_fecha | NO DOCUMENTADO | vUrgencias | Fecha calendario de Triage a 00:00 | Cobertura descriptiva | AUXILIAR | Sí | No equivale a fechatri | No usar para intervalos | Auditoría Triage |
+| triage_pk | NO DOCUMENTADO | vUrgencias / triage | Clave de registro/catálogo Triage | Relación y auditoría | AUXILIAR | Sí | Relación física por verificar | No asumir nivel | Triage |
+| triage_codigo | NO DOCUMENTADO | vUrgencias | Código de clasificación 1–6 | Distribución nativa | CANÓNICO | Sí | Se acompaña de triage_desc | No homologar | TRI-02 |
+| triage_desc | NO DOCUMENTADO | vUrgencias | Descripción nativa de Triage | Etiqueta humana | CANÓNICO | Sí | Depende de triage_codigo | Variantes auditables | TRI-02 |
+| categoria_triage | NO DOCUMENTADO | vUrgencias | Categoría complementaria comunicada | Auditoría | AUXILIAR | Sí | No equiparar a nivel | Semántica pendiente | Triage |
+| login_triage | NO DOCUMENTADO | vUrgencias | Login de captura Triage | Auditoría autorizada | AUXILIAR SENSIBLE | Sí | Puede relacionarse con usuario_triage | No exponer en agregado/logs | Auditoría |
+| usuario_triage | NO DOCUMENTADO | vUrgencias | Usuario asociado a Triage | Auditoría autorizada | AUXILIAR SENSIBLE | Sí | No sustituye personal médico | Privacidad | Auditoría |
+| fechaate | NO DOCUMENTADO | vUrgencias | Inicio registrado de atención médica | Tiempo complementario | CANÓNICO PROPUESTO | Sí | derivado preferido frente a atencion_fecha | Contrato EN PROCESO | PEND-01 |
+| atencion_fecha | NO DOCUMENTADO | vUrgencias | Fuente/equivalente comunicado de atención | Auditoría | AUXILIAR | Sí | Equivalencia con fechaate pendiente | No sustituir automáticamente | PEND-01 |
+| fechamed | NO DOCUMENTADO | vUrgencias | Alta médica registrada | Hito independiente | CANÓNICO PROPUESTO | Sí | derivado preferido frente a altamed_fecha | EN VALIDACIÓN; no implementar | PEND-02 |
+| altamed_fecha | NO DOCUMENTADO | vUrgencias | Fuente/equivalente comunicado de alta | Auditoría | AUXILIAR | Sí | Equivalencia con fechamed pendiente | No sustituir automáticamente | PEND-02 |
+| destino_urg_pk | NO DOCUMENTADO | vUrgencias | Clave destino institucional | Resolución y hospitalización | CANÓNICO | Sí | 5=HOSP. PISO; 99=N.E. | No reagrupar irreversiblemente | EJ-04, MOD-05 |
+| destino_urgencias | NO DOCUMENTADO | vUrgencias | Descripción nativa de destino | Etiqueta/categoría | CANÓNICO | Sí | Depende de destino_urg_pk | Variantes auditables | MOD-05, detalle |
+| motivo_alta_pk | NO DOCUMENTADO | vUrgencias | Clave de motivo de alta | Activo probable/resolución separada | CANÓNICO | Sí | Distinto de destino | No fusionar | ACT-01 |
+| motivo_alta | NO DOCUMENTADO | vUrgencias / motivos_alta_ing | Descripción de motivo | Detalle/resolución separada | AUXILIAR | Sí | motivo_alta_desc expuesto por vista | No inferir destino | Detalle |
+| codigo_servicio_ingreso | NO DOCUMENTADO | vUrgencias | Servicio del ingreso | Universo, filtros y reingreso | CANÓNICO | Posible | une con servicios.codigo_servicio y cod_centro | Validar fan-out | Todos |
+| cod_centro | NO DOCUMENTADO | vUrgencias | Clave de centro | Unión de catálogo | CANÓNICO | Posible | une con servicios/centros | No hardcodear | Todos |
+| fecha_modif | NO DOCUMENTADO | vUrgencias | Modificación técnica | Auditoría | AUXILIAR | Posible | NO APLICA como fecha clínica | Nunca eje de KPI | Calidad |
+| fecha_nac | NO DOCUMENTADO | vUrgencias | Nacimiento | Edad al evento futura | AUXILIAR | Sí | Contrastar con edades expuestas | Fechas imposibles posibles | PEND-04 |
+| edadaños | NO DOCUMENTADO | vUrgencias | Edad comunicada en años | Grupo etario futuro | AUXILIAR | Sí | Precisión/fecha de cálculo pendiente | No recalcular al presente | PEND-04 |
+| EdadMeses | NO DOCUMENTADO | vUrgencias | Edad comunicada en meses | Pediatría futura | AUXILIAR | Sí | Unidad/componente por validar | No sumar sin semántica | PEND-04 |
+| EdadDias | NO DOCUMENTADO | vUrgencias | Edad comunicada en días | Pediatría futura | AUXILIAR | Sí | Unidad/componente por validar | No sumar sin semántica | PEND-04 |
+| motivo_urgencia | NO DOCUMENTADO | vUrgencias | Motivo categórico comunicado | Clínica futura | AUXILIAR | Sí | Catálogo pendiente | POR DEFINIR | PEND-06 |
+| motivo_urg_libre | NO DOCUMENTADO | vUrgencias | Texto libre de motivo | Búsqueda/detalle autorizado | AUXILIAR SENSIBLE | Sí | NO APLICA para ranking ejecutivo | Privacidad | PEND-06 |
+| cdiag_ing / diag_ing | NO DOCUMENTADO | vUrgencias | Diagnóstico de ingreso | Clínica futura | AUXILIAR | Sí | Código/descripción | POR DEFINIR | PEND-05 |
+| cdiag_egr / diag_egr | NO DOCUMENTADO | vUrgencias | Diagnóstico de egreso | Clínica futura | AUXILIAR | Sí | Código/descripción | POR DEFINIR | PEND-05 |
 
-## Nombres del baseline y conceptos pendientes
+## Campos no identificados inequívocamente
 
-nombre, sexo, edad, centro, servicio_ingreso y tipo_ingreso fueron comunicados en la [solicitud inicial](../historico/prompts/SOLICITUD_BASELINE.txt); permanecen provisionales sin verificación física. edad no sustituye automáticamente edadaños. Fechaing/fechaing es variación de casing comunicada, no dos columnas. episodio_pk REEMPLAZADO por epis_pk; sólo conserva procedencia histórica.
-
-Estado, municipio, localidad, médico, localización, cama, usuarios registro/egreso, seguridad social, pagador y origen: conceptos requeridos sin nombre físico inequívoco documentado. No inventar columnas ni reutilizar usuarios triage.
-
-## Fuentes complementarias
-
-| Fuente | Campos comunicados | Límite |
-|---|---|---|
-| dbo.servicios | codigo_servicio, cod_centro, servicio, codigo_area, serv_activo_sn, serv_ing_urg_sn | Los dos filtros definen universo; clave de unión validada |
-| dbo.centros | cod_centro, centro_siglas | Catálogo dinámico de centro |
-| Centros, objeto por identificar | Centro/código/descripción como conceptos | No afirmar nombres físicos |
-| dbo.motivos_alta_ing | motivo_alta_desc | Dependencia validada; se expone como motivo_alta en vUrgencias |
-
-Destino y motivo permanecen separados. La exposición de motivo_alta ya existe; no se modifica la vista y el mapeo ejecutivo de códigos sigue pendiente. [Fuentes](FUENTES_Y_GRANULARIDAD.md) · [Reglas](../REGLAS_NEGOCIO.md).
+Sexo, estado, municipio, localidad, médico, localización, cama, usuarios de registro/egreso, seguridad social, pagador y origen siguen sin nombre físico inequívoco versionado. No inventar columnas ni reutilizar campos de Triage.

@@ -1,41 +1,26 @@
 # Trazabilidad — Urgencias
 
-Fuente primaria vUrgencias; complementarias sólo según [roles](../diccionarios/FUENTES_Y_GRANULARIDAD.md). La [validación SQL 2026-09-08](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md) acredita identidades, servicios, activos y reingresos; no acredita implementación.
+Cadena exigida: principio HCG → regla local → contrato → fuente/campos → SQL → implementación → validación/evidencia. Un vacío se declara; no se infiere.
 
-| Elemento | Regla | Campos comunicados | Caso diseñado | Implementación | Evidencia SQL | Documentación |
-|---|---|---|---|---|---|---|
-| URG-EJ-01 Atenciones | URG-R01/R02: [reglas](../REGLAS_NEGOCIO.md) | id_urgencia; Fechaing | URG-CP-01/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | [SQL 2026-09-08](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md) | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-EJ-02 Promedio diario | URG-R02/R08: [reglas](../REGLAS_NEGOCIO.md) | Fechaing; id_urgencia | URG-CP-12/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-EJ-03 Permanencia promedio | URG-R04/R05: [reglas](../REGLAS_NEGOCIO.md) | Fechaing; fechaegr | URG-CP-06/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-EJ-04 Hospitalización | URG-R11: [reglas](../REGLAS_NEGOCIO.md) | destino_urg_pk; destino_urgencias | URG-CP-14/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-EJ-05 Reingresos <72 h | URG-R06: [reglas](../REGLAS_NEGOCIO.md) | id_urgencia; codigo_cliente; codigo_servicio_ingreso; Fechaing; fechaegr | URG-CP-07/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | [SQL 2026-09-08](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md) | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-EJ-06 Pacientes únicos | URG-R01/R07: [reglas](../REGLAS_NEGOCIO.md) | codigo_cliente; Fechaing | URG-CP-09/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | [SQL 2026-09-08](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md) | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-ACT-01 Activos probables | URG-R03: [reglas](../REGLAS_NEGOCIO.md) | fechaegr; motivo_alta_pk; Fechaing | URG-CP-03/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | [SQL 2026-09-08](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md) | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-ACT-02 Activos >24/>48/>72 h | URG-R03: [reglas](../REGLAS_NEGOCIO.md) | Fechaing; corte; fechaegr; motivo_alta_pk | URG-CP-04/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | NO IMPLEMENTADO | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-MOD-01 Demanda | URG-R02/R09/R12: [reglas](../REGLAS_NEGOCIO.md) | Fechaing; fechaegr; centro; codigo_servicio_ingreso | URG-CP-13/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | [SQL 2026-09-08](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md) | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-MOD-02 Permanencia | URG-R04/R05: [reglas](../REGLAS_NEGOCIO.md) | Fechaing; fechaegr; corte | URG-CP-06/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | NO IMPLEMENTADO | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-MOD-03 Reingresos | URG-R06: [reglas](../REGLAS_NEGOCIO.md) | id_urgencia; codigo_cliente; codigo_servicio_ingreso; Fechaing; fechaegr | URG-CP-08/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | [SQL 2026-09-08](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md) | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-MOD-04 Triage | URG-R10: [reglas](../REGLAS_NEGOCIO.md) | fechatri; triage_pk/codigo/desc; login/usuario/categoria_triage | URG-CP-15/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-MOD-05 Resolución | URG-R11: [reglas](../REGLAS_NEGOCIO.md) | destino_urg_pk/urgencias; motivo_alta_pk; motivo_alta | URG-CP-14/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | NO IMPLEMENTADO | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-MOD-06 Población | URG-R07: [reglas](../REGLAS_NEGOCIO.md) | sexo; fecha_nac; edadaños; EdadMeses; EdadDias | URG-CP-09/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | NO IMPLEMENTADO | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-MOD-07 Clínica y actividad asociada | URG-R12: [reglas](../REGLAS_NEGOCIO.md) | motivo_urgencia/libre; cdiag_ing/egr; diag_ing/egr; médico pendiente | URG-CP-16/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | NO IMPLEMENTADO | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-MOD-08 Detalle/auditoría | URG-R13: [reglas](../REGLAS_NEGOCIO.md) | Campos mínimos/contextuales UX | URG-CP-10/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-CAL-01 Cobertura/no evaluables | URG-R04/R07/R10/R11: [reglas](../REGLAS_NEGOCIO.md) | Presencia/validez de cada dimensión | URG-CP-05/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-CAL-02 Inconsistencias/deuda | URG-R01/R03/R04: [reglas](../REGLAS_NEGOCIO.md) | epis_pk; fechas; motivo_alta_pk; catálogos | URG-CP-01/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | IMPLEMENTADO FASE 1 | [SQL 2026-09-08](../evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md) | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-PEND-01 Tiempos complementarios | URG-R04/R05: [reglas](../REGLAS_NEGOCIO.md) | Fechaing; fechatri; fechaate; fechamed | URG-CP-05/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | NO IMPLEMENTADO | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
-| URG-PEND-02 Censo retrospectivo/tasas adicionales | URG-R03/R05/R06: [reglas](../REGLAS_NEGOCIO.md) | Historia/denominadores/mapeos pendientes | URG-CP-11/R2: [casos](../evidencia/CASOS_PATRON_VIGENTES.md) | NO IMPLEMENTADO | PENDIENTE DE VALIDACIÓN SQL | [Contexto](../historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) / [catálogo](../indicadores/00_CATALOGO_INDICADORES.md) |
+| Elemento | Principio/regla | Contrato y fuente | SQL verificable | API/UI | Validación/evidencia |
+|---|---|---|---|---|---|
+| URG-EJ-01 Atenciones | HCG-ANA-001/002/005; URG-R01/02 | Contratos; vUrgencias.id_urgencia/Fechaing | URG-EJ-01 | /summary; KPI/tendencia/detalle | Tests estructurales; evidencia SQL |
+| URG-EJ-02 Promedio diario | HCG-TEM-001/007; URG-R02 | Contratos; Fechaing/cutoff | URG-EJ-02 | /summary; KPI/periodo parcial | Build/tests; DB aplicación pendiente |
+| URG-EJ-03 Permanencia | HCG-CAL-005/006/009; URG-R04/05 | Contratos; Fechaing/fechaegr | URG-EJ-03 | /summary,/episodes | Casos patrón; DB aplicación pendiente |
+| URG-EJ-04 Hospitalización | HCG-ANA-002/003; URG-R11 | Contratos; destino_urg_pk | URG-EJ-04 | /summary; KPI | Caso destino 5; DB aplicación pendiente |
+| URG-EJ-05 Reingresos | HCG-ANA-003/009; URG-R06 | Contratos; evento/paciente/servicio/fechas | URG-EJ-05 | /summary; KPI <72/<48 | R07B v2 y fronteras |
+| URG-EJ-06 Pacientes únicos | HCG-ANA-001/007; URG-R07 | Contratos; codigo_cliente | URG-EJ-06 | /summary; KPI | Evidencia de identidad |
+| URG-EJ-07 Atenciones/paciente | HCG-ANA-002/003; URG-R01/07 | Contratos; evento/paciente | URG-EJ-07 | /summary; contexto KPI | Build/tests; DB aplicación pendiente |
+| URG-ACT-01 Activos probables | HCG-TEM-002/005; URG-R03 | Contratos; Fechaing/fechaegr/motivo | URG-ACT-01 | /summary; indicador separado | Evidencia SQL mutable |
+| URG-MOD-01 Demanda | HCG-ANA-005; URG-R02/09/12 | Contratos; Fechaing/servicios | URG-MOD-01 | /demand; tendencia/servicios | Suma debe reconciliar con EJ-01 |
+| URG-MOD-05 Resolución | HCG-CAL-001/003; URG-R11 | Contratos; destino nativo | URG-MOD-05 | Destino en /episodes; módulo pendiente | SQL no ejecutado |
+| URG-MOD-09 Frecuentación | HCG-ANA-011; URG-R07 | Contratos; paciente/evento | URG-MOD-09 | API/UI pendientes | SQL no ejecutado |
+| URG-TRI-01 Cobertura | HCG-CAL-005/008; URG-R10 | Contratos; fechatri | URG-TRI-01 | /triage; cobertura | Benchmark 9.41% aproximado |
+| URG-TRI-02 Clasificación | HCG-UX-012; URG-R10 | Contratos; triage_codigo/desc | URG-TRI-02 | API/UI pendientes | SQL no ejecutado |
+| URG-TRI-03 Tiempo Triage | HCG-CAL-006/009; URG-R04/10 | Contratos; Fechaing/fechatri | URG-TRI-03 | /triage; resumen | DB aplicación pendiente |
+| URG-CAL-01 Calidad | HCG-CAL-001..009; URG-R01/04 | Reglas; campos de cada universo | Asociada a cada SQL | Señales en summary/triage/detalle | Casos patrón y pruebas |
+| URG-PEND-01 Atención médica | HCG-TRZ-001; URG-R04 | Fechaing/fechaate | NO APLICA: estado EN PROCESO | No implementado | Evidencia funcional pendiente |
+| URG-PEND-02 Alta médica | HCG-TRZ-001; URG-R04 | fechamed | NO APLICA: estado EN VALIDACIÓN | No implementado | No autorizada |
+| URG-PEND-03..07 | Reglas locales pendientes | Estado de indicadores | NO APLICA mientras no estén aceptados | No implementado | Pendiente/diferido |
 
-Los 28 IDs antiguos tienen destino en [matriz](RECONCILIACION_BASELINE_717f681.md). Casos R2 sustituyen diseños conservados en 717f681. La evidencia SQL de dominio está registrada; los casos sintéticos y SQL/API/UI de aplicación aún no tienen SHA de ejecución automatizada.
-
-
-## Cadena implementada de primera fase
-
-| Principio | Contrato | SQL / Repository | API | UI |
-|---|---|---|---|---|
-| Un evento por atención | URG-R01/R02 | `event-scope.sql.ts` / `fetchSummaryBase` | `/summary`, `/demand` | KPI, tendencia, detalle |
-| Catálogo dinámico | URG-R09 | `fetchCatalogs`, `fetchDemand` | `/filters`, `/demand` | selectores y “Sin actividad” |
-| Permanencia registrada | URG-R04/R05 | `fetchSummaryBase`, `fetchEpisodes` | `/summary`, `/episodes` | KPI y horas por evento |
-| Reingreso válido | URG-R06 | `READMISSION_PRIOR_SQL`, `fetchReadmissions` | `/summary` | KPI <72 h y referencia <48 h |
-| Resolución nativa | URG-R11 | destino en `EventScope` | `/summary`, `/episodes` | hospitalización y destino nativo |
-| Cobertura Triage | URG-R10 | `fetchTriage` | `/triage` | cobertura global y por servicio |
-| Privacidad y detalle mínimo | URG-R13 | selección explícita sin `codigo_cliente` | `/episodes` | tabla paginada sin PII |
+Nombres completos y rutas están en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md). Casos en [evidencia](../evidencia/CASOS_PATRON_VIGENTES.md), decisiones en [bitácora](DECISIONES_Y_CAMBIOS.md) y adopción en [HCG](ADOPCION_HCG.md).
