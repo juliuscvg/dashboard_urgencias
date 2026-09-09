@@ -51,7 +51,7 @@
       "48<t<72"
     ],
     "referencia_secundaria_horas": 48,
-    "referencia_inclusion": "MENOR_O_IGUAL_48_VALIDADO",
+    "referencia_inclusion": "MENOR_QUE_48_VALIDADO",
     "redondeo_visual_horas": 0.5,
     "redondeo_para_pertenencia": false,
     "antecedente": "EGRESO_VALIDO_MAS_RECIENTE_MISMO_PACIENTE_SERVICIO",
@@ -102,18 +102,16 @@
     }
   ],
   "destino": {
-    "grupos": [
-      "Domicilio",
-      "Hospitalización",
-      "Consulta Externa",
-      "Salida no programada",
-      "Traslado",
-      "Defunción",
-      "No especificado",
-      "Otros"
-    ],
-    "mapeo_codigos": {},
-    "estado_mapeo": "PENDIENTE_NO_VALIDADO"
+    "categorias": "INSTITUCIONALES_NATIVAS",
+    "n_e_pk": 99,
+    "null_separado": true,
+    "presentacion_top_n_otros_reversible": true,
+    "hospitalizacion": {
+      "destino_urg_pk": 5,
+      "etiqueta": "HOSP. PISO",
+      "denominador": "EVENTOS_COMPLETADOS_MISMO_UNIVERSO"
+    },
+    "estado": "ACEPTADO"
   },
   "metas_institucionales": null,
   "identidad_evento": {

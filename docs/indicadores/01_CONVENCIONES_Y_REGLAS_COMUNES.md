@@ -6,7 +6,7 @@ Contexto vigente y SQL validado son estados distintos. Rigen [URG-R01 a R13](../
 - Distribución = categorías + SIN DATO + DATO INVÁLIDO/contradicción según partición explícita.
 - Duraciones reales, no conteo de fronteras horarias; convertir sin redondear antes de clasificar. Ceros/extremos válidos incluidos; faltantes/negativos separados.
 - Promedio aritmético completados y transcurrido abiertos separados; denominador cero no calculable.
-- Reingreso 0<t<72; bandas (0,24], (24,48], (48,72). El corte secundario <=48 suma las dos primeras. Seleccionar el egreso válido más reciente del mismo paciente/servicio; redondeo 0.5 no determina pertenencia.
+- Reingreso 0<t<72; bandas (0,24], (24,48], (48,72). El corte secundario <48 excluye exactamente 48 h; las bandas descriptivas conservan sus límites. Seleccionar el egreso válido más reciente del mismo paciente/servicio; redondeo 0.5 no determina pertenencia.
 - Activos >24/>48/>72 acumulativos; stock no restringido al periodo histórico ni ventana móvil.
 - Mismo predicado agregado/detalle/count/exportación y snapshot o discrepancia documentada.
 - Pacientes únicos no aditivos entre servicios/periodos; conservar intersecciones.

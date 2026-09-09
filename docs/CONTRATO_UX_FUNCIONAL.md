@@ -1,10 +1,10 @@
 # Contrato UX funcional — Urgencias
 
-Definido funcionalmente por [contexto vigente](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt); no implementado ni validado visualmente. [Evolución del baseline](gobierno/RECONCILIACION_BASELINE_717f681.md).
+Contrato vigente, implementado parcialmente en la primera fase y pendiente de validación visual con datos reales. Definido por [contexto vigente](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). [Evolución del baseline](gobierno/RECONCILIACION_BASELINE_717f681.md).
 
 ## Portada y navegación
 
-Aproximadamente seis KPI: Atenciones, Promedio diario, Permanencia promedio, Hospitalización, Reingresos <72 h y Pacientes únicos. Situación actual separada con corte explícito, total activo probable y >24/>48/>72 h, énfasis >48/>72 sin ocultar varios días. Triage/población secundarios frente a registro/egreso. No metas ni semáforos.
+Seis KPI aceptados: Atenciones, Promedio diario, Permanencia promedio, Hospitalización, Reingresos <72 h y Pacientes únicos. Situación actual separada con corte explícito, total activo probable y >24/>48/>72 h, énfasis >48/>72 sin ocultar varios días. Triage/población secundarios frente a registro/egreso. No metas ni semáforos.
 
 Secciones futuras: Resumen, Demanda, Permanencia, Reingresos, Triage, Resolución, Población, Clínica, Detalle. Click sobre visual aplica filtro/contexto como acción explícita con chips; Ver detalle abre episodios del mismo contexto. Persistir filtros entre secciones, recarga, Back/Forward y enlaces no sensibles. Exploración sin acción de filtrado no cambia globales silenciosamente. Advertencias interpretativas visibles, no sólo tooltip.
 

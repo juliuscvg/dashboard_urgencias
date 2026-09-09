@@ -64,7 +64,7 @@ Contrato común: dataset sintético sin identificadores reales; entidades distin
 
 - Regla/universo: URG-R06, [contrato](../REGLAS_NEGOCIO.md).
 - Entrada/escenario: Pares inequívocos con t=0,0.01,24,24.01,48,48.01,71.99,72,-1 horas.
-- Esperado independiente/reconciliación: Seis dentro <72; bandas 2/2/2; 0/72/-1 excluidos. <=48 suma las dos primeras bandas; el redondeo visual no cambia clasificación.
+- Esperado independiente/reconciliación: Seis dentro <72; bandas 2/2/2; 0/72/-1 excluidos. <48 excluye la frontera exacta de 48 h; por ello no equivale sin ajuste a sumar las dos primeras bandas; el redondeo visual no cambia clasificación.
 - Relación histórica: Reemplaza 08; fronteras validadas.
 - Estado: FRONTERAS VALIDADAS con evidencia real; caso exacto 72:00 queda sintético.
 

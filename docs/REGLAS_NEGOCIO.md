@@ -93,7 +93,7 @@ No usar LAG ingenuamente ante solapamientos o múltiples antecedentes. No exigir
 | >24–48 h | 24 < t <= 48 h |
 | >48–72 h | 48 < t < 72 h |
 
-El KPI principal es Reingresos <72 h; t=72 h queda fuera. El corte secundario Reingresos <=48 h suma las dos primeras bandas. Clasificar con DATETIME real; redondear a múltiplos de 0.5 h sólo para presentación.
+El KPI principal es Reingresos <72 h; t=72 h queda fuera. El corte secundario Reingresos <48 h excluye la frontera exacta de 48 horas; las bandas descriptivas conservan sus límites propios. Clasificar con DATETIME real; redondear a múltiplos de 0.5 h sólo para presentación.
 
 Tasa = eventos evaluables clasificados como reingreso <72 h / eventos evaluables de Urgencias del periodo ×100. Un evento evaluable requiere id_urgencia, codigo_cliente, codigo_servicio_ingreso y Fechaing; no requiere antecedente. No usar “eventos con antecedente válido” como denominador. La corrida R07B v2 tuvo 159,822 eventos evaluables de 159,822, pero la cobertura debe auditarse siempre. [Evidencia y casos](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md).
 
@@ -125,11 +125,15 @@ Separar fecha/hora, nivel/clasificación y responsable. Campos: triage_pk, triag
 
 Cada visualización muestra cobertura por componente/universo; contemplar nivel sin fecha, responsable sin nivel. Ausencia no invalida episodio ni constituye error automático. Menor peso que registro/egreso en portada. Preparar estandarización con catálogo, prácticas por servicio/periodo, completitud y responsables; sin normalización silenciosa.
 
+`fechatri` es el timestamp canónico; `triage_fecha` es fecha calendario a las 00:00 y no sirve para medir intervalos. Tiempo registrado a Triage = `fechatri - Fechaing`. Promedios muestran eventos evaluables, universo y cobertura; secuencias invertidas se señalan aparte. No recortar extremos, incluidos >24 h y >7 días.
+
+Clasificación nativa: 1 Crítico, 2 Emergencia, 3 Urgencia, 4 Estándar, 5 No Urgente, 6 Sin Evaluar. No crear homologaciones, metas o semáforos sin definición institucional.
+
 ## URG-R11 — Resolución
 
-Destino: destino_urg_pk y destino_urgencias. Motivo: motivo_alta_pk y motivo_alta. Son dimensiones independientes; no fusionar. Se validó que vUrgencias ya incorpora dbo.motivos_alta_ing y expone motivo_alta_desc como motivo_alta. No modificar la vista; el mapeo ejecutivo de códigos permanece pendiente.
+Destino: `destino_urg_pk` y `destino_urgencias` forman la dimensión canónica; motivo de alta permanece independiente. Conservar cada categoría institucional nativa. `NULL` y N.E. (pk 99) son categorías diferentes. Top N + “Otros (+)” sólo puede ser una agrupación visual reversible; backend, dominio, detalle y exportación conservan el destino original.
 
-Grupos ejecutivos configurables: Domicilio, Hospitalización, Consulta Externa, Salida no programada, Traslado, Defunción, No especificado, Otros. Mapeo de códigos pendiente de SQL/revisión funcional; no adivinar códigos ni inferir Hospitalización de motivo. Mostrar cobertura de mapeo; no usar Otros/No especificado para esconder códigos desconocidos. Tratamiento de nulos/códigos sin mapear debe cerrarse antes del cálculo.
+Hospitalización es exclusivamente `destino_urg_pk = 5` (HOSP. PISO) y usa como denominador los eventos completados del mismo universo. No ampliar a QX, Terapia Intensiva, Tococirugía, Sala de Choque u otros destinos. Porcentajes positivos menores a 0.01% se presentan como `<0.01%`, nunca como cero.
 
 ## URG-R12 — Demanda, clínica y personal
 
@@ -141,6 +145,6 @@ Personal: Atenciones asociadas a médico / Actividad registrada; no productivida
 
 ## URG-R13 — Portada, detalle y arquitectura
 
-Seis KPI propuestos: Atenciones, Promedio diario, Permanencia promedio, Hospitalización, Reingresos <72 h, Pacientes únicos. Situación actual separada. No convierte 28 candidatos del origen en oficiales. Cierres adicionales de presentación/denominadores en [catálogo](indicadores/00_CATALOGO_INDICADORES.md).
+Seis KPI aceptados e implementados en la primera fase: Atenciones, Promedio diario, Permanencia promedio, Hospitalización, Reingresos <72 h, Pacientes únicos. Situación actual separada. No convierte 28 candidatos del origen en oficiales. Cierres adicionales de presentación/denominadores en [catálogo](indicadores/00_CATALOGO_INDICADORES.md).
 
-[UX](CONTRATO_UX_FUNCIONAL.md) y [arquitectura futura](ARQUITECTURA_FUTURA.md): predicado agregado/detalle/count/exportación compartido, paginación servidor, filtros persistentes, advertencias interpretativas visibles y privacidad. Datos personales sólo para auditoría autorizada; no devolver toda la vista ni logs con nombres, CURP, teléfonos o direcciones. No se implementó frontend, backend, API, SQL, ETL ni caché.
+[UX](CONTRATO_UX_FUNCIONAL.md) y [arquitectura futura](ARQUITECTURA_FUTURA.md): predicado agregado/detalle/count/exportación compartido, paginación servidor, filtros persistentes, advertencias interpretativas visibles y privacidad. Datos personales sólo para auditoría autorizada; no devolver toda la vista ni logs con nombres, CURP, teléfonos o direcciones. La primera fase implementa frontend, API y SQL read-only; ETL y caché permanecen fuera de alcance.

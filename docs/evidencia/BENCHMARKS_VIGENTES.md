@@ -40,3 +40,12 @@ Uso permitido: orientar revalidación dirigida; nunca censo actual ni tests actu
 ## Reconciliación 2026-09-07
 
 Se conservan literalmente cifras y discrepancias del baseline 717f681. Los rangos antiguos aquí son HISTÓRICOS, reemplazados en el contrato vigente por URG-R05; no convertir sus cifras a rangos nuevos sin datos de origen. La ventana móvil no vuelve vigentes esos valores. No hubo nueva extracción, benchmark SQL ni medición. [Reglas vigentes](../REGLAS_NEGOCIO.md) · [Decisión URG-GOV-027](../gobierno/DECISIONES_Y_CAMBIOS.md).
+
+## Triage — evidencia comunicada 2026-09-08
+
+Para una ventana aproximada de los últimos tres años se observaron 484,190 atenciones, 45,577 con Triage y cobertura global de 9.41%. El periodo exacto y snapshot deben fijarse antes de una reconciliación numérica automatizada.
+
+- JIM Pediatría: aproximadamente 90–96% durante 2025 y 92–97% durante 2026.
+- FAA TOCO: frecuentemente 20–40% en 2024–2025, con caída a un dígito en varios meses de 2026.
+
+La heterogeneidad se muestra como evidencia de madurez de captura. No se atribuye causa, no se convierte en meta y no se codifica en frontend o backend.

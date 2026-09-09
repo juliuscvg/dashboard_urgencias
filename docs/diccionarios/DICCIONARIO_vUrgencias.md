@@ -10,7 +10,8 @@ Evidencia funcional inicial: [contexto 2026-09-07](../historico/prompts/SOLICITU
 | registro | Identificador clínico/administrativo de enriquecimiento | No usar como identidad longitudinal |
 | foliounico | Identificador adicional | Semántica/cardinalidad |
 | Fechaing | Registro del paciente | Casing, precisión, zona |
-| fechatri | Registro de triage | Cobertura/precisión/zona |
+| fechatri | Timestamp canónico de Triage y tiempo registrado | Cobertura, precisión y zona |
+| triage_fecha | Fecha calendario de Triage a las 00:00 | No usar para medir tiempos |
 | fechaate | Inicio atención, datetime derivado preferido | Transformación desde atencion_fecha |
 | fechamed | Alta médica, datetime derivado preferido | Transformación desde altamed_fecha |
 | fechaegr | Egreso administrativo y fin evento | Cobertura/secuencia/zona |
@@ -51,7 +52,8 @@ Estado, municipio, localidad, médico, localización, cama, usuarios registro/eg
 
 | Fuente | Campos comunicados | Límite |
 |---|---|---|
-| dbo.servicios | codigo_area, serv_activo_sn, serv_ing_urg_sn | Primeros dos definen universo; tercero sólo informa; clave de unión pendiente |
+| dbo.servicios | codigo_servicio, cod_centro, servicio, codigo_area, serv_activo_sn, serv_ing_urg_sn | Los dos filtros definen universo; clave de unión validada |
+| dbo.centros | cod_centro, centro_siglas | Catálogo dinámico de centro |
 | Centros, objeto por identificar | Centro/código/descripción como conceptos | No afirmar nombres físicos |
 | dbo.motivos_alta_ing | motivo_alta_desc | Dependencia validada; se expone como motivo_alta en vUrgencias |
 

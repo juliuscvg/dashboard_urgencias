@@ -271,7 +271,7 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Sustituye URG-GOV-010 en algoritmo, referencia 48 y denominador.
 - Decisión: seleccionar por paciente/servicio el egreso previo válido más reciente, aun fuera del periodo; ordenar fechaegr, Fechaing e id_urgencia descendentes. Bandas (0,24], (24,48], (48,72); 72 h queda fuera.
 - Denominador: todos los eventos evaluables del periodo, con o sin antecedente. Evaluabilidad requiere id_urgencia, codigo_cliente, codigo_servicio_ingreso y Fechaing.
-- Presentación: <=48 h es corte secundario; el redondeo a 0.5 h nunca clasifica.
+- Presentación: <48 h es corte secundario; el redondeo a 0.5 h nunca clasifica.
 
 ### URG-GOV-033 — Motivo de alta ya expuesto
 
@@ -283,3 +283,25 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 
 - Estado: VALIDADA CON ADVERTENCIA.
 - Decisión: los resultados de reingreso son evidencia de reconciliación, no metas o umbrales. Comparaciones exactas entre corridas requieren timestamp, snapshot consistente o periodo cerrado.
+
+### URG-GOV-035 — Contratos aceptados para primera implementación
+
+- Estado: ACEPTADO.
+- Atenciones usa eventos únicos por `id_urgencia`; promedio diario usa días calendario completos y conserva días con cero actividad.
+- Pacientes únicos usa `codigo_cliente`; atenciones por paciente comparte el mismo universo.
+- Permanencia registrada conserva todos los extremos cronológicamente interpretables.
+- Hospitalización es exclusivamente `destino_urg_pk = 5` sobre eventos completados.
+- Reingreso secundario se ajusta al contrato vigente estricto `<48 h`; exactamente 48 horas queda fuera del corte, sin alterar las bandas descriptivas.
+
+### URG-GOV-036 — Triage y madurez de captura
+
+- Estado: ACEPTADO CON OBSERVACIONES.
+- Cobertura muestra eventos con `fechatri`, universo y porcentaje por centro, servicio y periodo.
+- `fechatri` es el timestamp para tiempo registrado; `triage_fecha` es fecha calendario y no mide intervalos.
+- Clasificación nativa 1–6, extremos y variaciones temporales permanecen visibles sin explicación causal automática.
+
+### URG-GOV-037 — Primera fase técnica
+
+- Estado: IMPLEMENTADA, pendiente de reconciliación en entorno SQL configurado.
+- Se adopta separación Repository→servicio→API→frontend y paginación server-side como patrones transversales.
+- CEX no aporta reglas de Urgencias. No se crean ETL, escrituras, listas fijas ni datos identificables en endpoints.

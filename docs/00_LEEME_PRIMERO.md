@@ -7,6 +7,8 @@ El contexto de reconciliación 2026-09-07 delimita alcance vigente; el prompt in
 ## Estado y gobierno
 
 - [ESTADO_PROYECTO.md](gobierno/ESTADO_PROYECTO.md)
+- [ESTADO_INDICADORES.md](gobierno/ESTADO_INDICADORES.md)
+- [BACKLOG_FUNCIONAL.md](BACKLOG_FUNCIONAL.md)
 - [CATALOGO_FUNCIONAL.md](gobierno/CATALOGO_FUNCIONAL.md)
 - [REGLAS_Y_CRITERIOS.md](gobierno/REGLAS_Y_CRITERIOS.md)
 - [DECISIONES_Y_CAMBIOS.md](gobierno/DECISIONES_Y_CAMBIOS.md)
@@ -24,7 +26,7 @@ El contexto de reconciliación 2026-09-07 delimita alcance vigente; el prompt in
 - [FUENTES_Y_GRANULARIDAD.md](diccionarios/FUENTES_Y_GRANULARIDAD.md)
 - [DICCIONARIO_vUrgencias.md](diccionarios/DICCIONARIO_vUrgencias.md)
 
-- [Arquitectura futura, no implementada](ARQUITECTURA_FUTURA.md)
+- [Arquitectura técnica vigente](ARQUITECTURA_FUTURA.md)
 - [Configuración documental vigente](../config/criterios-funcionales.json)
 
 ## Indicadores y candidatos
@@ -35,6 +37,7 @@ El contexto de reconciliación 2026-09-07 delimita alcance vigente; el prompt in
 ## Evidencia
 
 - [README.md](evidencia/README.md)
+- [IMPLEMENTACION_FASE_1.md](evidencia/IMPLEMENTACION_FASE_1.md)
 - [CASOS_PATRON_VIGENTES.md](evidencia/CASOS_PATRON_VIGENTES.md)
 - [BENCHMARKS_VIGENTES.md](evidencia/BENCHMARKS_VIGENTES.md)
 - [MANIFIESTO_VALIDACION.md](evidencia/MANIFIESTO_VALIDACION.md)
@@ -48,4 +51,4 @@ El contexto de reconciliación 2026-09-07 delimita alcance vigente; el prompt in
 
 ## Iteración 2026-09-07
 
-[Checkpoint](historico/checkpoints/CHECKPOINT_FUNCIONAL_2026-09-07.md) · [Solicitud](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) · [Validación documental nueva](evidencia/VALIDACION_FUNCIONAL_DOCUMENTAL_2026-09-07.json). DEFINIDO FUNCIONALMENTE, VALIDADO, VALIDADO CON ADVERTENCIA, PENDIENTE y CANDIDATO son estados distintos; no hay implementación ni metas institucionales. [Evidencia SQL 2026-09-08](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md).
+[Checkpoint](historico/checkpoints/CHECKPOINT_FUNCIONAL_2026-09-07.md) · [Solicitud](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt) · [Validación documental nueva](evidencia/VALIDACION_FUNCIONAL_DOCUMENTAL_2026-09-07.json). DEFINIDO FUNCIONALMENTE, VALIDADO, VALIDADO CON ADVERTENCIA, PENDIENTE y CANDIDATO son estados distintos; la implementación vigente se delimita en la matriz; no hay metas institucionales inventadas. [Evidencia SQL 2026-09-08](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md).
