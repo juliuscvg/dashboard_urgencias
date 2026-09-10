@@ -2,7 +2,7 @@
 
 - Proyecto/rama: `juliuscvg/dashboard_urgencias` / `main`.
 - HEAD base de iteración: `c89787ba35379b0a02aaabdaea8ca9bc96f771ed`.
-- Corte documental: 2026-09-09, America/Mexico_City.
+- Corte documental: 2026-09-10, America/Mexico_City.
 - Fase: consolidación portable, adopción HCG y SQL verificable.
 - Estado: COMPLETADA; validaciones técnicas/documentales aprobadas y cierre local preparado.
 - Publicación: no autorizada.
@@ -17,6 +17,6 @@ Aplicación read-only con universo central por `id_urgencia`, filtros dinámicos
 
 ## Pendientes
 
-- Funcionales: Atención Médica EN PROCESO; Alta Médica EN VALIDACIÓN; población y clínica sin cierre.
+- Funcionales: Atención Médica EN PROCESO; Alta Médica EN VALIDACIÓN con timestamp canónico actual de hito registrado; secuencia completa POR DEFINIR como KPI; población y clínica sin cierre.
 - Técnicos: API/UI de frecuentación, resolución agregada y clasificación Triage.
 - QA: ejecución de SQL canónico y reconciliación de aplicación contra fuente cuando exista configuración DB.

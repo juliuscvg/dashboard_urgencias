@@ -353,3 +353,12 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Alcance: cobertura y secuencia son diagnósticos de calidad. Faltantes, inversiones, mismo instante y extremos se conservan y no restringen U-ING.
 - Límite: sigue POR DEFINIR la semántica clínica u operativa que relacione el hito registrado con el egreso administrativo. No se implementa SQL productivo, API, UI ni indicador.
 - Evidencia: [validación AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md).
+
+### URG-GOV-045 — Jerarquía de hitos y cierre interpretativo AMED
+
+- Estado: DEFINIDA FUNCIONALMENTE; Alta Médica permanece EN VALIDACIÓN y la secuencia completa sigue POR DEFINIR como KPI.
+- Decisión: U-ING se ancla en `Fechaing`. Ingreso, Triage y Egreso son hitos principales; Atención Médica y Alta Médica son complementarios. La ausencia de un hito posterior al ingreso no invalida ni excluye un evento.
+- Alta Médica: `fechamed` queda como timestamp canónico actual del hito registrado, con población evaluable propia y cobertura explícita. No sustituye `fechaegr`; `altamed_fecha` permanece auxiliar y no se infieren valores entre campos.
+- Secuencia: la secuencia de cinco hitos es análisis complementario de consistencia y cobertura. Sus faltantes, inversiones y extremos no son filtros de U-ING ni de KPIs existentes.
+- Límite: no se aceptan indicadores, no se modifica ningún contrato aceptado y no se implementa API/UI.
+- Contratos: [URG-AMED-01..04](../indicadores/CONTRATOS_EN_VALIDACION.md). Evidencia: [validación AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md).

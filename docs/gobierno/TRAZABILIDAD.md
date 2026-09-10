@@ -20,8 +20,8 @@ Cadena exigida: principio HCG → regla local → contrato → fuente/campos →
 | URG-TRI-03 Tiempo Triage | HCG-CAL-006/009; URG-R04/10 | Contratos; Fechaing/fechatri | URG-TRI-03 | /triage; resumen | DB aplicación pendiente |
 | URG-CAL-01 Calidad | HCG-CAL-001..009; URG-R01/04 | Reglas; campos de cada universo | Asociada a cada SQL | Señales en summary/triage/detalle | Casos patrón y pruebas |
 | URG-PEND-01 Atención médica | HCG-TRZ-001; URG-R04 | Fechaing/fechaate | NO APLICA: estado EN PROCESO | No implementado | Evidencia funcional pendiente |
-| URG-PEND-02 Alta médica | HCG-TRZ-001; URG-R02/04 | fechamed propuesto; altamed_fecha auxiliar | SQL AMED read-only, no productivo | No implementado | [Evidencia AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md); no aceptada |
-| URG-PEND-03 Secuencia temporal | HCG-TRZ-001; URG-R04 | Cinco timestamps; faltantes permitidos | SQL AMED read-only, diagnóstico | No implementado | [Evidencia AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md); POR DEFINIR |
+| URG-PEND-02 Alta médica | HCG-TRZ-001; URG-R02/04 | fechamed canónico actual; altamed_fecha auxiliar | SQL AMED read-only, no productivo | No implementado | [Evidencia AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md); no aceptada |
+| URG-PEND-03 Secuencia temporal | HCG-TRZ-001; URG-R04 | Cinco timestamps; faltantes permitidos | SQL AMED read-only, análisis complementario | No implementado | [Evidencia AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md); POR DEFINIR |
 | URG-PEND-04..07 | Reglas locales pendientes | Estado de indicadores | NO APLICA mientras no estén aceptados | No implementado | Pendiente/diferido |
 
 Nombres completos y rutas están en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md). Casos en [evidencia](../evidencia/CASOS_PATRON_VIGENTES.md), decisiones en [bitácora](DECISIONES_Y_CAMBIOS.md) y adopción en [HCG](ADOPCION_HCG.md).

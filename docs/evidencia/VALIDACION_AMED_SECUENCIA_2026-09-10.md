@@ -72,3 +72,11 @@ No se promueve ningún contrato a ACEPTADO ni se implementa API/UI. La semántic
 ## Validación
 
 Los dos SQL son read-only y compatibles con nivel 100. La corrida final procesó las tres ventanas y el complemento de precisión; tardó 25,171 ms, 29,257 ms y 36,725 ms respectivamente, más 818 ms para el complemento de 36 meses. La evidencia no contiene credenciales, cadena de conexión ni identificadores directos.
+
+## Cierre de interpretación funcional
+
+La decisión funcional posterior a esta evidencia ancla el universo general en Ingreso. Ingreso, Triage y Egreso son hitos principales; Atención Médica y Alta Médica son complementarios. La ausencia de Triage, Atención, Alta Médica o Egreso no invalida ni excluye el evento U-ING.
+
+`fechamed` queda como timestamp canónico actual del hito **registrado** de Alta Médica, con la población evaluable y cobertura definidas en `URG-AMED-01`. Este cierre no lo equipara a egreso administrativo, alta clínica institucional ni presencia física. `altamed_fecha` permanece auxiliar.
+
+La secuencia completa se conserva como análisis complementario de consistencia y cobertura. Los 44,489 eventos completos y sus 35,882 inversiones observadas no restringen U-ING, no definen un KPI principal y no justifican completar o corregir valores faltantes. Los contratos vigentes están en [contratos en validación](../indicadores/CONTRATOS_EN_VALIDACION.md).

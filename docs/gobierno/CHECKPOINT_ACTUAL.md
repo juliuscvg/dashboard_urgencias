@@ -10,59 +10,61 @@ Dashboard Urgencias HCG
 main
 
 ## HEAD base de la iteración
-27a8b694090cfea143c8b7d2897b89568affa152
+3736af8a2ba47352693d39f0fa76802dd37838fa
 
 ## HEAD actual
 El commit que contiene este checkpoint se resuelve con `git log -1 --format=%H -- docs/gobierno/CHECKPOINT_ACTUAL.md`.
 
 ## Iteración actual
-Validación funcional de Alta Médica y secuencia temporal a partir de evidencia AMED.
+Cierre funcional de Alta Médica y jerarquía de hitos temporales.
 
 ## Objetivo
-Determinar, con evidencia, la semántica de `fechamed` y `altamed_fecha`, sus poblaciones evaluables y su cronología, sin implementar indicadores no aceptados.
+Formalizar el anclaje de U-ING en ingreso, fijar el papel actual de Alta Médica y mantener la secuencia completa como análisis complementario, sin implementación.
 
 ## Estado de la iteración
-EN PROCESO
+COMPLETADA
 
 ## Fase actual
-Recuperación de evidencia AMED y diseño de validación read-only.
+Decisión funcional, contratos en validación y documentación consolidados localmente; no se realizó push.
 
 ## Completado
-- [x] Iteración de reconciliación de los 14 SQL cerrada y publicada en `27a8b69`.
-- [x] Continuidad confirmada: `main` limpio y sincronizado.
-- [x] Evidencia/documentación local revisada sin redescubrir `vUrgencias`.
-- [x] No se localizó un artefacto AMED versionado; existe sólo cobertura temporal agregada y los estados pendientes.
-- [x] HCG Specs y CEX se mantienen fuera de alcance.
+- [x] Evidencia AMED 12/24/36 meses ya versionada y reutilizada sin repetir análisis completo.
+- [x] Jerarquía formal: Ingreso, Triage y Egreso principales; Atención Médica y Alta Médica complementarios.
+- [x] U-ING permanece anclado en `Fechaing`; la ausencia de hitos posteriores no excluye eventos.
+- [x] `fechamed` definido como timestamp canónico actual del hito registrado de Alta Médica, sin equivaler a `fechaegr`.
+- [x] `altamed_fecha` retenido como auxiliar; no completa ni sustituye `fechamed`.
+- [x] URG-AMED-01..04 consolidados en contratos en validación, sin aceptar KPI ni modificar contratos aceptados.
+- [x] Secuencia completa retenida como análisis complementario de consistencia y cobertura; faltantes, inversiones y extremos no se corrigen ni excluyen.
+- [x] No se implementó API/UI ni SQL productivo.
 
 ## Última acción completada
-Recuperación de continuidad y localización de evidencia AMED.
+Formalización de la decisión funcional y actualización de evidencia, gobierno, estados, trazabilidad y contratos en validación.
 
 ## Próxima acción exacta
-Ejecutar consultas read-only acotadas para medir cobertura, diferencias y secuencias de `fechamed`/`altamed_fecha` sin exponer identificadores.
+No realizar acciones adicionales en esta iteración. Toda continuación parte de la evidencia y contratos versionados; no hacer push sin instrucción explícita.
 
-## Decisiones nuevas
-- No se asumirá equivalencia entre `altamed_fecha` y `fechamed` por nombre, tipo aparente o coincidencia parcial.
-- Ningún campo faltante condicionará el universo general de Urgencias.
-- Los extremos e inversiones se medirán y conservarán; no se filtrarán para obtener indicadores favorables.
+## Decisiones vigentes
+- Cada indicador específico declara su población evaluable y cobertura.
+- `fechamed` es canónico sólo para el hito registrado de Alta Médica; no se infieren ni corrigen timestamps faltantes.
+- La secuencia completa no es requisito de validez del episodio, de U-ING ni de KPI principal.
 
 ## Pendientes
-- Cobertura AMED global, por centro/servicio y ventanas 12/24/36 meses.
-- Diferencias entre `fechamed` y `altamed_fecha`, incluidos ejemplos pseudonimizados.
-- Pares `Fechaing→fechamed`, `fechaate→fechamed`, `fechamed→fechaegr` y secuencia completa.
-- Propuesta de contratos sólo si la evidencia permite cerrarlos.
-- Evidencia, decisiones, diccionario, estados, validaciones y commit local.
+- Aceptación institucional de cualquier indicador de Alta Médica.
+- Semántica clínica u operativa que relacione Alta Médica registrada y egreso administrativo.
+- Decisión posterior sobre si la secuencia completa merece un KPI independiente.
+- API/UI, fuera de esta iteración.
 
 ## Bloqueadores
-Ninguno confirmado. Si el acceso DB falla, registrar el bloqueo y detener la validación numérica.
+Ninguno para el cierre documental. Las decisiones pendientes son funcionales por diseño.
 
 ## NO REPETIR
-- Auditoría transversal.
-- Descubrimiento de `vUrgencias`.
-- Inventario/análisis estático de los 14 SQL aceptados.
-- Reconciliación ya cerrada de los indicadores implementados.
+- Auditoría transversal y descubrimiento de `vUrgencias`.
+- Reconciliación de los 14 indicadores implementados.
+- Medición AMED de cobertura, diferencias y secuencia en cohortes 12/24/36 meses ya registrada.
+- Investigación exhaustiva de inversiones que no cambie el contrato vigente.
 
 ## Contexto mínimo para reanudación
-Los indicadores implementados ya están reconciliados en la evidencia de 2026-09-09. Alta Médica sigue EN VALIDACIÓN y NO IMPLEMENTADA; su evidencia debe distinguir `fechamed` de `altamed_fecha` y no activar API/UI.
+Partir de `CONTRATOS_EN_VALIDACION.md` y la evidencia AMED. Alta Médica no es KPI aceptado ni tiene API/UI; la secuencia completa es análisis complementario y U-ING no exige hitos posteriores.
 
 ## Commit de cierre
-Pendiente.
+Consolidado localmente en el commit que contiene este checkpoint; sin push.

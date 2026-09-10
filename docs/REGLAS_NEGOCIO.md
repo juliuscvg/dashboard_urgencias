@@ -25,7 +25,7 @@ Periodo semiabierto: evento >= Inicio AND evento < FinExclusivo. Días completos
 | fechamed | Timestamp propuesto del hito registrado de Alta Médica; no sustituye fechaegr | Complementario |
 | fecha_modif | Modificación técnica, nunca actividad clínica ni KPI operativo | Auditoría técnica |
 
-Fechaing/fechaing es variación comunicada de casing, no dos columnas. La equivalencia atencion_fecha~fechaate sigue pendiente. `fechamed` y `altamed_fecha` no son equivalentes: ambos son `datetime`, pero `altamed_fecha` se observó a medianoche y difiere incluso de fecha calendario en una fracción relevante; no completa, normaliza ni sustituye `fechamed`. `fechamed` es el timestamp propuesto para el hito registrado de Alta Médica, sin sustituir `fechaegr`. No exigir triage, atención o alta médica para considerar válido un episodio ni para pertenecer al universo principal. Atención Médica permanece EN PROCESO sobre Fechaing→fechaate; Alta Médica permanece EN VALIDACIÓN, desacoplada y no implementada. [Evidencia AMED](evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md).
+Jerarquía de hitos: Ingreso (`Fechaing`), Triage (`fechatri`) y Egreso (`fechaegr`) son principales; Atención médica (`fechaate`) y Alta Médica (`fechamed`) son complementarios. El universo general se ancla en el evento de ingreso. La ausencia de cualquier hito distinto de ingreso no invalida ni excluye el evento; cada indicador declara población evaluable y cobertura. Fechaing/fechaing es variación comunicada de casing, no dos columnas. La equivalencia atencion_fecha~fechaate sigue pendiente. `fechamed` y `altamed_fecha` no son equivalentes: ambos son `datetime`, pero `altamed_fecha` se observó a medianoche y difiere incluso de fecha calendario en una fracción relevante; no completa, normaliza ni sustituye `fechamed`. `fechamed` es el timestamp propuesto para el hito registrado de Alta Médica, sin sustituir `fechaegr`. No exigir triage, atención o alta médica para considerar válido un episodio ni para pertenecer al universo principal. Atención Médica permanece EN PROCESO sobre Fechaing→fechaate; Alta Médica permanece EN VALIDACIÓN, desacoplada y no implementada. [Evidencia AMED](evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md).
 
 | Universo | Pertenencia funcional | Límite |
 |---|---|---|
@@ -59,7 +59,7 @@ Drill-down: Centro → Servicio → Antigüedad → Localización → Episodio. 
 
 ## URG-R04 — Flujo, calidad y cobertura
 
-Registro → triage → inicio de atención → alta médica → egreso es secuencia esperada, no exigencia de completitud. Detectar faltantes, invertidos, secuencias imposibles y mismo minuto, también entre pares no adyacentes. Mismo minuto no demuestra simultaneidad exacta.
+Registro → triage → inicio de atención → alta médica → egreso es secuencia esperada y análisis complementario de consistencia, no exigencia de completitud ni KPI principal. Detectar faltantes, invertidos, secuencias imposibles y mismo minuto, también entre pares no adyacentes. Mismo minuto no demuestra simultaneidad exacta.
 
 Por par temporal, clasificar primero faltantes; entre pares presentes separar invertidos de evaluables no negativos. Cero es evaluable, no reemplaza ausencia. Extremos positivos válidos siguen incluidos, sin recorte ni winsorización. U = evaluables + faltantes + invertidos, clases excluyentes por par. Flags entre pares pueden solaparse; no sumarlos como episodios únicos. Ausencia de etapas complementarias no reduce el universo principal.
 

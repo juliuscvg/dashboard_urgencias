@@ -19,8 +19,8 @@ Corte: 2026-09-10. Fuente canónica de estados; las fórmulas residen en [contra
 | URG-TRI-02 | Clasificación de Triage | ACEPTADO | SQL VALIDADO CON FUENTE | SQL ejecutado; API/UI pendientes |
 | URG-TRI-03 | Tiempo registrado a Triage | ACEPTADO CON OBSERVACIONES | RECONCILIADO EN CAPAS DISPONIBLES | Resumen SQL/API/UI exacto; bandas API/UI pendientes |
 | URG-PEND-01 | Atención médica | EN PROCESO | NO IMPLEMENTADO | `Fechaing→fechaate`; contrato final pendiente |
-| URG-PEND-02 | Alta médica | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | `fechamed` como hito registrado propuesto; `altamed_fecha` auxiliar; sin API/UI |
-| URG-PEND-03 | Secuencias temporales completas | POR DEFINIR | VALIDADO CON FUENTE / NO IMPLEMENTADO | Diagnóstico de calidad, no filtro del universo ni indicador aceptado |
+| URG-PEND-02 | Alta médica | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | `fechamed` canónico actual del hito registrado; `altamed_fecha` auxiliar; sin API/UI |
+| URG-PEND-03 | Secuencias temporales completas | POR DEFINIR | VALIDADO CON FUENTE / NO IMPLEMENTADO | Análisis complementario de consistencia; no filtro ni KPI principal |
 | URG-PEND-04 | Población | EN PROCESO | NO IMPLEMENTADO | Edad al evento por validar |
 | URG-PEND-05 | Diagnósticos | POR DEFINIR | NO IMPLEMENTADO | Sin contrato suficiente |
 | URG-PEND-06 | Motivo de urgencia | POR DEFINIR | NO IMPLEMENTADO | Sin contrato suficiente |

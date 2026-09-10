@@ -3,6 +3,7 @@
 Este documento es un índice y no una segunda fuente de fórmulas.
 
 - [Contratos aceptados](CONTRATOS_ACEPTADOS.md): definición portable, universo, cálculo, SQL, evidencia e implementación.
+- [Contratos en validación](CONTRATOS_EN_VALIDACION.md): hitos temporales documentados sin convertirlos en KPI aceptado.
 - [Estado funcional y técnico](../gobierno/ESTADO_INDICADORES.md): situación vigente independiente por eje.
 - [Catálogo funcional](../gobierno/CATALOGO_FUNCIONAL.md): inventario breve.
 - [Convenciones comunes](01_CONVENCIONES_Y_REGLAS_COMUNES.md).
