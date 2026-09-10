@@ -42,8 +42,13 @@ EventScope AS
     COUNT_BIG(*) AS filas_fisicas
   FROM RawScope GROUP BY id_urgencia
 )
-SELECT destino_urg_pk, destino_urgencias, COUNT_BIG(*) AS eventos,
-  CAST(100.0*COUNT_BIG()/NULLIF(SUM(COUNT_BIG(*)) OVER(),0) AS decimal(9,4)) AS porcentaje
-FROM EventScope
-GROUP BY destino_urg_pk,destino_urgencias
+, Distribucion AS
+(
+  SELECT destino_urg_pk, destino_urgencias, COUNT_BIG(*) AS eventos
+  FROM EventScope
+  GROUP BY destino_urg_pk, destino_urgencias
+)
+SELECT destino_urg_pk, destino_urgencias, eventos,
+  CAST(100.0*eventos/NULLIF((SELECT SUM(eventos) FROM Distribucion),0) AS decimal(9,4)) AS porcentaje
+FROM Distribucion
 ORDER BY eventos DESC,destino_urg_pk,destino_urgencias;

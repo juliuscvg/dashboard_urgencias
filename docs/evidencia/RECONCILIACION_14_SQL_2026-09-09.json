@@ -1,39 +1,45 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "proyecto": "juliuscvg/dashboard_urgencias",
   "fecha": "2026-09-09",
   "conexion": {
-    "configuracion_env": false,
+    "configuracion_env": true,
     "variables_requeridas": {
-      "DB_SERVER": false,
-      "DB_DATABASE": false,
-      "DB_USER": false,
-      "DB_PASSWORD": false
+      "DB_SERVER": true,
+      "DB_DATABASE": true,
+      "DB_USER": true,
+      "DB_PASSWORD": true
+    },
+    "env_ignorado_no_tracked": true,
+    "health": {
+      "estado": "OK",
+      "http_status": 200,
+      "tiempo_ms": 2248
     },
     "health_db": {
-      "estado": "NO EJECUTADO",
-      "tiempo_ms": null,
-      "motivo": "El backend valida DB_* al iniciar; faltan variables esenciales."
+      "estado": "OK",
+      "http_status": 200,
+      "tiempo_ms": 1016
     },
     "secretos_registrados": false
   },
   "alcance": {
-    "sql_server": "BLOQUEADO",
-    "repository_eventscope": "REVISADO ESTÁTICAMENTE",
-    "service": "REVISADO ESTÁTICAMENTE",
-    "api": "NO EJECUTADA; CONTRATO REVISADO",
-    "ui": "NO EJECUTADA CON DATOS; FLUJO REVISADO",
-    "detalle": "NO EJECUTADO; CONSULTA REVISADA"
+    "sql_server": "14/14 EJECUTADOS",
+    "repository_eventscope": "12/12 CAPAS DISPONIBLES RECONCILIADAS",
+    "service": "12/12 CAPAS DISPONIBLES RECONCILIADAS",
+    "api": "4/4 RUTAS DE DATOS HTTP 200",
+    "ui": "VALIDADA CON DATOS EN NAVEGADOR HEADLESS; PROYECCIONES PARCIALES DOCUMENTADAS",
+    "detalle": "354/354 EVENTOS, 4 PÁGINAS, 354 ID ÚNICOS, ORDEN Y DISTRIBUCIONES EXACTOS"
   },
   "resumen": {
     "indicadores": 14,
-    "reconciliados_con_fuente": 0,
-    "coincidencia_estatica": 6,
-    "coincidencia_tras_correccion": 1,
-    "parciales": 4,
-    "sin_capa_runtime": 2,
-    "correcciones_tecnicas": 3,
-    "capa_parcial": 1
+    "sql_validados_con_fuente": 14,
+    "reconciliados_con_fuente": 9,
+    "reconciliados_en_capas_disponibles": 3,
+    "sql_validado_sin_runtime": 2,
+    "comparaciones_runtime_exactas": 12,
+    "comparaciones_runtime_totales": 12,
+    "correcciones_tecnicas_en_esta_iteracion": 3
   },
   "indicadores": [
     {
@@ -46,22 +52,37 @@
       "coherencia_estatica": "COINCIDE",
       "hallazgos": [],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Atenciones"
+      "resultado_sql": [
+        {
+          "atenciones": "354",
+          "filas_fisicas_adicionales": "0"
+        }
+      ],
+      "tiempo_sql_ms": 752,
+      "resultado_api": {
+        "atenciones": 354
+      },
+      "resultado_ui": "354",
+      "resultado_detalle": {
+        "total": 354,
+        "exacto": true
+      },
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Atenciones",
+      "filas_resultado_sql": 1
     },
     {
       "id": "URG-EJ-02",
@@ -75,22 +96,39 @@
         "D: @Corte canónico; Repository usa GETDATE() y API no expone cutoff."
       ],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Promedio diario"
+      "resultado_sql": [
+        {
+          "dias_completos": 1,
+          "atenciones_dias_completos": "354",
+          "promedio_diario": 354,
+          "periodo_parcial": 0
+        }
+      ],
+      "tiempo_sql_ms": 862,
+      "resultado_api": {
+        "dias_completos": 1,
+        "atenciones_dias_completos": 354,
+        "promedio_diario": 354,
+        "periodo_parcial": false
+      },
+      "resultado_ui": "354.0; 1 día completo",
+      "resultado_detalle": "NO DISPONIBLE O NO APLICA",
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Promedio diario",
+      "filas_resultado_sql": 1
     },
     {
       "id": "URG-EJ-03",
@@ -104,22 +142,54 @@
         "F: API no expone bandas, invertidos ni sin egreso."
       ],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Permanencia registrada"
+      "resultado_sql": [
+        {
+          "universo_total": "354",
+          "evaluables": "354",
+          "invertidos": "0",
+          "sin_egreso": "0",
+          "promedio_horas": 61.33,
+          "menor_12h": "204",
+          "de_12_a_24h": "40",
+          "de_24_a_48h": "42",
+          "de_48_a_72h": "13",
+          "mayor_72h": "55"
+        }
+      ],
+      "tiempo_sql_ms": 818,
+      "resultado_api": {
+        "evaluables": 354,
+        "promedio_horas": 61.33,
+        "proyeccion": "bandas no expuestas por API"
+      },
+      "resultado_ui": "61.3 h; 354 evaluables",
+      "resultado_detalle": {
+        "evaluables": 354,
+        "invertidos": 0,
+        "sinEgreso": 0,
+        "menor12h": 204,
+        "de12a24h": 40,
+        "de24a48h": 42,
+        "de48a72h": 13,
+        "mayor72h": 55,
+        "exacto": true
+      },
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE_EN_CAPAS_DISPONIBLES",
+      "anomalias_observadas": "55 eventos >72 h conservados; no se recortaron extremos.",
+      "contrato": "Permanencia registrada",
+      "filas_resultado_sql": 1
     },
     {
       "id": "URG-EJ-04",
@@ -133,22 +203,40 @@
         "B corregida: Repository alineado a decimal(9,4)."
       ],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Hospitalización"
+      "resultado_sql": [
+        {
+          "eventos_completados": "354",
+          "hospitalizaciones": "96",
+          "porcentaje_hospitalizacion": 27.1186
+        }
+      ],
+      "tiempo_sql_ms": 1001,
+      "resultado_api": {
+        "eventos_completados": 354,
+        "hospitalizaciones": 96,
+        "porcentaje_hospitalizacion": 27.1186
+      },
+      "resultado_ui": "27.1 %; 96 hospitalizaciones",
+      "resultado_detalle": {
+        "hospitalizaciones_por_destino": 96,
+        "exacto": true
+      },
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Hospitalización",
+      "filas_resultado_sql": 1
     },
     {
       "id": "URG-EJ-05",
@@ -160,22 +248,38 @@
       "coherencia_estatica": "COINCIDE",
       "hallazgos": [],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Reingresos <72/<48"
+      "resultado_sql": [
+        {
+          "evaluables": "354",
+          "reingresos_menor_48h": "13",
+          "reingresos_menor_72h": "18"
+        }
+      ],
+      "tiempo_sql_ms": 853,
+      "resultado_api": {
+        "evaluables": 354,
+        "reingresos_menor_48h": 13,
+        "reingresos_menor_72h": 18,
+        "porcentaje_menor_72h": 5.08
+      },
+      "resultado_ui": "5.1 % <72 h (18/354); 13 <48 h",
+      "resultado_detalle": "NO DISPONIBLE O NO APLICA",
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Reingresos <72/<48",
+      "filas_resultado_sql": 1
     },
     {
       "id": "URG-EJ-06",
@@ -187,22 +291,35 @@
       "coherencia_estatica": "COINCIDE",
       "hallazgos": [],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Pacientes únicos"
+      "resultado_sql": [
+        {
+          "atenciones": "354",
+          "pacientes_unicos": 338,
+          "eventos_sin_identidad": "0"
+        }
+      ],
+      "tiempo_sql_ms": 704,
+      "resultado_api": {
+        "pacientes_unicos": 338
+      },
+      "resultado_ui": "338",
+      "resultado_detalle": "NO DISPONIBLE O NO APLICA",
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Pacientes únicos",
+      "filas_resultado_sql": 1
     },
     {
       "id": "URG-EJ-07",
@@ -214,22 +331,37 @@
       "coherencia_estatica": "COINCIDE",
       "hallazgos": [],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Atenciones por paciente"
+      "resultado_sql": [
+        {
+          "atenciones": "354",
+          "pacientes_unicos": 338,
+          "atenciones_por_paciente": 1.05
+        }
+      ],
+      "tiempo_sql_ms": 826,
+      "resultado_api": {
+        "atenciones": 354,
+        "pacientes_unicos": 338,
+        "atenciones_por_paciente": 1.05
+      },
+      "resultado_ui": "1.1 en contexto",
+      "resultado_detalle": "NO DISPONIBLE O NO APLICA",
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Atenciones por paciente",
+      "filas_resultado_sql": 1
     },
     {
       "id": "URG-ACT-01",
@@ -243,22 +375,40 @@
         "D/F: mismo conteo; cutoff y bandas no expuestos."
       ],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Activos probables"
+      "resultado_sql": [
+        {
+          "activos_probables": "370",
+          "antiguedad_no_evaluable": "0",
+          "fecha_ingreso_futura": "6",
+          "mayor_24h": "144",
+          "mayor_48h": "52",
+          "mayor_72h": "26"
+        }
+      ],
+      "tiempo_sql_ms": 535,
+      "resultado_api": {
+        "activos_probables": 370,
+        "observado_en": "2026-09-09T21:18:20.000Z",
+        "proyeccion": "bandas y cutoff no expuestos"
+      },
+      "resultado_ui": "370",
+      "resultado_detalle": "NO DISPONIBLE O NO APLICA",
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE",
+      "anomalias_observadas": "La fuente viva cambió 368→370 durante pruebas preliminares; la corrida final SQL/API y la UI contemporánea coincidieron en 370. @Corte no crea snapshot.",
+      "contrato": "Activos probables",
+      "filas_resultado_sql": 1
     },
     {
       "id": "URG-MOD-01",
@@ -270,22 +420,42 @@
       "coherencia_estatica": "COINCIDE",
       "hallazgos": [],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Demanda diaria"
+      "resultado_sql": [
+        {
+          "fecha": "2026-08-01",
+          "atenciones": "354"
+        }
+      ],
+      "tiempo_sql_ms": 886,
+      "resultado_api": {
+        "tendencia": [
+          {
+            "fecha": "2026-08-01",
+            "atenciones": 354
+          }
+        ]
+      },
+      "resultado_ui": "tendencia renderizada desde la serie API; total 354",
+      "resultado_detalle": {
+        "total": 354,
+        "exacto": true
+      },
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Demanda diaria",
+      "filas_resultado_sql": 1
     },
     {
       "id": "URG-MOD-05",
@@ -299,22 +469,112 @@
         "G: distribución agregada no implementada."
       ],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Resolución/destino"
+      "resultado_sql": [
+        {
+          "destino_urg_pk": 1,
+          "destino_urgencias": "DOMICILIO",
+          "eventos": "218",
+          "porcentaje": 61.5819
+        },
+        {
+          "destino_urg_pk": 5,
+          "destino_urgencias": "HOSP. PISO",
+          "eventos": "96",
+          "porcentaje": 27.1186
+        },
+        {
+          "destino_urg_pk": 2,
+          "destino_urgencias": "CONSULTA EXTERNA",
+          "eventos": "21",
+          "porcentaje": 5.9322
+        },
+        {
+          "destino_urg_pk": 12,
+          "destino_urgencias": "FUGA",
+          "eventos": "8",
+          "porcentaje": 2.2599
+        },
+        {
+          "destino_urg_pk": 19,
+          "destino_urgencias": "ALTA VOLUNTARIA",
+          "eventos": "4",
+          "porcentaje": 1.1299
+        },
+        {
+          "destino_urg_pk": 99,
+          "destino_urgencias": "N.E.",
+          "eventos": "4",
+          "porcentaje": 1.1299
+        },
+        {
+          "destino_urg_pk": 9,
+          "destino_urgencias": "DEFUNCION",
+          "eventos": "2",
+          "porcentaje": 0.565
+        },
+        {
+          "destino_urg_pk": 16,
+          "destino_urgencias": "TRASLADO PARTICULAR",
+          "eventos": "1",
+          "porcentaje": 0.2825
+        }
+      ],
+      "tiempo_sql_ms": 1585,
+      "resultado_api": "SIN AGREGADO API; distribución exacta reconstruida desde episodes",
+      "resultado_ui": "354 filas totales y destino por evento; sin agregado UI",
+      "resultado_detalle": {
+        "distribucion": [
+          {
+            "categoria": "ALTA VOLUNTARIA",
+            "eventos": 4
+          },
+          {
+            "categoria": "CONSULTA EXTERNA",
+            "eventos": 21
+          },
+          {
+            "categoria": "DEFUNCION",
+            "eventos": 2
+          },
+          {
+            "categoria": "DOMICILIO",
+            "eventos": 218
+          },
+          {
+            "categoria": "FUGA",
+            "eventos": 8
+          },
+          {
+            "categoria": "HOSP. PISO",
+            "eventos": 96
+          },
+          {
+            "categoria": "N.E.",
+            "eventos": 4
+          },
+          {
+            "categoria": "TRASLADO PARTICULAR",
+            "eventos": 1
+          }
+        ],
+        "exacto": true
+      },
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE_EN_CAPAS_DISPONIBLES",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Resolución/destino",
+      "filas_resultado_sql": 8
     },
     {
       "id": "URG-MOD-09",
@@ -328,22 +588,33 @@
         "G: API/UI/detalle pendientes."
       ],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
+      "resultado_sql": [
+        {
+          "banda": "1",
+          "pacientes": "322"
+        },
+        {
+          "banda": "2",
+          "pacientes": "16"
+        }
+      ],
+      "tiempo_sql_ms": 1353,
+      "resultado_api": "SIN CAPA RUNTIME",
+      "resultado_ui": "SIN REPRESENTACIÓN UI",
+      "resultado_detalle": "NO DISPONIBLE O NO APLICA",
       "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Frecuentación"
+      "estado_reconciliacion": "SQL_VALIDADO_CON_FUENTE_SIN_RUNTIME",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Frecuentación",
+      "filas_resultado_sql": 2
     },
     {
       "id": "URG-TRI-01",
@@ -355,22 +626,164 @@
       "coherencia_estatica": "COINCIDE",
       "hallazgos": [],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Cobertura Triage"
+      "resultado_sql": [
+        {
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "universo_total": "123",
+          "con_triage": "1",
+          "cobertura_pct": 0.81
+        },
+        {
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "universo_total": "3",
+          "con_triage": "1",
+          "cobertura_pct": 33.33
+        },
+        {
+          "centro": "FAA",
+          "codigo_servicio": 118,
+          "servicio": "URG PEDIATRIA FAA",
+          "universo_total": "42",
+          "con_triage": "0",
+          "cobertura_pct": 0
+        },
+        {
+          "centro": "FAA",
+          "codigo_servicio": 61,
+          "servicio": "URG TOCO FAA",
+          "universo_total": "20",
+          "con_triage": "0",
+          "cobertura_pct": 0
+        },
+        {
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "universo_total": "74",
+          "con_triage": "6",
+          "cobertura_pct": 8.11
+        },
+        {
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "universo_total": "13",
+          "con_triage": "0",
+          "cobertura_pct": 0
+        },
+        {
+          "centro": "JIM",
+          "codigo_servicio": 154,
+          "servicio": "URG PEDIATRIA JIM",
+          "universo_total": "33",
+          "con_triage": "32",
+          "cobertura_pct": 96.97
+        },
+        {
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "universo_total": "46",
+          "con_triage": "11",
+          "cobertura_pct": 23.91
+        }
+      ],
+      "tiempo_sql_ms": 1698,
+      "resultado_api": {
+        "resumen": {
+          "universo_total": 354,
+          "con_triage": 51,
+          "cobertura_pct": 14.41
+        },
+        "servicios": [
+          {
+            "centro": "FAA",
+            "codigoServicio": 152,
+            "servicio": "URG ADULTOS FAA",
+            "universoTotal": 123,
+            "eventosConTriage": 1,
+            "coberturaPct": 0.81
+          },
+          {
+            "centro": "FAA",
+            "codigoServicio": 435,
+            "servicio": "URG GINE FAA",
+            "universoTotal": 3,
+            "eventosConTriage": 1,
+            "coberturaPct": 33.33
+          },
+          {
+            "centro": "FAA",
+            "codigoServicio": 118,
+            "servicio": "URG PEDIATRIA FAA",
+            "universoTotal": 42,
+            "eventosConTriage": 0,
+            "coberturaPct": 0
+          },
+          {
+            "centro": "FAA",
+            "codigoServicio": 61,
+            "servicio": "URG TOCO FAA",
+            "universoTotal": 20,
+            "eventosConTriage": 0,
+            "coberturaPct": 0
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 153,
+            "servicio": "URG ADULTOS JIM",
+            "universoTotal": 74,
+            "eventosConTriage": 6,
+            "coberturaPct": 8.11
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 339,
+            "servicio": "URG ORTOPEDIA Y TRAUMA",
+            "universoTotal": 13,
+            "eventosConTriage": 0,
+            "coberturaPct": 0
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 154,
+            "servicio": "URG PEDIATRIA JIM",
+            "universoTotal": 33,
+            "eventosConTriage": 32,
+            "coberturaPct": 96.97
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 56,
+            "servicio": "URG. TOCO JIM",
+            "universoTotal": 46,
+            "eventosConTriage": 11,
+            "coberturaPct": 23.91
+          }
+        ]
+      },
+      "resultado_ui": "14.4 %; 51/354; servicios renderizados",
+      "resultado_detalle": "NO DISPONIBLE O NO APLICA",
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Cobertura Triage",
+      "filas_resultado_sql": 8
     },
     {
       "id": "URG-TRI-02",
@@ -384,22 +797,55 @@
         "G: API/UI/detalle pendientes."
       ],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
+      "resultado_sql": [
+        {
+          "triage_codigo": "1",
+          "triage_desc": "Crítico",
+          "eventos": "1",
+          "porcentaje_sobre_clasificados": 1.96
+        },
+        {
+          "triage_codigo": "2",
+          "triage_desc": "Emergencia",
+          "eventos": "6",
+          "porcentaje_sobre_clasificados": 11.76
+        },
+        {
+          "triage_codigo": "3",
+          "triage_desc": "Urgencia",
+          "eventos": "19",
+          "porcentaje_sobre_clasificados": 37.25
+        },
+        {
+          "triage_codigo": "4",
+          "triage_desc": "Estándar",
+          "eventos": "22",
+          "porcentaje_sobre_clasificados": 43.14
+        },
+        {
+          "triage_codigo": "5",
+          "triage_desc": "No Urgente",
+          "eventos": "3",
+          "porcentaje_sobre_clasificados": 5.88
+        }
+      ],
+      "tiempo_sql_ms": 2329,
+      "resultado_api": "SIN CAPA RUNTIME",
+      "resultado_ui": "SIN REPRESENTACIÓN UI",
+      "resultado_detalle": "NO DISPONIBLE O NO APLICA",
       "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Clasificación Triage"
+      "estado_reconciliacion": "SQL_VALIDADO_CON_FUENTE_SIN_RUNTIME",
+      "anomalias_observadas": "Ninguna diferencia numérica observada.",
+      "contrato": "Clasificación Triage",
+      "filas_resultado_sql": 5
     },
     {
       "id": "URG-TRI-03",
@@ -413,56 +859,389 @@
         "F: bandas canónicas no expuestas."
       ],
       "parametros": {
-        "desde": null,
-        "hasta": null,
+        "desde": "2026-08-01",
+        "hasta": "2026-08-01",
+        "fin_exclusivo": "2026-08-02T00:00:00.000Z",
         "centro": null,
         "codigoServicio": null,
-        "corte": null,
-        "razon": "No aplicados: conexión DB ausente"
+        "turno": null,
+        "corte": "2026-09-09T21:03:28.000Z"
       },
-      "resultado_sql": "NO EJECUTADO",
-      "tiempo_sql_ms": null,
-      "resultado_api": "NO EJECUTADO",
-      "resultado_ui": "NO EJECUTADO",
-      "resultado_detalle": "NO EJECUTADO",
-      "diferencia_numerica": null,
-      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
-      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
-      "contrato": "Tiempo a Triage"
+      "resultado_sql": [
+        {
+          "universo_total": "354",
+          "con_triage": "51",
+          "evaluables": "51",
+          "invertidos": "0",
+          "promedio_minutos": 44.41,
+          "mismo_minuto": "0",
+          "de_1_a_10": "18",
+          "de_11_a_30": "14",
+          "de_31_a_60": "12",
+          "de_61_a_120": "2",
+          "de_121_a_240": "3",
+          "mayor_240": "2",
+          "mayor_igual_24h": "0",
+          "mayor_igual_7d": "0"
+        }
+      ],
+      "tiempo_sql_ms": 843,
+      "resultado_api": {
+        "universo_total": 354,
+        "con_triage": 51,
+        "evaluables": 51,
+        "invertidos": 0,
+        "promedio_minutos": 44.41,
+        "mayor_igual_24h": 0,
+        "mayor_igual_7d": 0,
+        "proyeccion": "bandas intermedias no expuestas por API"
+      },
+      "resultado_ui": "44.4 min; 0 invertidos; 0 >=24 h; 0 >=7 d; sin bandas UI",
+      "resultado_detalle": "NO DISPONIBLE O NO APLICA",
+      "diferencia_numerica": {
+        "absoluta": 0,
+        "relativa_pct": 0
+      },
+      "estado_reconciliacion": "RECONCILIADO_CON_FUENTE_EN_CAPAS_DISPONIBLES",
+      "anomalias_observadas": "0 secuencias invertidas, 0 >=24 h y 0 >=7 d; extremos no se filtran.",
+      "contrato": "Tiempo a Triage",
+      "filas_resultado_sql": 1
     }
   ],
   "discrepancias": [
     {
-      "clasificacion": "D",
-      "detalle": "@Corte no viaja por API para Promedio diario y Activos probables."
-    },
-    {
-      "clasificacion": "F/G",
-      "detalle": "UI aún no distingue contractualmente Sin datos, No aplica y Datos insuficientes."
+      "clasificacion": "E/H",
+      "detalle": "@Corte sólo controla días/bandas canónicas; no materializa snapshot de la vista viva. Activos cambió 368→370 entre pruebas; la corrida final coordinada coincidió."
     },
     {
       "clasificacion": "G",
-      "detalle": "Sin agregado runtime para Resolución, Frecuentación o Clasificación Triage; bandas parciales."
+      "detalle": "Sin agregado runtime para Resolución, Frecuentación y Clasificación Triage; Resolución sí reconcilió contra las 354 filas de detalle."
+    },
+    {
+      "clasificacion": "G",
+      "detalle": "API/UI no proyectan todas las bandas de Permanencia y Tiempo Triage ni las bandas de antigüedad de Activos."
+    },
+    {
+      "clasificacion": "I",
+      "detalle": "Sin datos, No aplica y Datos insuficientes no tienen contrato API completo; no se inventaron reglas."
     }
   ],
   "correcciones": [
     "Hospitalización conserva decimal(9,4) en Repository.",
     "UI incorpora errores de Triage/catálogos y evita ceros/empty durante fallos.",
-    "Detalle reconciliado cambió a Detalle de eventos."
+    "Detalle reconciliado cambió a Detalle de eventos.",
+    "MOD-05 y TRI-02 sustituyen SUM(COUNT_BIG(*)) OVER() por CTE de distribución y SUM(eventos), conservando la fórmula con compatibilidad 100.",
+    "Vite acepta API_PROXY_TARGET y conserva http://localhost:3001 como valor predeterminado.",
+    "run-source-reconciliation.mjs automatiza los 14 SQL, cuatro rutas, comparaciones y detalle sin registrar secretos."
   ],
-  "conclusion": "Sin evidencia para promover indicadores a RECONCILIADO CON FUENTE.",
-  "git_commit_base": "ba1e695b2201837db01deba7c5082312f90cdf3d",
+  "conclusion": "Los 14 SQL fueron validados con fuente. Nueve indicadores reconciliaron todas sus capas implementadas, tres reconciliaron las capas disponibles con proyección parcial y dos sólo SQL por ausencia de runtime.",
+  "git_commit_base": "98aac20eed57002fe3a377c3f6239788bd7beff4",
   "commit_contenedor": "Resolver con git log -1 --format=%H -- docs/evidencia/RECONCILIACION_14_SQL_2026-09-09.json",
   "validaciones": {
-    "tests": "PASS 7/7",
-    "build_backend": "PASS",
-    "build_frontend": "PASS",
-    "markdown": "PASS; 39 archivos y 0 enlaces rotos",
-    "baseline_hcg": "PASS; 72 principios",
-    "portabilidad": "PASS; 14 SQL read-only, compatibilidad 100, 0 hardcodes",
-    "reconciliacion_estatica": "PASS; 14 indicadores, 0 errores",
-    "json": "PASS; 8 archivos",
-    "npm_audit": "PASS; 0 vulnerabilidades",
-    "git_diff_check": "PASS"
+    "fuente": "PASS 14/14 SQL",
+    "api": "PASS 4/4 rutas",
+    "comparaciones": "PASS 12/12 exactas",
+    "detalle": "PASS 354/354; 354 IDs únicos; 0 duplicados; 4 páginas; orden determinista",
+    "ui": "PASS valores implementados; Computer Use no disponible, fallback Chrome headless/CDP",
+    "secretos": "PASS; .env ignorado y no registrado",
+    "finales": "PASS: tests 7/7; builds; 39 Markdown/0 enlaces rotos; baseline 72; portabilidad 14 SQL; 15 JSON; npm audit 0; diff check"
+  },
+  "fase_estatica_anterior": {
+    "conexion": {
+      "configuracion_env": false,
+      "variables_requeridas": {
+        "DB_SERVER": false,
+        "DB_DATABASE": false,
+        "DB_USER": false,
+        "DB_PASSWORD": false
+      },
+      "health_db": {
+        "estado": "NO EJECUTADO",
+        "tiempo_ms": null,
+        "motivo": "El backend valida DB_* al iniciar; faltan variables esenciales."
+      },
+      "secretos_registrados": false
+    },
+    "alcance": {
+      "sql_server": "BLOQUEADO",
+      "repository_eventscope": "REVISADO ESTÁTICAMENTE",
+      "service": "REVISADO ESTÁTICAMENTE",
+      "api": "NO EJECUTADA; CONTRATO REVISADO",
+      "ui": "NO EJECUTADA CON DATOS; FLUJO REVISADO",
+      "detalle": "NO EJECUTADO; CONSULTA REVISADA"
+    },
+    "resumen": {
+      "indicadores": 14,
+      "reconciliados_con_fuente": 0,
+      "coincidencia_estatica": 6,
+      "coincidencia_tras_correccion": 1,
+      "parciales": 4,
+      "sin_capa_runtime": 2,
+      "correcciones_tecnicas": 3,
+      "capa_parcial": 1
+    },
+    "conclusion": "Sin evidencia para promover indicadores a RECONCILIADO CON FUENTE."
+  },
+  "contexto_real": {
+    "desde": "2026-08-01",
+    "hasta": "2026-08-01",
+    "finExclusivo": "2026-08-02T00:00:00.000Z",
+    "centro": null,
+    "codigoServicio": null,
+    "corte": "2026-09-09T21:03:28.000Z",
+    "timezone": "marca de tiempo SQL serializada por mssql; evidencia JSON en UTC",
+    "apiBase": "http://127.0.0.1:3002",
+    "gitHead": "98aac20eed57002fe3a377c3f6239788bd7beff4",
+    "ejecucion_local": "2026-09-09 America/Mexico_City",
+    "periodo": "día cerrado",
+    "semántica_periodo": "Fechaing >= 2026-08-01 y Fechaing < 2026-08-02",
+    "turno": null
+  },
+  "ejecucion_real": {
+    "generado_en": "2026-09-10T03:18:25.653Z",
+    "sql": {
+      "URG-ACT-01": {
+        "estado": "OK",
+        "tiempo_ms": 535,
+        "filas": 1
+      },
+      "URG-EJ-01": {
+        "estado": "OK",
+        "tiempo_ms": 752,
+        "filas": 1
+      },
+      "URG-EJ-02": {
+        "estado": "OK",
+        "tiempo_ms": 862,
+        "filas": 1
+      },
+      "URG-EJ-03": {
+        "estado": "OK",
+        "tiempo_ms": 818,
+        "filas": 1
+      },
+      "URG-EJ-04": {
+        "estado": "OK",
+        "tiempo_ms": 1001,
+        "filas": 1
+      },
+      "URG-EJ-05": {
+        "estado": "OK",
+        "tiempo_ms": 853,
+        "filas": 1
+      },
+      "URG-EJ-06": {
+        "estado": "OK",
+        "tiempo_ms": 704,
+        "filas": 1
+      },
+      "URG-EJ-07": {
+        "estado": "OK",
+        "tiempo_ms": 826,
+        "filas": 1
+      },
+      "URG-MOD-01": {
+        "estado": "OK",
+        "tiempo_ms": 886,
+        "filas": 1
+      },
+      "URG-MOD-05": {
+        "estado": "OK",
+        "tiempo_ms": 1585,
+        "filas": 8
+      },
+      "URG-MOD-09": {
+        "estado": "OK",
+        "tiempo_ms": 1353,
+        "filas": 2
+      },
+      "URG-TRI-01": {
+        "estado": "OK",
+        "tiempo_ms": 1698,
+        "filas": 8
+      },
+      "URG-TRI-02": {
+        "estado": "OK",
+        "tiempo_ms": 2329,
+        "filas": 5
+      },
+      "URG-TRI-03": {
+        "estado": "OK",
+        "tiempo_ms": 843,
+        "filas": 1
+      }
+    },
+    "api": {
+      "summary": {
+        "estado": "OK",
+        "http": 200,
+        "tiempo_ms": 2245
+      },
+      "demand": {
+        "estado": "OK",
+        "http": 200,
+        "tiempo_ms": 3084
+      },
+      "triage": {
+        "estado": "OK",
+        "http": 200,
+        "tiempo_ms": 3018
+      },
+      "episodes_primera_pagina": {
+        "estado": "OK",
+        "http": 200,
+        "tiempo_ms": 2199
+      }
+    },
+    "comparaciones": {
+      "URG-EJ-01": {
+        "atenciones": true,
+        "detalleTotal": true,
+        "allExact": true
+      },
+      "URG-EJ-02": {
+        "diasCompletos": true,
+        "atencionesDiasCompletos": true,
+        "promedioDiario": true,
+        "periodoParcial": true,
+        "allExact": true
+      },
+      "URG-EJ-03": {
+        "evaluables": true,
+        "promedioHoras": true,
+        "detalleEvaluables": true,
+        "detalleInvertidos": true,
+        "detalleSinEgreso": true,
+        "detalleBandas": true,
+        "allExact": true
+      },
+      "URG-EJ-04": {
+        "completados": true,
+        "hospitalizaciones": true,
+        "porcentaje": true,
+        "allExact": true
+      },
+      "URG-EJ-05": {
+        "evaluables": true,
+        "menor48": true,
+        "menor72": true,
+        "allExact": true
+      },
+      "URG-EJ-06": {
+        "pacientes": true,
+        "allExact": true
+      },
+      "URG-EJ-07": {
+        "atenciones": true,
+        "pacientes": true,
+        "razon": true,
+        "allExact": true
+      },
+      "URG-ACT-01": {
+        "activos": true,
+        "allExact": true
+      },
+      "URG-MOD-01": {
+        "total": true,
+        "allExact": true
+      },
+      "URG-TRI-01": {
+        "universo": true,
+        "conTriage": true,
+        "allExact": true
+      },
+      "URG-TRI-03": {
+        "universo": true,
+        "conTriage": true,
+        "evaluables": true,
+        "promedio": true,
+        "invertidos": true,
+        "mayor24h": true,
+        "mayor7d": true,
+        "allExact": true
+      },
+      "URG-MOD-05": {
+        "detalleDistribucion": true,
+        "allExact": true
+      }
+    },
+    "detalle": {
+      "totalReported": 354,
+      "pagesFetched": 4,
+      "rowsFetched": 354,
+      "uniqueIds": 354,
+      "duplicateIds": 0,
+      "deterministicOrder": true,
+      "destinations": [
+        {
+          "categoria": "ALTA VOLUNTARIA",
+          "eventos": 4
+        },
+        {
+          "categoria": "CONSULTA EXTERNA",
+          "eventos": 21
+        },
+        {
+          "categoria": "DEFUNCION",
+          "eventos": 2
+        },
+        {
+          "categoria": "DOMICILIO",
+          "eventos": 218
+        },
+        {
+          "categoria": "FUGA",
+          "eventos": 8
+        },
+        {
+          "categoria": "HOSP. PISO",
+          "eventos": 96
+        },
+        {
+          "categoria": "N.E.",
+          "eventos": 4
+        },
+        {
+          "categoria": "TRASLADO PARTICULAR",
+          "eventos": 1
+        }
+      ],
+      "permanence": {
+        "evaluables": 354,
+        "invertidos": 0,
+        "sinEgreso": 0,
+        "menor12h": 204,
+        "de12a24h": 40,
+        "de24a48h": 42,
+        "de48a72h": 13,
+        "mayor72h": 55
+      }
+    },
+    "ui": {
+      "metodo": "Chrome headless/CDP local",
+      "error": null,
+      "cargando": false,
+      "filas_pagina": 20,
+      "valores": {
+        "URG-EJ-01": "354",
+        "URG-EJ-02": "354.0; 1 día completo",
+        "URG-EJ-03": "61.3 h; 354 evaluables",
+        "URG-EJ-04": "27.1 %; 96 hospitalizaciones",
+        "URG-EJ-05": "5.1 % <72 h (18/354); 13 <48 h",
+        "URG-EJ-06": "338",
+        "URG-EJ-07": "1.1 en contexto",
+        "URG-ACT-01": "370",
+        "URG-MOD-01": "tendencia renderizada desde la serie API; total 354",
+        "URG-MOD-05": "354 filas totales y destino por evento; sin agregado UI",
+        "URG-MOD-09": "SIN REPRESENTACIÓN UI",
+        "URG-TRI-01": "14.4 %; 51/354; servicios renderizados",
+        "URG-TRI-02": "SIN REPRESENTACIÓN UI",
+        "URG-TRI-03": "44.4 min; 0 invertidos; 0 >=24 h; 0 >=7 d; sin bandas UI"
+      }
+    }
+  },
+  "benchmarks": {
+    "estado": "NO COMPARABLES NUMÉRICAMENTE",
+    "explicación": "Los benchmarks históricos no documentan periodo/corte equivalentes; la evidencia actual usa 2026-08-01 sin filtro de centro/servicio. No se ajustaron fórmulas ni datos."
   }
 }

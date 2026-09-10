@@ -10,82 +10,92 @@ Dashboard Urgencias HCG
 main
 
 ## HEAD base de la iteración
-ba1e695b2201837db01deba7c5082312f90cdf3d
+98aac20eed57002fe3a377c3f6239788bd7beff4
 
 ## HEAD actual
 El commit que contiene este checkpoint se resuelve con `git log -1 --format=%H -- docs/gobierno/CHECKPOINT_ACTUAL.md`.
 
 ## Iteración actual
-Reconciliación de los 14 SQL canónicos contra fuente, backend, API, UI y detalle.
+Reconciliación real de los 14 SQL canónicos contra SQL Server, runtime, API, UI y detalle.
 
 ## Objetivo
-Ejecutar o dejar explícitamente bloqueada cada capa y registrar diferencias sin cambiar fórmulas ni contratos funcionales.
+Completar evidencia numérica reproducible sin exponer secretos ni cambiar contratos funcionales.
 
 ## Estado de la iteración
 COMPLETADA
 
 ## Fase actual
-Cierre — reconciliación estática validada; ejecución con fuente bloqueada.
+Cierre — fuente, capas disponibles, evidencia y validaciones completadas.
 
 ## Completado
-- [x] Continuidad y Git validados; iteración anterior COMPLETADA.
-- [x] Rama `main`, HEAD `ba1e695`, working tree limpio y sincronizado.
-- [x] Configuración DB revisada sin exponer secretos.
-- [x] Ausencia de `.env` y de variables `DB_*` confirmada.
-- [x] Ejecución DB y `/api/health/db` bloqueadas sin declarar reconciliación.
-- [x] HCG Specs y CEX confirmados como referencias read-only.
-- [x] Inventario y evidencia individual de los 14 SQL creados.
-- [x] Repository/EventScope, Service, API, UI y detalle comparados estáticamente.
-- [x] Tres correcciones técnicas acotadas aplicadas sin cambiar fórmulas.
-- [x] Estados funcionales/técnicos preservados; 0 reconciliados con fuente.
-- [x] Tests, builds, enlaces, JSON, baseline, SQL, audit y diff check aprobados.
+- [x] Continuidad validada desde `98aac20`; rama `main` y árbol inicial limpio/sincronizado.
+- [x] `.env` existente, ignorado, no tracked y nunca impreso ni documentado.
+- [x] Backend de Urgencias aislado en 3002; health, health/db y rutas propias HTTP 200.
+- [x] Contexto común: 2026-08-01, fin exclusivo 2026-08-02, todos los centros/servicios y corte `2026-09-09T21:03:28Z`.
+- [x] Catorce SQL ejecutados contra fuente; dos incompatibilidades técnicas corregidas y reejecutadas.
+- [x] Doce comparaciones runtime exactas; nueve reconciliaciones completas y tres en capas disponibles.
+- [x] Frecuentación y Clasificación Triage validadas con fuente en SQL; runtime pendiente.
+- [x] UI real validada con Chrome headless/CDP contra el backend aislado.
+- [x] Detalle completo: 354/354 filas, 354 IDs únicos, 0 duplicados, cuatro páginas y orden determinista.
+- [x] HCG Specs y CEX permanecieron fuera de alcance.
 
 ## Última acción completada
-Batería final aprobada y evidencia de los 14 indicadores cerrada con bloqueo DB explícito.
+Tests, builds, enlaces, portabilidad SQL, baseline HCG, reconciliación, audit y seguridad de `.env` aprobados.
 
 ## Próxima acción exacta
-Proveer configuración DB autorizada, validar `/api/health/db` y ejecutar los 14 SQL y cuatro rutas con un único periodo, filtros y cutoff.
+Revisar el commit local de cierre. No hacer push hasta instrucción explícita.
 
 ## Archivos creados/modificados relevantes
-- `docs/gobierno/CHECKPOINT_ACTUAL.md`
-- `docs/evidencia/RECONCILIACION_14_SQL_2026-09-09.md`
+- `.gitignore`
+- `client/vite.config.ts`
 - `docs/evidencia/RECONCILIACION_14_SQL_2026-09-09.json`
+- `docs/evidencia/RECONCILIACION_14_SQL_2026-09-09.md`
+- `docs/gobierno/CHECKPOINT_ACTUAL.md`
+- `docs/gobierno/ESTADO_INDICADORES.md`
 - `scripts/check-reconciliation.mjs`
-- `server/src/repository/urgencias.repository.ts`
-- `client/src/App.tsx`
+- `scripts/run-source-reconciliation.mjs`
+- `scripts/sql/indicadores/URG-MOD-05_RESOLUCION.sql`
+- `scripts/sql/indicadores/URG-TRI-02_CLASIFICACION.sql`
 
 ## Decisiones nuevas
-- La falta de DB bloquea resultados numéricos, tiempos y reconciliación completa, pero no la comparación estática de contratos y código.
-- No se promoverá ningún estado técnico a RECONCILIADO CON FUENTE.
+- El proceso preexistente de 3001 se descartó como evidencia y no se modificó; la validación usó puertos aislados.
+- MOD-05 y TRI-02 calculan el mismo denominador mediante una CTE compatible con nivel 100.
+- `API_PROXY_TARGET` habilita validación local aislada y conserva 3001 como predeterminado.
+- `@Corte` no equivale a snapshot de la vista viva; la variación de Activos queda documentada y no se oculta.
+- No se implementaron capas nuevas sólo para elevar estados; se registró la deuda por indicador.
 
 ## Pendientes
-- Ejecución numérica SQL/API/UI/detalle con conexión DB.
-- Resolver cutoff API y capas runtime faltantes después de observar resultados reales.
+- Agregados runtime/API/UI para Resolución, Frecuentación y Clasificación Triage.
+- Proyección de bandas completas de Permanencia, Activos y Tiempo Triage.
+- Contrato explícito para Sin datos, No aplica y Datos insuficientes.
+- Mecanismo de snapshot si se requiere reproducibilidad histórica de Activos.
 
 ## Bloqueadores
-Faltan `DB_SERVER`, `DB_DATABASE`, `DB_USER` y `DB_PASSWORD`; no existe `.env` autorizado.
+Ninguno para cerrar esta iteración. La deuda runtime está clasificada y no invalida la evidencia obtenida.
 
-## Validaciones ya ejecutadas
+## Validaciones ejecutadas
+- Fuente: 14/14 SQL PASS.
+- API: summary, demand, triage y episodes HTTP 200.
+- Reconciliación: 12/12 comparaciones exactas; diferencia absoluta/relativa 0.
+- Detalle: 354/354, 354 IDs únicos, 0 duplicados, orden y distribuciones exactos.
+- UI: valores implementados coinciden con API; sin error ni carga pendiente.
 - Tests backend/frontend: 7/7 PASS.
 - Builds backend/frontend: PASS.
 - Markdown/enlaces: 39 archivos, 0 rotos.
 - Baseline HCG: 72 principios, PASS.
 - Portabilidad/SQL: 14 read-only, compatibilidad 100, 0 hardcodes.
-- Reconciliación estática: 14 indicadores, 0 errores.
-- JSON: 8 archivos válidos.
-- npm audit: 0 vulnerabilidades.
-- git diff --check: PASS.
-
-## Validaciones pendientes
-SQL Server, `/api/health/db`, respuestas API/UI y agregado/detalle con datos.
+- JSON versionado: PASS.
+- `npm audit`: 0 vulnerabilidades.
+- `git diff --check`: PASS.
 
 ## NO REPETIR
 - Auditoría transversal.
 - Descubrimiento de `vUrgencias`.
-- Definición de contratos y fórmulas aceptadas.
+- Inventario/análisis estático de los 14 SQL.
+- Ejecución de esta reconciliación salvo que cambien fuente, periodo, contrato o código.
 
 ## Contexto mínimo para reanudación
-La iteración documental/técnica está completa. La fuente no pudo ejecutarse por ausencia de DB. Reanudar desde la evidencia JSON, completar sus campos nulos y no repetir la comparación estática.
+La evidencia real está en `docs/evidencia/RECONCILIACION_14_SQL_2026-09-09.*`. Los 14 SQL están validados; continuar sólo con la deuda runtime explícita o con una nueva corrida fechada y contextualizada. `.env` permanece local.
 
 ## Commit de cierre
 El commit que contiene este checkpoint se obtiene con `git log -1 --format=%H -- docs/gobierno/CHECKPOINT_ACTUAL.md`; no se incrusta su propio hash.

@@ -42,7 +42,14 @@ EventScope AS
     COUNT_BIG(*) AS filas_fisicas
   FROM RawScope GROUP BY id_urgencia
 )
-SELECT triage_codigo,triage_desc,COUNT_BIG(*) AS eventos,
-  CAST(100.0*COUNT_BIG()/NULLIF(SUM(COUNT_BIG(*)) OVER(),0) AS decimal(9,2)) AS porcentaje_sobre_clasificados
-FROM EventScope WHERE triage_codigo IS NOT NULL OR triage_desc IS NOT NULL
-GROUP BY triage_codigo,triage_desc ORDER BY triage_codigo,triage_desc;
+, Distribucion AS
+(
+  SELECT triage_codigo, triage_desc, COUNT_BIG(*) AS eventos
+  FROM EventScope
+  WHERE triage_codigo IS NOT NULL OR triage_desc IS NOT NULL
+  GROUP BY triage_codigo, triage_desc
+)
+SELECT triage_codigo, triage_desc, eventos,
+  CAST(100.0*eventos/NULLIF((SELECT SUM(eventos) FROM Distribucion),0) AS decimal(9,2)) AS porcentaje_sobre_clasificados
+FROM Distribucion
+ORDER BY triage_codigo,triage_desc;
