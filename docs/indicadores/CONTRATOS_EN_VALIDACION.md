@@ -45,3 +45,27 @@
 - Limitación: no inferir ni corregir timestamps faltantes, ni asignar causalidad clínica a inversiones. En 36 meses hubo 44,489 secuencias completas; 35,882 tuvieron al menos una inversión.
 
 La evidencia, los ejemplos pseudonimizados y las ventanas 12/24/36 meses están en [validación AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md).
+## URG-POB-01 — Edad al evento
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN; no KPI aceptado.
+- Fuente canónica: `fecha_nac` respecto de `Fechaing`; evaluable sólo con ambas fechas y nacimiento no posterior al ingreso.
+- `edadaños` es contraste, no precedencia; `EdadMeses`/`EdadDias` no se combinan sin regla institucional.
+- Cobertura: edad evaluable / U-ING por periodo, centro y servicio. Nulos, fechas posteriores y extremos se cuantifican y preservan.
+
+## URG-POB-02 — Grupos etarios descriptivos
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN; no población clínica ni KPI aceptado.
+- Grupos: `<1`, `1–5`, `6–12`, `13–17`, `18–29`, `30–44`, `45–59`, `60–74`, `75+`; aplican sólo a edad evaluable.
+- La ausencia de edad queda `SIN_EDAD_EVALUABLE`; no se infiere por servicio, sexo ni otros campos.
+
+## URG-POB-03 — Sexo nativo
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN.
+- Fuente: `sexo` nativo; conservar categorías, incluidos INDETERMINADO, NO ESPECIFICADO y SIN_DATO.
+- Cobertura: sexo presente / U-ING. No se reclasifica ni se deduce sexo.
+
+## URG-POB-04 — Residencia nativa
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN.
+- Fuentes: `estado_residencia`, `nombre_municipio_residencia`, `nombre_localidad_residencia`.
+- Cobertura y categorías nativas por periodo, centro y servicio; faltantes y variantes se conservan. No normalizar ni inferir residencia.

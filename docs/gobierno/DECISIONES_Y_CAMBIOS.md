@@ -369,3 +369,9 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Proxy: Vite carga sólo variables `API_*` del `.env` raíz; usa `API_PROXY_TARGET` cuando exista y, de otro modo, construye el destino con `API_PORT` o 3002. No carga ni documenta credenciales `DB_*`.
 - Verificación: `/api/health` respondió en 3002 y a través del proxy Vite local.
 - Alcance: configuración local de Urgencias; CEX no fue modificado.
+### URG-GOV-047 — Caracterización poblacional
+
+- Estado: DEFINIDA FUNCIONALMENTE / VALIDADA CON FUENTE; no KPI ni API/UI.
+- Decisión: Población se caracteriza sobre U-ING. Edad canónica propuesta: `fecha_nac` respecto de `Fechaing`; sexo y residencia conservan valores nativos. Servicio nunca sustituye población.
+- Limitaciones: no combinar `EdadMeses`/`EdadDias`; no inferir pediatría, adultez u obstetricia por edad, sexo o servicio. Nulos, extremos y variantes geográficas se conservan.
+- Evidencia: [validación Población](../evidencia/VALIDACION_POBLACION_2026-09-10.md).

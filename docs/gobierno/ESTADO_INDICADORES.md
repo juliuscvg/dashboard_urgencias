@@ -21,7 +21,7 @@ Corte: 2026-09-10. Fuente canónica de estados; las fórmulas residen en [contra
 | URG-PEND-01 | Atención médica | EN PROCESO | NO IMPLEMENTADO | `Fechaing→fechaate`; contrato final pendiente |
 | URG-PEND-02 | Alta médica | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | `fechamed` canónico actual del hito registrado; `altamed_fecha` auxiliar; sin API/UI |
 | URG-PEND-03 | Secuencias temporales completas | POR DEFINIR | VALIDADO CON FUENTE / NO IMPLEMENTADO | Análisis complementario de consistencia; no filtro ni KPI principal |
-| URG-PEND-04 | Población | EN PROCESO | NO IMPLEMENTADO | Edad al evento por validar |
+| URG-PEND-04 | Población | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | Edad, sexo y residencia nativos; sin API/UI |
 | URG-PEND-05 | Diagnósticos | POR DEFINIR | NO IMPLEMENTADO | Sin contrato suficiente |
 | URG-PEND-06 | Motivo de urgencia | POR DEFINIR | NO IMPLEMENTADO | Sin contrato suficiente |
 | URG-PEND-07 | Localización / cama | DIFERIDO | NO IMPLEMENTADO | Fuera de fase |

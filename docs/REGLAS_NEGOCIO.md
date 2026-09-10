@@ -103,7 +103,7 @@ Pacientes únicos usan codigo_cliente, identidad longitudinal validada; registro
 
 Grupos vigentes: <1, 1–5, 6–12, 13–17, 18–29, 30–44, 45–59, 60–74, 75+. Sobre edad exacta no negativa equivalen a [0,1), [1,6), [6,13), [13,18), [18,30), [30,45), [45,60), [60,75), [75,+∞). Nulo/negativo no se clasifica <1.
 
-Campos comunicados fecha_nac, edadaños, EdadMeses, EdadDias. Referencia temporal y forma de cálculo expuesta PENDIENTES DE VALIDACIÓN SQL; edad al registro sigue candidata hasta validar coherencia. Meses/días apoyan pediatría; no sumar unidades sin semántica ni recalcular a fecha actual. Precedencia ante discordancias y representación de paciente con múltiples episodios pendientes. Grupos cerrados no significan cálculo de edad validado. Población y servicio son dimensiones independientes: segmentar por servicio no redefine identidad, edad ni sexo, y los pacientes únicos entre servicios no son aditivos.
+Campos validados: fecha_nac, edadaños, EdadMeses, EdadDias, sexo y residencia nativa. Edad al evento se calcula con fecha_nac respecto de Fechaing cuando ambas fechas existen y nacimiento no es posterior; edadaños sólo contrasta. EdadMeses/EdaDias no se combinan sin semántica institucional. Los nueve grupos son descriptivos, exhaustivos y sin solapamiento sobre edad evaluable; no son población clínica. Población y servicio son dimensiones independientes: segmentar por servicio no redefine identidad, edad ni sexo, y los pacientes únicos entre servicios no son aditivos.
 
 ## URG-R08 — Filtros y comparación
 

@@ -29,8 +29,8 @@ Versión: 2026-09-08.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no
 | codigo_servicio_ingreso | NO DOCUMENTADO | vUrgencias | Servicio del ingreso | Universo, filtros y reingreso | CANÓNICO | Posible | une con servicios.codigo_servicio y cod_centro | Validar fan-out | Todos |
 | cod_centro | NO DOCUMENTADO | vUrgencias | Clave de centro | Unión de catálogo | CANÓNICO | Posible | une con servicios/centros | No hardcodear | Todos |
 | fecha_modif | NO DOCUMENTADO | vUrgencias | Modificación técnica | Auditoría | AUXILIAR | Posible | NO APLICA como fecha clínica | Nunca eje de KPI | Calidad |
-| fecha_nac | NO DOCUMENTADO | vUrgencias | Nacimiento | Edad al evento futura | AUXILIAR | Sí | Contrastar con edades expuestas | Fechas imposibles posibles | PEND-04 |
-| edadaños | NO DOCUMENTADO | vUrgencias | Edad comunicada en años | Grupo etario futuro | AUXILIAR | Sí | Precisión/fecha de cálculo pendiente | No recalcular al presente | PEND-04 |
+| fecha_nac | datetime, nullable | vUrgencias | Nacimiento | Edad al evento | CANÓNICO PROPUESTO CON EVIDENCIA | Sí | Calcular respecto de Fechaing | Posterior a ingreso no evaluable | PEND-04 |
+| edadaños | int, nullable | vUrgencias | Edad comunicada en años | Contraste de edad | AUXILIAR | Sí | No precede fecha_nac/Fechaing | Discordancias auditables | PEND-04 |
 | EdadMeses | NO DOCUMENTADO | vUrgencias | Edad comunicada en meses | Pediatría futura | AUXILIAR | Sí | Unidad/componente por validar | No sumar sin semántica | PEND-04 |
 | EdadDias | NO DOCUMENTADO | vUrgencias | Edad comunicada en días | Pediatría futura | AUXILIAR | Sí | Unidad/componente por validar | No sumar sin semántica | PEND-04 |
 | motivo_urgencia | NO DOCUMENTADO | vUrgencias | Motivo categórico comunicado | Clínica futura | AUXILIAR | Sí | Catálogo pendiente | POR DEFINIR | PEND-06 |

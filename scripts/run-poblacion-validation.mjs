@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import dotenv from 'dotenv';
+import sql from 'mssql';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+dotenv.config({ path: path.join(root, '.env') });
+const needed = ['DB_SERVER', 'DB_DATABASE', 'DB_USER', 'DB_PASSWORD'];
+if (needed.some((name) => !process.env[name])) throw new Error('Configuración DB incompleta');
+const outputIndex = process.argv.indexOf('--output');
+const output = outputIndex >= 0 ? process.argv[outputIndex + 1] : path.join(root, '.tmp', 'poblacion-validation.json');
+const coverageOnly = process.argv.includes('--coverage-only');
+const baseIndex = process.argv.indexOf('--base');
+const basePath = baseIndex >= 0 ? path.resolve(root, process.argv[baseIndex + 1]) : null;
+if (coverageOnly && !basePath) throw new Error('Cobertura requiere --base');
+const windows = [{ id: '12m', desde: '2025-09-01', hasta: '2026-09-01' }, { id: '24m', desde: '2024-09-01', hasta: '2026-09-01' }, { id: '36m', desde: '2023-09-01', hasta: '2026-09-01' }];
+const config = { server: process.env.DB_SERVER, database: process.env.DB_DATABASE, user: process.env.DB_USER, password: process.env.DB_PASSWORD, port: Number(process.env.DB_PORT ?? 1433), options: { encrypt: ['true', '1'].includes(String(process.env.DB_ENCRYPT).toLowerCase()), trustServerCertificate: !['false', '0'].includes(String(process.env.DB_TRUST_SERVER_CERTIFICATE).toLowerCase()), enableArithAbort: true }, requestTimeout: 300000 };
+const template = fs.readFileSync(path.join(root, 'scripts/sql/05_validacion_poblacion.sql'), 'utf8');
+const coverageTemplate = fs.readFileSync(path.join(root, 'scripts/sql/06_validacion_poblacion_cobertura.sql'), 'utf8');
+const artifact = coverageOnly ? JSON.parse(fs.readFileSync(basePath, 'utf8')) : { schemaVersion: '1.0.0', generatedAt: new Date().toISOString(), context: { cutoff: '2026-09-01', periodSemantics: 'Fechaing >= desde AND Fechaing < hastaExclusivo', secretsIncluded: false, directIdentifiersIncluded: false }, windows: {} };
+const pool = await new sql.ConnectionPool(config).connect();
+try { for (const window of windows) { const declaration = `DECLARE @Desde date = '${window.desde}', @HastaExclusivo date = '${window.hasta}';`; const start = performance.now(); if (coverageOnly) { const coverage = await pool.request().query(coverageTemplate.replace('DECLARE @Desde date = NULL, @HastaExclusivo date = NULL;', declaration)); artifact.windows[window.id].coverageElapsedMs = Math.round(performance.now() - start); artifact.windows[window.id].coverageRecordsets = coverage.recordsets; } else { const result = await pool.request().query(template.replace('DECLARE @Desde date = NULL, @HastaExclusivo date = NULL;', declaration)); artifact.windows[window.id] = { ...window, elapsedMs: Math.round(performance.now() - start), recordsets: result.recordsets }; } } } finally { await pool.close(); }
+artifact.generatedAt = new Date().toISOString(); fs.mkdirSync(path.dirname(output), { recursive: true }); fs.writeFileSync(output, `${JSON.stringify(artifact, null, 2)}\n`, 'utf8'); console.log(JSON.stringify({ output, coverageOnly, windows: Object.fromEntries(Object.entries(artifact.windows).map(([id, value]) => [id, { recordsets: value.recordsets?.map((set) => set.length), coverageRecordsets: value.coverageRecordsets?.map((set) => set.length) }])) }, null, 2));

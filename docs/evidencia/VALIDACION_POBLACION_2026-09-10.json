@@ -1,0 +1,2893 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-09-10T17:11:48.014Z",
+  "context": {
+    "cutoff": "2026-09-01",
+    "periodSemantics": "Fechaing >= desde AND Fechaing < hastaExclusivo",
+    "secretsIncluded": false,
+    "directIdentifiersIncluded": false
+  },
+  "windows": {
+    "12m": {
+      "id": "12m",
+      "desde": "2025-09-01",
+      "hasta": "2026-09-01",
+      "elapsedMs": 9188,
+      "recordsets": [
+        [
+          {
+            "resultado": "POB01_RESUMEN",
+            "universo": "159822",
+            "con_sexo": "159822",
+            "con_fecha_nac": "159822",
+            "edad_evento_evaluable": "159821",
+            "nacimiento_posterior_ingreso": "1",
+            "con_edadanos": "159822",
+            "con_meses": "159822",
+            "con_dias": "159822",
+            "con_estado": "159821",
+            "con_municipio": "159788",
+            "con_localidad": "159450"
+          }
+        ],
+        [
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "FEMENINO",
+            "eventos": "93987"
+          },
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "MASCULINO",
+            "eventos": "65809"
+          },
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "INDETERMINADO",
+            "eventos": "19"
+          },
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "NO ESPECIFICADO",
+            "eventos": "7"
+          }
+        ],
+        [
+          {
+            "resultado": "POB03_EDAD_CALIDAD",
+            "min_edad_calculada": 0,
+            "max_edad_calculada": 126,
+            "edad_calculada_mayor_130": "0",
+            "min_edadanos": 0,
+            "max_edadanos": 126,
+            "edadanos_negativa": "0",
+            "edadanos_mayor_130": "0",
+            "ambas_edades": "159821",
+            "edades_iguales": "159683",
+            "edades_distintas": "138",
+            "min_meses": -5,
+            "max_meses": 1536,
+            "meses_fuera_0_11": "151665",
+            "min_dias": -175,
+            "max_dias": 46095,
+            "dias_fuera_0_31": "158419"
+          }
+        ],
+        [
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "<1",
+            "eventos": "8247"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "13-17",
+            "eventos": "11572"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "1-5",
+            "eventos": "16763"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "18-29",
+            "eventos": "41154"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "30-44",
+            "eventos": "28407"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "45-59",
+            "eventos": "20985"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "60-74",
+            "eventos": "14090"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "6-12",
+            "eventos": "12307"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "75+",
+            "eventos": "6296"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "<SIN_EDAD_EVALUABLE>",
+            "eventos": "1"
+          }
+        ]
+      ],
+      "coverageElapsedMs": 7788,
+      "coverageRecordsets": [
+        [
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "CENTRO",
+            "centro": "FAA",
+            "codigo_servicio": null,
+            "servicio": null,
+            "universo": "85479",
+            "con_sexo": "85479",
+            "edad_evaluable": "85478",
+            "con_estado": "85478",
+            "con_municipio": "85473",
+            "con_localidad": "85192"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "CENTRO",
+            "centro": "JIM",
+            "codigo_servicio": null,
+            "servicio": null,
+            "universo": "74343",
+            "con_sexo": "74343",
+            "edad_evaluable": "74343",
+            "con_estado": "74343",
+            "con_municipio": "74315",
+            "con_localidad": "74258"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "56",
+            "servicio": "URG. TOCO JIM",
+            "universo": "21283",
+            "con_sexo": "21283",
+            "edad_evaluable": "21283",
+            "con_estado": "21283",
+            "con_municipio": "21277",
+            "con_localidad": "21268"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "445",
+            "servicio": "URGADUPROCE",
+            "universo": "6",
+            "con_sexo": "6",
+            "edad_evaluable": "6",
+            "con_estado": "6",
+            "con_municipio": "6",
+            "con_localidad": "6"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "417",
+            "servicio": "URG COVID19 FAA",
+            "universo": "8",
+            "con_sexo": "8",
+            "edad_evaluable": "8",
+            "con_estado": "8",
+            "con_municipio": "8",
+            "con_localidad": "8"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "446",
+            "servicio": "URGPEDPROCE",
+            "universo": "2",
+            "con_sexo": "2",
+            "edad_evaluable": "2",
+            "con_estado": "2",
+            "con_municipio": "2",
+            "con_localidad": "2"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "154",
+            "servicio": "URG PEDIATRIA JIM",
+            "universo": "17170",
+            "con_sexo": "17170",
+            "edad_evaluable": "17170",
+            "con_estado": "17170",
+            "con_municipio": "17170",
+            "con_localidad": "17170"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "118",
+            "servicio": "URG PEDIATRIA FAA",
+            "universo": "23738",
+            "con_sexo": "23738",
+            "edad_evaluable": "23738",
+            "con_estado": "23738",
+            "con_municipio": "23738",
+            "con_localidad": "23738"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "61",
+            "servicio": "URG TOCO FAA",
+            "universo": "12321",
+            "con_sexo": "12321",
+            "edad_evaluable": "12320",
+            "con_estado": "12320",
+            "con_municipio": "12320",
+            "con_localidad": "12288"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "435",
+            "servicio": "URG GINE FAA",
+            "universo": "1310",
+            "con_sexo": "1310",
+            "edad_evaluable": "1310",
+            "con_estado": "1310",
+            "con_municipio": "1310",
+            "con_localidad": "1308"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "153",
+            "servicio": "URG ADULTOS JIM",
+            "universo": "30181",
+            "con_sexo": "30181",
+            "edad_evaluable": "30181",
+            "con_estado": "30181",
+            "con_municipio": "30165",
+            "con_localidad": "30123"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "339",
+            "servicio": "URG ORTOPEDIA Y TRAUMA",
+            "universo": "5709",
+            "con_sexo": "5709",
+            "edad_evaluable": "5709",
+            "con_estado": "5709",
+            "con_municipio": "5703",
+            "con_localidad": "5697"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "152",
+            "servicio": "URG ADULTOS FAA",
+            "universo": "48094",
+            "con_sexo": "48094",
+            "edad_evaluable": "48094",
+            "con_estado": "48094",
+            "con_municipio": "48089",
+            "con_localidad": "47842"
+          }
+        ],
+        [
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Jalisco",
+            "eventos": "156343"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Michoacán de Ocampo",
+            "eventos": "1475"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Zacatecas",
+            "eventos": "415"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Nayarit",
+            "eventos": "302"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Colima",
+            "eventos": "152"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Baja California",
+            "eventos": "122"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Guanajuato",
+            "eventos": "107"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "México",
+            "eventos": "103"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Chiapas",
+            "eventos": "93"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "[Sin Descripción]",
+            "eventos": "78"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Guerrero",
+            "eventos": "69"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Sinaloa",
+            "eventos": "65"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Veracruz de Ignacio de la Llave",
+            "eventos": "63"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Ciudad de México",
+            "eventos": "40"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Hidalgo",
+            "eventos": "40"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Oaxaca",
+            "eventos": "33"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "San Luis Potosí",
+            "eventos": "33"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Nuevo León",
+            "eventos": "29"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Puebla",
+            "eventos": "25"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Aguascalientes",
+            "eventos": "23"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Querétaro",
+            "eventos": "23"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Sonora",
+            "eventos": "23"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Durango",
+            "eventos": "22"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Tamaulipas",
+            "eventos": "21"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Chihuahua",
+            "eventos": "19"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Baja California Sur",
+            "eventos": "16"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Coahuila de Zaragoza",
+            "eventos": "13"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "CALIFORNIA",
+            "eventos": "11"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Morelos",
+            "eventos": "11"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "NEBRASKA",
+            "eventos": "11"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Quintana Roo",
+            "eventos": "11"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Tabasco",
+            "eventos": "8"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Tlaxcala",
+            "eventos": "6"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Yucatán",
+            "eventos": "5"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Campeche",
+            "eventos": "3"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Colombia",
+            "eventos": "3"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "<SIN_DATO>",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "[DESCONOCIDO]",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "CAROLINA DEL NORTE",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Guatemala",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "NUEVA YORK",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "TEXAS",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Guadalajara",
+            "eventos": "51359"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Tonalá",
+            "eventos": "11179"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Amarilla",
+            "eventos": "10732"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Tlaquepaque",
+            "eventos": "10130"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Zapopan",
+            "eventos": "9223"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Cerro del Cuatro",
+            "eventos": "9145"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Clara",
+            "eventos": "8125"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Tlajomulco de Zúñiga",
+            "eventos": "7053"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Acatitlán (Los Ranchitos)",
+            "eventos": "6539"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Blanca",
+            "eventos": "3774"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "El Salto",
+            "eventos": "3562"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "La Nogalera",
+            "eventos": "1821"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Dulce",
+            "eventos": "1453"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Zapotlanejo",
+            "eventos": "873"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Ixtlahuacán de los Membrillos",
+            "eventos": "760"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Caliente",
+            "eventos": "735"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Colonia Cerro del Cuatro",
+            "eventos": "686"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Chapala",
+            "eventos": "672"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Altamira",
+            "eventos": "610"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Alberto Lizardi Jiménez",
+            "eventos": "532"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Jocotepec",
+            "eventos": "480"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Las Juntas [Planta Hidroeléctrica]",
+            "eventos": "457"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Azul",
+            "eventos": "444"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "<SIN_DATO>",
+            "eventos": "372"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Juanacatlán",
+            "eventos": "371"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Poncitlán",
+            "eventos": "350"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "El Capulín",
+            "eventos": "280"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "[Sin Descripcion]",
+            "eventos": "273"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Alce Emulsiones Asfálticas",
+            "eventos": "267"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Ixtlahuacán del Río",
+            "eventos": "243"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Guadalajara",
+            "eventos": "54117"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tonalá",
+            "eventos": "23293"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "San Pedro Tlaquepaque",
+            "eventos": "20770"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zapopan",
+            "eventos": "19387"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tlajomulco de Zúñiga",
+            "eventos": "15454"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "El Salto",
+            "eventos": "7239"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ixtlahuacán de los Membrillos",
+            "eventos": "1645"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zapotlanejo",
+            "eventos": "1607"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Chapala",
+            "eventos": "1229"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Jocotepec",
+            "eventos": "822"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Poncitlán",
+            "eventos": "730"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Juanacatlán",
+            "eventos": "618"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ocotlán",
+            "eventos": "468"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ixtlahuacán del Río",
+            "eventos": "406"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tala",
+            "eventos": "365"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "La Barca",
+            "eventos": "359"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tepatitlán de Morelos",
+            "eventos": "304"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Arandas",
+            "eventos": "303"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tequila",
+            "eventos": "248"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ameca",
+            "eventos": "246"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tizapán el Alto",
+            "eventos": "240"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Atotonilco el Alto",
+            "eventos": "238"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "[Sin Descripcion]",
+            "eventos": "201"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "El Arenal",
+            "eventos": "201"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zacoalco de Torres",
+            "eventos": "195"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ayotlán",
+            "eventos": "191"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zapotlán del Rey",
+            "eventos": "187"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Sahuayo",
+            "eventos": "170"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tototlán",
+            "eventos": "167"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Magdalena",
+            "eventos": "163"
+          }
+        ]
+      ]
+    },
+    "24m": {
+      "id": "24m",
+      "desde": "2024-09-01",
+      "hasta": "2026-09-01",
+      "elapsedMs": 6228,
+      "recordsets": [
+        [
+          {
+            "resultado": "POB01_RESUMEN",
+            "universo": "327400",
+            "con_sexo": "327400",
+            "con_fecha_nac": "327400",
+            "edad_evento_evaluable": "327399",
+            "nacimiento_posterior_ingreso": "1",
+            "con_edadanos": "327400",
+            "con_meses": "327400",
+            "con_dias": "327400",
+            "con_estado": "327395",
+            "con_municipio": "327322",
+            "con_localidad": "326504"
+          }
+        ],
+        [
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "FEMENINO",
+            "eventos": "190434"
+          },
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "MASCULINO",
+            "eventos": "136917"
+          },
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "INDETERMINADO",
+            "eventos": "31"
+          },
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "NO ESPECIFICADO",
+            "eventos": "18"
+          }
+        ],
+        [
+          {
+            "resultado": "POB03_EDAD_CALIDAD",
+            "min_edad_calculada": 0,
+            "max_edad_calculada": 156,
+            "edad_calculada_mayor_130": "2",
+            "min_edadanos": 0,
+            "max_edadanos": 156,
+            "edadanos_negativa": "0",
+            "edadanos_mayor_130": "2",
+            "ambas_edades": "327399",
+            "edades_iguales": "327194",
+            "edades_distintas": "205",
+            "min_meses": -5,
+            "max_meses": 1901,
+            "meses_fuera_0_11": "310449",
+            "min_dias": -175,
+            "max_dias": 57030,
+            "dias_fuera_0_31": "324594"
+          }
+        ],
+        [
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "<1",
+            "eventos": "17130"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "13-17",
+            "eventos": "23974"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "1-5",
+            "eventos": "34083"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "18-29",
+            "eventos": "82183"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "30-44",
+            "eventos": "58027"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "45-59",
+            "eventos": "43644"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "60-74",
+            "eventos": "29159"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "6-12",
+            "eventos": "26238"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "75+",
+            "eventos": "12961"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "<SIN_EDAD_EVALUABLE>",
+            "eventos": "1"
+          }
+        ]
+      ],
+      "coverageElapsedMs": 9936,
+      "coverageRecordsets": [
+        [
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "CENTRO",
+            "centro": "FAA",
+            "codigo_servicio": null,
+            "servicio": null,
+            "universo": "176030",
+            "con_sexo": "176030",
+            "edad_evaluable": "176029",
+            "con_estado": "176026",
+            "con_municipio": "176011",
+            "con_localidad": "175324"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "CENTRO",
+            "centro": "HCO",
+            "codigo_servicio": null,
+            "servicio": null,
+            "universo": "1",
+            "con_sexo": "1",
+            "edad_evaluable": "1",
+            "con_estado": "1",
+            "con_municipio": "1",
+            "con_localidad": "1"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "CENTRO",
+            "centro": "JIM",
+            "codigo_servicio": null,
+            "servicio": null,
+            "universo": "151369",
+            "con_sexo": "151369",
+            "edad_evaluable": "151369",
+            "con_estado": "151368",
+            "con_municipio": "151310",
+            "con_localidad": "151179"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "HCO",
+            "codigo_servicio": "473",
+            "servicio": "CO URGENCIAS ADUL",
+            "universo": "1",
+            "con_sexo": "1",
+            "edad_evaluable": "1",
+            "con_estado": "1",
+            "con_municipio": "1",
+            "con_localidad": "1"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "56",
+            "servicio": "URG. TOCO JIM",
+            "universo": "39953",
+            "con_sexo": "39953",
+            "edad_evaluable": "39953",
+            "con_estado": "39953",
+            "con_municipio": "39947",
+            "con_localidad": "39924"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "152",
+            "servicio": "URG ADULTOS FAA",
+            "universo": "98804",
+            "con_sexo": "98804",
+            "edad_evaluable": "98804",
+            "con_estado": "98802",
+            "con_municipio": "98789",
+            "con_localidad": "98155"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "446",
+            "servicio": "URGPEDPROCE",
+            "universo": "16",
+            "con_sexo": "16",
+            "edad_evaluable": "16",
+            "con_estado": "16",
+            "con_municipio": "16",
+            "con_localidad": "16"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "154",
+            "servicio": "URG PEDIATRIA JIM",
+            "universo": "34322",
+            "con_sexo": "34322",
+            "edad_evaluable": "34322",
+            "con_estado": "34322",
+            "con_municipio": "34322",
+            "con_localidad": "34322"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "118",
+            "servicio": "URG PEDIATRIA FAA",
+            "universo": "50499",
+            "con_sexo": "50499",
+            "edad_evaluable": "50499",
+            "con_estado": "50499",
+            "con_municipio": "50498",
+            "con_localidad": "50495"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "445",
+            "servicio": "URGADUPROCE",
+            "universo": "14",
+            "con_sexo": "14",
+            "edad_evaluable": "14",
+            "con_estado": "14",
+            "con_municipio": "14",
+            "con_localidad": "14"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "417",
+            "servicio": "URG COVID19 FAA",
+            "universo": "27",
+            "con_sexo": "27",
+            "edad_evaluable": "27",
+            "con_estado": "27",
+            "con_municipio": "27",
+            "con_localidad": "27"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "61",
+            "servicio": "URG TOCO FAA",
+            "universo": "24373",
+            "con_sexo": "24373",
+            "edad_evaluable": "24372",
+            "con_estado": "24372",
+            "con_municipio": "24372",
+            "con_localidad": "24327"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "435",
+            "servicio": "URG GINE FAA",
+            "universo": "2297",
+            "con_sexo": "2297",
+            "edad_evaluable": "2297",
+            "con_estado": "2296",
+            "con_municipio": "2295",
+            "con_localidad": "2290"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "153",
+            "servicio": "URG ADULTOS JIM",
+            "universo": "60068",
+            "con_sexo": "60068",
+            "edad_evaluable": "60068",
+            "con_estado": "60067",
+            "con_municipio": "60027",
+            "con_localidad": "59952"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "339",
+            "servicio": "URG ORTOPEDIA Y TRAUMA",
+            "universo": "17026",
+            "con_sexo": "17026",
+            "edad_evaluable": "17026",
+            "con_estado": "17026",
+            "con_municipio": "17014",
+            "con_localidad": "16981"
+          }
+        ],
+        [
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Jalisco",
+            "eventos": "320377"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Michoacán de Ocampo",
+            "eventos": "2877"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Zacatecas",
+            "eventos": "823"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Nayarit",
+            "eventos": "571"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Colima",
+            "eventos": "310"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "México",
+            "eventos": "254"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Baja California",
+            "eventos": "244"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Guanajuato",
+            "eventos": "218"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Chiapas",
+            "eventos": "197"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Sinaloa",
+            "eventos": "163"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "[Sin Descripción]",
+            "eventos": "148"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Guerrero",
+            "eventos": "128"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Veracruz de Ignacio de la Llave",
+            "eventos": "120"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Oaxaca",
+            "eventos": "105"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Hidalgo",
+            "eventos": "88"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Aguascalientes",
+            "eventos": "76"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Ciudad de México",
+            "eventos": "73"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "San Luis Potosí",
+            "eventos": "65"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Puebla",
+            "eventos": "63"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Sonora",
+            "eventos": "56"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Durango",
+            "eventos": "47"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Baja California Sur",
+            "eventos": "46"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Nuevo León",
+            "eventos": "44"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Chihuahua",
+            "eventos": "41"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Tamaulipas",
+            "eventos": "38"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Querétaro",
+            "eventos": "35"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Morelos",
+            "eventos": "33"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Coahuila de Zaragoza",
+            "eventos": "25"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Tabasco",
+            "eventos": "20"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "CALIFORNIA",
+            "eventos": "18"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "NEBRASKA",
+            "eventos": "16"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Quintana Roo",
+            "eventos": "16"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "El Salvador",
+            "eventos": "13"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Tlaxcala",
+            "eventos": "12"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Campeche",
+            "eventos": "10"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Yucatán",
+            "eventos": "7"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "<SIN_DATO>",
+            "eventos": "5"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Colombia",
+            "eventos": "4"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "TEXAS",
+            "eventos": "2"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "WASHINGTON",
+            "eventos": "2"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "[DESCONOCIDO]",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Argentina",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "CAROLINA DEL NORTE",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Chile",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Cuba",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Ecuador",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Guatemala",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Holanda (Países Bajos, Reino Unido de los)",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "NUEVA YORK",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "UTAH",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Guadalajara",
+            "eventos": "108130"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Tonalá",
+            "eventos": "23360"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Tlaquepaque",
+            "eventos": "21234"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Amarilla",
+            "eventos": "20593"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Zapopan",
+            "eventos": "20065"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Cerro del Cuatro",
+            "eventos": "17400"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Clara",
+            "eventos": "16067"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Tlajomulco de Zúñiga",
+            "eventos": "14402"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Acatitlán (Los Ranchitos)",
+            "eventos": "12315"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "El Salto",
+            "eventos": "7552"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Blanca",
+            "eventos": "7259"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "La Nogalera",
+            "eventos": "3910"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Dulce",
+            "eventos": "2861"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Zapotlanejo",
+            "eventos": "1828"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Ixtlahuacán de los Membrillos",
+            "eventos": "1776"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Chapala",
+            "eventos": "1410"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Colonia Cerro del Cuatro",
+            "eventos": "1383"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Caliente",
+            "eventos": "1340"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Altamira",
+            "eventos": "1115"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Jocotepec",
+            "eventos": "1079"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Alberto Lizardi Jiménez",
+            "eventos": "1020"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Las Juntas [Planta Hidroeléctrica]",
+            "eventos": "935"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "<SIN_DATO>",
+            "eventos": "896"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Azul",
+            "eventos": "886"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Juanacatlán",
+            "eventos": "793"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Poncitlán",
+            "eventos": "693"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "[Sin Descripcion]",
+            "eventos": "645"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Alce Emulsiones Asfálticas",
+            "eventos": "528"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Ixtlahuacán del Río",
+            "eventos": "526"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Puente de Arcediano",
+            "eventos": "501"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Guadalajara",
+            "eventos": "113990"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tonalá",
+            "eventos": "46789"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "San Pedro Tlaquepaque",
+            "eventos": "41652"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zapopan",
+            "eventos": "40135"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tlajomulco de Zúñiga",
+            "eventos": "30301"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "El Salto",
+            "eventos": "14608"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ixtlahuacán de los Membrillos",
+            "eventos": "3452"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zapotlanejo",
+            "eventos": "3248"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Chapala",
+            "eventos": "2465"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Jocotepec",
+            "eventos": "1809"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Poncitlán",
+            "eventos": "1376"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Juanacatlán",
+            "eventos": "1287"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ocotlán",
+            "eventos": "874"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ixtlahuacán del Río",
+            "eventos": "864"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tala",
+            "eventos": "773"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "La Barca",
+            "eventos": "747"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tepatitlán de Morelos",
+            "eventos": "608"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tequila",
+            "eventos": "594"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Arandas",
+            "eventos": "555"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Atotonilco el Alto",
+            "eventos": "515"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ameca",
+            "eventos": "513"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "[Sin Descripcion]",
+            "eventos": "510"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tizapán el Alto",
+            "eventos": "493"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zacoalco de Torres",
+            "eventos": "442"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "El Arenal",
+            "eventos": "431"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ayotlán",
+            "eventos": "392"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tototlán",
+            "eventos": "355"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Acatlán de Juárez",
+            "eventos": "345"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zapotlán del Rey",
+            "eventos": "344"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Cuquío",
+            "eventos": "339"
+          }
+        ]
+      ]
+    },
+    "36m": {
+      "id": "36m",
+      "desde": "2023-09-01",
+      "hasta": "2026-09-01",
+      "elapsedMs": 7156,
+      "recordsets": [
+        [
+          {
+            "resultado": "POB01_RESUMEN",
+            "universo": "484161",
+            "con_sexo": "484161",
+            "con_fecha_nac": "484161",
+            "edad_evento_evaluable": "484159",
+            "nacimiento_posterior_ingreso": "2",
+            "con_edadanos": "484161",
+            "con_meses": "484161",
+            "con_dias": "484161",
+            "con_estado": "484154",
+            "con_municipio": "484046",
+            "con_localidad": "482856"
+          }
+        ],
+        [
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "FEMENINO",
+            "eventos": "280882"
+          },
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "MASCULINO",
+            "eventos": "203194"
+          },
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "INDETERMINADO",
+            "eventos": "60"
+          },
+          {
+            "resultado": "POB02_SEXO_NATIVO",
+            "sexo_nativo": "NO ESPECIFICADO",
+            "eventos": "25"
+          }
+        ],
+        [
+          {
+            "resultado": "POB03_EDAD_CALIDAD",
+            "min_edad_calculada": 0,
+            "max_edad_calculada": 156,
+            "edad_calculada_mayor_130": "2",
+            "min_edadanos": 0,
+            "max_edadanos": 156,
+            "edadanos_negativa": "0",
+            "edadanos_mayor_130": "2",
+            "ambas_edades": "484159",
+            "edades_iguales": "483800",
+            "edades_distintas": "359",
+            "min_meses": -9,
+            "max_meses": 1901,
+            "meses_fuera_0_11": "458273",
+            "min_dias": -284,
+            "max_dias": 57030,
+            "dias_fuera_0_31": "479840"
+          }
+        ],
+        [
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "<1",
+            "eventos": "26158"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "13-17",
+            "eventos": "35201"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "1-5",
+            "eventos": "50563"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "18-29",
+            "eventos": "120565"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "30-44",
+            "eventos": "85087"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "45-59",
+            "eventos": "65071"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "60-74",
+            "eventos": "43628"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "6-12",
+            "eventos": "38592"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "75+",
+            "eventos": "19294"
+          },
+          {
+            "resultado": "POB04_GRUPOS_PROVISIONALES",
+            "grupo": "<SIN_EDAD_EVALUABLE>",
+            "eventos": "2"
+          }
+        ]
+      ],
+      "coverageElapsedMs": 10798,
+      "coverageRecordsets": [
+        [
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "CENTRO",
+            "centro": "FAA",
+            "codigo_servicio": null,
+            "servicio": null,
+            "universo": "259118",
+            "con_sexo": "259118",
+            "edad_evaluable": "259116",
+            "con_estado": "259114",
+            "con_municipio": "259093",
+            "con_localidad": "258120"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "CENTRO",
+            "centro": "HCO",
+            "codigo_servicio": null,
+            "servicio": null,
+            "universo": "2",
+            "con_sexo": "2",
+            "edad_evaluable": "2",
+            "con_estado": "2",
+            "con_municipio": "2",
+            "con_localidad": "2"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "CENTRO",
+            "centro": "JIM",
+            "codigo_servicio": null,
+            "servicio": null,
+            "universo": "225041",
+            "con_sexo": "225041",
+            "edad_evaluable": "225041",
+            "con_estado": "225038",
+            "con_municipio": "224951",
+            "con_localidad": "224734"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "HCO",
+            "codigo_servicio": "473",
+            "servicio": "CO URGENCIAS ADUL",
+            "universo": "2",
+            "con_sexo": "2",
+            "edad_evaluable": "2",
+            "con_estado": "2",
+            "con_municipio": "2",
+            "con_localidad": "2"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "152",
+            "servicio": "URG ADULTOS FAA",
+            "universo": "142771",
+            "con_sexo": "142771",
+            "edad_evaluable": "142771",
+            "con_estado": "142769",
+            "con_municipio": "142750",
+            "con_localidad": "141849"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "446",
+            "servicio": "URGPEDPROCE",
+            "universo": "23",
+            "con_sexo": "23",
+            "edad_evaluable": "23",
+            "con_estado": "23",
+            "con_municipio": "23",
+            "con_localidad": "22"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "154",
+            "servicio": "URG PEDIATRIA JIM",
+            "universo": "50130",
+            "con_sexo": "50130",
+            "edad_evaluable": "50130",
+            "con_estado": "50128",
+            "con_municipio": "50127",
+            "con_localidad": "50127"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "56",
+            "servicio": "URG. TOCO JIM",
+            "universo": "57088",
+            "con_sexo": "57088",
+            "edad_evaluable": "57088",
+            "con_estado": "57088",
+            "con_municipio": "57080",
+            "con_localidad": "57046"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "445",
+            "servicio": "URGADUPROCE",
+            "universo": "21",
+            "con_sexo": "21",
+            "edad_evaluable": "21",
+            "con_estado": "21",
+            "con_municipio": "21",
+            "con_localidad": "21"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "118",
+            "servicio": "URG PEDIATRIA FAA",
+            "universo": "75560",
+            "con_sexo": "75560",
+            "edad_evaluable": "75559",
+            "con_estado": "75560",
+            "con_municipio": "75559",
+            "con_localidad": "75555"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "417",
+            "servicio": "URG COVID19 FAA",
+            "universo": "102",
+            "con_sexo": "102",
+            "edad_evaluable": "102",
+            "con_estado": "102",
+            "con_municipio": "102",
+            "con_localidad": "97"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "61",
+            "servicio": "URG TOCO FAA",
+            "universo": "37658",
+            "con_sexo": "37658",
+            "edad_evaluable": "37657",
+            "con_estado": "37657",
+            "con_municipio": "37657",
+            "con_localidad": "37601"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "FAA",
+            "codigo_servicio": "435",
+            "servicio": "URG GINE FAA",
+            "universo": "2983",
+            "con_sexo": "2983",
+            "edad_evaluable": "2983",
+            "con_estado": "2982",
+            "con_municipio": "2981",
+            "con_localidad": "2975"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "153",
+            "servicio": "URG ADULTOS JIM",
+            "universo": "88328",
+            "con_sexo": "88328",
+            "edad_evaluable": "88328",
+            "con_estado": "88327",
+            "con_municipio": "88266",
+            "con_localidad": "88152"
+          },
+          {
+            "resultado": "POB05_COBERTURA",
+            "nivel": "SERVICIO",
+            "centro": "JIM",
+            "codigo_servicio": "339",
+            "servicio": "URG ORTOPEDIA Y TRAUMA",
+            "universo": "29495",
+            "con_sexo": "29495",
+            "edad_evaluable": "29495",
+            "con_estado": "29495",
+            "con_municipio": "29478",
+            "con_localidad": "29409"
+          }
+        ],
+        [
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Jalisco",
+            "eventos": "473776"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Michoacán de Ocampo",
+            "eventos": "4338"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Zacatecas",
+            "eventos": "1227"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Nayarit",
+            "eventos": "863"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Colima",
+            "eventos": "474"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "México",
+            "eventos": "368"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Baja California",
+            "eventos": "344"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Guanajuato",
+            "eventos": "299"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Chiapas",
+            "eventos": "275"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Sinaloa",
+            "eventos": "221"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "[Sin Descripción]",
+            "eventos": "213"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Guerrero",
+            "eventos": "180"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Veracruz de Ignacio de la Llave",
+            "eventos": "165"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Oaxaca",
+            "eventos": "139"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Hidalgo",
+            "eventos": "135"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Aguascalientes",
+            "eventos": "122"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Ciudad de México",
+            "eventos": "109"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "San Luis Potosí",
+            "eventos": "100"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Puebla",
+            "eventos": "88"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Sonora",
+            "eventos": "81"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Chihuahua",
+            "eventos": "72"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Baja California Sur",
+            "eventos": "70"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Durango",
+            "eventos": "68"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Nuevo León",
+            "eventos": "65"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Tamaulipas",
+            "eventos": "53"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Morelos",
+            "eventos": "45"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Querétaro",
+            "eventos": "43"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Coahuila de Zaragoza",
+            "eventos": "32"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Quintana Roo",
+            "eventos": "30"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "CALIFORNIA",
+            "eventos": "28"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Tabasco",
+            "eventos": "27"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "NEBRASKA",
+            "eventos": "21"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Campeche",
+            "eventos": "19"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Tlaxcala",
+            "eventos": "17"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "El Salvador",
+            "eventos": "13"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Yucatán",
+            "eventos": "10"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "<SIN_DATO>",
+            "eventos": "7"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Colombia",
+            "eventos": "5"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "TEXAS",
+            "eventos": "5"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "WASHINGTON",
+            "eventos": "2"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "[DESCONOCIDO]",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Argentina",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "CAROLINA DEL NORTE",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Chile",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Cuba",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Ecuador",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Guatemala",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Holanda (Países Bajos, Reino Unido de los)",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "IOWA",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "Nigeria",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "NUEVA YORK",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "ESTADO",
+            "valor": "UTAH",
+            "eventos": "1"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Guadalajara",
+            "eventos": "160463"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Tonalá",
+            "eventos": "35812"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Tlaquepaque",
+            "eventos": "32133"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Zapopan",
+            "eventos": "31566"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Amarilla",
+            "eventos": "28700"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Cerro del Cuatro",
+            "eventos": "23769"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Clara",
+            "eventos": "23043"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Tlajomulco de Zúñiga",
+            "eventos": "22093"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Acatitlán (Los Ranchitos)",
+            "eventos": "17137"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "El Salto",
+            "eventos": "11849"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Blanca",
+            "eventos": "10296"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "La Nogalera",
+            "eventos": "5634"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Dulce",
+            "eventos": "4129"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Ixtlahuacán de los Membrillos",
+            "eventos": "2728"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Zapotlanejo",
+            "eventos": "2717"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Chapala",
+            "eventos": "2104"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Colonia Cerro del Cuatro",
+            "eventos": "1979"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Caliente",
+            "eventos": "1810"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Jocotepec",
+            "eventos": "1777"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Altamira",
+            "eventos": "1527"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Alberto Lizardi Jiménez",
+            "eventos": "1453"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Las Juntas [Planta Hidroeléctrica]",
+            "eventos": "1381"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "<SIN_DATO>",
+            "eventos": "1305"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Agua Azul",
+            "eventos": "1196"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Juanacatlán",
+            "eventos": "1169"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Poncitlán",
+            "eventos": "1110"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "[Sin Descripcion]",
+            "eventos": "937"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Ixtlahuacán del Río",
+            "eventos": "851"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Alce Emulsiones Asfálticas",
+            "eventos": "816"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "LOCALIDAD",
+            "valor": "Puente de Arcediano",
+            "eventos": "802"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Guadalajara",
+            "eventos": "169050"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tonalá",
+            "eventos": "68528"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zapopan",
+            "eventos": "60550"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "San Pedro Tlaquepaque",
+            "eventos": "60347"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tlajomulco de Zúñiga",
+            "eventos": "44399"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "El Salto",
+            "eventos": "21910"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ixtlahuacán de los Membrillos",
+            "eventos": "5037"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zapotlanejo",
+            "eventos": "4733"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Chapala",
+            "eventos": "3587"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Jocotepec",
+            "eventos": "2795"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Poncitlán",
+            "eventos": "2101"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Juanacatlán",
+            "eventos": "1839"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ixtlahuacán del Río",
+            "eventos": "1370"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tala",
+            "eventos": "1267"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ocotlán",
+            "eventos": "1243"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "La Barca",
+            "eventos": "1102"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tepatitlán de Morelos",
+            "eventos": "909"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tequila",
+            "eventos": "901"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Arandas",
+            "eventos": "818"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Atotonilco el Alto",
+            "eventos": "767"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tizapán el Alto",
+            "eventos": "738"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "[Sin Descripcion]",
+            "eventos": "737"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ameca",
+            "eventos": "734"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zacoalco de Torres",
+            "eventos": "690"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "El Arenal",
+            "eventos": "671"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Ayotlán",
+            "eventos": "590"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Cuquío",
+            "eventos": "552"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Tototlán",
+            "eventos": "535"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Zapotlán del Rey",
+            "eventos": "498"
+          },
+          {
+            "resultado": "POB06_GEOGRAFIA_NATIVA",
+            "tipo": "MUNICIPIO",
+            "valor": "Acatlán de Juárez",
+            "eventos": "479"
+          }
+        ]
+      ]
+    }
+  }
+}
