@@ -8,7 +8,7 @@ dotenv.config({ path: path.resolve(here, '../../../.env') });
 
 const schema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
-  API_PORT: z.coerce.number().int().positive().default(3001),
+  API_PORT: z.coerce.number().int().positive().default(3002),
   DB_SERVER: z.string().min(1),
   DB_DATABASE: z.string().min(1),
   DB_USER: z.string().min(1),

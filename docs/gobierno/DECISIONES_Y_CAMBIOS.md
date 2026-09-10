@@ -362,3 +362,10 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Secuencia: la secuencia de cinco hitos es análisis complementario de consistencia y cobertura. Sus faltantes, inversiones y extremos no son filtros de U-ING ni de KPIs existentes.
 - Límite: no se aceptan indicadores, no se modifica ningún contrato aceptado y no se implementa API/UI.
 - Contratos: [URG-AMED-01..04](../indicadores/CONTRATOS_EN_VALIDACION.md). Evidencia: [validación AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md).
+### URG-GOV-046 — Puerto local de Urgencias
+
+- Estado: IMPLEMENTADA Y VERIFICADA LOCALMENTE.
+- Decisión: Urgencias usa `API_PORT=3002` como valor predeterminado versionado. La configuración local prevalece mediante `.env`, que permanece ignorado y no tracked.
+- Proxy: Vite carga sólo variables `API_*` del `.env` raíz; usa `API_PROXY_TARGET` cuando exista y, de otro modo, construye el destino con `API_PORT` o 3002. No carga ni documenta credenciales `DB_*`.
+- Verificación: `/api/health` respondió en 3002 y a través del proxy Vite local.
+- Alcance: configuración local de Urgencias; CEX no fue modificado.

@@ -10,61 +10,62 @@ Dashboard Urgencias HCG
 main
 
 ## HEAD base de la iteración
-3736af8a2ba47352693d39f0fa76802dd37838fa
+bd49403a1ed324946b7db7aa6b7f62a99feadc9f
 
 ## HEAD actual
 El commit que contiene este checkpoint se resuelve con `git log -1 --format=%H -- docs/gobierno/CHECKPOINT_ACTUAL.md`.
 
 ## Iteración actual
-Cierre funcional de Alta Médica y jerarquía de hitos temporales.
+Adenda de configuración local: API de Urgencias en puerto 3002.
 
 ## Objetivo
-Formalizar el anclaje de U-ING en ingreso, fijar el papel actual de Alta Médica y mantener la secuencia completa como análisis complementario, sin implementación.
+Asegurar que backend y proxy Vite respeten `API_PORT=3002`, sin versionar `.env`, exponer secretos ni ampliar el alcance funcional.
 
 ## Estado de la iteración
 COMPLETADA
 
 ## Fase actual
-Decisión funcional, contratos en validación y documentación consolidados localmente; no se realizó push.
+Configuración versionada, verificación local y documentación consolidadas; no se realizó push.
 
 ## Completado
-- [x] Evidencia AMED 12/24/36 meses ya versionada y reutilizada sin repetir análisis completo.
-- [x] Jerarquía formal: Ingreso, Triage y Egreso principales; Atención Médica y Alta Médica complementarios.
-- [x] U-ING permanece anclado en `Fechaing`; la ausencia de hitos posteriores no excluye eventos.
-- [x] `fechamed` definido como timestamp canónico actual del hito registrado de Alta Médica, sin equivaler a `fechaegr`.
-- [x] `altamed_fecha` retenido como auxiliar; no completa ni sustituye `fechamed`.
-- [x] URG-AMED-01..04 consolidados en contratos en validación, sin aceptar KPI ni modificar contratos aceptados.
-- [x] Secuencia completa retenida como análisis complementario de consistencia y cobertura; faltantes, inversiones y extremos no se corrigen ni excluyen.
-- [x] No se implementó API/UI ni SQL productivo.
+- [x] Cierre funcional AMED versionado en `bd49403`; U-ING no exige hitos posteriores.
+- [x] `.env` confirmado ignorado y no tracked, sin lectura ni exposición de su contenido.
+- [x] Valor predeterminado versionado de `API_PORT` ajustado a 3002 y ejemplo local alineado.
+- [x] Vite carga sólo variables `API_*` del `.env` raíz, evita `DB_*` y permite `API_PROXY_TARGET` explícito.
+- [x] API verificada en 3002 mediante `/api/health`.
+- [x] Proxy Vite verificado contra la API en 3002 mediante `/api/health`.
+- [x] CEX no fue modificado.
 
 ## Última acción completada
-Formalización de la decisión funcional y actualización de evidencia, gobierno, estados, trazabilidad y contratos en validación.
+Verificación efímera de API y proxy en el puerto 3002; ambos procesos se detuvieron al terminar.
 
 ## Próxima acción exacta
-No realizar acciones adicionales en esta iteración. Toda continuación parte de la evidencia y contratos versionados; no hacer push sin instrucción explícita.
+No realizar acciones adicionales en esta iteración. Toda continuación parte de esta configuración versionada; no hacer push sin instrucción explícita.
 
 ## Decisiones vigentes
-- Cada indicador específico declara su población evaluable y cobertura.
-- `fechamed` es canónico sólo para el hito registrado de Alta Médica; no se infieren ni corrigen timestamps faltantes.
-- La secuencia completa no es requisito de validez del episodio, de U-ING ni de KPI principal.
+- Urgencias usa 3002 como valor versionado predeterminado; la configuración local puede cambiarlo con `API_PORT`.
+- El proxy toma `API_PROXY_TARGET` si se define; de lo contrario usa `API_PORT` con valor 3002.
+- `.env` no se agrega al repositorio ni se documentan secretos o valores sensibles.
+- La adenda no cambia contratos funcionales ni implementación de indicadores.
 
 ## Pendientes
 - Aceptación institucional de cualquier indicador de Alta Médica.
 - Semántica clínica u operativa que relacione Alta Médica registrada y egreso administrativo.
 - Decisión posterior sobre si la secuencia completa merece un KPI independiente.
-- API/UI, fuera de esta iteración.
+- API/UI de Alta Médica, fuera de alcance.
 
 ## Bloqueadores
-Ninguno para el cierre documental. Las decisiones pendientes son funcionales por diseño.
+Ninguno para esta adenda local.
 
 ## NO REPETIR
 - Auditoría transversal y descubrimiento de `vUrgencias`.
 - Reconciliación de los 14 indicadores implementados.
 - Medición AMED de cobertura, diferencias y secuencia en cohortes 12/24/36 meses ya registrada.
 - Investigación exhaustiva de inversiones que no cambie el contrato vigente.
+- Verificación de API 3002 y proxy Vite ya registrada, salvo cambio posterior de configuración.
 
 ## Contexto mínimo para reanudación
-Partir de `CONTRATOS_EN_VALIDACION.md` y la evidencia AMED. Alta Médica no es KPI aceptado ni tiene API/UI; la secuencia completa es análisis complementario y U-ING no exige hitos posteriores.
+Urgencias está configurado localmente para API 3002 y Vite resuelve el proxy desde variables `API_*` del entorno. Alta Médica no es KPI aceptado ni tiene API/UI; la secuencia completa es análisis complementario y U-ING no exige hitos posteriores.
 
 ## Commit de cierre
 Consolidado localmente en el commit que contiene este checkpoint; sin push.

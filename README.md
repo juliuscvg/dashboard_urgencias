@@ -10,7 +10,7 @@ La primera fase entrega Resumen, Demanda, cobertura de Triage y detalle paginado
 2. Ejecute `npm install`.
 3. Use `npm run dev` para API y frontend, o `npm run build` seguido de los comandos de cada workspace.
 
-La interfaz queda en `http://localhost:5173` y la API en `http://localhost:3001`. Las credenciales no se versionan.
+La interfaz queda en `http://localhost:5173` y la API usa `API_PORT` (3002 en la configuración local y el ejemplo). Vite carga sólo variables `API_*` del `.env` raíz para su proxy; `API_PROXY_TARGET` permite un destino explícito. Las credenciales no se versionan.
 
 ## Verificación
 
