@@ -48,7 +48,7 @@ export function App() {
   }, [filters]);
   const apply = (event: React.FormEvent) => { event.preventDefault(); setPage(1); setFilters(draft); };
   const loading = summary.isLoading || demand.isLoading || triage.isLoading;
-  const error = summary.error || demand.error || episodes.error;
+  const error = summary.error || demand.error || triage.error || episodes.error || catalogs.error;
 
   return <div className="app">
     <header className="topbar"><div className="brand-mark">HCG</div><div><p>Hospital Civil de Guadalajara</p><h1>Dashboard de Urgencias</h1></div><span className="status"><i/> Datos operativos</span></header>
@@ -75,21 +75,21 @@ export function App() {
       </section>
       {summary.data.periodoParcial && <div className="notice warning">El día actual es parcial y se excluye del promedio diario.</div>}
       {(summary.data.eventosConConflicto > 0 || summary.data.filasMultiplicadas > 0) && <div className="notice quality">Calidad visible: {integer.format(summary.data.eventosConConflicto)} eventos con conflicto y {integer.format(summary.data.filasMultiplicadas)} filas físicas adicionales.</div>}</>}
-      <section className="grid">
+      {demand.data && <section className="grid">
         <article className="panel wide"><div className="panel-head"><div><span className="eyebrow">Demanda</span><h3>Atenciones por día</h3></div><span className="legend"><i/> Eventos</span></div><Trend points={demand.data?.tendencia ?? []}/></article>
         <article className="panel"><div className="panel-head"><div><span className="eyebrow">Cobertura</span><h3>Servicios de urgencias</h3></div></div>
           <div className="service-list">{demand.data?.servicios.map((item) => <div className="service" key={item.codigoServicio}><div><b>{item.servicio}</b><small>{item.centro} · {item.codigoServicio}</small></div><span className={item.atenciones ? '' : 'zero'}>{integer.format(item.atenciones)}</span></div>)}</div>
         </article>
-      </section>
-      <section className="panel triage"><div className="panel-head"><div><span className="eyebrow">Triage</span><h3>Cobertura de registro</h3></div><strong>{percent(triage.data?.resumen.coberturaPct ?? null)}</strong></div>
+      </section>}
+      {triage.data && <section className="panel triage"><div className="panel-head"><div><span className="eyebrow">Triage</span><h3>Cobertura de registro</h3></div><strong>{percent(triage.data?.resumen.coberturaPct ?? null)}</strong></div>
         <div className="triage-grid"><div><b>{integer.format(triage.data?.resumen.eventosConTriage ?? 0)}</b><span>con Triage</span></div><div><b>{integer.format(triage.data?.resumen.universoTotal ?? 0)}</b><span>universo total</span></div><div><b>{metric(triage.data?.resumen.tiempoPromedioMinutos ?? null, ' min')}</b><span>tiempo registrado promedio</span></div><div><b>{integer.format(triage.data?.resumen.secuenciasInvertidas ?? 0)}</b><span>secuencias a revisar</span></div></div>
         <p className="context">La ausencia de Triage no excluye atenciones. El tiempo usa sólo secuencias cronológicamente interpretables y conserva los extremos; {integer.format(triage.data?.resumen.tiemposMayorIgual24h ?? 0)} casos son ≥24 h y {integer.format(triage.data?.resumen.tiemposMayorIgual7d ?? 0)} son ≥7 días.</p>
         <div className="coverage-list">{triage.data?.servicios.map((item) => <div key={item.codigoServicio}><span><b>{item.servicio}</b><small>{item.centro} · {integer.format(item.eventosConTriage)} de {integer.format(item.universoTotal)}</small></span><meter min="0" max="100" value={item.coberturaPct ?? 0}/><strong>{percent(item.coberturaPct)}</strong></div>)}</div>
-      </section>
-      <section className="panel detail"><div className="panel-head"><div><span className="eyebrow">Trazabilidad</span><h3>Detalle reconciliado de eventos</h3></div><span>{integer.format(episodes.data?.total ?? 0)} registros</span></div>
+      </section>}
+      <section className="panel detail"><div className="panel-head"><div><span className="eyebrow">Trazabilidad</span><h3>Detalle de eventos</h3></div><span>{integer.format(episodes.data?.total ?? 0)} registros</span></div>
         <div className="table-wrap"><table><thead><tr><th>Evento</th><th>Ingreso</th><th>Centro / servicio</th><th>Destino</th><th>Estancia</th><th>Calidad</th></tr></thead><tbody>
           {episodes.data?.rows.map((row) => <tr key={row.idUrgencia}><td>#{row.idUrgencia}</td><td>{dateTime(row.fechaIngreso)}</td><td><b>{row.centro}</b><small>{row.servicio}</small></td><td>{row.destino ?? 'Sin registro'}</td><td>{metric(row.permanenciaHoras, ' h')}</td><td><span className={row.conflicto ? 'pill alert' : 'pill'}>{row.conflicto ? 'Revisar' : 'Consistente'}</span></td></tr>)}
-          {!episodes.isLoading && !episodes.data?.rows.length && <tr><td colSpan={6} className="empty">No hay eventos para los filtros seleccionados.</td></tr>}
+          {!episodes.isLoading && !episodes.isError && !episodes.data?.rows.length && <tr><td colSpan={6} className="empty">No hay eventos para los filtros seleccionados.</td></tr>}
         </tbody></table></div>
         <div className="pager"><button disabled={page === 1} onClick={() => setPage(page - 1)}>Anterior</button><span>Página {page}</span><button disabled={!episodes.data || page * episodes.data.pageSize >= episodes.data.total} onClick={() => setPage(page + 1)}>Siguiente</button></div>
       </section>

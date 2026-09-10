@@ -331,3 +331,17 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Estado: ACEPTADO.
 - Atención Médica permanece EN PROCESO. Alta Médica permanece EN VALIDACIÓN y NO IMPLEMENTADA.
 - No se crea SQL productivo para hitos EN VALIDACIÓN o POR DEFINIR.
+
+### URG-GOV-042 — Reconciliación bloqueada por acceso DB
+
+- Estado: VALIDADA CON ADVERTENCIA.
+- No existe `.env` ni están presentes `DB_SERVER`, `DB_DATABASE`, `DB_USER` o `DB_PASSWORD`; por ello no se ejecutaron SQL Server, `/api/health/db`, API con datos, UI con datos ni detalle.
+- Los 14 indicadores tienen evidencia explícita `NO EJECUTADO`; ninguno se promueve a `RECONCILIADO CON FUENTE`.
+- La comparación estática no sustituye resultados, tiempos, anomalías ni diferencias numéricas.
+
+### URG-GOV-043 — Alineaciones técnicas previas a reconciliación
+
+- Estado: VALIDADO TÉCNICAMENTE.
+- Hospitalización conserva precisión `decimal(9,4)` entre SQL canónico y Repository.
+- La UI incorpora fallos de Triage/catálogos y no muestra ceros o vacío cuando faltan respuestas; el detalle deja de llamarse reconciliado.
+- No cambian universo, fórmula, exclusiones, categorías ni estados funcionales.

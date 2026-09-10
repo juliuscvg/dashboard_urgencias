@@ -1,0 +1,468 @@
+{
+  "schema_version": "1.0.0",
+  "proyecto": "juliuscvg/dashboard_urgencias",
+  "fecha": "2026-09-09",
+  "conexion": {
+    "configuracion_env": false,
+    "variables_requeridas": {
+      "DB_SERVER": false,
+      "DB_DATABASE": false,
+      "DB_USER": false,
+      "DB_PASSWORD": false
+    },
+    "health_db": {
+      "estado": "NO EJECUTADO",
+      "tiempo_ms": null,
+      "motivo": "El backend valida DB_* al iniciar; faltan variables esenciales."
+    },
+    "secretos_registrados": false
+  },
+  "alcance": {
+    "sql_server": "BLOQUEADO",
+    "repository_eventscope": "REVISADO ESTÁTICAMENTE",
+    "service": "REVISADO ESTÁTICAMENTE",
+    "api": "NO EJECUTADA; CONTRATO REVISADO",
+    "ui": "NO EJECUTADA CON DATOS; FLUJO REVISADO",
+    "detalle": "NO EJECUTADO; CONSULTA REVISADA"
+  },
+  "resumen": {
+    "indicadores": 14,
+    "reconciliados_con_fuente": 0,
+    "coincidencia_estatica": 6,
+    "coincidencia_tras_correccion": 1,
+    "parciales": 4,
+    "sin_capa_runtime": 2,
+    "correcciones_tecnicas": 3,
+    "capa_parcial": 1
+  },
+  "indicadores": [
+    {
+      "id": "URG-EJ-01",
+      "archivo": "URG-EJ-01_ATENCIONES.sql",
+      "repository_service": "fetchSummaryBase / getSummary",
+      "endpoint": "summary",
+      "ui": "KPI Atenciones",
+      "detalle": "episodes.total",
+      "coherencia_estatica": "COINCIDE",
+      "hallazgos": [],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Atenciones"
+    },
+    {
+      "id": "URG-EJ-02",
+      "archivo": "URG-EJ-02_PROMEDIO_DIARIO.sql",
+      "repository_service": "fetchSummaryBase / getSummary",
+      "endpoint": "summary",
+      "ui": "KPI Promedio diario",
+      "detalle": "Sin filtro dedicado",
+      "coherencia_estatica": "PARCIAL",
+      "hallazgos": [
+        "D: @Corte canónico; Repository usa GETDATE() y API no expone cutoff."
+      ],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Promedio diario"
+    },
+    {
+      "id": "URG-EJ-03",
+      "archivo": "URG-EJ-03_PERMANENCIA_REGISTRADA.sql",
+      "repository_service": "fetchSummaryBase, fetchEpisodes",
+      "endpoint": "summary, episodes",
+      "ui": "KPI y duración/evento",
+      "detalle": "Sin filtro evaluable",
+      "coherencia_estatica": "PARCIAL",
+      "hallazgos": [
+        "F: API no expone bandas, invertidos ni sin egreso."
+      ],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Permanencia registrada"
+    },
+    {
+      "id": "URG-EJ-04",
+      "archivo": "URG-EJ-04_HOSPITALIZACION.sql",
+      "repository_service": "fetchSummaryBase / getSummary",
+      "endpoint": "summary",
+      "ui": "KPI Hospitalización",
+      "detalle": "Destino sin filtro",
+      "coherencia_estatica": "COINCIDE_TRAS_CORRECCION",
+      "hallazgos": [
+        "B corregida: Repository alineado a decimal(9,4)."
+      ],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Hospitalización"
+    },
+    {
+      "id": "URG-EJ-05",
+      "archivo": "URG-EJ-05_REINGRESOS.sql",
+      "repository_service": "READMISSION_PRIOR_SQL, fetchReadmissions",
+      "endpoint": "summary",
+      "ui": "KPI <72 y referencia <48",
+      "detalle": "No implementado",
+      "coherencia_estatica": "COINCIDE",
+      "hallazgos": [],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Reingresos <72/<48"
+    },
+    {
+      "id": "URG-EJ-06",
+      "archivo": "URG-EJ-06_PACIENTES_UNICOS.sql",
+      "repository_service": "fetchSummaryBase / getSummary",
+      "endpoint": "summary",
+      "ui": "KPI Pacientes únicos",
+      "detalle": "Identificable no autorizado",
+      "coherencia_estatica": "COINCIDE",
+      "hallazgos": [],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Pacientes únicos"
+    },
+    {
+      "id": "URG-EJ-07",
+      "archivo": "URG-EJ-07_ATENCIONES_POR_PACIENTE.sql",
+      "repository_service": "fetchSummaryBase / getSummary",
+      "endpoint": "summary",
+      "ui": "Contexto de pacientes",
+      "detalle": "No aplica",
+      "coherencia_estatica": "COINCIDE",
+      "hallazgos": [],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Atenciones por paciente"
+    },
+    {
+      "id": "URG-ACT-01",
+      "archivo": "URG-ACT-01_ACTIVOS_PROBABLES.sql",
+      "repository_service": "eventScopeSql(activeOnly), fetchCurrent",
+      "endpoint": "summary",
+      "ui": "KPI Activos probables",
+      "detalle": "No implementado",
+      "coherencia_estatica": "PARCIAL",
+      "hallazgos": [
+        "D/F: mismo conteo; cutoff y bandas no expuestos."
+      ],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Activos probables"
+    },
+    {
+      "id": "URG-MOD-01",
+      "archivo": "URG-MOD-01_DEMANDA.sql",
+      "repository_service": "fetchDemand / getDemand",
+      "endpoint": "demand",
+      "ui": "Tendencia y servicios",
+      "detalle": "episodes.total",
+      "coherencia_estatica": "COINCIDE",
+      "hallazgos": [],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Demanda diaria"
+    },
+    {
+      "id": "URG-MOD-05",
+      "archivo": "URG-MOD-05_RESOLUCION.sql",
+      "repository_service": "fetchEpisodes / getEpisodes",
+      "endpoint": "episodes",
+      "ui": "Destino en detalle",
+      "detalle": "Sin agregado filtrable",
+      "coherencia_estatica": "CAPA_PARCIAL",
+      "hallazgos": [
+        "G: distribución agregada no implementada."
+      ],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Resolución/destino"
+    },
+    {
+      "id": "URG-MOD-09",
+      "archivo": "URG-MOD-09_FRECUENTACION.sql",
+      "repository_service": "No implementado",
+      "endpoint": "No implementado",
+      "ui": "No implementado",
+      "detalle": "No implementado",
+      "coherencia_estatica": "SIN_CAPA_RUNTIME",
+      "hallazgos": [
+        "G: API/UI/detalle pendientes."
+      ],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Frecuentación"
+    },
+    {
+      "id": "URG-TRI-01",
+      "archivo": "URG-TRI-01_COBERTURA.sql",
+      "repository_service": "fetchTriage / getTriage",
+      "endpoint": "triage",
+      "ui": "Resumen y servicios",
+      "detalle": "No implementado",
+      "coherencia_estatica": "COINCIDE",
+      "hallazgos": [],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Cobertura Triage"
+    },
+    {
+      "id": "URG-TRI-02",
+      "archivo": "URG-TRI-02_CLASIFICACION.sql",
+      "repository_service": "No implementado",
+      "endpoint": "No implementado",
+      "ui": "No implementado",
+      "detalle": "No implementado",
+      "coherencia_estatica": "SIN_CAPA_RUNTIME",
+      "hallazgos": [
+        "G: API/UI/detalle pendientes."
+      ],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Clasificación Triage"
+    },
+    {
+      "id": "URG-TRI-03",
+      "archivo": "URG-TRI-03_TIEMPO_REGISTRADO.sql",
+      "repository_service": "fetchTriage / getTriage",
+      "endpoint": "triage",
+      "ui": "Promedio y anomalías",
+      "detalle": "Sin bandas",
+      "coherencia_estatica": "PARCIAL",
+      "hallazgos": [
+        "F: bandas canónicas no expuestas."
+      ],
+      "parametros": {
+        "desde": null,
+        "hasta": null,
+        "centro": null,
+        "codigoServicio": null,
+        "corte": null,
+        "razon": "No aplicados: conexión DB ausente"
+      },
+      "resultado_sql": "NO EJECUTADO",
+      "tiempo_sql_ms": null,
+      "resultado_api": "NO EJECUTADO",
+      "resultado_ui": "NO EJECUTADO",
+      "resultado_detalle": "NO EJECUTADO",
+      "diferencia_numerica": null,
+      "estado_reconciliacion": "BLOQUEADA_POR_ACCESO_DB",
+      "anomalias_observadas": "NO OBSERVABLES SIN FUENTE",
+      "contrato": "Tiempo a Triage"
+    }
+  ],
+  "discrepancias": [
+    {
+      "clasificacion": "D",
+      "detalle": "@Corte no viaja por API para Promedio diario y Activos probables."
+    },
+    {
+      "clasificacion": "F/G",
+      "detalle": "UI aún no distingue contractualmente Sin datos, No aplica y Datos insuficientes."
+    },
+    {
+      "clasificacion": "G",
+      "detalle": "Sin agregado runtime para Resolución, Frecuentación o Clasificación Triage; bandas parciales."
+    }
+  ],
+  "correcciones": [
+    "Hospitalización conserva decimal(9,4) en Repository.",
+    "UI incorpora errores de Triage/catálogos y evita ceros/empty durante fallos.",
+    "Detalle reconciliado cambió a Detalle de eventos."
+  ],
+  "conclusion": "Sin evidencia para promover indicadores a RECONCILIADO CON FUENTE.",
+  "git_commit_base": "ba1e695b2201837db01deba7c5082312f90cdf3d",
+  "commit_contenedor": "Resolver con git log -1 --format=%H -- docs/evidencia/RECONCILIACION_14_SQL_2026-09-09.json",
+  "validaciones": {
+    "tests": "PASS 7/7",
+    "build_backend": "PASS",
+    "build_frontend": "PASS",
+    "markdown": "PASS; 39 archivos y 0 enlaces rotos",
+    "baseline_hcg": "PASS; 72 principios",
+    "portabilidad": "PASS; 14 SQL read-only, compatibilidad 100, 0 hardcodes",
+    "reconciliacion_estatica": "PASS; 14 indicadores, 0 errores",
+    "json": "PASS; 8 archivos",
+    "npm_audit": "PASS; 0 vulnerabilidades",
+    "git_diff_check": "PASS"
+  }
+}

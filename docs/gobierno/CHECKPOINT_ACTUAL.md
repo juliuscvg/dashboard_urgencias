@@ -10,86 +10,82 @@ Dashboard Urgencias HCG
 main
 
 ## HEAD base de la iteración
-c89787ba35379b0a02aaabdaea8ca9bc96f771ed
+ba1e695b2201837db01deba7c5082312f90cdf3d
 
 ## HEAD actual
-Se resolverá con `git rev-parse HEAD` al cerrar; el hash no se incrusta en el commit que se identifica a sí mismo.
+El commit que contiene este checkpoint se resuelve con `git log -1 --format=%H -- docs/gobierno/CHECKPOINT_ACTUAL.md`.
 
 ## Iteración actual
-Consolidación funcional, homologación transversal HCG y portabilidad semántica.
+Reconciliación de los 14 SQL canónicos contra fuente, backend, API, UI y detalle.
 
 ## Objetivo
-Adoptar estándares de dashboard_hcg_specs, consolidar contratos y SQL verificable de Urgencias, y dejar continuidad reproducible sin cambiar reglas de CEX.
+Ejecutar o dejar explícitamente bloqueada cada capa y registrar diferencias sin cambiar fórmulas ni contratos funcionales.
 
 ## Estado de la iteración
 COMPLETADA
 
 ## Fase actual
-Cierre — consolidación portable validada y lista en commit local.
+Cierre — reconciliación estática validada; ejecución con fuente bloqueada.
 
 ## Completado
-- [x] Estado Git y continuidad previa validados.
-- [x] Auditoría transversal acotada completada.
-- [x] CEX preservado read-only y su deuda registrada.
-- [x] Contratos, estados, portabilidad, plantillas y matriz creados en HCG Specs.
-- [x] HCG Specs validado y cerrado en `ab245b2`.
-- [x] Contratos completos y estados separados adoptados en Urgencias.
-- [x] Catorce SQL canónicos de solo lectura creados.
-- [x] Diccionario, manifiesto, reconstrucción, trazabilidad y adopción normalizados.
-- [x] Alta Médica conservada EN VALIDACIÓN / NO IMPLEMENTADO.
-- [x] Evidencia técnica y limitación de conexión DB registradas.
+- [x] Continuidad y Git validados; iteración anterior COMPLETADA.
+- [x] Rama `main`, HEAD `ba1e695`, working tree limpio y sincronizado.
+- [x] Configuración DB revisada sin exponer secretos.
+- [x] Ausencia de `.env` y de variables `DB_*` confirmada.
+- [x] Ejecución DB y `/api/health/db` bloqueadas sin declarar reconciliación.
+- [x] HCG Specs y CEX confirmados como referencias read-only.
+- [x] Inventario y evidencia individual de los 14 SQL creados.
+- [x] Repository/EventScope, Service, API, UI y detalle comparados estáticamente.
+- [x] Tres correcciones técnicas acotadas aplicadas sin cambiar fórmulas.
+- [x] Estados funcionales/técnicos preservados; 0 reconciliados con fuente.
+- [x] Tests, builds, enlaces, JSON, baseline, SQL, audit y diff check aprobados.
 
 ## Última acción completada
-Batería final aprobada: enlaces, baseline, portabilidad, JSON, 7/7 tests, build, audit y diff check.
+Batería final aprobada y evidencia de los 14 indicadores cerrada con bloqueo DB explícito.
 
 ## Próxima acción exacta
-Configurar acceso DB autorizado y ejecutar los 14 SQL canónicos para reconciliar SQL/API/UI sin cambiar benchmarks antes de obtener evidencia.
+Proveer configuración DB autorizada, validar `/api/health/db` y ejecutar los 14 SQL y cuatro rutas con un único periodo, filtros y cutoff.
 
 ## Archivos creados/modificados relevantes
-- `docs/indicadores/CONTRATOS_ACEPTADOS.md`
-- `scripts/sql/indicadores/`
-- `docs/diccionarios/`
-- `docs/RECONSTRUIR_DASHBOARD.md`
-- `config/dashboard-manifest.json`
-- `docs/gobierno/ADOPCION_HCG.md`
-- `docs/evidencia/VALIDACION_PORTABILIDAD_2026-09-09.json`
-- `server/src/repository/event-scope.sql.ts`
+- `docs/gobierno/CHECKPOINT_ACTUAL.md`
+- `docs/evidencia/RECONCILIACION_14_SQL_2026-09-09.md`
+- `docs/evidencia/RECONCILIACION_14_SQL_2026-09-09.json`
+- `scripts/check-reconciliation.mjs`
+- `server/src/repository/urgencias.repository.ts`
+- `client/src/App.tsx`
 
 ## Decisiones nuevas
-- HCG Specs es la autoridad transversal en `ab245b2`.
-- Estado funcional y técnico se registran de forma independiente.
-- Anómalo no equivale a incorrecto; no se ocultan ni corrigen anomalías.
-- SQL canónico y SQL de descubrimiento cumplen propósitos distintos.
-- El checkpoint operativo es único y mutable.
+- La falta de DB bloquea resultados numéricos, tiempos y reconciliación completa, pero no la comparación estática de contratos y código.
+- No se promoverá ningún estado técnico a RECONCILIADO CON FUENTE.
 
 ## Pendientes
-- Ejecutar SQL canónico y reconciliar SQL/API/UI cuando exista conexión DB.
-- Continuar Atención Médica, población y clínica en iteraciones posteriores.
-- Mantener Alta Médica EN VALIDACIÓN hasta aprobación documental explícita.
+- Ejecución numérica SQL/API/UI/detalle con conexión DB.
+- Resolver cutoff API y capas runtime faltantes después de observar resultados reales.
 
 ## Bloqueadores
-No existe configuración DB. CEX contiene cambios locales ajenos y se mantiene read-only.
+Faltan `DB_SERVER`, `DB_DATABASE`, `DB_USER` y `DB_PASSWORD`; no existe `.env` autorizado.
 
 ## Validaciones ya ejecutadas
-- Enlaces Markdown: PASS.
-- Baseline/adopción HCG: PASS.
-- Portabilidad/SQL estático: PASS.
-- JSON: PASS.
-- Tests: 7/7 PASS.
-- Build servidor/cliente: PASS.
+- Tests backend/frontend: 7/7 PASS.
+- Builds backend/frontend: PASS.
+- Markdown/enlaces: 39 archivos, 0 rotos.
+- Baseline HCG: 72 principios, PASS.
+- Portabilidad/SQL: 14 read-only, compatibilidad 100, 0 hardcodes.
+- Reconciliación estática: 14 indicadores, 0 errores.
+- JSON: 8 archivos válidos.
 - npm audit: 0 vulnerabilidades.
-- HCG Specs: PASS, working tree limpio.
+- git diff --check: PASS.
 
 ## Validaciones pendientes
-Ejecución contra DB y reconciliación SQL/API/UI en una iteración posterior con conexión autorizada.
+SQL Server, `/api/health/db`, respuestas API/UI y agregado/detalle con datos.
 
 ## NO REPETIR
-- Auditoría funcional del checkpoint `c89787b`.
-- Descubrimiento inicial de `vUrgencias`.
-- Auditoría transversal de estructura ya consolidada.
+- Auditoría transversal.
+- Descubrimiento de `vUrgencias`.
+- Definición de contratos y fórmulas aceptadas.
 
 ## Contexto mínimo para reanudación
-La consolidación portable está completa y validada. No hay autorización de push. HCG Specs quedó un commit local delante en `ab245b2`; CEX no fue editado. La siguiente iteración comienza por la conexión DB y la reconciliación.
+La iteración documental/técnica está completa. La fuente no pudo ejecutarse por ausencia de DB. Reanudar desde la evidencia JSON, completar sus campos nulos y no repetir la comparación estática.
 
 ## Commit de cierre
-El commit que contiene este checkpoint se obtiene con `git log -1 --format=%H -- docs/gobierno/CHECKPOINT_ACTUAL.md`; no se incrusta su propio hash para evitar autorreferencia.
+El commit que contiene este checkpoint se obtiene con `git log -1 --format=%H -- docs/gobierno/CHECKPOINT_ACTUAL.md`; no se incrusta su propio hash.

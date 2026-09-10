@@ -70,7 +70,7 @@ export async function fetchSummaryBase(filters: DashboardFilters): Promise<Recor
       CAST(100.0 * SUM(CASE WHEN Fechaing IS NOT NULL AND fechaegr IS NOT NULL AND fechaegr >= Fechaing
         AND destino_urg_pk = 5 THEN CONVERT(decimal(20, 4), 1) ELSE 0 END)
         / NULLIF(SUM(CASE WHEN Fechaing IS NOT NULL AND fechaegr IS NOT NULL AND fechaegr >= Fechaing
-          THEN CONVERT(decimal(20, 4), 1) ELSE 0 END), 0) AS decimal(9, 2)) AS hospitalizacionPct,
+          THEN CONVERT(decimal(20, 4), 1) ELSE 0 END), 0) AS decimal(9, 4)) AS hospitalizacionPct,
       SUM(CASE WHEN conflicto_nucleo = 1 THEN CONVERT(bigint, 1) ELSE 0 END) AS eventosConConflicto,
       SUM(filas_fisicas - 1) AS filasMultiplicadas,
       GETDATE() AS observadoEn

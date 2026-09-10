@@ -1,6 +1,6 @@
 # Estado vigente de indicadores
 
-Corte: 2026-09-08. Fuente canónica de estados; las fórmulas residen en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md).
+Corte: 2026-09-09. Fuente canónica de estados; las fórmulas residen en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md).
 
 | ID | Indicador | Estado funcional | Estado técnico | Alcance técnico |
 |---|---|---|---|---|
@@ -28,3 +28,9 @@ Corte: 2026-09-08. Fuente canónica de estados; las fórmulas residen en [contra
 | URG-CAL-01 | Calidad de datos | EN PROCESO | VALIDADO TÉCNICAMENTE | Conflictos, fan-out y Triage visibles |
 
 Ningún indicador de aplicación está `RECONCILIADO CON FUENTE` en esta iteración porque falta configuración DB local. Un cambio de estado exige evidencia y decisión versionadas.
+
+## Resultado de reconciliación 2026-09-09
+
+Los estados funcionales y técnicos de la tabla se conservan. Ningún indicador pasa a `RECONCILIADO CON FUENTE`: faltan configuración DB, ejecución SQL, respuestas API/UI con datos y contraste numérico. La coherencia estática y las capas faltantes de los 14 indicadores se detallan en [evidencia de reconciliación](../evidencia/RECONCILIACION_14_SQL_2026-09-09.md).
+
+La validación quedó bloqueada por acceso para todos los resultados de fuente. Esto no revoca las pruebas estáticas o sintéticas ya representadas por `VALIDADO TÉCNICAMENTE`; describe el estado de la reconciliación completa solicitada.

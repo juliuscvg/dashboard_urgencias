@@ -12,7 +12,8 @@
     "test": "npm run test --workspace server && npm run test --workspace client",
     "start": "npm run start --workspace server",
     "docs:check-links": "node scripts/check-markdown-links.mjs",
-    "docs:check-portability": "node scripts/check-portability.mjs"
+    "docs:check-portability": "node scripts/check-portability.mjs",
+    "docs:check-reconciliation": "node scripts/check-reconciliation.mjs"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
