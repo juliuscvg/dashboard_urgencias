@@ -20,8 +20,8 @@ Versión: 2026-09-08.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no
 | usuario_triage | NO DOCUMENTADO | vUrgencias | Usuario asociado a Triage | Auditoría autorizada | AUXILIAR SENSIBLE | Sí | No sustituye personal médico | Privacidad | Auditoría |
 | fechaate | NO DOCUMENTADO | vUrgencias | Inicio registrado de atención médica | Tiempo complementario | CANÓNICO PROPUESTO | Sí | derivado preferido frente a atencion_fecha | Contrato EN PROCESO | PEND-01 |
 | atencion_fecha | NO DOCUMENTADO | vUrgencias | Fuente/equivalente comunicado de atención | Auditoría | AUXILIAR | Sí | Equivalencia con fechaate pendiente | No sustituir automáticamente | PEND-01 |
-| fechamed | NO DOCUMENTADO | vUrgencias | Alta médica registrada | Hito independiente | CANÓNICO PROPUESTO | Sí | derivado preferido frente a altamed_fecha | EN VALIDACIÓN; no implementar | PEND-02 |
-| altamed_fecha | NO DOCUMENTADO | vUrgencias | Fuente/equivalente comunicado de alta | Auditoría | AUXILIAR | Sí | Equivalencia con fechamed pendiente | No sustituir automáticamente | PEND-02 |
+| fechamed | datetime, nullable | vUrgencias | Hito registrado de Alta Médica | Hito independiente | CANÓNICO PROPUESTO CON EVIDENCIA | Sí | No equivale a altamed_fecha; no sustituye fechaegr | EN VALIDACIÓN; no implementar | PEND-02 |
+| altamed_fecha | datetime, nullable | vUrgencias | Fecha auxiliar de Alta Médica observada a medianoche | Auditoría | AUXILIAR | Sí | No equivale a fechamed; no sustituir | No completa ni normaliza fechamed | PEND-02 |
 | destino_urg_pk | NO DOCUMENTADO | vUrgencias | Clave destino institucional | Resolución y hospitalización | CANÓNICO | Sí | 5=HOSP. PISO; 99=N.E. | No reagrupar irreversiblemente | EJ-04, MOD-05 |
 | destino_urgencias | NO DOCUMENTADO | vUrgencias | Descripción nativa de destino | Etiqueta/categoría | CANÓNICO | Sí | Depende de destino_urg_pk | Variantes auditables | MOD-05, detalle |
 | motivo_alta_pk | NO DOCUMENTADO | vUrgencias | Clave de motivo de alta | Activo probable/resolución separada | CANÓNICO | Sí | Distinto de destino | No fusionar | ACT-01 |

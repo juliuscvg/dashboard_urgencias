@@ -345,3 +345,11 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Hospitalización conserva precisión `decimal(9,4)` entre SQL canónico y Repository.
 - La UI incorpora fallos de Triage/catálogos y no muestra ceros o vacío cuando faltan respuestas; el detalle deja de llamarse reconciliado.
 - No cambian universo, fórmula, exclusiones, categorías ni estados funcionales.
+
+### URG-GOV-044 — Alta Médica registrada y secuencia temporal
+
+- Estado: VALIDADA CON ADVERTENCIA; no aceptada como KPI.
+- Decisión: `fechamed` queda como timestamp candidato del hito registrado de Alta Médica, únicamente en su población con valor no nulo y sin sustituir `fechaegr`. `altamed_fecha` queda como campo auxiliar a medianoche, no equivalente ni sustituto de `fechamed`.
+- Alcance: cobertura y secuencia son diagnósticos de calidad. Faltantes, inversiones, mismo instante y extremos se conservan y no restringen U-ING.
+- Límite: sigue POR DEFINIR la semántica clínica u operativa que relacione el hito registrado con el egreso administrativo. No se implementa SQL productivo, API, UI ni indicador.
+- Evidencia: [validación AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md).

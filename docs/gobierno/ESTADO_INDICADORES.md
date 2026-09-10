@@ -1,6 +1,6 @@
 # Estado vigente de indicadores
 
-Corte: 2026-09-09. Fuente canónica de estados; las fórmulas residen en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md).
+Corte: 2026-09-10. Fuente canónica de estados; las fórmulas residen en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md).
 
 | ID | Indicador | Estado funcional | Estado técnico | Alcance técnico |
 |---|---|---|---|---|
@@ -19,8 +19,8 @@ Corte: 2026-09-09. Fuente canónica de estados; las fórmulas residen en [contra
 | URG-TRI-02 | Clasificación de Triage | ACEPTADO | SQL VALIDADO CON FUENTE | SQL ejecutado; API/UI pendientes |
 | URG-TRI-03 | Tiempo registrado a Triage | ACEPTADO CON OBSERVACIONES | RECONCILIADO EN CAPAS DISPONIBLES | Resumen SQL/API/UI exacto; bandas API/UI pendientes |
 | URG-PEND-01 | Atención médica | EN PROCESO | NO IMPLEMENTADO | `Fechaing→fechaate`; contrato final pendiente |
-| URG-PEND-02 | Alta médica | EN VALIDACIÓN | NO IMPLEMENTADO | `fechamed`; no implementar |
-| URG-PEND-03 | Secuencias temporales completas | POR DEFINIR | NO IMPLEMENTADO | Señales parciales de Triage |
+| URG-PEND-02 | Alta médica | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | `fechamed` como hito registrado propuesto; `altamed_fecha` auxiliar; sin API/UI |
+| URG-PEND-03 | Secuencias temporales completas | POR DEFINIR | VALIDADO CON FUENTE / NO IMPLEMENTADO | Diagnóstico de calidad, no filtro del universo ni indicador aceptado |
 | URG-PEND-04 | Población | EN PROCESO | NO IMPLEMENTADO | Edad al evento por validar |
 | URG-PEND-05 | Diagnósticos | POR DEFINIR | NO IMPLEMENTADO | Sin contrato suficiente |
 | URG-PEND-06 | Motivo de urgencia | POR DEFINIR | NO IMPLEMENTADO | Sin contrato suficiente |
@@ -30,3 +30,7 @@ Corte: 2026-09-09. Fuente canónica de estados; las fórmulas residen en [contra
 ## Resultado de reconciliación real 2026-09-09
 
 Los 14 SQL se ejecutaron contra fuente. Nueve indicadores reconciliaron todas sus capas implementadas, tres reconciliaron las capas disponibles con proyecciones parciales y dos quedaron como SQL validado con fuente por ausencia de runtime. El contexto, resultados, diferencias cero y límites están en [evidencia de reconciliación](../evidencia/RECONCILIACION_14_SQL_2026-09-09.md).
+
+## Validación AMED 2026-09-10
+
+La evidencia de `fechamed`/`altamed_fecha` cubre cohortes cerradas de 12, 24 y 36 meses, centros y servicios. Confirma cobertura y anomalías temporales, pero no acepta Alta Médica ni secuencia completa como KPI. Ver [evidencia AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md).

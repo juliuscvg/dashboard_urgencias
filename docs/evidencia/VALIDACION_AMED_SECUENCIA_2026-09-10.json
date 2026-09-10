@@ -1,0 +1,1699 @@
+{
+  "schema_version": "1.0.0",
+  "proyecto": "juliuscvg/dashboard_urgencias",
+  "fecha": "2026-09-10",
+  "alcance": "Validación read-only de Alta Médica y secuencia temporal; no implementa API/UI ni indicadores no aceptados.",
+  "contexto": {
+    "corte": "2026-09-01",
+    "ventanas": {
+      "12m": {
+        "desde": "2025-09-01",
+        "hasta_exclusivo": "2026-09-01"
+      },
+      "24m": {
+        "desde": "2024-09-01",
+        "hasta_exclusivo": "2026-09-01"
+      },
+      "36m": {
+        "desde": "2023-09-01",
+        "hasta_exclusivo": "2026-09-01"
+      }
+    },
+    "semantica_periodo": "Fechaing >= desde AND Fechaing < hasta_exclusivo",
+    "universo": "id_urgencia único; servicios codigo_area=2 y serv_activo_sn=1",
+    "git_head": "27a8b694090cfea143c8b7d2897b89568affa152",
+    "secretos_registrados": false,
+    "identificadores_directos_registrados": false
+  },
+  "tipos": [
+    {
+      "columna": "altamed_fecha",
+      "tipo": "datetime",
+      "permite_null": "YES"
+    },
+    {
+      "columna": "fechaate",
+      "tipo": "datetime",
+      "permite_null": "YES"
+    },
+    {
+      "columna": "fechaegr",
+      "tipo": "datetime",
+      "permite_null": "YES"
+    },
+    {
+      "columna": "Fechaing",
+      "tipo": "datetime",
+      "permite_null": "YES"
+    },
+    {
+      "columna": "fechamed",
+      "tipo": "datetime",
+      "permite_null": "YES"
+    },
+    {
+      "columna": "fechatri",
+      "tipo": "datetime",
+      "permite_null": "YES"
+    }
+  ],
+  "resultados": {
+    "12m": {
+      "desde": "2025-09-01",
+      "hasta_exclusivo": "2026-09-01",
+      "tiempo_ms": 6430,
+      "resumen": {
+        "resultado": "AMED01_RESUMEN",
+        "universo": "159822",
+        "con_fechamed": "154742",
+        "con_altamed_fecha": "41462",
+        "ambos": "41432",
+        "solo_fechamed": "113310",
+        "solo_altamed_fecha": "30",
+        "iguales_exactos": "2",
+        "mismo_dia": "38574",
+        "dia_distinto": "2858",
+        "diferencia_minima_min": -7962,
+        "diferencia_maxima_min": 0,
+        "max_ingreso_a_alta_min": 193468,
+        "max_alta_a_egreso_min": 117802,
+        "cobertura_fechamed_pct": 96.82,
+        "cobertura_altamed_pct": 25.94,
+        "dia_distinto_sobre_ambos_pct": 6.9
+      },
+      "cobertura_por_centro": [
+        {
+          "centro": "FAA",
+          "universo": 85479,
+          "con_fechamed": 81178,
+          "con_altamed_fecha": 12,
+          "dia_distinto": 1,
+          "cobertura_fechamed_pct": 94.97,
+          "cobertura_altamed_pct": 0.01
+        },
+        {
+          "centro": "JIM",
+          "universo": 74343,
+          "con_fechamed": 73564,
+          "con_altamed_fecha": 41450,
+          "dia_distinto": 2857,
+          "cobertura_fechamed_pct": 98.95,
+          "cobertura_altamed_pct": 55.76
+        }
+      ],
+      "cobertura_por_servicio": [
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "universo": "48094",
+          "con_fechamed": "45983",
+          "con_altamed_fecha": "2",
+          "dia_distinto": "1"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 417,
+          "servicio": "URG COVID19 FAA",
+          "universo": "8",
+          "con_fechamed": "8",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "universo": "1310",
+          "con_fechamed": "1236",
+          "con_altamed_fecha": "9",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 118,
+          "servicio": "URG PEDIATRIA FAA",
+          "universo": "23738",
+          "con_fechamed": "22719",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 61,
+          "servicio": "URG TOCO FAA",
+          "universo": "12321",
+          "con_fechamed": "11224",
+          "con_altamed_fecha": "1",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 445,
+          "servicio": "URGADUPROCE",
+          "universo": "6",
+          "con_fechamed": "6",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 446,
+          "servicio": "URGPEDPROCE",
+          "universo": "2",
+          "con_fechamed": "2",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "universo": "30181",
+          "con_fechamed": "29782",
+          "con_altamed_fecha": "13126",
+          "dia_distinto": "939"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "universo": "5709",
+          "con_fechamed": "5675",
+          "con_altamed_fecha": "4789",
+          "dia_distinto": "831"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 154,
+          "servicio": "URG PEDIATRIA JIM",
+          "universo": "17170",
+          "con_fechamed": "17069",
+          "con_altamed_fecha": "11423",
+          "dia_distinto": "549"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "universo": "21283",
+          "con_fechamed": "21038",
+          "con_altamed_fecha": "12112",
+          "dia_distinto": "538"
+        }
+      ],
+      "pares": [
+        {
+          "resultado": "AMED03_PARES",
+          "par": "fechaate→fechamed",
+          "evaluables": "146088",
+          "invertidos": "25",
+          "mismo_instante": "2461",
+          "min_minutos": -3634,
+          "max_minutos": 193402,
+          "promedio_minutos": 872.21
+        },
+        {
+          "resultado": "AMED03_PARES",
+          "par": "Fechaing→fechamed",
+          "evaluables": "154742",
+          "invertidos": "0",
+          "mismo_instante": "154",
+          "min_minutos": 0,
+          "max_minutos": 193468,
+          "promedio_minutos": 956.32
+        },
+        {
+          "resultado": "AMED03_PARES",
+          "par": "fechamed→fechaegr",
+          "evaluables": "154739",
+          "invertidos": "135",
+          "mismo_instante": "87428",
+          "min_minutos": -58,
+          "max_minutos": 117802,
+          "promedio_minutos": 541.34
+        }
+      ],
+      "secuencia_completa": {
+        "resultado": "AMED04_SECUENCIA_COMPLETA",
+        "completa": "18115",
+        "ordenada": "3227",
+        "con_inversion": "14888"
+      },
+      "ejemplos_dia_distinto": [
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "269A215C2888DD0B",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "Fechaing": "2025-09-17T23:15:00.000Z",
+          "fechamed": "2025-09-23T12:42:00.000Z",
+          "altamed_fecha": "2025-09-18T00:00:00.000Z",
+          "diferencia_minutos": -7962
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "87E6EE1F467900BF",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "Fechaing": "2025-09-01T17:25:00.000Z",
+          "fechamed": "2025-09-06T07:36:00.000Z",
+          "altamed_fecha": "2025-09-01T00:00:00.000Z",
+          "diferencia_minutos": -7656
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "9B0C5067F9E8F481",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "Fechaing": "2025-09-01T15:15:00.000Z",
+          "fechamed": "2025-09-06T07:36:00.000Z",
+          "altamed_fecha": "2025-09-01T00:00:00.000Z",
+          "diferencia_minutos": -7656
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "E3D95021DBBD0B8C",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "Fechaing": "2025-09-01T17:01:00.000Z",
+          "fechamed": "2025-09-06T07:36:00.000Z",
+          "altamed_fecha": "2025-09-01T00:00:00.000Z",
+          "diferencia_minutos": -7656
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "7EB2FB9A74D704A1",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "Fechaing": "2025-09-01T20:02:00.000Z",
+          "fechamed": "2025-09-06T07:37:00.000Z",
+          "altamed_fecha": "2025-09-02T00:00:00.000Z",
+          "diferencia_minutos": -6217
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "D3504873EB8AB5EA",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "Fechaing": "2025-11-19T12:41:00.000Z",
+          "fechamed": "2025-11-22T21:44:00.000Z",
+          "altamed_fecha": "2025-11-19T00:00:00.000Z",
+          "diferencia_minutos": -5624
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "9A59CA467A9FEF55",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "Fechaing": "2026-02-28T21:40:00.000Z",
+          "fechamed": "2026-03-03T18:02:00.000Z",
+          "altamed_fecha": "2026-02-28T00:00:00.000Z",
+          "diferencia_minutos": -5402
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "24EBDF98F731093F",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "Fechaing": "2026-03-29T15:40:00.000Z",
+          "fechamed": "2026-04-01T15:52:00.000Z",
+          "altamed_fecha": "2026-03-29T00:00:00.000Z",
+          "diferencia_minutos": -5272
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "9BD34EF838EE5E7C",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "Fechaing": "2026-03-29T19:08:00.000Z",
+          "fechamed": "2026-04-01T15:52:00.000Z",
+          "altamed_fecha": "2026-03-29T00:00:00.000Z",
+          "diferencia_minutos": -5272
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "4D4E23EDE0167547",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "Fechaing": "2026-03-29T14:24:00.000Z",
+          "fechamed": "2026-04-01T15:51:00.000Z",
+          "altamed_fecha": "2026-03-29T00:00:00.000Z",
+          "diferencia_minutos": -5271
+        }
+      ],
+      "extremos_pares": [
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "C4425A1B1951565A",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2026-04-12T08:44:00.000Z",
+          "fin": "2026-08-24T17:12:00.000Z",
+          "minutos": 193468
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "C4425A1B1951565A",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechaate→fechamed",
+          "inicio": "2026-04-12T09:50:00.000Z",
+          "fin": "2026-08-24T17:12:00.000Z",
+          "minutos": 193402
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "A876E4E0DB2A2D02",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2025-11-04T19:12:00.000Z",
+          "fin": "2026-03-03T19:33:00.000Z",
+          "minutos": 171381
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "A876E4E0DB2A2D02",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechaate→fechamed",
+          "inicio": "2025-11-08T15:01:00.000Z",
+          "fin": "2026-03-03T19:33:00.000Z",
+          "minutos": 165872
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "66B54EDC03BFCE24",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2025-10-21T07:56:00.000Z",
+          "fin": "2026-01-30T11:37:00.000Z",
+          "minutos": 145661
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "66B54EDC03BFCE24",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechaate→fechamed",
+          "inicio": "2025-10-25T14:52:00.000Z",
+          "fin": "2026-01-30T11:37:00.000Z",
+          "minutos": 139485
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "8AA052F0F6FED56E",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechamed→fechaegr",
+          "inicio": "2026-04-16T19:48:00.000Z",
+          "fin": "2026-07-07T15:10:00.000Z",
+          "minutos": 117802
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "CA50A61EC1F9AB67",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2026-05-28T09:20:00.000Z",
+          "fin": "2026-07-24T15:17:00.000Z",
+          "minutos": 82437
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "CA50A61EC1F9AB67",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechaate→fechamed",
+          "inicio": "2026-05-28T09:38:00.000Z",
+          "fin": "2026-07-24T15:17:00.000Z",
+          "minutos": 82419
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "A9EECBEB2F327AED",
+          "centro": "FAA",
+          "codigo_servicio": 446,
+          "servicio": "URGPEDPROCE",
+          "par": "Fechaing→fechamed",
+          "inicio": "2026-05-13T16:59:00.000Z",
+          "fin": "2026-07-02T02:49:00.000Z",
+          "minutos": 71150
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "A9EECBEB2F327AED",
+          "centro": "FAA",
+          "codigo_servicio": 446,
+          "servicio": "URGPEDPROCE",
+          "par": "fechaate→fechamed",
+          "inicio": "2026-05-13T17:13:00.000Z",
+          "fin": "2026-07-02T02:49:00.000Z",
+          "minutos": 71136
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "B4CDDE7EEA833561",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechamed→fechaegr",
+          "inicio": "2026-04-24T00:00:00.000Z",
+          "fin": "2026-06-02T10:24:00.000Z",
+          "minutos": 56784
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "23FD264109634628",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechamed→fechaegr",
+          "inicio": "2026-04-25T21:23:00.000Z",
+          "fin": "2026-06-02T11:29:00.000Z",
+          "minutos": 54126
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "2259185764AA8AA0",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechamed→fechaegr",
+          "inicio": "2026-04-26T14:35:00.000Z",
+          "fin": "2026-06-02T11:30:00.000Z",
+          "minutos": 53095
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "F1AB799DB8C98854",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechamed→fechaegr",
+          "inicio": "2026-04-26T14:36:00.000Z",
+          "fin": "2026-06-02T11:30:00.000Z",
+          "minutos": 53094
+        }
+      ]
+    },
+    "24m": {
+      "desde": "2024-09-01",
+      "hasta_exclusivo": "2026-09-01",
+      "tiempo_ms": 14695,
+      "resumen": {
+        "resultado": "AMED01_RESUMEN",
+        "universo": "327400",
+        "con_fechamed": "310725",
+        "con_altamed_fecha": "73481",
+        "ambos": "73422",
+        "solo_fechamed": "237303",
+        "solo_altamed_fecha": "59",
+        "iguales_exactos": "3",
+        "mismo_dia": "67236",
+        "dia_distinto": "6186",
+        "diferencia_minima_min": -18395,
+        "diferencia_maxima_min": 0,
+        "max_ingreso_a_alta_min": 282228,
+        "max_alta_a_egreso_min": 117802,
+        "cobertura_fechamed_pct": 94.91,
+        "cobertura_altamed_pct": 22.44,
+        "dia_distinto_sobre_ambos_pct": 8.43
+      },
+      "cobertura_por_centro": [
+        {
+          "centro": "FAA",
+          "universo": 176030,
+          "con_fechamed": 161241,
+          "con_altamed_fecha": 12,
+          "dia_distinto": 1,
+          "cobertura_fechamed_pct": 91.6,
+          "cobertura_altamed_pct": 0.01
+        },
+        {
+          "centro": "HCO",
+          "universo": 1,
+          "con_fechamed": 1,
+          "con_altamed_fecha": 1,
+          "dia_distinto": 0,
+          "cobertura_fechamed_pct": 100,
+          "cobertura_altamed_pct": 100
+        },
+        {
+          "centro": "JIM",
+          "universo": 151369,
+          "con_fechamed": 149483,
+          "con_altamed_fecha": 73468,
+          "dia_distinto": 6185,
+          "cobertura_fechamed_pct": 98.75,
+          "cobertura_altamed_pct": 48.54
+        }
+      ],
+      "cobertura_por_servicio": [
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "universo": "98804",
+          "con_fechamed": "89033",
+          "con_altamed_fecha": "2",
+          "dia_distinto": "1"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 417,
+          "servicio": "URG COVID19 FAA",
+          "universo": "27",
+          "con_fechamed": "19",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "universo": "2297",
+          "con_fechamed": "1864",
+          "con_altamed_fecha": "9",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 118,
+          "servicio": "URG PEDIATRIA FAA",
+          "universo": "50499",
+          "con_fechamed": "47870",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 61,
+          "servicio": "URG TOCO FAA",
+          "universo": "24373",
+          "con_fechamed": "22427",
+          "con_altamed_fecha": "1",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 445,
+          "servicio": "URGADUPROCE",
+          "universo": "14",
+          "con_fechamed": "13",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 446,
+          "servicio": "URGPEDPROCE",
+          "universo": "16",
+          "con_fechamed": "15",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "HCO",
+          "codigo_servicio": 473,
+          "servicio": "CO URGENCIAS ADUL",
+          "universo": "1",
+          "con_fechamed": "1",
+          "con_altamed_fecha": "1",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "universo": "60068",
+          "con_fechamed": "59363",
+          "con_altamed_fecha": "23817",
+          "dia_distinto": "2335"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "universo": "17026",
+          "con_fechamed": "16818",
+          "con_altamed_fecha": "5869",
+          "dia_distinto": "1146"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 154,
+          "servicio": "URG PEDIATRIA JIM",
+          "universo": "34322",
+          "con_fechamed": "34076",
+          "con_altamed_fecha": "22729",
+          "dia_distinto": "1099"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "universo": "39953",
+          "con_fechamed": "39226",
+          "con_altamed_fecha": "21053",
+          "dia_distinto": "1605"
+        }
+      ],
+      "pares": [
+        {
+          "resultado": "AMED03_PARES",
+          "par": "fechaate→fechamed",
+          "evaluables": "289650",
+          "invertidos": "84",
+          "mismo_instante": "9686",
+          "min_minutos": -8803,
+          "max_minutos": 281656,
+          "promedio_minutos": 826.27
+        },
+        {
+          "resultado": "AMED03_PARES",
+          "par": "Fechaing→fechamed",
+          "evaluables": "310725",
+          "invertidos": "0",
+          "mismo_instante": "321",
+          "min_minutos": 0,
+          "max_minutos": 282228,
+          "promedio_minutos": 981.94
+        },
+        {
+          "resultado": "AMED03_PARES",
+          "par": "fechamed→fechaegr",
+          "evaluables": "310722",
+          "invertidos": "238",
+          "mismo_instante": "204904",
+          "min_minutos": -121,
+          "max_minutos": 117802,
+          "promedio_minutos": 336.84
+        }
+      ],
+      "secuencia_completa": {
+        "resultado": "AMED04_SECUENCIA_COMPLETA",
+        "completa": "37883",
+        "ordenada": "7528",
+        "con_inversion": "30355"
+      },
+      "ejemplos_dia_distinto": [
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "2127AF4E9D68746E",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "Fechaing": "2024-10-16T10:25:00.000Z",
+          "fechamed": "2024-11-03T18:35:00.000Z",
+          "altamed_fecha": "2024-10-22T00:00:00.000Z",
+          "diferencia_minutos": -18395
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "FC7968BEE6EE2579",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "Fechaing": "2024-11-04T18:36:00.000Z",
+          "fechamed": "2024-11-16T18:00:00.000Z",
+          "altamed_fecha": "2024-11-06T00:00:00.000Z",
+          "diferencia_minutos": -15480
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "5C59179AD456C95C",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "Fechaing": "2025-05-27T23:05:00.000Z",
+          "fechamed": "2025-06-10T11:01:00.000Z",
+          "altamed_fecha": "2025-05-31T00:00:00.000Z",
+          "diferencia_minutos": -15061
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "1C1B9AAD923D2A88",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-11T00:04:00.000Z",
+          "fechamed": "2024-09-20T04:35:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13235
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "A636E644218BDD35",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-10T18:20:00.000Z",
+          "fechamed": "2024-09-20T04:35:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13235
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "B9829C516F916CDD",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-10T21:46:00.000Z",
+          "fechamed": "2024-09-20T04:35:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13235
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "E882C552D79AB812",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-10T17:20:00.000Z",
+          "fechamed": "2024-09-20T04:35:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13235
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "4D423FD3E3ACE456",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-10T16:56:00.000Z",
+          "fechamed": "2024-09-20T04:34:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13234
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "5CE8C0669ADCF160",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-10T08:14:00.000Z",
+          "fechamed": "2024-09-20T04:34:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13234
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "5114E22AF52071AB",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-09T12:26:00.000Z",
+          "fechamed": "2024-09-20T04:33:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13233
+        }
+      ],
+      "extremos_pares": [
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "5D2A9889093FEDAA",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2025-05-13T06:50:00.000Z",
+          "fin": "2025-11-25T06:38:00.000Z",
+          "minutos": 282228
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "5D2A9889093FEDAA",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechaate→fechamed",
+          "inicio": "2025-05-13T16:22:00.000Z",
+          "fin": "2025-11-25T06:38:00.000Z",
+          "minutos": 281656
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "80A6CD55ABC2B967",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2024-09-04T11:26:00.000Z",
+          "fin": "2025-03-14T17:01:00.000Z",
+          "minutos": 275375
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "27005F7F0AE16FB8",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2024-09-13T00:14:00.000Z",
+          "fin": "2025-03-14T17:02:00.000Z",
+          "minutos": 263088
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "3F948830AEE51E4C",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2024-09-22T23:59:00.000Z",
+          "fin": "2025-03-14T17:03:00.000Z",
+          "minutos": 248704
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "3F948830AEE51E4C",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "fechaate→fechamed",
+          "inicio": "2024-09-24T23:41:00.000Z",
+          "fin": "2025-03-14T17:03:00.000Z",
+          "minutos": 245842
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "C9D21458C24DD901",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2024-10-07T08:58:00.000Z",
+          "fin": "2025-03-14T17:03:00.000Z",
+          "minutos": 228005
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "4F9DA6A2B6699EAA",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2024-09-21T15:31:00.000Z",
+          "fin": "2025-02-05T12:33:00.000Z",
+          "minutos": 197102
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "C4425A1B1951565A",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2026-04-12T08:44:00.000Z",
+          "fin": "2026-08-24T17:12:00.000Z",
+          "minutos": 193468
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "C4425A1B1951565A",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechaate→fechamed",
+          "inicio": "2026-04-12T09:50:00.000Z",
+          "fin": "2026-08-24T17:12:00.000Z",
+          "minutos": 193402
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "BC7E4255CFAC6AFF",
+          "centro": "FAA",
+          "codigo_servicio": 417,
+          "servicio": "URG COVID19 FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2024-09-19T12:53:00.000Z",
+          "fin": "2025-01-19T15:15:00.000Z",
+          "minutos": 175822
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "C9D21458C24DD901",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "fechaate→fechamed",
+          "inicio": "2024-11-12T20:48:00.000Z",
+          "fin": "2025-03-14T17:03:00.000Z",
+          "minutos": 175455
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "930DFE342E89532F",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2024-11-15T12:21:00.000Z",
+          "fin": "2025-03-14T17:03:00.000Z",
+          "minutos": 171642
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "A876E4E0DB2A2D02",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2025-11-04T19:12:00.000Z",
+          "fin": "2026-03-03T19:33:00.000Z",
+          "minutos": 171381
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "A876E4E0DB2A2D02",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "par": "fechaate→fechamed",
+          "inicio": "2025-11-08T15:01:00.000Z",
+          "fin": "2026-03-03T19:33:00.000Z",
+          "minutos": 165872
+        }
+      ]
+    },
+    "36m": {
+      "desde": "2023-09-01",
+      "hasta_exclusivo": "2026-09-01",
+      "tiempo_ms": 24095,
+      "resumen": {
+        "resultado": "AMED01_RESUMEN",
+        "universo": "484161",
+        "con_fechamed": "442955",
+        "con_altamed_fecha": "76914",
+        "ambos": "76853",
+        "solo_fechamed": "366102",
+        "solo_altamed_fecha": "61",
+        "iguales_exactos": "3",
+        "mismo_dia": "70188",
+        "dia_distinto": "6665",
+        "diferencia_minima_min": -187958,
+        "diferencia_maxima_min": 0,
+        "max_ingreso_a_alta_min": 654051,
+        "max_alta_a_egreso_min": 260612,
+        "cobertura_fechamed_pct": 91.49,
+        "cobertura_altamed_pct": 15.89,
+        "dia_distinto_sobre_ambos_pct": 8.67
+      },
+      "cobertura_por_centro": [
+        {
+          "centro": "FAA",
+          "universo": 259118,
+          "con_fechamed": 225981,
+          "con_altamed_fecha": 13,
+          "dia_distinto": 2,
+          "cobertura_fechamed_pct": 87.21,
+          "cobertura_altamed_pct": 0.01
+        },
+        {
+          "centro": "HCO",
+          "universo": 2,
+          "con_fechamed": 1,
+          "con_altamed_fecha": 1,
+          "dia_distinto": 0,
+          "cobertura_fechamed_pct": 50,
+          "cobertura_altamed_pct": 50
+        },
+        {
+          "centro": "JIM",
+          "universo": 225041,
+          "con_fechamed": 216973,
+          "con_altamed_fecha": 76900,
+          "dia_distinto": 6663,
+          "cobertura_fechamed_pct": 96.41,
+          "cobertura_altamed_pct": 34.17
+        }
+      ],
+      "cobertura_por_servicio": [
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "universo": "142771",
+          "con_fechamed": "117557",
+          "con_altamed_fecha": "2",
+          "dia_distinto": "1"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 417,
+          "servicio": "URG COVID19 FAA",
+          "universo": "102",
+          "con_fechamed": "50",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "universo": "2983",
+          "con_fechamed": "2188",
+          "con_altamed_fecha": "10",
+          "dia_distinto": "1"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 118,
+          "servicio": "URG PEDIATRIA FAA",
+          "universo": "75560",
+          "con_fechamed": "70945",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 61,
+          "servicio": "URG TOCO FAA",
+          "universo": "37658",
+          "con_fechamed": "35203",
+          "con_altamed_fecha": "1",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 445,
+          "servicio": "URGADUPROCE",
+          "universo": "21",
+          "con_fechamed": "16",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 446,
+          "servicio": "URGPEDPROCE",
+          "universo": "23",
+          "con_fechamed": "22",
+          "con_altamed_fecha": "0",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "HCO",
+          "codigo_servicio": 473,
+          "servicio": "CO URGENCIAS ADUL",
+          "universo": "2",
+          "con_fechamed": "1",
+          "con_altamed_fecha": "1",
+          "dia_distinto": "0"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "universo": "88328",
+          "con_fechamed": "84428",
+          "con_altamed_fecha": "25195",
+          "dia_distinto": "2661"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "universo": "29495",
+          "con_fechamed": "28819",
+          "con_altamed_fecha": "5872",
+          "dia_distinto": "1146"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 154,
+          "servicio": "URG PEDIATRIA JIM",
+          "universo": "50130",
+          "con_fechamed": "49297",
+          "con_altamed_fecha": "24537",
+          "dia_distinto": "1204"
+        },
+        {
+          "resultado": "AMED02_COBERTURA_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "universo": "57088",
+          "con_fechamed": "54429",
+          "con_altamed_fecha": "21296",
+          "dia_distinto": "1652"
+        }
+      ],
+      "pares": [
+        {
+          "resultado": "AMED03_PARES",
+          "par": "fechaate→fechamed",
+          "evaluables": "393541",
+          "invertidos": "126",
+          "mismo_instante": "20323",
+          "min_minutos": -8803,
+          "max_minutos": 640800,
+          "promedio_minutos": 839.23
+        },
+        {
+          "resultado": "AMED03_PARES",
+          "par": "Fechaing→fechamed",
+          "evaluables": "442955",
+          "invertidos": "0",
+          "mismo_instante": "539",
+          "min_minutos": 0,
+          "max_minutos": 654051,
+          "promedio_minutos": 1261.78
+        },
+        {
+          "resultado": "AMED03_PARES",
+          "par": "fechamed→fechaegr",
+          "evaluables": "442952",
+          "invertidos": "273",
+          "mismo_instante": "323437",
+          "min_minutos": -180,
+          "max_minutos": 260612,
+          "promedio_minutos": 242.07
+        }
+      ],
+      "secuencia_completa": {
+        "resultado": "AMED04_SECUENCIA_COMPLETA",
+        "completa": "44489",
+        "ordenada": "8607",
+        "con_inversion": "35882"
+      },
+      "ejemplos_dia_distinto": [
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "45D31F443B1A6AE7",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "Fechaing": "2023-10-31T12:22:00.000Z",
+          "fechamed": "2024-03-15T12:38:00.000Z",
+          "altamed_fecha": "2023-11-06T00:00:00.000Z",
+          "diferencia_minutos": -187958
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "2127AF4E9D68746E",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "Fechaing": "2024-10-16T10:25:00.000Z",
+          "fechamed": "2024-11-03T18:35:00.000Z",
+          "altamed_fecha": "2024-10-22T00:00:00.000Z",
+          "diferencia_minutos": -18395
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "FC7968BEE6EE2579",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "Fechaing": "2024-11-04T18:36:00.000Z",
+          "fechamed": "2024-11-16T18:00:00.000Z",
+          "altamed_fecha": "2024-11-06T00:00:00.000Z",
+          "diferencia_minutos": -15480
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "5C59179AD456C95C",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "Fechaing": "2025-05-27T23:05:00.000Z",
+          "fechamed": "2025-06-10T11:01:00.000Z",
+          "altamed_fecha": "2025-05-31T00:00:00.000Z",
+          "diferencia_minutos": -15061
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "1C1B9AAD923D2A88",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-11T00:04:00.000Z",
+          "fechamed": "2024-09-20T04:35:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13235
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "A636E644218BDD35",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-10T18:20:00.000Z",
+          "fechamed": "2024-09-20T04:35:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13235
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "B9829C516F916CDD",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-10T21:46:00.000Z",
+          "fechamed": "2024-09-20T04:35:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13235
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "E882C552D79AB812",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-10T17:20:00.000Z",
+          "fechamed": "2024-09-20T04:35:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13235
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "4D423FD3E3ACE456",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-10T16:56:00.000Z",
+          "fechamed": "2024-09-20T04:34:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13234
+        },
+        {
+          "resultado": "AMED05_EJEMPLOS_DIA_DISTINTO",
+          "evento_hash": "5CE8C0669ADCF160",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "Fechaing": "2024-09-10T08:14:00.000Z",
+          "fechamed": "2024-09-20T04:34:00.000Z",
+          "altamed_fecha": "2024-09-11T00:00:00.000Z",
+          "diferencia_minutos": -13234
+        }
+      ],
+      "extremos_pares": [
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "CC64ECAA0064250F",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-16T12:08:00.000Z",
+          "fin": "2025-03-14T16:59:00.000Z",
+          "minutos": 654051
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "395CEAF4D9302339",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-18T12:19:00.000Z",
+          "fin": "2025-03-07T21:35:00.000Z",
+          "minutos": 641356
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "79E655C21706E8EA",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-18T10:11:00.000Z",
+          "fin": "2025-03-07T11:55:00.000Z",
+          "minutos": 640904
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "79E655C21706E8EA",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "fechaate→fechamed",
+          "inicio": "2023-12-18T11:55:00.000Z",
+          "fin": "2025-03-07T11:55:00.000Z",
+          "minutos": 640800
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "079249BAE087A04B",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-11-26T13:46:00.000Z",
+          "fin": "2025-01-03T19:12:00.000Z",
+          "minutos": 582086
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "171EB170DBD669F1",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-11-28T08:04:00.000Z",
+          "fin": "2025-01-03T19:13:00.000Z",
+          "minutos": 579549
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "7E7B33E28E5D6FC7",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-12T12:44:00.000Z",
+          "fin": "2025-01-03T19:13:00.000Z",
+          "minutos": 559109
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "F368546A3265985B",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-15T13:21:00.000Z",
+          "fin": "2025-01-06T15:42:00.000Z",
+          "minutos": 558861
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "4B7009C2B678253A",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-13T03:52:00.000Z",
+          "fin": "2025-01-03T19:14:00.000Z",
+          "minutos": 558202
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "12278E006A84DF63",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-01T11:35:00.000Z",
+          "fin": "2024-12-15T12:26:00.000Z",
+          "minutos": 547251
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "E40BC594B2264814",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-04T11:04:00.000Z",
+          "fin": "2024-12-15T12:28:00.000Z",
+          "minutos": 542964
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "3C89462D059B4DE6",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-05T07:29:00.000Z",
+          "fin": "2024-12-15T12:29:00.000Z",
+          "minutos": 541740
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "3A3C6A6778E8EC79",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-07T15:20:00.000Z",
+          "fin": "2024-12-15T12:30:00.000Z",
+          "minutos": 538390
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "EE536EEEAD12A134",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-08T20:25:00.000Z",
+          "fin": "2024-12-15T12:31:00.000Z",
+          "minutos": 536646
+        },
+        {
+          "resultado": "AMED06_EXTREMOS_PARES",
+          "evento_hash": "C2B69CF709C59304",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "par": "Fechaing→fechamed",
+          "inicio": "2023-12-09T11:33:00.000Z",
+          "fin": "2024-12-15T12:32:00.000Z",
+          "minutos": 535739
+        }
+      ]
+    }
+  },
+  "precision_y_tramos_36m": {
+    "tiempo_ms": 818,
+    "resumen": {
+      "resultado": "AMED07_PRECISION_Y_TRAMOS",
+      "con_altamed": "76914",
+      "altamed_medianoche": "76914",
+      "altamed_con_hora": "0",
+      "inv_ing_tri": "0",
+      "inv_tri_ate": "36289",
+      "inv_ate_med": "126",
+      "inv_med_egr": "273"
+    },
+    "ejemplos_inversion": [
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "2183968A439673DE",
+        "par": "fechaate→fechamed",
+        "inicio": "2025-03-08T10:56:17.000Z",
+        "fin": "2025-03-02T08:13:00.000Z",
+        "minutos": -8803
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "80397EBDB25CDF52",
+        "par": "fechaate→fechamed",
+        "inicio": "2026-01-08T08:25:50.000Z",
+        "fin": "2026-01-05T19:51:00.000Z",
+        "minutos": -3634
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "7664D144D1C0D251",
+        "par": "fechaate→fechamed",
+        "inicio": "2025-01-03T23:57:10.000Z",
+        "fin": "2025-01-02T09:01:00.000Z",
+        "minutos": -2336
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "23559DFE7D59C8F5",
+        "par": "fechaate→fechamed",
+        "inicio": "2026-01-10T21:51:49.000Z",
+        "fin": "2026-01-09T15:14:28.000Z",
+        "minutos": -1837
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "BF16B09F50BF38C2",
+        "par": "fechaate→fechamed",
+        "inicio": "2024-10-01T01:42:11.000Z",
+        "fin": "2024-09-30T12:05:00.000Z",
+        "minutos": -817
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "CFD7706FC8E52E86",
+        "par": "fechaate→fechamed",
+        "inicio": "2024-08-28T19:41:37.000Z",
+        "fin": "2024-08-28T12:04:00.000Z",
+        "minutos": -457
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "62220E2A85331A97",
+        "par": "fechaate→fechamed",
+        "inicio": "2024-09-24T00:10:45.000Z",
+        "fin": "2024-09-23T18:50:00.000Z",
+        "minutos": -320
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "56E9B986BF0EDC5E",
+        "par": "fechaate→fechamed",
+        "inicio": "2025-08-13T15:36:22.000Z",
+        "fin": "2025-08-13T10:26:00.000Z",
+        "minutos": -310
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "35E735ED23D5946E",
+        "par": "fechamed→fechaegr",
+        "inicio": "2024-04-10T04:10:00.000Z",
+        "fin": "2024-04-10T01:10:00.000Z",
+        "minutos": -180
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "0DAC880C197E4FE1",
+        "par": "fechaate→fechamed",
+        "inicio": "2023-09-27T16:49:00.000Z",
+        "fin": "2023-09-27T14:18:00.000Z",
+        "minutos": -151
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "17A6BC540CD39ACB",
+        "par": "fechaate→fechamed",
+        "inicio": "2024-12-17T12:11:32.000Z",
+        "fin": "2024-12-17T09:42:00.000Z",
+        "minutos": -149
+      },
+      {
+        "resultado": "AMED08_EJEMPLOS_INVERSION",
+        "evento_hash": "56751B20D93276CE",
+        "par": "fechamed→fechaegr",
+        "inicio": "2025-03-22T19:06:00.000Z",
+        "fin": "2025-03-22T17:05:00.000Z",
+        "minutos": -121
+      }
+    ]
+  },
+  "hallazgos": [
+    {
+      "id": "AMED-H01",
+      "hecho": "fechamed y altamed_fecha son datetime anulables, pero altamed_fecha fue medianoche en todos sus 76,914 valores de 36m."
+    },
+    {
+      "id": "AMED-H02",
+      "hecho": "En 36m sólo 3 de 76,853 valores simultáneos coincidieron exactamente; 6,665 quedaron en día calendario distinto. altamed_fecha nunca fue posterior a fechamed, con diferencia mínima -187,958 minutos."
+    },
+    {
+      "id": "AMED-H03",
+      "hecho": "Fechaing→fechamed tuvo 442,955 pares evaluables y 0 inversiones en 36m, sin convertir extremos en exclusiones."
+    },
+    {
+      "id": "AMED-H04",
+      "hecho": "La secuencia completa existió en 44,489 eventos; 8,607 fue ordenada y 35,882 tuvo alguna inversión. El tramo fechatri→fechaate acumuló 36,289 inversiones, además de 126 fechaate→fechamed y 273 fechamed→fechaegr."
+    }
+  ],
+  "propuestas_contrato": [
+    {
+      "id": "URG-AMED-01",
+      "nombre": "Alta médica registrada",
+      "estado": "PROPUESTO CON EVIDENCIA; NO ACEPTADO",
+      "fuente": "fechamed",
+      "universo": "Eventos U-ING con fechamed no nulo; nunca requisito del universo general",
+      "regla": "Registrar el timestamp tal como llega; Fechaing→fechamed sólo se clasifica como cronológicamente interpretable cuando fechamed >= Fechaing.",
+      "limitaciones": "Extremos reales permanecen visibles; no sustituye fechaegr ni implica alta clínica institucional."
+    },
+    {
+      "id": "URG-AMED-02",
+      "nombre": "Fecha auxiliar de alta",
+      "estado": "PROPUESTO CON EVIDENCIA; NO ACEPTADO",
+      "fuente": "altamed_fecha",
+      "universo": "Eventos con altamed_fecha no nulo",
+      "regla": "Conservar como auxiliar de fecha a medianoche; no sustituir, completar ni normalizar fechamed.",
+      "limitaciones": "Cobertura heterogénea, coincidencia exacta casi nula y diferencias de calendario/varios días observadas."
+    },
+    {
+      "id": "URG-AMED-03",
+      "nombre": "Cobertura AMED",
+      "estado": "PROPUESTO CON EVIDENCIA; NO ACEPTADO",
+      "fuente": "Fechaing, fechamed, altamed_fecha",
+      "universo": "Eventos U-ING del periodo; denominador no exige ningún hito AMED",
+      "regla": "Reportar cobertura por campo, centro, servicio y cohorte cerrada.",
+      "limitaciones": "Cobertura no demuestra orden ni validez temporal."
+    },
+    {
+      "id": "URG-AMED-04",
+      "nombre": "Calidad de secuencia temporal",
+      "estado": "PROPUESTO CON EVIDENCIA; NO ACEPTADO",
+      "fuente": "Fechaing, fechatri, fechaate, fechamed, fechaegr",
+      "universo": "Cada par usa sólo eventos con ambos timestamps; secuencia completa es diagnóstico independiente",
+      "regla": "Contar faltantes, mismo instante, inversiones y extremos sin excluirlos.",
+      "limitaciones": "No usar la secuencia completa como requisito del universo ni inferir causa clínica."
+    }
+  ],
+  "pendientes": [
+    "Aprobación funcional institucional de cualquier indicador AMED.",
+    "Definición clínica/operativa que relacione Alta Médica registrada con egreso administrativo.",
+    "Reglas de interpretación de extremos y de secuencias invertidas; no se infieren desde esta evidencia.",
+    "API/UI y cualquier KPI de Alta Médica permanecen fuera de alcance."
+  ],
+  "validaciones": {
+    "tipos_fisicos": "PASS",
+    "tres_ventanas_cerradas": "PASS",
+    "sql_read_only": "PASS",
+    "pseudonimizacion_ejemplos": "PASS",
+    "api_ui": "NO EJECUTADAS POR ALCANCE"
+  }
+}

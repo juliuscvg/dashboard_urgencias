@@ -1,6 +1,6 @@
 # Reglas de negocio — Urgencias
 
-Vigencia funcional: 2026-09-09, con evidencia SQL consolidada en [validación](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md); origen funcional según [contexto entregado](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Origen inmutable: [reglas en 717f681](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/REGLAS_NEGOCIO.md). Ver [decisiones](gobierno/DECISIONES_Y_CAMBIOS.md) y [reconciliación](gobierno/RECONCILIACION_BASELINE_717f681.md).
+Vigencia funcional: 2026-09-10, con evidencia SQL consolidada en [validación](evidencia/VALIDACION_SQL_FUNCIONAL_2026-09-08.md) y [AMED](evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md); origen funcional según [contexto entregado](historico/prompts/SOLICITUD_RECONCILIACION_2026-09-07.txt). Origen inmutable: [reglas en 717f681](https://github.com/juliuscvg/dashboard_urgencias/blob/717f681e6d979798a2b1d680dda64d765bb3b051/docs/REGLAS_NEGOCIO.md). Ver [decisiones](gobierno/DECISIONES_Y_CAMBIOS.md) y [reconciliación](gobierno/RECONCILIACION_BASELINE_717f681.md).
 
 DEFINIDO FUNCIONALMENTE acredita una decisión. VALIDADO acredita evidencia física o técnica registrada. VALIDADO CON ADVERTENCIA conserva límites de cobertura, calidad o reproducibilidad. PENDIENTE DE VALIDACIÓN SQL identifica evidencia física ausente. CANDIDATO identifica elecciones adicionales aún abiertas. Los ejes funcional y técnico permanecen separados según HCG Specs. La implementación no crea metas institucionales.
 
@@ -22,10 +22,10 @@ Periodo semiabierto: evento >= Inicio AND evento < FinExclusivo. Días completos
 | fechaegr | Salida/egreso administrativo y final del evento | Ejecutivo principal |
 | fechatri | Registro de triage | Secundario |
 | fechaate | Inicio de atención, datetime derivado preferido frente a atencion_fecha | Complementario |
-| fechamed | Alta médica, datetime derivado preferido frente a altamed_fecha | Complementario |
+| fechamed | Timestamp propuesto del hito registrado de Alta Médica; no sustituye fechaegr | Complementario |
 | fecha_modif | Modificación técnica, nunca actividad clínica ni KPI operativo | Auditoría técnica |
 
-Fechaing/fechaing es variación comunicada de casing, no dos columnas. Equivalencias atencion_fecha~fechaate y altamed_fecha~fechamed son funcionales aproximadas; transformaciones pendientes de SQL. No exigir triage, atención o alta médica para considerar válido un episodio ni para pertenecer al universo principal. Atención Médica permanece EN PROCESO sobre Fechaing→fechaate; Alta Médica permanece EN VALIDACIÓN, desacoplada y no implementada.
+Fechaing/fechaing es variación comunicada de casing, no dos columnas. La equivalencia atencion_fecha~fechaate sigue pendiente. `fechamed` y `altamed_fecha` no son equivalentes: ambos son `datetime`, pero `altamed_fecha` se observó a medianoche y difiere incluso de fecha calendario en una fracción relevante; no completa, normaliza ni sustituye `fechamed`. `fechamed` es el timestamp propuesto para el hito registrado de Alta Médica, sin sustituir `fechaegr`. No exigir triage, atención o alta médica para considerar válido un episodio ni para pertenecer al universo principal. Atención Médica permanece EN PROCESO sobre Fechaing→fechaate; Alta Médica permanece EN VALIDACIÓN, desacoplada y no implementada. [Evidencia AMED](evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md).
 
 | Universo | Pertenencia funcional | Límite |
 |---|---|---|
