@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-09-11T05:43:00.369Z",
+  "context": {
+    "desde": "2026-08-01",
+    "hasta": "2026-08-01",
+    "corte": "2026-09-09T21:03:28.000Z",
+    "centro": null,
+    "codigoServicio": null,
+    "source": "dbo.vUrgencias",
+    "apiBase": "http://localhost:3105/api",
+    "secretsIncluded": false,
+    "directIdentifiersIncluded": false
+  },
+  "results": {
+    "URG-EJ-03": {
+      "sql": {
+        "universoTotal": 354,
+        "evaluables": 354,
+        "invertidos": 0,
+        "sinEgreso": 0,
+        "promedioHoras": 61.33,
+        "menor12h": 204,
+        "de12a24h": 40,
+        "de24a48h": 42,
+        "de48a72h": 13,
+        "mayor72h": 55
+      },
+      "api": {
+        "universoTotal": 354,
+        "evaluables": 354,
+        "invertidos": 0,
+        "sinEgreso": 0,
+        "promedioHoras": 61.33,
+        "menor12h": 204,
+        "de12a24h": 40,
+        "de24a48h": 42,
+        "de48a72h": 13,
+        "mayor72h": 55
+      },
+      "sqlElapsedMs": 2435,
+      "apiElapsedMs": 1748,
+      "exact": true
+    },
+    "URG-ACT-01": {
+      "sql": {
+        "activosProbables": 255,
+        "antiguedadNoEvaluable": 0,
+        "fechaIngresoFutura": 213,
+        "mayor24h": 21,
+        "mayor48h": 19,
+        "mayor72h": 17
+      },
+      "api": {
+        "activosProbables": 255,
+        "antiguedadNoEvaluable": 0,
+        "fechaIngresoFutura": 213,
+        "mayor24h": 21,
+        "mayor48h": 19,
+        "mayor72h": 17
+      },
+      "sqlElapsedMs": 229,
+      "apiElapsedMs": 1748,
+      "exact": true
+    },
+    "URG-TRI-03": {
+      "sql": {
+        "universoTotal": 354,
+        "conTriage": 51,
+        "evaluables": 51,
+        "invertidos": 0,
+        "promedioMinutos": 44.41,
+        "mismoMinuto": 0,
+        "de1a10": 18,
+        "de11a30": 14,
+        "de31a60": 12,
+        "de61a120": 2,
+        "de121a240": 3,
+        "mayor240": 2,
+        "mayorIgual24h": 0,
+        "mayorIgual7d": 0
+      },
+      "api": {
+        "universoTotal": 354,
+        "conTriage": 51,
+        "evaluables": 51,
+        "invertidos": 0,
+        "promedioMinutos": 44.41,
+        "mismoMinuto": 0,
+        "de1a10": 18,
+        "de11a30": 14,
+        "de31a60": 12,
+        "de61a120": 2,
+        "de121a240": 3,
+        "mayor240": 2,
+        "mayorIgual24h": 0,
+        "mayorIgual7d": 0
+      },
+      "sqlElapsedMs": 1006,
+      "apiElapsedMs": 4020,
+      "exact": true
+    }
+  },
+  "summary": {
+    "exactComparisons": 3,
+    "totalComparisons": 3,
+    "allExact": true
+  }
+}

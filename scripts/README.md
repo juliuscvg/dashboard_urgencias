@@ -13,3 +13,5 @@ Los scripts SQL requieren acceso autorizado. No son migraciones ni modifican dat
 - `check-motivo-validation.mjs`: valida universos, cobertura, categorías y resguardos del artefacto de Motivo.
 - `run-iter004-reconciliation.mjs`: compara los SQL aceptados de MOD-05, MOD-09 y TRI-02 con la API usando los mismos filtros.
 - `check-iter004-reconciliation.mjs`: valida la evidencia, rutas, servicio y proyección UI de ITER-004.
+- `run-iter005-reconciliation.mjs`: compara las bandas aceptadas de EJ-03, ACT-01 y TRI-03 con la API usando filtros y corte reproducibles.
+- `check-iter005-reconciliation.mjs`: valida coincidencia exacta, invariantes de bandas/señales y proyección UI de ITER-005.

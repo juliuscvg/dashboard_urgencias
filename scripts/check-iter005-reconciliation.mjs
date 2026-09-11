@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const evidence = JSON.parse(fs.readFileSync(path.join(root, 'docs/evidencia/RECONCILIACION_ITER005_2026-09-10.json'), 'utf8'));
+const repository = fs.readFileSync(path.join(root, 'server/src/repository/urgencias.repository.ts'), 'utf8');
+const service = fs.readFileSync(path.join(root, 'server/src/service/urgencias.service.ts'), 'utf8');
+const ui = fs.readFileSync(path.join(root, 'client/src/App.tsx'), 'utf8');
+const errors = [];
+if (evidence.summary?.allExact !== true || evidence.summary?.exactComparisons !== 3 || evidence.summary?.totalComparisons !== 3) errors.push('Comparaciones incompletas');
+if (evidence.context?.secretsIncluded !== false || evidence.context?.directIdentifiersIncluded !== false) errors.push('Resguardo incompleto');
+for (const id of ['URG-EJ-03','URG-ACT-01','URG-TRI-03']) if (evidence.results?.[id]?.exact !== true) errors.push(`${id} no exacto`);
+const ej = evidence.results['URG-EJ-03'].api;
+if (ej.menor12h + ej.de12a24h + ej.de24a48h + ej.de48a72h + ej.mayor72h !== ej.evaluables) errors.push('EJ-03 bandas no cubren evaluables');
+const tri = evidence.results['URG-TRI-03'].api;
+if (tri.mismoMinuto + tri.de1a10 + tri.de11a30 + tri.de31a60 + tri.de61a120 + tri.de121a240 + tri.mayor240 !== tri.evaluables) errors.push('TRI-03 bandas no cubren evaluables');
+const act = evidence.results['URG-ACT-01'].api;
+if (!(act.mayor72h <= act.mayor48h && act.mayor48h <= act.mayor24h && act.mayor24h <= act.activosProbables)) errors.push('ACT-01 señales no acumulativas');
+for (const token of ['permanenciaMenor12h','activosMayor24h','mismoMinuto']) if (!repository.includes(token) || !service.includes(token)) errors.push(`Proyección ausente: ${token}`);
+for (const label of ['Bandas de estancia registrada','Antigüedad al corte','Bandas de tiempo Ingreso → Triage']) if (!ui.includes(label)) errors.push(`UI ausente: ${label}`);
+console.log(JSON.stringify({ comparisons: evidence.summary.exactComparisons, evaluablePermanence: ej.evaluables, activeProbable: act.activosProbables, evaluableTriage: tri.evaluables, errors }, null, 2));
+if (errors.length) process.exitCode = 1;

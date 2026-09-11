@@ -14,11 +14,11 @@ main
 
 ## HEAD base de la iteración
 
-0a232b0442ea4aca2adb6594f9ff7b57f5c8f4bf
+fdadeb39186772b4051228480b78dcd32a4745d8
 
 ## Iteración actual
 
-Implementación de las brechas API/UI de MOD-05, MOD-09 y TRI-02. Ver [ITER-004](../iteraciones/ITER-004.md).
+Implementación de las bandas API/UI de URG-EJ-03, URG-ACT-01 y URG-TRI-03. Ver [ITER-005](../iteraciones/ITER-005.md).
 
 ## Estado de la iteración
 
@@ -26,48 +26,49 @@ COMPLETADA
 
 ## Completado
 
-- [x] URG-MOD-05 expuesto por Repository, servicio, `/api/urgencias/resolution` y panel de destinos nativos.
-- [x] URG-MOD-09 expuesto por Repository, servicio, `/api/urgencias/frequentation` y panel de bandas aceptadas.
-- [x] URG-TRI-02 añadido a Repository/servicio/`/api/urgencias/triage` y panel de clasificación nativa.
-- [x] Tres comparaciones SQL canónico→API exactas con los mismos filtros.
-- [x] Renderizado UI validado con las filas API reales preservadas.
-- [x] Contratos funcionales, universos, fórmulas, denominadores y SQL canónicos sin cambios.
+- [x] URG-EJ-03 expone faltantes, inversiones y cinco bandas exclusivas en `/api/urgencias/summary` y UI.
+- [x] URG-ACT-01 expone corte reproducible, no evaluables, futuros y señales acumulativas >24/>48/>72 h en `/api/urgencias/summary` y UI.
+- [x] URG-TRI-03 expone siete bandas exclusivas en `/api/urgencias/triage` y UI.
+- [x] Tres comparaciones SQL canónico→API exactas con los mismos filtros y corte.
+- [x] Renderizado UI validado con las proyecciones API reales preservadas.
+- [x] Universos, fórmulas, cortes, límites y SQL canónicos sin cambios.
 - [x] Sin fuentes ni indicadores adicionales.
 
 ## Evidencia preservada
 
-- [Reconciliación ITER-004](../evidencia/RECONCILIACION_ITER004_2026-09-10.md).
-- [Resultado SQL/API agregado](../evidencia/RECONCILIACION_ITER004_2026-09-10.json).
-- `scripts/run-iter004-reconciliation.mjs` y `scripts/check-iter004-reconciliation.mjs`.
+- [Reconciliación ITER-005](../evidencia/RECONCILIACION_ITER005_2026-09-10.md).
+- [Resultado SQL/API agregado](../evidencia/RECONCILIACION_ITER005_2026-09-10.json).
+- `scripts/run-iter005-reconciliation.mjs` y `scripts/check-iter005-reconciliation.mjs`.
 - Pruebas de servicio y UI en `server/src/service/urgencias.service.test.ts` y `client/src/App.test.tsx`.
 
 ## Validaciones
 
-- Server: 8 pruebas PASS.
+- Server: 9 pruebas PASS.
 - Client: 3 pruebas PASS.
 - Build server/client PASS.
 - SQL→API: 3/3 comparaciones exactas.
-- Documentación, portabilidad, reconciliación estática y diff PASS.
+- Bandas exclusivas y señales acumulativas: invariantes PASS.
+- SQL canónico sin cambios.
 
-## Limitación de entorno
+## Limitaciones vigentes
 
-El auxiliar interactivo del navegador falló con `helper_unknown_error`; Edge y Chrome headless no devolvieron DOM. La UI se validó de forma reproducible con React/jsdom y las filas API de la corrida real.
+- ACT-01 permanece limitado por fuente viva sin snapshot y no confirma presencia física.
+- EJ-03 y TRI-03 conservan su interpretación como tiempos registrados, con anomalías y extremos visibles.
 
 ## Pendientes gobernados
 
-- Bandas API/UI de URG-EJ-03, URG-ACT-01 y URG-TRI-03, fuera de ITER-004.
 - Decisión institucional sobre AMED, Población, Diagnósticos y Motivo de Urgencia.
 - Cierre funcional de URG-PEND-01 y definición de consumidor de URG-CAL-01.
 
 ## NO REPETIR
 
-- Reconciliación SQL→API de MOD-05, MOD-09 y TRI-02 para la cohorte cerrada 2026-08-01.
-- Auditoría ITER-003 y validaciones funcionales anteriores ya preservadas.
+- Reconciliación SQL→API de EJ-03, ACT-01 y TRI-03 para la cohorte 2026-08-01 y corte 2026-09-09T21:03:28.000Z.
+- Reconciliaciones ITER-003/004 y validaciones funcionales anteriores ya preservadas.
 
 ## Próxima acción exacta
 
-Ninguna acción adicional en ITER-004. Los pendientes restantes requieren otra iteración con alcance explícito.
+Ninguna acción adicional en ITER-005. Los pendientes restantes requieren otra iteración con alcance explícito.
 
 ## Commit de cierre
 
-Consolidado en el commit `[URG][API] Exponer resolución frecuentación y clasificación Triage` (ver `git log`).
+Consolidado en el commit `[URG][API] Exponer bandas de permanencia activos y Triage` (ver `git log`).

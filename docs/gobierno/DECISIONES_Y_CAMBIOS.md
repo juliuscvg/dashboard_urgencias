@@ -401,3 +401,12 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Reconciliación: tres comparaciones SQL→API exactas en cohorte cerrada; la UI renderiza las filas API preservadas mediante prueba automatizada.
 - Rutas: `/api/urgencias/resolution`, `/api/urgencias/frequentation` y clasificación añadida a `/api/urgencias/triage`.
 - Evidencia: [reconciliación ITER-004](../evidencia/RECONCILIACION_ITER004_2026-09-10.md).
+
+### URG-GOV-051 — Cierre técnico de bandas EJ-03, ACT-01 y TRI-03
+
+- Estado: IMPLEMENTADO Y RECONCILIADO CON FUENTE; ACT-01 conserva limitación de fuente viva.
+- Alcance: se añadieron únicamente las bandas y señales ya aceptadas a Repository, servicio, HTTP y UI.
+- Autoridad preservada: U-ING, universo activo, evaluabilidad, cortes, límites, fórmulas, anomalías y SQL canónicos no cambiaron.
+- Presentación: Permanencia y Triage muestran bandas exclusivas; Activos probables muestra umbrales acumulativos a un corte explícito.
+- Reconciliación: tres comparaciones SQL→API exactas; la UI renderiza las proyecciones API preservadas mediante prueba automatizada.
+- Evidencia: [reconciliación ITER-005](../evidencia/RECONCILIACION_ITER005_2026-09-10.md).

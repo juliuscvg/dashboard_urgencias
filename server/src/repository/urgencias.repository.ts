@@ -65,6 +65,13 @@ export async function fetchSummaryBase(filters: DashboardFilters): Promise<Recor
         THEN CONVERT(bigint, 1) ELSE 0 END) AS eventosCompletados,
       CAST(AVG(CASE WHEN Fechaing IS NOT NULL AND fechaegr IS NOT NULL AND fechaegr >= Fechaing
         THEN DATEDIFF(MINUTE, Fechaing, fechaegr) / 60.0 END) AS decimal(18, 2)) AS permanenciaPromedioHoras,
+      SUM(CASE WHEN fechaegr < Fechaing THEN CONVERT(bigint, 1) ELSE 0 END) AS permanenciaInvertidos,
+      SUM(CASE WHEN fechaegr IS NULL THEN CONVERT(bigint, 1) ELSE 0 END) AS permanenciaSinEgreso,
+      SUM(CASE WHEN fechaegr >= Fechaing AND DATEDIFF(MINUTE, Fechaing, fechaegr) < 720 THEN CONVERT(bigint, 1) ELSE 0 END) AS permanenciaMenor12h,
+      SUM(CASE WHEN fechaegr >= DATEADD(HOUR, 12, Fechaing) AND fechaegr < DATEADD(HOUR, 24, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS permanencia12a24h,
+      SUM(CASE WHEN fechaegr >= DATEADD(HOUR, 24, Fechaing) AND fechaegr < DATEADD(HOUR, 48, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS permanencia24a48h,
+      SUM(CASE WHEN fechaegr >= DATEADD(HOUR, 48, Fechaing) AND fechaegr <= DATEADD(HOUR, 72, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS permanencia48a72h,
+      SUM(CASE WHEN fechaegr > DATEADD(HOUR, 72, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS permanenciaMayor72h,
       SUM(CASE WHEN Fechaing IS NOT NULL AND fechaegr IS NOT NULL AND fechaegr >= Fechaing
         AND destino_urg_pk = 5 THEN CONVERT(bigint, 1) ELSE 0 END) AS hospitalizaciones,
       CAST(100.0 * SUM(CASE WHEN Fechaing IS NOT NULL AND fechaegr IS NOT NULL AND fechaegr >= Fechaing
@@ -96,13 +103,22 @@ export async function fetchReadmissions(filters: DashboardFilters): Promise<Reco
   return result.recordset[0] ?? {};
 }
 
-export async function fetchCurrent(filters: Pick<DashboardFilters, 'centro' | 'codigoServicio'>): Promise<Record<string, unknown>> {
+export async function fetchCurrent(filters: Pick<DashboardFilters, 'centro' | 'codigoServicio' | 'corte'>): Promise<Record<string, unknown>> {
   const pool = await getPool();
-  const result = await bindFilters(pool.request(), filters, false).query(`
-    ${eventScopeSql({ includePeriod: false, activeOnly: true })}
-    SELECT COUNT_BIG(*) AS activosProbables, GETDATE() AS observadoEn
-    FROM EventScope;
-  `);
+  const corte = filters.corte ? new Date(filters.corte) : new Date();
+  const result = await bindFilters(pool.request(), filters, false)
+    .input('Corte', sql.DateTime, corte)
+    .query(`
+      ${eventScopeSql({ includePeriod: false, activeOnly: true })}
+      SELECT COUNT_BIG(*) AS activosProbables,
+        SUM(CASE WHEN Fechaing IS NULL THEN CONVERT(bigint, 1) ELSE 0 END) AS activosAntiguedadNoEvaluable,
+        SUM(CASE WHEN Fechaing > @Corte THEN CONVERT(bigint, 1) ELSE 0 END) AS activosFechaIngresoFutura,
+        SUM(CASE WHEN Fechaing IS NOT NULL AND Fechaing <= @Corte AND @Corte > DATEADD(HOUR, 24, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS activosMayor24h,
+        SUM(CASE WHEN Fechaing IS NOT NULL AND Fechaing <= @Corte AND @Corte > DATEADD(HOUR, 48, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS activosMayor48h,
+        SUM(CASE WHEN Fechaing IS NOT NULL AND Fechaing <= @Corte AND @Corte > DATEADD(HOUR, 72, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS activosMayor72h,
+        @Corte AS observadoEn
+      FROM EventScope;
+    `);
   return result.recordset[0] ?? {};
 }
 
@@ -237,7 +253,14 @@ export async function fetchTriage(filters: DashboardFilters): Promise<{ resumen:
       CAST(AVG(CASE WHEN fechatri >= Fechaing THEN DATEDIFF(MINUTE, Fechaing, fechatri) * 1.0 END) AS decimal(18, 2)) AS tiempoPromedioMinutos,
       SUM(CASE WHEN fechatri < Fechaing THEN CONVERT(bigint, 1) ELSE 0 END) AS secuenciasInvertidas,
       SUM(CASE WHEN fechatri >= DATEADD(HOUR, 24, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS tiemposMayorIgual24h,
-      SUM(CASE WHEN fechatri >= DATEADD(DAY, 7, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS tiemposMayorIgual7d
+      SUM(CASE WHEN fechatri >= DATEADD(DAY, 7, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS tiemposMayorIgual7d,
+      SUM(CASE WHEN fechatri = Fechaing THEN CONVERT(bigint, 1) ELSE 0 END) AS mismoMinuto,
+      SUM(CASE WHEN fechatri > Fechaing AND fechatri <= DATEADD(MINUTE, 10, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS de1a10,
+      SUM(CASE WHEN fechatri > DATEADD(MINUTE, 10, Fechaing) AND fechatri <= DATEADD(MINUTE, 30, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS de11a30,
+      SUM(CASE WHEN fechatri > DATEADD(MINUTE, 30, Fechaing) AND fechatri <= DATEADD(MINUTE, 60, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS de31a60,
+      SUM(CASE WHEN fechatri > DATEADD(MINUTE, 60, Fechaing) AND fechatri <= DATEADD(MINUTE, 120, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS de61a120,
+      SUM(CASE WHEN fechatri > DATEADD(MINUTE, 120, Fechaing) AND fechatri <= DATEADD(MINUTE, 240, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS de121a240,
+      SUM(CASE WHEN fechatri > DATEADD(MINUTE, 240, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS mayor240
     FROM EventScope;
 
     ${eventScopeSql()}

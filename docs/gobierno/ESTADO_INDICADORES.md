@@ -6,18 +6,18 @@ Corte: 2026-09-10. Fuente canónica de estados; las fórmulas residen en [contra
 |---|---|---|---|---|
 | URG-EJ-01 | Atenciones | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API, UI y detalle exactos |
 | URG-EJ-02 | Promedio diario | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y UI exactos |
-| URG-EJ-03 | Permanencia registrada | ACEPTADO CON OBSERVACIONES | RECONCILIADO EN CAPAS DISPONIBLES | SQL, promedio API/UI y bandas de detalle exactos; bandas API pendientes |
+| URG-EJ-03 | Permanencia registrada | ACEPTADO CON OBSERVACIONES | RECONCILIADO CON FUENTE | SQL, promedio, faltantes, inversiones y bandas API/UI exactos |
 | URG-EJ-04 | Hospitalización | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API, UI y destino de detalle exactos |
 | URG-EJ-05 | Reingresos <72 h / <48 h | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y UI exactos |
 | URG-EJ-06 | Pacientes únicos | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y UI exactos |
 | URG-EJ-07 | Atenciones por paciente | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y contexto UI exactos antes de formato |
-| URG-ACT-01 | Activos probables | ACEPTADO | RECONCILIADO CON FUENTE CON LIMITACIÓN | Conteo SQL/API/UI exacto; fuente viva sin snapshot y bandas API pendientes |
+| URG-ACT-01 | Activos probables | ACEPTADO | RECONCILIADO CON FUENTE CON LIMITACIÓN | Conteo, corte, anomalías y señales acumulativas SQL/API/UI exactos; fuente viva sin snapshot |
 | URG-MOD-01 | Demanda diaria | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API, tendencia UI y total de detalle exactos |
 | URG-MOD-05 | Resolución / destino | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API, UI y detalle exactos |
 | URG-MOD-09 | Frecuentación | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y UI exactos |
 | URG-TRI-01 | Cobertura de Triage | ACEPTADO | RECONCILIADO CON FUENTE | SQL, servicios API y UI exactos |
 | URG-TRI-02 | Clasificación de Triage | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y UI exactos; cobertura conjunta |
-| URG-TRI-03 | Tiempo registrado a Triage | ACEPTADO CON OBSERVACIONES | RECONCILIADO EN CAPAS DISPONIBLES | Resumen SQL/API/UI exacto; bandas API/UI pendientes |
+| URG-TRI-03 | Tiempo registrado a Triage | ACEPTADO CON OBSERVACIONES | RECONCILIADO CON FUENTE | Resumen, anomalías, extremos y bandas SQL/API/UI exactos |
 | URG-PEND-01 | Atención médica | EN PROCESO | NO IMPLEMENTADO | `Fechaing→fechaate`; contrato final pendiente |
 | URG-PEND-02 | Alta médica | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | `fechamed` canónico actual del hito registrado; `altamed_fecha` auxiliar; sin API/UI |
 | URG-PEND-03 | Secuencias temporales completas | POR DEFINIR | VALIDADO CON FUENTE / NO IMPLEMENTADO | Análisis complementario de consistencia; no filtro ni KPI principal |
@@ -46,3 +46,7 @@ La evidencia de `motivo_urgencia` y `motivo_urg_libre` cubre cohortes cerradas d
 ## Reconciliación ITER-004 — 2026-09-10
 
 MOD-05, MOD-09 y TRI-02 cerraron su brecha API/UI sin cambios funcionales. Las tres salidas coincidieron exactamente con sus SQL aceptados y la representación UI se validó con las filas API preservadas. Ver [evidencia ITER-004](../evidencia/RECONCILIACION_ITER004_2026-09-10.md).
+
+## Reconciliación ITER-005 — 2026-09-10
+
+EJ-03, ACT-01 y TRI-03 cerraron su brecha de bandas API/UI sin cambios funcionales. Las tres proyecciones coincidieron exactamente con sus SQL aceptados; la UI distingue bandas exclusivas de señales acumulativas y se validó con las proyecciones API preservadas. Ver [evidencia ITER-005](../evidencia/RECONCILIACION_ITER005_2026-09-10.md).

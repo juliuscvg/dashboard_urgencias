@@ -1,10 +1,14 @@
-export type Filters = { desde: string; hasta: string; centro?: string; codigoServicio?: number };
+export type Filters = { desde: string; hasta: string; centro?: string; codigoServicio?: number; corte?: string };
 export type Summary = {
   atenciones: number; pacientesUnicos: number; atencionesPorPaciente: number | null; diasCompletos: number;
   atencionesDiasCompletos: number; promedioDiario: number | null; periodoParcial: boolean;
-  eventosCompletados: number; permanenciaPromedioHoras: number | null; hospitalizaciones: number;
+  eventosCompletados: number; permanenciaPromedioHoras: number | null; permanenciaInvertidos: number;
+  permanenciaSinEgreso: number; permanenciaMenor12h: number; permanencia12a24h: number;
+  permanencia24a48h: number; permanencia48a72h: number; permanenciaMayor72h: number; hospitalizaciones: number;
   hospitalizacionPct: number | null; reingresosMenor48: number; reingresosMenor72: number;
   reingresoPct: number | null; eventosEvaluablesReingreso: number; activosProbables: number;
+  activosAntiguedadNoEvaluable: number; activosFechaIngresoFutura: number;
+  activosMayor24h: number; activosMayor48h: number; activosMayor72h: number;
   eventosConConflicto: number; filasMultiplicadas: number; observadoEn: string;
 };
 export type Demand = {
@@ -15,7 +19,8 @@ export type Demand = {
 export type Triage = {
   resumen: { universoTotal: number; eventosConTriage: number; coberturaPct: number | null;
     eventosEvaluablesTiempo: number; tiempoPromedioMinutos: number | null; secuenciasInvertidas: number;
-    tiemposMayorIgual24h: number; tiemposMayorIgual7d: number };
+    tiemposMayorIgual24h: number; tiemposMayorIgual7d: number; mismoMinuto: number;
+    de1a10: number; de11a30: number; de31a60: number; de61a120: number; de121a240: number; mayor240: number };
   servicios: Array<{ centro: string; codigoServicio: number; servicio: string; universoTotal: number;
     eventosConTriage: number; coberturaPct: number | null }>;
   clasificacion: Array<{ triageCodigo: number | null; triageDescripcion: string | null; eventos: number;

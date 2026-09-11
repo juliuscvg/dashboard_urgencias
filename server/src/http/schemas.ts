@@ -6,6 +6,7 @@ const base = {
   hasta: isoDate,
   centro: z.string().trim().min(1).max(20).optional(),
   codigoServicio: z.coerce.number().int().positive().optional(),
+  corte: z.string().datetime({ offset: true }).optional(),
 };
 
 export const dashboardQuerySchema = z.object(base).superRefine((value, context) => {

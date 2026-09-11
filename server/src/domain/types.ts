@@ -3,6 +3,7 @@ export interface DashboardFilters {
   hasta: string;
   centro?: string;
   codigoServicio?: number;
+  corte?: string;
 }
 
 export interface DetailFilters extends DashboardFilters {
@@ -20,6 +21,13 @@ export interface Summary {
   periodoParcial: boolean;
   eventosCompletados: number;
   permanenciaPromedioHoras: number | null;
+  permanenciaInvertidos: number;
+  permanenciaSinEgreso: number;
+  permanenciaMenor12h: number;
+  permanencia12a24h: number;
+  permanencia24a48h: number;
+  permanencia48a72h: number;
+  permanenciaMayor72h: number;
   hospitalizaciones: number;
   hospitalizacionPct: number | null;
   reingresosMenor48: number;
@@ -27,6 +35,11 @@ export interface Summary {
   reingresoPct: number | null;
   eventosEvaluablesReingreso: number;
   activosProbables: number;
+  activosAntiguedadNoEvaluable: number;
+  activosFechaIngresoFutura: number;
+  activosMayor24h: number;
+  activosMayor48h: number;
+  activosMayor72h: number;
   eventosConConflicto: number;
   filasMultiplicadas: number;
   observadoEn: string;
