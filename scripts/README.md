@@ -11,3 +11,5 @@
 Los scripts SQL requieren acceso autorizado. No son migraciones ni modifican datos.
 - `run-motivo-validation.mjs` y `sql/07_validacion_motivo_urgencia.sql`: reproducen la validación read-only agregada de ITER-002 sin persistir valores de texto libre.
 - `check-motivo-validation.mjs`: valida universos, cobertura, categorías y resguardos del artefacto de Motivo.
+- `run-iter004-reconciliation.mjs`: compara los SQL aceptados de MOD-05, MOD-09 y TRI-02 con la API usando los mismos filtros.
+- `check-iter004-reconciliation.mjs`: valida la evidencia, rutas, servicio y proyección UI de ITER-004.

@@ -392,3 +392,12 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Reglas: preservar valores originales; no inferir categorías, diagnóstico, gravedad, causalidad o calidad; no exponer texto en evidencia ni rankings.
 - Limitaciones: autoridad institucional del catálogo, procedencia anterior a la vista y política de acceso al texto quedan pendientes. No se implementa SQL productivo, API, UI ni indicador.
 - Contratos: [URG-MOT-01..03](../indicadores/CONTRATOS_EN_VALIDACION.md). Evidencia: [validación Motivo](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.md).
+
+### URG-GOV-050 — Cierre técnico MOD-05, MOD-09 y TRI-02
+
+- Estado: IMPLEMENTADO Y RECONCILIADO CON FUENTE.
+- Alcance: se añadieron únicamente las capas Repository, servicio, HTTP y UI de Resolución/destino, Frecuentación y Clasificación nativa de Triage.
+- Autoridad preservada: U-ING, filtros, categorías, bandas, denominadores, NULL y SQL aceptados no cambiaron.
+- Reconciliación: tres comparaciones SQL→API exactas en cohorte cerrada; la UI renderiza las filas API preservadas mediante prueba automatizada.
+- Rutas: `/api/urgencias/resolution`, `/api/urgencias/frequentation` y clasificación añadida a `/api/urgencias/triage`.
+- Evidencia: [reconciliación ITER-004](../evidencia/RECONCILIACION_ITER004_2026-09-10.md).

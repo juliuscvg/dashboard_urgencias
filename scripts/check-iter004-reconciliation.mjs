@@ -1,0 +1,21 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const evidence = JSON.parse(fs.readFileSync(path.join(root, 'docs/evidencia/RECONCILIACION_ITER004_2026-09-10.json'), 'utf8'));
+const routes = fs.readFileSync(path.join(root, 'server/src/http/routes.ts'), 'utf8');
+const service = fs.readFileSync(path.join(root, 'server/src/service/urgencias.service.ts'), 'utf8');
+const ui = fs.readFileSync(path.join(root, 'client/src/App.tsx'), 'utf8');
+const errors = [];
+if (evidence.summary?.allExact !== true || evidence.summary?.exactComparisons !== 3 || evidence.summary?.totalComparisons !== 3) errors.push('Comparaciones incompletas');
+if (evidence.context?.secretsIncluded !== false || evidence.context?.directIdentifiersIncluded !== false) errors.push('Resguardo incompleto');
+for (const id of ['URG-MOD-05','URG-MOD-09','URG-TRI-02']) if (evidence.results?.[id]?.exact !== true) errors.push(`${id} no exacto`);
+if (evidence.results['URG-MOD-05'].sqlRows.reduce((sum, row) => sum + row.eventos, 0) !== 354) errors.push('MOD-05 no reconcilia U-ING');
+if (evidence.results['URG-MOD-09'].sqlRows.reduce((sum, row) => sum + row.pacientes, 0) !== 338) errors.push('MOD-09 pacientes');
+if (evidence.results['URG-TRI-02'].sqlRows.reduce((sum, row) => sum + row.eventos, 0) !== 51) errors.push('TRI-02 clasificados');
+for (const route of ['/urgencias/resolution','/urgencias/frequentation','/urgencias/triage']) if (!routes.includes(route)) errors.push(`Ruta ausente: ${route}`);
+for (const method of ['getResolution','getFrequentation','getTriage']) if (!service.includes(method)) errors.push(`Servicio ausente: ${method}`);
+for (const label of ['Destino de los eventos','Eventos por paciente','Clasificación nativa']) if (!ui.includes(label)) errors.push(`UI ausente: ${label}`);
+console.log(JSON.stringify({ comparisons: evidence.summary.exactComparisons, resolutionEvents: 354, frequentationPatients: 338, triageClassified: 51, errors }, null, 2));
+if (errors.length) process.exitCode = 1;

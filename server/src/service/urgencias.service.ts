@@ -1,5 +1,5 @@
-import type { DashboardFilters, DetailFilters, DemandPoint, EpisodeRow, ServiceDemand, Summary } from '../domain/types.js';
-import { fetchCurrent, fetchDemand, fetchEpisodes, fetchReadmissions, fetchSummaryBase, fetchTriage } from '../repository/urgencias.repository.js';
+import type { DashboardFilters, DetailFilters, DemandPoint, EpisodeRow, FrequentationBand, ResolutionItem, ServiceDemand, Summary, TriageCategory } from '../domain/types.js';
+import { fetchCurrent, fetchDemand, fetchEpisodes, fetchFrequentation, fetchReadmissions, fetchResolution, fetchSummaryBase, fetchTriage } from '../repository/urgencias.repository.js';
 
 const asNumber = (value: unknown): number => Number(value ?? 0);
 const nullableNumber = (value: unknown): number | null => value === null || value === undefined ? null : Number(value);
@@ -34,6 +34,24 @@ export async function getDemand(filters: DashboardFilters): Promise<{ tendencia:
   };
 }
 
+export async function getResolution(filters: DashboardFilters): Promise<{ categorias: ResolutionItem[] }> {
+  const rows = await fetchResolution(filters) as Record<string, unknown>[];
+  return { categorias: rows.map((row) => ({
+    destinoUrgPk: nullableNumber(row.destinoUrgPk),
+    destino: row.destino === null || row.destino === undefined ? null : String(row.destino),
+    eventos: asNumber(row.eventos),
+    porcentaje: nullableNumber(row.porcentaje),
+  })) };
+}
+
+export async function getFrequentation(filters: DashboardFilters): Promise<{ bandas: FrequentationBand[] }> {
+  const rows = await fetchFrequentation(filters) as Record<string, unknown>[];
+  return { bandas: rows.map((row) => ({
+    banda: String(row.banda) as FrequentationBand['banda'],
+    pacientes: asNumber(row.pacientes),
+  })) };
+}
+
 export async function getEpisodes(filters: DetailFilters): Promise<{ total: number; page: number; pageSize: number; rows: EpisodeRow[] }> {
   const result = await fetchEpisodes(filters);
   return { ...result, page: filters.page, pageSize: filters.pageSize };
@@ -58,6 +76,11 @@ export async function getTriage(filters: DashboardFilters) {
       centro: String(item.centro), codigoServicio: asNumber(item.codigoServicio), servicio: String(item.servicio),
       universoTotal: asNumber(item.universoTotal), eventosConTriage: asNumber(item.eventosConTriage),
       coberturaPct: nullableNumber(item.coberturaPct),
+    })),
+    clasificacion: result.clasificacion.map((item: any): TriageCategory => ({
+      triageCodigo: nullableNumber(item.triageCodigo),
+      triageDescripcion: item.triageDescripcion === null || item.triageDescripcion === undefined ? null : String(item.triageDescripcion),
+      eventos: asNumber(item.eventos), porcentajeSobreClasificados: nullableNumber(item.porcentajeSobreClasificados),
     })),
   };
 }

@@ -145,6 +145,46 @@ export async function fetchDemand(filters: DashboardFilters): Promise<{ tendenci
   return { tendencia: trend.recordset, servicios: services.recordset };
 }
 
+export async function fetchResolution(filters: DashboardFilters): Promise<unknown[]> {
+  const pool = await getPool();
+  const result = await bindFilters(pool.request(), filters).query(`
+    ${eventScopeSql()}
+    , Distribucion AS
+    (
+      SELECT destino_urg_pk, destino_urgencias, COUNT_BIG(*) AS eventos
+      FROM EventScope
+      GROUP BY destino_urg_pk, destino_urgencias
+    )
+    SELECT destino_urg_pk AS destinoUrgPk, destino_urgencias AS destino, eventos,
+      CAST(100.0 * eventos / NULLIF((SELECT SUM(eventos) FROM Distribucion), 0) AS decimal(9, 4)) AS porcentaje
+    FROM Distribucion
+    ORDER BY eventos DESC, destino_urg_pk, destino_urgencias;
+  `);
+  return result.recordset;
+}
+
+export async function fetchFrequentation(filters: DashboardFilters): Promise<unknown[]> {
+  const pool = await getPool();
+  const result = await bindFilters(pool.request(), filters).query(`
+    ${eventScopeSql()}
+    , Frecuencia AS
+    (
+      SELECT codigo_cliente, COUNT_BIG(*) AS eventos
+      FROM EventScope
+      WHERE codigo_cliente IS NOT NULL
+      GROUP BY codigo_cliente
+    )
+    SELECT CASE WHEN eventos = 1 THEN '1' WHEN eventos = 2 THEN '2' WHEN eventos = 3 THEN '3'
+        WHEN eventos BETWEEN 4 AND 5 THEN '4-5' WHEN eventos BETWEEN 6 AND 10 THEN '6-10' ELSE '11+' END AS banda,
+      COUNT_BIG(*) AS pacientes
+    FROM Frecuencia
+    GROUP BY CASE WHEN eventos = 1 THEN '1' WHEN eventos = 2 THEN '2' WHEN eventos = 3 THEN '3'
+        WHEN eventos BETWEEN 4 AND 5 THEN '4-5' WHEN eventos BETWEEN 6 AND 10 THEN '6-10' ELSE '11+' END
+    ORDER BY MIN(eventos);
+  `);
+  return result.recordset;
+}
+
 export async function fetchEpisodes(filters: DetailFilters): Promise<{ total: number; rows: EpisodeRow[] }> {
   const pool = await getPool();
   const result = await bindFilters(pool.request(), filters)
@@ -184,7 +224,7 @@ export async function fetchEpisodes(filters: DetailFilters): Promise<{ total: nu
   };
 }
 
-export async function fetchTriage(filters: DashboardFilters): Promise<{ resumen: Record<string, unknown>; servicios: unknown[] }> {
+export async function fetchTriage(filters: DashboardFilters): Promise<{ resumen: Record<string, unknown>; servicios: unknown[]; clasificacion: unknown[] }> {
   const pool = await getPool();
   const result = await bindFilters(pool.request(), filters).query(`
     ${eventScopeSql()}
@@ -209,7 +249,20 @@ export async function fetchTriage(filters: DashboardFilters): Promise<{ resumen:
     FROM EventScope
     GROUP BY centro, codigo_servicio, servicio
     ORDER BY centro, servicio, codigo_servicio;
+
+    ${eventScopeSql()}
+    , Distribucion AS
+    (
+      SELECT triage_codigo, triage_desc, COUNT_BIG(*) AS eventos
+      FROM EventScope
+      WHERE triage_codigo IS NOT NULL OR triage_desc IS NOT NULL
+      GROUP BY triage_codigo, triage_desc
+    )
+    SELECT triage_codigo AS triageCodigo, triage_desc AS triageDescripcion, eventos,
+      CAST(100.0 * eventos / NULLIF((SELECT SUM(eventos) FROM Distribucion), 0) AS decimal(9, 2)) AS porcentajeSobreClasificados
+    FROM Distribucion
+    ORDER BY triage_codigo, triage_desc;
   `);
   const sets = result.recordsets as sql.IRecordSet<Record<string, unknown>>[];
-  return { resumen: sets[0]?.[0] ?? {}, servicios: sets[1] ?? [] };
+  return { resumen: sets[0]?.[0] ?? {}, servicios: sets[1] ?? [], clasificacion: sets[2] ?? [] };
 }

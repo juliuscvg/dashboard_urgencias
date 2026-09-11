@@ -122,18 +122,18 @@ Los estados técnicos siguen [la convención HCG](https://github.com/juliuscvg/d
 
 ## URG-MOD-05 — Resolución y destino
 
-- Estado funcional: ACEPTADO. Estado técnico: IMPLEMENTADO NO VALIDADO.
+- Estado funcional: ACEPTADO. Estado técnico: RECONCILIADO CON FUENTE.
 - Definición: distribución por `destino_urg_pk/destino_urgencias` nativos.
 - Unidad: evento. Numerador: eventos de categoría. Denominador: EventScope.
 - NULL: NULL y N.E. pk 99 separados. No se fusiona motivo de alta.
 - Temporalidad/dimensiones: U-ING; categorías originales. Top N + Otros sólo presentación reversible.
 - SQL: [URG-MOD-05_RESOLUCION.sql](../../scripts/sql/indicadores/URG-MOD-05_RESOLUCION.sql).
 - Benchmark: NO DOCUMENTADO. Anomalías: variantes contradictorias visibles.
-- Implementación: SQL y destino en detalle; API/módulo agregado pendientes.
+- Implementación: `fetchResolution`, `/urgencias/resolution`, módulo agregado UI y destino en detalle; reconciliada con fuente.
 
 ## URG-MOD-09 — Frecuentación
 
-- Estado funcional: ACEPTADO. Estado técnico: IMPLEMENTADO NO VALIDADO.
+- Estado funcional: ACEPTADO. Estado técnico: RECONCILIADO CON FUENTE.
 - Definición: número de eventos por paciente durante el periodo.
 - Unidad: paciente. Bandas: 1, 2, 3, 4–5, 6–10, 11+.
 - NULL: pacientes no identificables no se clasifican; se reportan por separado en Pacientes únicos.
@@ -141,7 +141,7 @@ Los estados técnicos siguen [la convención HCG](https://github.com/juliuscvg/d
 - SQL: [URG-MOD-09_FRECUENTACION.sql](../../scripts/sql/indicadores/URG-MOD-09_FRECUENTACION.sql).
 - Benchmark: outlier histórico de 1,493 eventos conservado, no meta.
 - Drill-down: Top N sólo exploración autorizada.
-- Implementación: SQL verificable; API/UI pendientes.
+- Implementación: `fetchFrequentation`, `/urgencias/frequentation` y bandas completas en UI; reconciliada con fuente.
 
 ## URG-TRI-01 — Cobertura de Triage
 
@@ -156,14 +156,14 @@ Los estados técnicos siguen [la convención HCG](https://github.com/juliuscvg/d
 
 ## URG-TRI-02 — Clasificación de Triage
 
-- Estado funcional: ACEPTADO. Estado técnico: IMPLEMENTADO NO VALIDADO.
+- Estado funcional: ACEPTADO. Estado técnico: RECONCILIADO CON FUENTE.
 - Definición: distribución nativa 1 Crítico, 2 Emergencia, 3 Urgencia, 4 Estándar, 5 No Urgente, 6 Sin Evaluar.
 - Unidad: evento con clasificación. Denominador: clasificados; cobertura se presenta junto al resultado.
 - NULL: sin clasificación permanece fuera del denominador y visible en cobertura.
 - Temporalidad/dimensiones: U-ING, centro, servicio, periodo.
 - SQL: [URG-TRI-02_CLASIFICACION.sql](../../scripts/sql/indicadores/URG-TRI-02_CLASIFICACION.sql).
 - Benchmark: NO DOCUMENTADO. No crear homologaciones, metas o semáforos.
-- Implementación: SQL verificable; API/UI pendientes.
+- Implementación: clasificación en `fetchTriage`, `/urgencias/triage` y UI junto a cobertura; reconciliada con fuente.
 
 ## URG-TRI-03 — Tiempo registrado a Triage
 

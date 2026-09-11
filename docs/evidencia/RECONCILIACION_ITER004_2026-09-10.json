@@ -1,0 +1,221 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-09-11T04:52:33.761Z",
+  "context": {
+    "desde": "2026-08-01",
+    "hasta": "2026-08-01",
+    "centro": null,
+    "codigoServicio": null,
+    "source": "dbo.vUrgencias",
+    "apiBase": "http://localhost:3102/api",
+    "secretsIncluded": false,
+    "directIdentifiersIncluded": false
+  },
+  "results": {
+    "URG-MOD-05": {
+      "sqlRows": [
+        {
+          "destinoUrgPk": 1,
+          "destino": "DOMICILIO",
+          "eventos": 218,
+          "porcentaje": 61.5819
+        },
+        {
+          "destinoUrgPk": 5,
+          "destino": "HOSP. PISO",
+          "eventos": 96,
+          "porcentaje": 27.1186
+        },
+        {
+          "destinoUrgPk": 2,
+          "destino": "CONSULTA EXTERNA",
+          "eventos": 21,
+          "porcentaje": 5.9322
+        },
+        {
+          "destinoUrgPk": 12,
+          "destino": "FUGA",
+          "eventos": 8,
+          "porcentaje": 2.2599
+        },
+        {
+          "destinoUrgPk": 19,
+          "destino": "ALTA VOLUNTARIA",
+          "eventos": 4,
+          "porcentaje": 1.1299
+        },
+        {
+          "destinoUrgPk": 99,
+          "destino": "N.E.",
+          "eventos": 4,
+          "porcentaje": 1.1299
+        },
+        {
+          "destinoUrgPk": 9,
+          "destino": "DEFUNCION",
+          "eventos": 2,
+          "porcentaje": 0.565
+        },
+        {
+          "destinoUrgPk": 16,
+          "destino": "TRASLADO PARTICULAR",
+          "eventos": 1,
+          "porcentaje": 0.2825
+        }
+      ],
+      "apiRows": [
+        {
+          "destinoUrgPk": 1,
+          "destino": "DOMICILIO",
+          "eventos": 218,
+          "porcentaje": 61.5819
+        },
+        {
+          "destinoUrgPk": 5,
+          "destino": "HOSP. PISO",
+          "eventos": 96,
+          "porcentaje": 27.1186
+        },
+        {
+          "destinoUrgPk": 2,
+          "destino": "CONSULTA EXTERNA",
+          "eventos": 21,
+          "porcentaje": 5.9322
+        },
+        {
+          "destinoUrgPk": 12,
+          "destino": "FUGA",
+          "eventos": 8,
+          "porcentaje": 2.2599
+        },
+        {
+          "destinoUrgPk": 19,
+          "destino": "ALTA VOLUNTARIA",
+          "eventos": 4,
+          "porcentaje": 1.1299
+        },
+        {
+          "destinoUrgPk": 99,
+          "destino": "N.E.",
+          "eventos": 4,
+          "porcentaje": 1.1299
+        },
+        {
+          "destinoUrgPk": 9,
+          "destino": "DEFUNCION",
+          "eventos": 2,
+          "porcentaje": 0.565
+        },
+        {
+          "destinoUrgPk": 16,
+          "destino": "TRASLADO PARTICULAR",
+          "eventos": 1,
+          "porcentaje": 0.2825
+        }
+      ],
+      "sqlElapsedMs": 2604,
+      "apiElapsedMs": 2321,
+      "exact": true
+    },
+    "URG-MOD-09": {
+      "sqlRows": [
+        {
+          "banda": "1",
+          "pacientes": 322
+        },
+        {
+          "banda": "2",
+          "pacientes": 16
+        }
+      ],
+      "apiRows": [
+        {
+          "banda": "1",
+          "pacientes": 322
+        },
+        {
+          "banda": "2",
+          "pacientes": 16
+        }
+      ],
+      "sqlElapsedMs": 975,
+      "apiElapsedMs": 1074,
+      "exact": true
+    },
+    "URG-TRI-02": {
+      "sqlRows": [
+        {
+          "triageCodigo": 1,
+          "triageDescripcion": "Crítico",
+          "eventos": 1,
+          "porcentajeSobreClasificados": 1.96
+        },
+        {
+          "triageCodigo": 2,
+          "triageDescripcion": "Emergencia",
+          "eventos": 6,
+          "porcentajeSobreClasificados": 11.76
+        },
+        {
+          "triageCodigo": 3,
+          "triageDescripcion": "Urgencia",
+          "eventos": 19,
+          "porcentajeSobreClasificados": 37.25
+        },
+        {
+          "triageCodigo": 4,
+          "triageDescripcion": "Estándar",
+          "eventos": 22,
+          "porcentajeSobreClasificados": 43.14
+        },
+        {
+          "triageCodigo": 5,
+          "triageDescripcion": "No Urgente",
+          "eventos": 3,
+          "porcentajeSobreClasificados": 5.88
+        }
+      ],
+      "apiRows": [
+        {
+          "triageCodigo": 1,
+          "triageDescripcion": "Crítico",
+          "eventos": 1,
+          "porcentajeSobreClasificados": 1.96
+        },
+        {
+          "triageCodigo": 2,
+          "triageDescripcion": "Emergencia",
+          "eventos": 6,
+          "porcentajeSobreClasificados": 11.76
+        },
+        {
+          "triageCodigo": 3,
+          "triageDescripcion": "Urgencia",
+          "eventos": 19,
+          "porcentajeSobreClasificados": 37.25
+        },
+        {
+          "triageCodigo": 4,
+          "triageDescripcion": "Estándar",
+          "eventos": 22,
+          "porcentajeSobreClasificados": 43.14
+        },
+        {
+          "triageCodigo": 5,
+          "triageDescripcion": "No Urgente",
+          "eventos": 3,
+          "porcentajeSobreClasificados": 5.88
+        }
+      ],
+      "coberturaApi": 14.41,
+      "sqlElapsedMs": 2268,
+      "apiElapsedMs": 4007,
+      "exact": true
+    }
+  },
+  "summary": {
+    "exactComparisons": 3,
+    "totalComparisons": 3,
+    "allExact": true
+  }
+}

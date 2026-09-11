@@ -39,6 +39,8 @@ export function App() {
   const summary = useQuery({ queryKey: ['summary', filters], queryFn: () => api.summary(filters) });
   const triage = useQuery({ queryKey: ['triage', filters], queryFn: () => api.triage(filters) });
   const demand = useQuery({ queryKey: ['demand', filters], queryFn: () => api.demand(filters) });
+  const resolution = useQuery({ queryKey: ['resolution', filters], queryFn: () => api.resolution(filters) });
+  const frequentation = useQuery({ queryKey: ['frequentation', filters], queryFn: () => api.frequentation(filters) });
   const episodes = useQuery({ queryKey: ['episodes', filters, page], queryFn: () => api.episodes(filters, page) });
   useEffect(() => {
     const p = new URLSearchParams({ desde: filters.desde, hasta: filters.hasta });
@@ -47,8 +49,8 @@ export function App() {
     history.replaceState(null, '', `?${p}`);
   }, [filters]);
   const apply = (event: React.FormEvent) => { event.preventDefault(); setPage(1); setFilters(draft); };
-  const loading = summary.isLoading || demand.isLoading || triage.isLoading;
-  const error = summary.error || demand.error || triage.error || episodes.error || catalogs.error;
+  const loading = summary.isLoading || demand.isLoading || triage.isLoading || resolution.isLoading || frequentation.isLoading;
+  const error = summary.error || demand.error || triage.error || resolution.error || frequentation.error || episodes.error || catalogs.error;
 
   return <div className="app">
     <header className="topbar"><div className="brand-mark">HCG</div><div><p>Hospital Civil de Guadalajara</p><h1>Dashboard de Urgencias</h1></div><span className="status"><i/> Datos operativos</span></header>
@@ -85,6 +87,12 @@ export function App() {
         <div className="triage-grid"><div><b>{integer.format(triage.data?.resumen.eventosConTriage ?? 0)}</b><span>con Triage</span></div><div><b>{integer.format(triage.data?.resumen.universoTotal ?? 0)}</b><span>universo total</span></div><div><b>{metric(triage.data?.resumen.tiempoPromedioMinutos ?? null, ' min')}</b><span>tiempo registrado promedio</span></div><div><b>{integer.format(triage.data?.resumen.secuenciasInvertidas ?? 0)}</b><span>secuencias a revisar</span></div></div>
         <p className="context">La ausencia de Triage no excluye atenciones. El tiempo usa sólo secuencias cronológicamente interpretables y conserva los extremos; {integer.format(triage.data?.resumen.tiemposMayorIgual24h ?? 0)} casos son ≥24 h y {integer.format(triage.data?.resumen.tiemposMayorIgual7d ?? 0)} son ≥7 días.</p>
         <div className="coverage-list">{triage.data?.servicios.map((item) => <div key={item.codigoServicio}><span><b>{item.servicio}</b><small>{item.centro} · {integer.format(item.eventosConTriage)} de {integer.format(item.universoTotal)}</small></span><meter min="0" max="100" value={item.coberturaPct ?? 0}/><strong>{percent(item.coberturaPct)}</strong></div>)}</div>
+        <div className="distribution-head"><h4>Clasificación nativa</h4><small>Porcentaje sobre eventos clasificados</small></div>
+        <div className="distribution-list">{triage.data.clasificacion.map((item) => <div key={`${item.triageCodigo ?? 'null'}-${item.triageDescripcion ?? ''}`}><span><b>{item.triageCodigo ?? 'Sin código'} · {item.triageDescripcion ?? 'Sin descripción'}</b><small>{integer.format(item.eventos)} eventos</small></span><meter min="0" max="100" value={item.porcentajeSobreClasificados ?? 0}/><strong>{percent(item.porcentajeSobreClasificados)}</strong></div>)}</div>
+      </section>}
+      {(resolution.data || frequentation.data) && <section className="analytics-grid">
+        {resolution.data && <article className="panel"><div className="panel-head"><div><span className="eyebrow">Resolución</span><h3>Destino de los eventos</h3></div></div><p className="context">Categorías nativas; sin fusionar destino, motivo de alta, N.E. o ausencia.</p><div className="distribution-list">{resolution.data.categorias.map((item) => <div key={`${item.destinoUrgPk ?? 'null'}-${item.destino ?? ''}`}><span><b>{item.destino ?? 'Sin registro'}</b><small>Clave {item.destinoUrgPk ?? 'sin dato'} · {integer.format(item.eventos)} eventos</small></span><meter min="0" max="100" value={item.porcentaje ?? 0}/><strong>{percent(item.porcentaje)}</strong></div>)}</div></article>}
+        {frequentation.data && <article className="panel"><div className="panel-head"><div><span className="eyebrow">Frecuentación</span><h3>Eventos por paciente</h3></div></div><p className="context">Distribución descriptiva de pacientes identificables; sin juicio de uso.</p><div className="band-grid">{frequentation.data.bandas.map((item) => <div key={item.banda}><b>{item.banda}</b><span>eventos</span><strong>{integer.format(item.pacientes)}</strong><small>pacientes</small></div>)}</div></article>}
       </section>}
       <section className="panel detail"><div className="panel-head"><div><span className="eyebrow">Trazabilidad</span><h3>Detalle de eventos</h3></div><span>{integer.format(episodes.data?.total ?? 0)} registros</span></div>
         <div className="table-wrap"><table><thead><tr><th>Evento</th><th>Ingreso</th><th>Centro / servicio</th><th>Destino</th><th>Estancia</th><th>Calidad</th></tr></thead><tbody>
@@ -93,7 +101,7 @@ export function App() {
         </tbody></table></div>
         <div className="pager"><button disabled={page === 1} onClick={() => setPage(page - 1)}>Anterior</button><span>Página {page}</span><button disabled={!episodes.data || page * episodes.data.pageSize >= episodes.data.total} onClick={() => setPage(page + 1)}>Siguiente</button></div>
       </section>
-      <section className="roadmap"><div><span className="eyebrow">Siguientes módulos</span><h3>Evolución funcional</h3></div>{['Permanencia avanzada','Destinos y altas','Población','Calidad de datos'].map((name) => <article key={name}><i/> <span>{name}<small>Contrato validado · implementación pendiente</small></span></article>)}</section>
+      <section className="roadmap"><div><span className="eyebrow">Siguientes módulos</span><h3>Evolución funcional</h3></div>{['Permanencia avanzada','Población','Calidad de datos'].map((name) => <article key={name}><i/> <span>{name}<small>Contrato validado · implementación pendiente</small></span></article>)}</section>
     </main>
     <footer>Uso institucional · Información operativa sin datos identificables de pacientes</footer>
   </div>;

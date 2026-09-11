@@ -13,10 +13,10 @@ Corte: 2026-09-10. Fuente canónica de estados; las fórmulas residen en [contra
 | URG-EJ-07 | Atenciones por paciente | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y contexto UI exactos antes de formato |
 | URG-ACT-01 | Activos probables | ACEPTADO | RECONCILIADO CON FUENTE CON LIMITACIÓN | Conteo SQL/API/UI exacto; fuente viva sin snapshot y bandas API pendientes |
 | URG-MOD-01 | Demanda diaria | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API, tendencia UI y total de detalle exactos |
-| URG-MOD-05 | Resolución / destino | ACEPTADO | RECONCILIADO EN CAPAS DISPONIBLES | SQL y distribución de detalle exactos; agregado API/UI pendiente |
-| URG-MOD-09 | Frecuentación | ACEPTADO | SQL VALIDADO CON FUENTE | SQL ejecutado; API/UI pendientes |
+| URG-MOD-05 | Resolución / destino | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API, UI y detalle exactos |
+| URG-MOD-09 | Frecuentación | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y UI exactos |
 | URG-TRI-01 | Cobertura de Triage | ACEPTADO | RECONCILIADO CON FUENTE | SQL, servicios API y UI exactos |
-| URG-TRI-02 | Clasificación de Triage | ACEPTADO | SQL VALIDADO CON FUENTE | SQL ejecutado; API/UI pendientes |
+| URG-TRI-02 | Clasificación de Triage | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y UI exactos; cobertura conjunta |
 | URG-TRI-03 | Tiempo registrado a Triage | ACEPTADO CON OBSERVACIONES | RECONCILIADO EN CAPAS DISPONIBLES | Resumen SQL/API/UI exacto; bandas API/UI pendientes |
 | URG-PEND-01 | Atención médica | EN PROCESO | NO IMPLEMENTADO | `Fechaing→fechaate`; contrato final pendiente |
 | URG-PEND-02 | Alta médica | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | `fechamed` canónico actual del hito registrado; `altamed_fecha` auxiliar; sin API/UI |
@@ -42,3 +42,7 @@ La evidencia de `cdiag_ing`/`diag_ing` y `cdiag_egr`/`diag_egr` cubre cohortes c
 ## Validación Motivo de Urgencia 2026-09-10
 
 La evidencia de `motivo_urgencia` y `motivo_urg_libre` cubre cohortes cerradas de 12, 24 y 36 meses. Define categoría nativa y texto complementario sensible con coberturas independientes; no acepta un KPI ni autoriza API/UI. Ver [evidencia Motivo](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.md).
+
+## Reconciliación ITER-004 — 2026-09-10
+
+MOD-05, MOD-09 y TRI-02 cerraron su brecha API/UI sin cambios funcionales. Las tres salidas coincidieron exactamente con sus SQL aceptados y la representación UI se validó con las filas API preservadas. Ver [evidencia ITER-004](../evidencia/RECONCILIACION_ITER004_2026-09-10.md).

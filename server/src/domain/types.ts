@@ -51,6 +51,25 @@ export interface ServiceDemand {
   estado: 'CON_ACTIVIDAD' | 'SIN_ACTIVIDAD_EN_EL_PERIODO';
 }
 
+export interface ResolutionItem {
+  destinoUrgPk: number | null;
+  destino: string | null;
+  eventos: number;
+  porcentaje: number | null;
+}
+
+export interface FrequentationBand {
+  banda: '1' | '2' | '3' | '4-5' | '6-10' | '11+';
+  pacientes: number;
+}
+
+export interface TriageCategory {
+  triageCodigo: number | null;
+  triageDescripcion: string | null;
+  eventos: number;
+  porcentajeSobreClasificados: number | null;
+}
+
 export interface EpisodeRow {
   idUrgencia: number;
   fechaIngreso: string | null;

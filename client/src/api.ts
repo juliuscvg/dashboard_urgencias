@@ -18,6 +18,16 @@ export type Triage = {
     tiemposMayorIgual24h: number; tiemposMayorIgual7d: number };
   servicios: Array<{ centro: string; codigoServicio: number; servicio: string; universoTotal: number;
     eventosConTriage: number; coberturaPct: number | null }>;
+  clasificacion: Array<{ triageCodigo: number | null; triageDescripcion: string | null; eventos: number;
+    porcentajeSobreClasificados: number | null }>;
+};
+
+export type Resolution = {
+  categorias: Array<{ destinoUrgPk: number | null; destino: string | null; eventos: number; porcentaje: number | null }>;
+};
+
+export type Frequentation = {
+  bandas: Array<{ banda: '1' | '2' | '3' | '4-5' | '6-10' | '11+'; pacientes: number }>;
 };
 
 export type Catalogs = {
@@ -48,5 +58,7 @@ export const api = {
   summary: (filters: Filters) => get<Summary>(`/api/urgencias/summary?${params(filters)}`),
   triage: (filters: Filters) => get<Triage>(`/api/urgencias/triage?${params(filters)}`),
   demand: (filters: Filters) => get<Demand>(`/api/urgencias/demand?${params(filters)}`),
+  resolution: (filters: Filters) => get<Resolution>(`/api/urgencias/resolution?${params(filters)}`),
+  frequentation: (filters: Filters) => get<Frequentation>(`/api/urgencias/frequentation?${params(filters)}`),
   episodes: (filters: Filters, page: number) => get<Episodes>(`/api/urgencias/episodes?${params({ ...filters, page, pageSize: 20 })}`),
 };
