@@ -69,3 +69,30 @@ La evidencia, los ejemplos pseudonimizados y las ventanas 12/24/36 meses están 
 - Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN.
 - Fuentes: `estado_residencia`, `nombre_municipio_residencia`, `nombre_localidad_residencia`.
 - Cobertura y categorías nativas por periodo, centro y servicio; faltantes y variantes se conservan. No normalizar ni inferir residencia.
+
+## URG-DIAG-01 — Diagnóstico de ingreso codificado
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN; no KPI aceptado.
+- Fuente: `cdiag_ing`/`diag_ing`. Prácticamente 1:1 código↔descripción (6163 códigos, 6164 pares en la cohorte cerrada de 36 meses).
+- No se infiere CIE, familia clínica ni severidad; se conserva el código/descripción nativo.
+
+## URG-DIAG-02 — Diagnóstico de egreso codificado
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN; no KPI aceptado.
+- Fuente: `cdiag_egr`/`diag_egr`. No es 1:1: 6250 códigos y 9613 pares en 36 meses; 507 códigos tienen entre 2 y 4 descripciones distintas (verificado contra fuente).
+- La multiplicidad descripción↔código es cardinalidad nativa observada, no se corrige ni se elige una descripción canónica.
+
+## URG-DIAG-03 — Texto de egreso no codificado
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN; complementario, no KPI.
+- Población: eventos con `diag_egr` no nulo y `cdiag_egr` nulo. En 36 meses: 6257 eventos, 2842 valores de texto distintos.
+- El texto mezcla contenido clínico, variantes de captura y mensajes operativos; se preserva tal cual, sin inferir código CIE ni limpiar el texto.
+
+## URG-DIAG-04 — Cobertura y comparación ingreso/egreso
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN; no KPI aceptado.
+- Cruce por evento U-ING: ambos códigos, mismo código, código diferente, sólo ingreso, sólo egreso, ninguno; ventanas 12/24/36 meses.
+- Ingreso y egreso son dimensiones independientes: no se asume relación, transición ni causalidad entre ambos valores.
+- Limitación: es comparación descriptiva de cobertura y correspondencia, no interpretación clínica.
+
+La evidencia y las ventanas 12/24/36 meses están en [validación Diagnósticos](../evidencia/VALIDACION_DIAGNOSTICOS_2026-09-10.md).

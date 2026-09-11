@@ -375,3 +375,11 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Decisión: Población se caracteriza sobre U-ING. Edad canónica propuesta: `fecha_nac` respecto de `Fechaing`; sexo y residencia conservan valores nativos. Servicio nunca sustituye población.
 - Limitaciones: no combinar `EdadMeses`/`EdadDias`; no inferir pediatría, adultez u obstetricia por edad, sexo o servicio. Nulos, extremos y variantes geográficas se conservan.
 - Evidencia: [validación Población](../evidencia/VALIDACION_POBLACION_2026-09-10.md).
+
+### URG-GOV-048 — Diagnósticos de Urgencias
+
+- Estado: DEFINIDA FUNCIONALMENTE / VALIDADA CON FUENTE; no KPI ni API/UI.
+- Decisión: Diagnóstico de ingreso (`cdiag_ing`/`diag_ing`) y de egreso (`cdiag_egr`/`diag_egr`) son dimensiones independientes; código y descripción nativos se conservan sin inferir CIE, familia clínica, severidad ni concordancia.
+- Hallazgos: ingreso es prácticamente 1:1 código↔descripción (6163 códigos, 6164 pares en 36m); egreso no lo es (6250 códigos, 9613 pares en 36m; 507 códigos con 2–4 descripciones, verificado contra fuente). 6257 eventos en 36m tienen `diag_egr` sin `cdiag_egr` (2842 valores de texto distintos), preservados como texto no codificado.
+- Limitaciones: no se normaliza ni clasifica el texto de egreso sin código; no se implementa SQL productivo, API, UI ni indicador.
+- Contratos: [URG-DIAG-01..04](../indicadores/CONTRATOS_EN_VALIDACION.md). Evidencia: [validación Diagnósticos](../evidencia/VALIDACION_DIAGNOSTICOS_2026-09-10.md).

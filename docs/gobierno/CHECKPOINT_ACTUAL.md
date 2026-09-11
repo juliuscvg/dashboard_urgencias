@@ -10,33 +10,45 @@ Dashboard Urgencias HCG
 main
 
 ## HEAD base de la iteración
-1409fe2d338234d7e7453df01b1255ba18fb81a3
+1090e459777da4044ce3ddeb0175efaa579bf920
 
 ## Iteración actual
-Validación funcional de Población en Urgencias.
+Validación funcional de Diagnósticos de Urgencias. Ver [ITER-001](../iteraciones/ITER-001.md).
 
 ## Estado de la iteración
 COMPLETADA
 
 ## Completado
-- [x] Metadatos y validación read-only 12/24/36 meses para sexo, edad y residencia.
-- [x] Edad al evento definida con fecha_nac respecto de Fechaing; meses/días no combinados.
-- [x] Grupos etarios descriptivos y categorías nativas documentados sin inferir población desde servicio.
-- [x] Cobertura por periodo, centro y servicio; extremos, faltantes y variantes preservados.
-- [x] Contratos URG-POB-01..04, evidencia, estados, reglas, diccionario y decisiones actualizados.
+- [x] Diagnóstico de ingreso y de egreso tratados como dimensiones independientes; código y descripción nativos conservados.
+- [x] Cobertura y cruce ingreso/egreso 12/24/36 meses (ambos códigos, mismo, diferente, sólo ingreso, sólo egreso, ninguno).
+- [x] Cardinalidad código↔descripción por ventana: ingreso prácticamente 1:1; egreso con 507 códigos con 2–4 descripciones (verificado contra fuente).
+- [x] Disponibilidad de código/descripción de egreso (COD_DESC/COD_SIN_DESC/DESC_SIN_COD/NINGUNO) y texto de egreso no codificado (6257 eventos, 2842 valores en 36m) preservados.
+- [x] Contratos URG-DIAG-01..04, evidencia, estados, diccionario y decisiones actualizados.
 - [x] No API/UI, no SQL productivo, no cambios CEX.
 
+## Avance preservado
+- `.tmp/diag.json`: cobertura, ingreso/egreso y cardinalidad 12/24/36m.
+- `.tmp/diag-detail.json`: detalle de códigos de egreso con múltiples descripciones.
+- `.tmp/diag-egr-disponibilidad.json`: disponibilidad código/descripción de egreso 12/24/36m.
+- `.tmp/diag-egr-texto-valores.json`: valores de texto de egreso sin código.
+- Evidencia consolidada en [VALIDACION_DIAGNOSTICOS_2026-09-10](../evidencia/VALIDACION_DIAGNOSTICOS_2026-09-10.md).
+
+## Decisiones de inicio
+- Diagnósticos conserva código y descripción nativos; ingreso y egreso son dimensiones independientes.
+- No se infieren familias clínicas, severidad, calidad ni concordancia.
+
 ## Pendientes
-- Aceptación institucional de KPI o visualizaciones de Población.
+- Aceptación institucional de KPI o visualizaciones de Diagnósticos y de Población.
 - Semántica institucional de EdadMeses y EdadDias.
 - Normalización geográfica sólo con decisión institucional.
 
 ## NO REPETIR
 - Reconciliación Git/checkpoint, metadatos y corridas Población 12/24/36 ya registradas.
+- Cobertura, cruce ingreso/egreso, cardinalidad y disponibilidad de Diagnósticos 12/24/36 ya registradas.
 - AMED, reconciliación de indicadores implementados y auditoría transversal.
 
 ## Próxima acción exacta
-No realizar acciones adicionales en esta iteración; partir de la evidencia POB versionada. No push sin instrucción explícita.
+Ninguna acción adicional en esta iteración; partir de la evidencia de Diagnósticos versionada para cualquier ampliación futura (patrones por centro-servicio, si se autoriza).
 
 ## Commit de cierre
-Consolidado localmente en el commit que contiene este checkpoint; sin push.
+Consolidado en el commit `[URG][DIAG] Cerrar validación funcional de Diagnósticos` (ver `git log`).

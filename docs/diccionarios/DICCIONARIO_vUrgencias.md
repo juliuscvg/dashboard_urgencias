@@ -35,8 +35,8 @@ Versión: 2026-09-08.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no
 | EdadDias | NO DOCUMENTADO | vUrgencias | Edad comunicada en días | Pediatría futura | AUXILIAR | Sí | Unidad/componente por validar | No sumar sin semántica | PEND-04 |
 | motivo_urgencia | NO DOCUMENTADO | vUrgencias | Motivo categórico comunicado | Clínica futura | AUXILIAR | Sí | Catálogo pendiente | POR DEFINIR | PEND-06 |
 | motivo_urg_libre | NO DOCUMENTADO | vUrgencias | Texto libre de motivo | Búsqueda/detalle autorizado | AUXILIAR SENSIBLE | Sí | NO APLICA para ranking ejecutivo | Privacidad | PEND-06 |
-| cdiag_ing / diag_ing | NO DOCUMENTADO | vUrgencias | Diagnóstico de ingreso | Clínica futura | AUXILIAR | Sí | Código/descripción | POR DEFINIR | PEND-05 |
-| cdiag_egr / diag_egr | NO DOCUMENTADO | vUrgencias | Diagnóstico de egreso | Clínica futura | AUXILIAR | Sí | Código/descripción | POR DEFINIR | PEND-05 |
+| cdiag_ing / diag_ing | NO DOCUMENTADO | vUrgencias | Diagnóstico de ingreso, código y descripción nativos | Clínica futura | CANÓNICO PROPUESTO CON EVIDENCIA | Sí | Prácticamente 1:1 código↔descripción; independiente de egreso | EN VALIDACIÓN; no implementar; no inferir CIE/familia/severidad | PEND-05 |
+| cdiag_egr / diag_egr | NO DOCUMENTADO | vUrgencias | Diagnóstico de egreso, código y descripción nativos | Clínica futura | CANÓNICO PROPUESTO CON EVIDENCIA | Sí | No 1:1 (507 códigos con 2–4 descripciones); `diag_egr` puede existir sin `cdiag_egr` (texto no codificado) | EN VALIDACIÓN; no implementar; no normalizar texto ni inferir CIE | PEND-05 |
 
 ## Campos no identificados inequívocamente
 
