@@ -22,6 +22,7 @@ Cadena exigida: principio HCG → regla local → contrato → fuente/campos →
 | URG-PEND-01 Atención médica | HCG-TRZ-001; URG-R04 | Fechaing/fechaate | NO APLICA: estado EN PROCESO | No implementado | Evidencia funcional pendiente |
 | URG-PEND-02 Alta médica | HCG-TRZ-001; URG-R02/04 | fechamed canónico actual; altamed_fecha auxiliar | SQL AMED read-only, no productivo | No implementado | [Evidencia AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md); no aceptada |
 | URG-PEND-03 Secuencia temporal | HCG-TRZ-001; URG-R04 | Cinco timestamps; faltantes permitidos | SQL AMED read-only, análisis complementario | No implementado | [Evidencia AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md); POR DEFINIR |
-| URG-PEND-04..07 | Reglas locales pendientes | Estado de indicadores | NO APLICA mientras no estén aceptados | No implementado | Pendiente/diferido |
+| URG-PEND-04/05/07 | Reglas locales pendientes | Estado de indicadores | NO APLICA mientras no estén aceptados | No implementado | Validado o diferido según estado |
+| URG-PEND-06 Motivo de urgencia | HCG-TRZ-001; reglas locales de clínica secundaria | URG-MOT-01..03; vUrgencias.motivo_urgencia/motivo_urg_libre | SQL 07 read-only, no productivo | No implementado | [Evidencia Motivo](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.md); EN VALIDACIÓN |
 
 Nombres completos y rutas están en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md). Casos en [evidencia](../evidencia/CASOS_PATRON_VIGENTES.md), decisiones en [bitácora](DECISIONES_Y_CAMBIOS.md) y adopción en [HCG](ADOPCION_HCG.md).

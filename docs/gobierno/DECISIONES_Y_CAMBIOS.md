@@ -383,3 +383,12 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Hallazgos: ingreso es prácticamente 1:1 código↔descripción (6163 códigos, 6164 pares en 36m); egreso no lo es (6250 códigos, 9613 pares en 36m; 507 códigos con 2–4 descripciones, verificado contra fuente). 6257 eventos en 36m tienen `diag_egr` sin `cdiag_egr` (2842 valores de texto distintos), preservados como texto no codificado.
 - Limitaciones: no se normaliza ni clasifica el texto de egreso sin código; no se implementa SQL productivo, API, UI ni indicador.
 - Contratos: [URG-DIAG-01..04](../indicadores/CONTRATOS_EN_VALIDACION.md). Evidencia: [validación Diagnósticos](../evidencia/VALIDACION_DIAGNOSTICOS_2026-09-10.md).
+
+### URG-GOV-049 — Motivo de Urgencia
+
+- Estado: DEFINIDA FUNCIONALMENTE / VALIDADA CON FUENTE; no KPI ni API/UI.
+- Decisión: motivo_urgencia es la dimensión categórica nativa del motivo registrado; motivo_urg_libre es texto complementario sensible y no equivale ni sustituye a la categoría.
+- Hallazgos: la categoría tuvo 100% de cobertura y 15 valores nativos en 12/24/36 meses. El texto cubrió 13.61% / 12.30% / 13.46%; en 36 meses presentó 21,443 valores distintos y una variación marcada por centro y servicio.
+- Reglas: preservar valores originales; no inferir categorías, diagnóstico, gravedad, causalidad o calidad; no exponer texto en evidencia ni rankings.
+- Limitaciones: autoridad institucional del catálogo, procedencia anterior a la vista y política de acceso al texto quedan pendientes. No se implementa SQL productivo, API, UI ni indicador.
+- Contratos: [URG-MOT-01..03](../indicadores/CONTRATOS_EN_VALIDACION.md). Evidencia: [validación Motivo](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.md).

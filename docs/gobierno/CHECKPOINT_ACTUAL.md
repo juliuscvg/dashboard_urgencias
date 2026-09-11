@@ -1,54 +1,61 @@
 # Checkpoint actual
 
 ## Proyecto
+
 Dashboard Urgencias HCG
 
 ## Última actualización
+
 2026-09-10, America/Mexico_City
 
 ## Rama
+
 main
 
 ## HEAD base de la iteración
-1090e459777da4044ce3ddeb0175efaa579bf920
+
+079c28677687dc0ad1cf7a9bc3985650e350ff15
 
 ## Iteración actual
-Validación funcional de Diagnósticos de Urgencias. Ver [ITER-001](../iteraciones/ITER-001.md).
+
+Validación funcional de Motivo de Urgencia. Ver [ITER-002](../iteraciones/ITER-002.md).
 
 ## Estado de la iteración
+
 COMPLETADA
 
 ## Completado
-- [x] Diagnóstico de ingreso y de egreso tratados como dimensiones independientes; código y descripción nativos conservados.
-- [x] Cobertura y cruce ingreso/egreso 12/24/36 meses (ambos códigos, mismo, diferente, sólo ingreso, sólo egreso, ninguno).
-- [x] Cardinalidad código↔descripción por ventana: ingreso prácticamente 1:1; egreso con 507 códigos con 2–4 descripciones (verificado contra fuente).
-- [x] Disponibilidad de código/descripción de egreso (COD_DESC/COD_SIN_DESC/DESC_SIN_COD/NINGUNO) y texto de egreso no codificado (6257 eventos, 2842 valores en 36m) preservados.
-- [x] Contratos URG-DIAG-01..04, evidencia, estados, diccionario y decisiones actualizados.
-- [x] No API/UI, no SQL productivo, no cambios CEX.
 
-## Avance preservado
-- `.tmp/diag.json`: cobertura, ingreso/egreso y cardinalidad 12/24/36m.
-- `.tmp/diag-detail.json`: detalle de códigos de egreso con múltiples descripciones.
-- `.tmp/diag-egr-disponibilidad.json`: disponibilidad código/descripción de egreso 12/24/36m.
-- `.tmp/diag-egr-texto-valores.json`: valores de texto de egreso sin código.
-- Evidencia consolidada en [VALIDACION_DIAGNOSTICOS_2026-09-10](../evidencia/VALIDACION_DIAGNOSTICOS_2026-09-10.md).
+- [x] Validación read-only de `motivo_urgencia` y `motivo_urg_libre` sobre U-ING en ventanas 12/24/36 meses.
+- [x] Cobertura, cardinalidad, categorías nativas, relación entre campos y patrones por periodo, centro y servicio.
+- [x] `motivo_urgencia` definido como dimensión categórica nativa; cobertura de 100% y 15 categorías en las tres ventanas.
+- [x] `motivo_urg_libre` definido como información textual complementaria sensible; cobertura propia y sin inferencia de categorías.
+- [x] Contratos URG-MOT-01..03, evidencia, estados, diccionario, decisión y trazabilidad actualizados.
+- [x] Sin valores de texto libre ni identificadores directos en evidencia versionada.
+- [x] Sin fuentes clínicas adicionales; dbo.servicios se usó sólo para aplicar el universo U-ING vigente. Sin API/UI, SQL productivo ni cambios en otros dashboards.
 
-## Decisiones de inicio
-- Diagnósticos conserva código y descripción nativos; ingreso y egreso son dimensiones independientes.
-- No se infieren familias clínicas, severidad, calidad ni concordancia.
+## Evidencia preservada
 
-## Pendientes
-- Aceptación institucional de KPI o visualizaciones de Diagnósticos y de Población.
-- Semántica institucional de EdadMeses y EdadDias.
-- Normalización geográfica sólo con decisión institucional.
+- [Validación de Motivo de Urgencia](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.md).
+- [Resultado agregado](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.json).
+- `scripts/sql/07_validacion_motivo_urgencia.sql` y `scripts/run-motivo-validation.mjs`.
+
+## Pendientes gobernados
+
+- Aceptación institucional de KPI o visualizaciones para Motivo de Urgencia.
+- Autoridad institucional y procedencia física anterior a la vista para el catálogo de `motivo_urgencia`.
+- Política de acceso y exposición autorizada de `motivo_urg_libre` antes de cualquier implementación.
+- Reconciliación progresiva del diccionario completo de `vUrgencias` conforme se validen otros bloques.
 
 ## NO REPETIR
-- Reconciliación Git/checkpoint, metadatos y corridas Población 12/24/36 ya registradas.
-- Cobertura, cruce ingreso/egreso, cardinalidad y disponibilidad de Diagnósticos 12/24/36 ya registradas.
-- AMED, reconciliación de indicadores implementados y auditoría transversal.
+
+- Validación 12/24/36 de Motivo: cobertura, categorías, cardinalidad del texto, relación entre campos y patrones ya preservados.
+- Análisis previos de Diagnósticos, Población, AMED y reconciliación de indicadores implementados.
 
 ## Próxima acción exacta
-Ninguna acción adicional en esta iteración; partir de la evidencia de Diagnósticos versionada para cualquier ampliación futura (patrones por centro-servicio, si se autoriza).
+
+Ninguna acción adicional en ITER-002. Cualquier KPI, visualización o acceso a texto libre requiere una iteración y autorización funcional posteriores.
 
 ## Commit de cierre
-Consolidado en el commit `[URG][DIAG] Cerrar validación funcional de Diagnósticos` (ver `git log`).
+
+Consolidado en el commit `[URG][MOT] Validar Motivo de Urgencia` (ver `git log`).

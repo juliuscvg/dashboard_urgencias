@@ -1,0 +1,1158 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-09-11T04:29:48.204Z",
+  "context": {
+    "cutoff": "2026-09-01",
+    "periodSemantics": "Fechaing >= desde AND Fechaing < hastaExclusivo",
+    "universe": "U-ING, un evento por id_urgencia",
+    "source": "dbo.vUrgencias",
+    "freeTextValuesIncluded": false,
+    "secretsIncluded": false,
+    "directIdentifiersIncluded": false
+  },
+  "columnTypes": [
+    {
+      "campo": "motivo_urg_libre",
+      "tipo": "varchar",
+      "max_length": 60,
+      "is_nullable": true
+    },
+    {
+      "campo": "motivo_urgencia",
+      "tipo": "varchar",
+      "max_length": 60,
+      "is_nullable": true
+    }
+  ],
+  "windows": {
+    "12m": {
+      "id": "12m",
+      "desde": "2025-09-01",
+      "hastaExclusivo": "2026-09-01",
+      "elapsedMs": 7981,
+      "recordsets": [
+        [
+          {
+            "resultado": "MOT01_RESUMEN",
+            "universo": "159822",
+            "con_categoria": "159822",
+            "con_texto_libre": "21754",
+            "ambos": "21754",
+            "solo_categoria": "138068",
+            "solo_texto_libre": "0",
+            "ninguno": "0",
+            "eventos_categoria_vacia": "0",
+            "eventos_texto_vacio": "164",
+            "conflictos_categoria": "0",
+            "conflictos_texto_libre": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ENF. COMUN",
+            "eventos": "151095"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ATENCION OBSTETRICA",
+            "eventos": "7240"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ATENCION GINECOLOGICA",
+            "eventos": "710"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE EN EL HOGAR",
+            "eventos": "218"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "OTROS",
+            "eventos": "196"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE VIA PUBLICA",
+            "eventos": "105"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "INTOXICACION",
+            "eventos": "51"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE DE TRAFICO",
+            "eventos": "48"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "HECHOS DE VIOLENCIA",
+            "eventos": "40"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE ESCUELA",
+            "eventos": "33"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "PICADURA ALACRAN",
+            "eventos": "20"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "TRABAJO DE PARTO",
+            "eventos": "18"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACC.SITIO RECREACION",
+            "eventos": "17"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE DE TRABAJO",
+            "eventos": "16"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "AGRESION CANINA",
+            "eventos": "15"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT03_TEXTO_LIBRE_AGREGADO",
+            "valores_distintos": "7667",
+            "valores_singleton": "6403",
+            "eventos_con_texto": "21754",
+            "longitud_minima": 1,
+            "longitud_maxima": 60,
+            "longitud_media_no_ponderada": 27.51,
+            "frecuencia_maxima": "1496"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT04_POR_ANIO",
+            "anio": 2025,
+            "universo": "51497",
+            "con_categoria": "51497",
+            "con_texto_libre": "5497",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT04_POR_ANIO",
+            "anio": 2026,
+            "universo": "108325",
+            "con_categoria": "108325",
+            "con_texto_libre": "16257",
+            "ninguno": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT05_POR_CENTRO",
+            "cod_centro": 1,
+            "universo": "74343",
+            "con_categoria": "74343",
+            "con_texto_libre": "323",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT05_POR_CENTRO",
+            "cod_centro": 2,
+            "universo": "85479",
+            "con_categoria": "85479",
+            "con_texto_libre": "21431",
+            "ninguno": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 56,
+            "universo": "21283",
+            "con_categoria": "21283",
+            "con_texto_libre": "146",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 153,
+            "universo": "30181",
+            "con_categoria": "30181",
+            "con_texto_libre": "96",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 154,
+            "universo": "17170",
+            "con_categoria": "17170",
+            "con_texto_libre": "43",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 339,
+            "universo": "5709",
+            "con_categoria": "5709",
+            "con_texto_libre": "38",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 61,
+            "universo": "12321",
+            "con_categoria": "12321",
+            "con_texto_libre": "51",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 118,
+            "universo": "23738",
+            "con_categoria": "23738",
+            "con_texto_libre": "16094",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 152,
+            "universo": "48094",
+            "con_categoria": "48094",
+            "con_texto_libre": "5272",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 417,
+            "universo": "8",
+            "con_categoria": "8",
+            "con_texto_libre": "0",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 435,
+            "universo": "1310",
+            "con_categoria": "1310",
+            "con_texto_libre": "10",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 445,
+            "universo": "6",
+            "con_categoria": "6",
+            "con_texto_libre": "3",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 446,
+            "universo": "2",
+            "con_categoria": "2",
+            "con_texto_libre": "1",
+            "ninguno": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ENF. COMUN",
+            "universo_categoria": "151095",
+            "con_texto_libre": "21535",
+            "sin_texto_libre": "129560"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ATENCION OBSTETRICA",
+            "universo_categoria": "7240",
+            "con_texto_libre": "58",
+            "sin_texto_libre": "7182"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ATENCION GINECOLOGICA",
+            "universo_categoria": "710",
+            "con_texto_libre": "4",
+            "sin_texto_libre": "706"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE EN EL HOGAR",
+            "universo_categoria": "218",
+            "con_texto_libre": "14",
+            "sin_texto_libre": "204"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "OTROS",
+            "universo_categoria": "196",
+            "con_texto_libre": "92",
+            "sin_texto_libre": "104"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE VIA PUBLICA",
+            "universo_categoria": "105",
+            "con_texto_libre": "7",
+            "sin_texto_libre": "98"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "INTOXICACION",
+            "universo_categoria": "51",
+            "con_texto_libre": "13",
+            "sin_texto_libre": "38"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE DE TRAFICO",
+            "universo_categoria": "48",
+            "con_texto_libre": "3",
+            "sin_texto_libre": "45"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "HECHOS DE VIOLENCIA",
+            "universo_categoria": "40",
+            "con_texto_libre": "15",
+            "sin_texto_libre": "25"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE ESCUELA",
+            "universo_categoria": "33",
+            "con_texto_libre": "4",
+            "sin_texto_libre": "29"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "PICADURA ALACRAN",
+            "universo_categoria": "20",
+            "con_texto_libre": "0",
+            "sin_texto_libre": "20"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "TRABAJO DE PARTO",
+            "universo_categoria": "18",
+            "con_texto_libre": "2",
+            "sin_texto_libre": "16"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACC.SITIO RECREACION",
+            "universo_categoria": "17",
+            "con_texto_libre": "5",
+            "sin_texto_libre": "12"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE DE TRABAJO",
+            "universo_categoria": "16",
+            "con_texto_libre": "1",
+            "sin_texto_libre": "15"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "AGRESION CANINA",
+            "universo_categoria": "15",
+            "con_texto_libre": "1",
+            "sin_texto_libre": "14"
+          }
+        ]
+      ]
+    },
+    "24m": {
+      "id": "24m",
+      "desde": "2024-09-01",
+      "hastaExclusivo": "2026-09-01",
+      "elapsedMs": 11226,
+      "recordsets": [
+        [
+          {
+            "resultado": "MOT01_RESUMEN",
+            "universo": "327400",
+            "con_categoria": "327400",
+            "con_texto_libre": "40268",
+            "ambos": "40268",
+            "solo_categoria": "287132",
+            "solo_texto_libre": "0",
+            "ninguno": "0",
+            "eventos_categoria_vacia": "0",
+            "eventos_texto_vacio": "391",
+            "conflictos_categoria": "0",
+            "conflictos_texto_libre": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ENF. COMUN",
+            "eventos": "309624"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ATENCION OBSTETRICA",
+            "eventos": "14753"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ATENCION GINECOLOGICA",
+            "eventos": "1590"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE EN EL HOGAR",
+            "eventos": "402"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "OTROS",
+            "eventos": "384"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE VIA PUBLICA",
+            "eventos": "179"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "INTOXICACION",
+            "eventos": "94"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "HECHOS DE VIOLENCIA",
+            "eventos": "87"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE DE TRAFICO",
+            "eventos": "76"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "PICADURA ALACRAN",
+            "eventos": "49"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE ESCUELA",
+            "eventos": "47"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE DE TRABAJO",
+            "eventos": "32"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "TRABAJO DE PARTO",
+            "eventos": "31"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACC.SITIO RECREACION",
+            "eventos": "28"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "AGRESION CANINA",
+            "eventos": "24"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT03_TEXTO_LIBRE_AGREGADO",
+            "valores_distintos": "13379",
+            "valores_singleton": "11176",
+            "eventos_con_texto": "40268",
+            "longitud_minima": 1,
+            "longitud_maxima": 60,
+            "longitud_media_no_ponderada": 27.66,
+            "frecuencia_maxima": "2425"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT04_POR_ANIO",
+            "anio": 2024,
+            "universo": "60122",
+            "con_categoria": "60122",
+            "con_texto_libre": "6237",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT04_POR_ANIO",
+            "anio": 2025,
+            "universo": "158953",
+            "con_categoria": "158953",
+            "con_texto_libre": "17774",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT04_POR_ANIO",
+            "anio": 2026,
+            "universo": "108325",
+            "con_categoria": "108325",
+            "con_texto_libre": "16257",
+            "ninguno": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT05_POR_CENTRO",
+            "cod_centro": 1,
+            "universo": "151369",
+            "con_categoria": "151369",
+            "con_texto_libre": "932",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT05_POR_CENTRO",
+            "cod_centro": 2,
+            "universo": "176030",
+            "con_categoria": "176030",
+            "con_texto_libre": "39336",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT05_POR_CENTRO",
+            "cod_centro": 4,
+            "universo": "1",
+            "con_categoria": "1",
+            "con_texto_libre": "0",
+            "ninguno": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 56,
+            "universo": "39953",
+            "con_categoria": "39953",
+            "con_texto_libre": "250",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 153,
+            "universo": "60068",
+            "con_categoria": "60068",
+            "con_texto_libre": "368",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 154,
+            "universo": "34322",
+            "con_categoria": "34322",
+            "con_texto_libre": "149",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 339,
+            "universo": "17026",
+            "con_categoria": "17026",
+            "con_texto_libre": "165",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 61,
+            "universo": "24373",
+            "con_categoria": "24373",
+            "con_texto_libre": "138",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 118,
+            "universo": "50499",
+            "con_categoria": "50499",
+            "con_texto_libre": "29921",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 152,
+            "universo": "98804",
+            "con_categoria": "98804",
+            "con_texto_libre": "9231",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 417,
+            "universo": "27",
+            "con_categoria": "27",
+            "con_texto_libre": "0",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 435,
+            "universo": "2297",
+            "con_categoria": "2297",
+            "con_texto_libre": "36",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 445,
+            "universo": "14",
+            "con_categoria": "14",
+            "con_texto_libre": "5",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 446,
+            "universo": "16",
+            "con_categoria": "16",
+            "con_texto_libre": "5",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 4,
+            "codigo_servicio_ingreso": 473,
+            "universo": "1",
+            "con_categoria": "1",
+            "con_texto_libre": "0",
+            "ninguno": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ENF. COMUN",
+            "universo_categoria": "309624",
+            "con_texto_libre": "39862",
+            "sin_texto_libre": "269762"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ATENCION OBSTETRICA",
+            "universo_categoria": "14753",
+            "con_texto_libre": "123",
+            "sin_texto_libre": "14630"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ATENCION GINECOLOGICA",
+            "universo_categoria": "1590",
+            "con_texto_libre": "15",
+            "sin_texto_libre": "1575"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE EN EL HOGAR",
+            "universo_categoria": "402",
+            "con_texto_libre": "30",
+            "sin_texto_libre": "372"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "OTROS",
+            "universo_categoria": "384",
+            "con_texto_libre": "153",
+            "sin_texto_libre": "231"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE VIA PUBLICA",
+            "universo_categoria": "179",
+            "con_texto_libre": "18",
+            "sin_texto_libre": "161"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "INTOXICACION",
+            "universo_categoria": "94",
+            "con_texto_libre": "17",
+            "sin_texto_libre": "77"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "HECHOS DE VIOLENCIA",
+            "universo_categoria": "87",
+            "con_texto_libre": "23",
+            "sin_texto_libre": "64"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE DE TRAFICO",
+            "universo_categoria": "76",
+            "con_texto_libre": "6",
+            "sin_texto_libre": "70"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "PICADURA ALACRAN",
+            "universo_categoria": "49",
+            "con_texto_libre": "0",
+            "sin_texto_libre": "49"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE ESCUELA",
+            "universo_categoria": "47",
+            "con_texto_libre": "5",
+            "sin_texto_libre": "42"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE DE TRABAJO",
+            "universo_categoria": "32",
+            "con_texto_libre": "2",
+            "sin_texto_libre": "30"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "TRABAJO DE PARTO",
+            "universo_categoria": "31",
+            "con_texto_libre": "5",
+            "sin_texto_libre": "26"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACC.SITIO RECREACION",
+            "universo_categoria": "28",
+            "con_texto_libre": "6",
+            "sin_texto_libre": "22"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "AGRESION CANINA",
+            "universo_categoria": "24",
+            "con_texto_libre": "3",
+            "sin_texto_libre": "21"
+          }
+        ]
+      ]
+    },
+    "36m": {
+      "id": "36m",
+      "desde": "2023-09-01",
+      "hastaExclusivo": "2026-09-01",
+      "elapsedMs": 19472,
+      "recordsets": [
+        [
+          {
+            "resultado": "MOT01_RESUMEN",
+            "universo": "484161",
+            "con_categoria": "484161",
+            "con_texto_libre": "65181",
+            "ambos": "65181",
+            "solo_categoria": "418980",
+            "solo_texto_libre": "0",
+            "ninguno": "0",
+            "eventos_categoria_vacia": "0",
+            "eventos_texto_vacio": "752",
+            "conflictos_categoria": "0",
+            "conflictos_texto_libre": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ENF. COMUN",
+            "eventos": "457033"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ATENCION OBSTETRICA",
+            "eventos": "22595"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ATENCION GINECOLOGICA",
+            "eventos": "2405"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "OTROS",
+            "eventos": "581"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE EN EL HOGAR",
+            "eventos": "547"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE VIA PUBLICA",
+            "eventos": "217"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "TRABAJO DE PARTO",
+            "eventos": "155"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "INTOXICACION",
+            "eventos": "130"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "HECHOS DE VIOLENCIA",
+            "eventos": "125"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE DE TRAFICO",
+            "eventos": "98"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "PICADURA ALACRAN",
+            "eventos": "84"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE ESCUELA",
+            "eventos": "66"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACC.SITIO RECREACION",
+            "eventos": "46"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "ACCIDENTE DE TRABAJO",
+            "eventos": "42"
+          },
+          {
+            "resultado": "MOT02_CATEGORIAS_NATIVAS",
+            "motivo_categoria": "AGRESION CANINA",
+            "eventos": "37"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT03_TEXTO_LIBRE_AGREGADO",
+            "valores_distintos": "21443",
+            "valores_singleton": "18009",
+            "eventos_con_texto": "65181",
+            "longitud_minima": 1,
+            "longitud_maxima": 60,
+            "longitud_media_no_ponderada": 28.04,
+            "frecuencia_maxima": "3587"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT04_POR_ANIO",
+            "anio": 2023,
+            "universo": "50705",
+            "con_categoria": "50705",
+            "con_texto_libre": "8240",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT04_POR_ANIO",
+            "anio": 2024,
+            "universo": "166178",
+            "con_categoria": "166178",
+            "con_texto_libre": "22910",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT04_POR_ANIO",
+            "anio": 2025,
+            "universo": "158953",
+            "con_categoria": "158953",
+            "con_texto_libre": "17774",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT04_POR_ANIO",
+            "anio": 2026,
+            "universo": "108325",
+            "con_categoria": "108325",
+            "con_texto_libre": "16257",
+            "ninguno": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT05_POR_CENTRO",
+            "cod_centro": 1,
+            "universo": "225041",
+            "con_categoria": "225041",
+            "con_texto_libre": "4066",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT05_POR_CENTRO",
+            "cod_centro": 2,
+            "universo": "259118",
+            "con_categoria": "259118",
+            "con_texto_libre": "61115",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT05_POR_CENTRO",
+            "cod_centro": 4,
+            "universo": "2",
+            "con_categoria": "2",
+            "con_texto_libre": "0",
+            "ninguno": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 56,
+            "universo": "57088",
+            "con_categoria": "57088",
+            "con_texto_libre": "869",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 153,
+            "universo": "88328",
+            "con_categoria": "88328",
+            "con_texto_libre": "1999",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 154,
+            "universo": "50130",
+            "con_categoria": "50130",
+            "con_texto_libre": "610",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 1,
+            "codigo_servicio_ingreso": 339,
+            "universo": "29495",
+            "con_categoria": "29495",
+            "con_texto_libre": "588",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 61,
+            "universo": "37658",
+            "con_categoria": "37658",
+            "con_texto_libre": "280",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 118,
+            "universo": "75560",
+            "con_categoria": "75560",
+            "con_texto_libre": "46403",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 152,
+            "universo": "142771",
+            "con_categoria": "142771",
+            "con_texto_libre": "14371",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 417,
+            "universo": "102",
+            "con_categoria": "102",
+            "con_texto_libre": "0",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 435,
+            "universo": "2983",
+            "con_categoria": "2983",
+            "con_texto_libre": "43",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 445,
+            "universo": "21",
+            "con_categoria": "21",
+            "con_texto_libre": "9",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 2,
+            "codigo_servicio_ingreso": 446,
+            "universo": "23",
+            "con_categoria": "23",
+            "con_texto_libre": "9",
+            "ninguno": "0"
+          },
+          {
+            "resultado": "MOT06_POR_SERVICIO",
+            "cod_centro": 4,
+            "codigo_servicio_ingreso": 473,
+            "universo": "2",
+            "con_categoria": "2",
+            "con_texto_libre": "0",
+            "ninguno": "0"
+          }
+        ],
+        [
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ENF. COMUN",
+            "universo_categoria": "457033",
+            "con_texto_libre": "64190",
+            "sin_texto_libre": "392843"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ATENCION OBSTETRICA",
+            "universo_categoria": "22595",
+            "con_texto_libre": "425",
+            "sin_texto_libre": "22170"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ATENCION GINECOLOGICA",
+            "universo_categoria": "2405",
+            "con_texto_libre": "80",
+            "sin_texto_libre": "2325"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "OTROS",
+            "universo_categoria": "581",
+            "con_texto_libre": "206",
+            "sin_texto_libre": "375"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE EN EL HOGAR",
+            "universo_categoria": "547",
+            "con_texto_libre": "71",
+            "sin_texto_libre": "476"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE VIA PUBLICA",
+            "universo_categoria": "217",
+            "con_texto_libre": "36",
+            "sin_texto_libre": "181"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "TRABAJO DE PARTO",
+            "universo_categoria": "155",
+            "con_texto_libre": "60",
+            "sin_texto_libre": "95"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "INTOXICACION",
+            "universo_categoria": "130",
+            "con_texto_libre": "26",
+            "sin_texto_libre": "104"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "HECHOS DE VIOLENCIA",
+            "universo_categoria": "125",
+            "con_texto_libre": "37",
+            "sin_texto_libre": "88"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE DE TRAFICO",
+            "universo_categoria": "98",
+            "con_texto_libre": "15",
+            "sin_texto_libre": "83"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "PICADURA ALACRAN",
+            "universo_categoria": "84",
+            "con_texto_libre": "2",
+            "sin_texto_libre": "82"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE ESCUELA",
+            "universo_categoria": "66",
+            "con_texto_libre": "11",
+            "sin_texto_libre": "55"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACC.SITIO RECREACION",
+            "universo_categoria": "46",
+            "con_texto_libre": "12",
+            "sin_texto_libre": "34"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "ACCIDENTE DE TRABAJO",
+            "universo_categoria": "42",
+            "con_texto_libre": "6",
+            "sin_texto_libre": "36"
+          },
+          {
+            "resultado": "MOT07_RELACION_CATEGORIA_TEXTO",
+            "motivo_categoria": "AGRESION CANINA",
+            "universo_categoria": "37",
+            "con_texto_libre": "4",
+            "sin_texto_libre": "33"
+          }
+        ]
+      ]
+    }
+  }
+}

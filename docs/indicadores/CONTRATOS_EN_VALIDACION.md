@@ -96,3 +96,28 @@ La evidencia, los ejemplos pseudonimizados y las ventanas 12/24/36 meses están 
 - Limitación: es comparación descriptiva de cobertura y correspondencia, no interpretación clínica.
 
 La evidencia y las ventanas 12/24/36 meses están en [validación Diagnósticos](../evidencia/VALIDACION_DIAGNOSTICOS_2026-09-10.md).
+
+## URG-MOT-01 — Motivo de Urgencia categórico
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN; no KPI aceptado.
+- Fuente: motivo_urgencia sobre U-ING, conservado como categoría nativa.
+- Población evaluable: eventos U-ING con valor no vacío; la ausencia no excluye el evento del universo.
+- Cobertura: eventos con categoría / U-ING del mismo periodo, centro y servicio. Fue 100% en las cohortes cerradas de 12/24/36 meses.
+- Salida descriptiva: categoría nativa, eventos, porcentaje y faltantes; no se crean agrupaciones clínicas.
+- Limitación: la categoría registrada no acredita gravedad, diagnóstico, causalidad ni calidad.
+
+## URG-MOT-02 — Motivo de Urgencia en texto libre
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN; información complementaria sensible, no KPI.
+- Fuente: motivo_urg_libre, preservado sin normalizar ni inferir categoría.
+- Población evaluable: eventos U-ING con texto no vacío. Cobertura 12/24/36 meses: 13.61% / 12.30% / 13.46%.
+- Uso permitido propuesto: búsqueda o detalle autorizado en una fase futura; no ranking ejecutivo, catálogo ni sustituto de motivo_urgencia.
+- Resguardo: no exponer valores en evidencia, logs o agregados. La política de acceso permanece pendiente antes de implementar.
+
+## URG-MOT-03 — Cobertura y relación de Motivo
+
+- Estado: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN; no KPI aceptado.
+- Denominador: U-ING explícito del mismo periodo, centro y servicio.
+- Salida mínima: universo, con categoría, con texto, ambos, sólo categoría, sólo texto, ninguno, vacíos y conflictos por evento.
+- Regla: reportar cada campo por separado; no completar uno desde el otro. La variación de texto por centro o servicio es señal de cobertura, no diferencia clínica.
+- Evidencia: [validación Motivo de Urgencia](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.md).

@@ -23,7 +23,7 @@ Corte: 2026-09-10. Fuente canónica de estados; las fórmulas residen en [contra
 | URG-PEND-03 | Secuencias temporales completas | POR DEFINIR | VALIDADO CON FUENTE / NO IMPLEMENTADO | Análisis complementario de consistencia; no filtro ni KPI principal |
 | URG-PEND-04 | Población | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | Edad, sexo y residencia nativos; sin API/UI |
 | URG-PEND-05 | Diagnósticos | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | Ingreso y egreso codificados, texto de egreso no codificado y cobertura; sin API/UI |
-| URG-PEND-06 | Motivo de urgencia | POR DEFINIR | NO IMPLEMENTADO | Sin contrato suficiente |
+| URG-PEND-06 | Motivo de urgencia | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | Categoría nativa y texto libre complementario; sin API/UI |
 | URG-PEND-07 | Localización / cama | DIFERIDO | NO IMPLEMENTADO | Fuera de fase |
 | URG-CAL-01 | Calidad de datos | EN PROCESO | VALIDADO TÉCNICAMENTE | Conflictos, fan-out y Triage visibles |
 
@@ -38,3 +38,7 @@ La evidencia de `fechamed`/`altamed_fecha` cubre cohortes cerradas de 12, 24 y 3
 ## Validación Diagnósticos 2026-09-10
 
 La evidencia de `cdiag_ing`/`diag_ing` y `cdiag_egr`/`diag_egr` cubre cohortes cerradas de 12, 24 y 36 meses. Confirma que ingreso y egreso son dimensiones independientes, que ingreso es prácticamente 1:1 código↔descripción y que egreso no lo es (507 códigos con 2–4 descripciones, verificado contra fuente), además de cuantificar el texto de egreso sin código. No acepta Diagnósticos como KPI ni autoriza API/UI. Ver [evidencia Diagnósticos](../evidencia/VALIDACION_DIAGNOSTICOS_2026-09-10.md).
+
+## Validación Motivo de Urgencia 2026-09-10
+
+La evidencia de `motivo_urgencia` y `motivo_urg_libre` cubre cohortes cerradas de 12, 24 y 36 meses. Define categoría nativa y texto complementario sensible con coberturas independientes; no acepta un KPI ni autoriza API/UI. Ver [evidencia Motivo](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.md).

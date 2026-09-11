@@ -9,3 +9,5 @@
 - `sql/indicadores/`: SQL canónico read-only por indicador aceptado.
 
 Los scripts SQL requieren acceso autorizado. No son migraciones ni modifican datos.
+- `run-motivo-validation.mjs` y `sql/07_validacion_motivo_urgencia.sql`: reproducen la validación read-only agregada de ITER-002 sin persistir valores de texto libre.
+- `check-motivo-validation.mjs`: valida universos, cobertura, categorías y resguardos del artefacto de Motivo.

@@ -1,6 +1,6 @@
 # Diccionario semántico — dbo.vUrgencias
 
-Versión: 2026-09-08.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no incluidos en evidencia versionada se declaran `NO DOCUMENTADO`; deben verificarse con el script estructural antes de asumir conversiones.
+Versión: 2026-09-10.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no incluidos en evidencia versionada se declaran `NO DOCUMENTADO`; deben verificarse con el script estructural antes de asumir conversiones.
 
 | Campo físico | Tipo | Fuente | Semántica | Uso analítico | Rol | NULL | Relaciones/equivalencias | Limitaciones | Indicadores consumidores |
 |---|---|---|---|---|---|---|---|---|---|
@@ -33,11 +33,41 @@ Versión: 2026-09-08.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no
 | edadaños | int, nullable | vUrgencias | Edad comunicada en años | Contraste de edad | AUXILIAR | Sí | No precede fecha_nac/Fechaing | Discordancias auditables | PEND-04 |
 | EdadMeses | NO DOCUMENTADO | vUrgencias | Edad comunicada en meses | Pediatría futura | AUXILIAR | Sí | Unidad/componente por validar | No sumar sin semántica | PEND-04 |
 | EdadDias | NO DOCUMENTADO | vUrgencias | Edad comunicada en días | Pediatría futura | AUXILIAR | Sí | Unidad/componente por validar | No sumar sin semántica | PEND-04 |
-| motivo_urgencia | NO DOCUMENTADO | vUrgencias | Motivo categórico comunicado | Clínica futura | AUXILIAR | Sí | Catálogo pendiente | POR DEFINIR | PEND-06 |
-| motivo_urg_libre | NO DOCUMENTADO | vUrgencias | Texto libre de motivo | Búsqueda/detalle autorizado | AUXILIAR SENSIBLE | Sí | NO APLICA para ranking ejecutivo | Privacidad | PEND-06 |
+| motivo_urgencia | varchar(60), nullable | vUrgencias; origen base POR DEFINIR | Categoría nativa del motivo registrado | Distribución descriptiva | CANÓNICO PROPUESTO CON EVIDENCIA | Sí; vacío = sin dato | Coexiste con motivo_urg_libre; no equivalente | 100% 12/24/36m; 15 categorías; no inferir gravedad/diagnóstico | URG-MOT-01/03 |
+| motivo_urg_libre | varchar(60), nullable | vUrgencias; origen base POR DEFINIR | Texto complementario del motivo registrado | Búsqueda/detalle autorizado futuro | AUXILIAR SENSIBLE | Sí; vacío = ausente | No equivale ni completa motivo_urgencia | Cobertura 13.46% 36m; alta cardinalidad; privacidad | URG-MOT-02/03 |
 | cdiag_ing / diag_ing | NO DOCUMENTADO | vUrgencias | Diagnóstico de ingreso, código y descripción nativos | Clínica futura | CANÓNICO PROPUESTO CON EVIDENCIA | Sí | Prácticamente 1:1 código↔descripción; independiente de egreso | EN VALIDACIÓN; no implementar; no inferir CIE/familia/severidad | PEND-05 |
 | cdiag_egr / diag_egr | NO DOCUMENTADO | vUrgencias | Diagnóstico de egreso, código y descripción nativos | Clínica futura | CANÓNICO PROPUESTO CON EVIDENCIA | Sí | No 1:1 (507 códigos con 2–4 descripciones); `diag_egr` puede existir sin `cdiag_egr` (texto no codificado) | EN VALIDACIÓN; no implementar; no normalizar texto ni inferir CIE | PEND-05 |
 
 ## Campos no identificados inequívocamente
 
 Sexo, estado, municipio, localidad, médico, localización, cama, usuarios de registro/egreso, seguridad social, pagador y origen siguen sin nombre físico inequívoco versionado. No inventar columnas ni reutilizar campos de Triage.
+
+## Campos validados en ITER-002 — Motivo de Urgencia
+
+### motivo_urgencia
+
+- Metadato físico: varchar(60), nullable, expuesto por dbo.vUrgencias.
+- Origen: campo directo de la vista; tabla y campo base anteriores a la vista, POR DEFINIR.
+- Semántica validada: categoría nativa del motivo registrado para el evento de Urgencias.
+- Concepto/rol: caracterización categórica descriptiva; CANÓNICO PROPUESTO CON EVIDENCIA.
+- NULL/vacíos: valor nulo o sólo espacios se reporta sin dato y no excluye U-ING.
+- Relaciones: puede coexistir con motivo_urg_libre; no son equivalentes y ninguno completa al otro.
+- Cobertura/calidad: 100% en U-ING 12/24/36 meses; 15 categorías nativas; cero conflictos por evento.
+- Restricciones/anomalías: no normalizar ni agrupar; no inferir gravedad, diagnóstico, causalidad o calidad.
+- Consumidores: URG-MOT-01 y URG-MOT-03; sin implementación.
+- Estado/evidencia: EN VALIDACIÓN / VALIDADO CON FUENTE; [evidencia ITER-002](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.md).
+
+### motivo_urg_libre
+
+- Metadato físico: varchar(60), nullable, expuesto por dbo.vUrgencias.
+- Origen: campo directo de la vista; tabla y campo base anteriores a la vista, POR DEFINIR.
+- Semántica validada: información textual complementaria del motivo registrado.
+- Concepto/rol: AUXILIAR SENSIBLE; búsqueda o detalle autorizado futuro, no dimensión categórica.
+- NULL/vacíos: valor nulo o sólo espacios se reporta ausente; no excluye U-ING.
+- Relaciones: coexistió siempre con motivo_urgencia en las cohortes; no equivale a esa categoría ni permite inferirla.
+- Cobertura/calidad: 13.61% / 12.30% / 13.46% en 12/24/36 meses; 21,443 valores distintos y 18,009 singletons en 36 meses; cero conflictos por evento. La cobertura varía por centro y servicio.
+- Restricciones/anomalías: no versionar valores, normalizar, clasificar, usar en rankings ni inferir contenido clínico. Longitud máxima observada y física: 60.
+- Consumidores: URG-MOT-02 y URG-MOT-03; sin implementación.
+- Estado/evidencia: EN VALIDACIÓN / VALIDADO CON FUENTE; [evidencia ITER-002](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.md).
+
+Pendiente gobernado: reconciliar progresivamente el diccionario completo de vUrgencias conforme cada bloque funcional valide nuevos campos. diccionario_datos_vUrgencias.xlsx es antecedente documental y no sustituye evidencia canónica posterior.
