@@ -437,3 +437,12 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Alcance: sólo `client/src/App.tsx` y `client/src/App.test.tsx`. Sin cambios en SQL, API, contratos, universos, fórmulas ni umbrales; sin fuentes nuevas ni otros indicadores.
 - `URG-CAL-01` queda `RECONCILIADO CON FUENTE`: sus cuatro indicadores dueño (EJ-01, EJ-03, ACT-01, TRI-03) tienen ya todas sus señales visibles en UI.
 - Contrato: [URG-CAL-01](../indicadores/CONTRATOS_ACEPTADOS.md). Evidencia: [ITER-008](../iteraciones/ITER-008.md).
+
+### URG-GOV-055 — Aceptación de Atención médica registrada (URG-ATE-01)
+
+- Estado: ACEPTADO CON OBSERVACIONES (decisión institucional); IMPLEMENTADO Y RECONCILIADO CON FUENTE.
+- Decisión: `URG-ATE-01` se promueve de `EN VALIDACIÓN` a KPI aceptado. Se implementa el módulo de Atención médica registrada: cobertura de `fechaate` sobre U-ING, tiempo registrado `Fechaing→fechaate` con promedio y bandas (mismo minuto, 0–30, 31–60, 61–120, 121–240, >240 min), y señales de calidad (invertidos, ≥24h, ≥7d) integradas a `URG-CAL-01`.
+- Alcance técnico: `fechaate` se incorpora al `EventScope` canónico compartido (`event-scope.sql.ts`) de forma aditiva, sin alterar `conflicto_nucleo` ni el resultado de ningún otro indicador. Nuevo SQL `URG-ATE-01_ATENCION_MEDICA.sql`, `fetchAttention`/`getAttention`, ruta `/api/urgencias/attention` y panel "Atención médica" en UI.
+- Límites respetados: no se usa `atencion_fecha` para completar `fechaate` (su equivalencia sigue POR DEFINIR); no se denomina el intervalo "tiempo de espera" ni "oportunidad asistencial", ni se afirma inicio clínico real; no se crean metas ni semáforos institucionales; no se modificó ningún otro indicador, universo, fórmula o regla clínica; no se abrió ninguna fuente adicional.
+- Verificación: reconciliación SQL→API exacta (resumen y cobertura por servicio) sobre ventana operativa; cobertura de la ventana cerrada de 12 meses (94.11%) reproduce la cifra ya validada en ITER-006. Server 10 pruebas, client 5 pruebas, builds server/client PASS.
+- Contrato: [URG-ATE-01](../indicadores/CONTRATOS_ACEPTADOS.md#urg-ate-01--atención-médica-registrada). Evidencia: [ITER-009](../iteraciones/ITER-009.md).

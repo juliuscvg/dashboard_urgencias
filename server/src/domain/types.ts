@@ -83,6 +83,33 @@ export interface TriageCategory {
   porcentajeSobreClasificados: number | null;
 }
 
+export interface AttentionSummary {
+  universoTotal: number;
+  eventosConAtencion: number;
+  eventosSinAtencion: number;
+  coberturaPct: number | null;
+  evaluables: number;
+  invertidos: number;
+  promedioMinutos: number | null;
+  mismoMinuto: number;
+  de0a30: number;
+  de31a60: number;
+  de61a120: number;
+  de121a240: number;
+  mayor240: number;
+  mayorIgual24h: number;
+  mayorIgual7d: number;
+}
+
+export interface AttentionServiceCoverage {
+  centro: string;
+  codigoServicio: number;
+  servicio: string;
+  universoTotal: number;
+  eventosConAtencion: number;
+  coberturaPct: number | null;
+}
+
 export interface EpisodeRow {
   idUrgencia: number;
   fechaIngreso: string | null;

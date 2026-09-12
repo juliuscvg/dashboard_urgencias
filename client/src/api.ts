@@ -27,6 +27,15 @@ export type Triage = {
     porcentajeSobreClasificados: number | null }>;
 };
 
+export type Attention = {
+  resumen: { universoTotal: number; eventosConAtencion: number; eventosSinAtencion: number;
+    coberturaPct: number | null; evaluables: number; invertidos: number; promedioMinutos: number | null;
+    mismoMinuto: number; de0a30: number; de31a60: number; de61a120: number; de121a240: number; mayor240: number;
+    mayorIgual24h: number; mayorIgual7d: number };
+  servicios: Array<{ centro: string; codigoServicio: number; servicio: string; universoTotal: number;
+    eventosConAtencion: number; coberturaPct: number | null }>;
+};
+
 export type Resolution = {
   categorias: Array<{ destinoUrgPk: number | null; destino: string | null; eventos: number; porcentaje: number | null }>;
 };
@@ -62,6 +71,7 @@ export const api = {
   catalogs: (centro?: string) => get<Catalogs>(`/api/urgencias/filters?${params({ centro })}`),
   summary: (filters: Filters) => get<Summary>(`/api/urgencias/summary?${params(filters)}`),
   triage: (filters: Filters) => get<Triage>(`/api/urgencias/triage?${params(filters)}`),
+  attention: (filters: Filters) => get<Attention>(`/api/urgencias/attention?${params(filters)}`),
   demand: (filters: Filters) => get<Demand>(`/api/urgencias/demand?${params(filters)}`),
   resolution: (filters: Filters) => get<Resolution>(`/api/urgencias/resolution?${params(filters)}`),
   frequentation: (filters: Filters) => get<Frequentation>(`/api/urgencias/frequentation?${params(filters)}`),

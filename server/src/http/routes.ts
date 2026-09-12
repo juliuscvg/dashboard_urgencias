@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { getPool } from '../db/sql.js';
 import { asyncRoute } from '../middleware/error.js';
 import { fetchCatalogs } from '../repository/urgencias.repository.js';
-import { getDemand, getEpisodes, getFrequentation, getResolution, getSummary, getTriage } from '../service/urgencias.service.js';
+import { getAttention, getDemand, getEpisodes, getFrequentation, getResolution, getSummary, getTriage } from '../service/urgencias.service.js';
 import { catalogQuerySchema, dashboardQuerySchema, detailQuerySchema } from './schemas.js';
 
 export const api = Router();
@@ -36,6 +36,10 @@ api.get('/urgencias/frequentation', asyncRoute(async (req, res) => {
 api.get('/urgencias/triage', asyncRoute(async (req, res) => {
   const filters = dashboardQuerySchema.parse(req.query);
   res.json({ data: await getTriage(filters), filters });
+}));
+api.get('/urgencias/attention', asyncRoute(async (req, res) => {
+  const filters = dashboardQuerySchema.parse(req.query);
+  res.json({ data: await getAttention(filters), filters });
 }));
 api.get('/urgencias/episodes', asyncRoute(async (req, res) => {
   const filters = detailQuerySchema.parse(req.query);

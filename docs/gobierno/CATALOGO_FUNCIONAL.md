@@ -18,7 +18,8 @@ Inventario breve. [Estados](ESTADO_INDICADORES.md) y [contratos completos](../in
 | URG-TRI-01 | Cobertura de Triage | Módulo | URG-R10 |
 | URG-TRI-02 | Clasificación de Triage | Módulo | URG-R10 |
 | URG-TRI-03 | Tiempo registrado a Triage | Módulo | URG-R04/R10 |
+| URG-ATE-01 | Atención médica registrada | Módulo | URG-R02/R04 |
 | URG-CAL-01 | Calidad y anomalías | Capa transversal | URG-R01/R04 |
-| URG-PEND-01..07 | Atención, alta, secuencias, población, clínica y localización | Pendientes | Ver matriz de estados |
+| URG-PEND-02..07 | Alta, secuencias, población, clínica y localización | Pendientes | Ver matriz de estados |
 
 Los SQL canónicos están en `scripts/sql/indicadores/`; descubrimiento y validación exploratoria permanecen en `scripts/sql/01_*` y `02_*`.

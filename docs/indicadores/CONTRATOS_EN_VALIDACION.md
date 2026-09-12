@@ -7,18 +7,9 @@
 - Regla común: la ausencia de Triage, Atención, Alta Médica o Egreso no invalida ni excluye U-ING. Cada análisis declara su población evaluable y cobertura.
 - Estado: estos contratos cierran la interpretación funcional disponible, pero no son indicadores ACEPTADOS ni autorizan API/UI o SQL productivo.
 
-## URG-ATE-01 — Atención médica registrada
-
-- Estado funcional: DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN; no ACEPTADO como KPI.
-- Estado técnico: VALIDADO CON FUENTE / NO IMPLEMENTADO.
-- Timestamp canónico actual del hito registrado: `fechaate` (`datetime`, nullable).
-- Población evaluable: eventos U-ING con `fechaate` canónico no nulo. Cobertura 12/24/36 meses: 94.1141% / 92.7560% / 88.0736%.
-- Cobertura: población evaluable / U-ING del mismo periodo, centro y servicio. La ausencia no excluye el evento.
-- Cronología primaria: `Fechaing→fechaate`; sólo pares no negativos son interpretables para duración. En 12/24/36 meses no se observaron inversiones, pero sí mismo instante y extremos de hasta 643,525 minutos.
-- Relaciones: Triage, Atención, Alta Médica y Egreso son hitos independientes. Sus faltantes o inversiones se conservan; no se exige la secuencia completa. La alta proporción de `fechatri→fechaate` invertidos impide usar ese par como regla de orden o espera.
-- Limitaciones: acredita un timestamp registrado, no inicio clínico real, oportunidad, presencia física ni causalidad. `atencion_fecha` no completa ni sustituye `fechaate`; su equivalencia permanece POR DEFINIR.
-- Implementación: sin SQL productivo, API ni UI.
-- Evidencia: [validación Atención médica](../evidencia/VALIDACION_ATENCION_MEDICA_2026-09-11.md).
+`URG-ATE-01` se promovió a `ACEPTADO CON OBSERVACIONES` en ITER-009 por decisión
+institucional; su contrato completo está en
+[contratos aceptados](CONTRATOS_ACEPTADOS.md#urg-ate-01--atención-médica-registrada).
 
 ## URG-AMED-01 — Alta Médica registrada
 

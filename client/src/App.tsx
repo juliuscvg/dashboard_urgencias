@@ -38,6 +38,7 @@ export function App() {
   const catalogs = useQuery({ queryKey: ['catalogs', draft.centro], queryFn: () => api.catalogs(draft.centro) });
   const summary = useQuery({ queryKey: ['summary', filters], queryFn: () => api.summary(filters) });
   const triage = useQuery({ queryKey: ['triage', filters], queryFn: () => api.triage(filters) });
+  const attention = useQuery({ queryKey: ['attention', filters], queryFn: () => api.attention(filters) });
   const demand = useQuery({ queryKey: ['demand', filters], queryFn: () => api.demand(filters) });
   const resolution = useQuery({ queryKey: ['resolution', filters], queryFn: () => api.resolution(filters) });
   const frequentation = useQuery({ queryKey: ['frequentation', filters], queryFn: () => api.frequentation(filters) });
@@ -49,8 +50,8 @@ export function App() {
     history.replaceState(null, '', `?${p}`);
   }, [filters]);
   const apply = (event: React.FormEvent) => { event.preventDefault(); setPage(1); setFilters(draft); };
-  const loading = summary.isLoading || demand.isLoading || triage.isLoading || resolution.isLoading || frequentation.isLoading;
-  const error = summary.error || demand.error || triage.error || resolution.error || frequentation.error || episodes.error || catalogs.error;
+  const loading = summary.isLoading || demand.isLoading || triage.isLoading || attention.isLoading || resolution.isLoading || frequentation.isLoading;
+  const error = summary.error || demand.error || triage.error || attention.error || resolution.error || frequentation.error || episodes.error || catalogs.error;
 
   return <div className="app">
     <header className="topbar"><div className="brand-mark">HCG</div><div><p>Hospital Civil de Guadalajara</p><h1>Dashboard de Urgencias</h1></div><span className="status"><i/> Datos operativos</span></header>
@@ -96,6 +97,14 @@ export function App() {
         <div className="coverage-list">{triage.data?.servicios.map((item) => <div key={item.codigoServicio}><span><b>{item.servicio}</b><small>{item.centro} · {integer.format(item.eventosConTriage)} de {integer.format(item.universoTotal)}</small></span><meter min="0" max="100" value={item.coberturaPct ?? 0}/><strong>{percent(item.coberturaPct)}</strong></div>)}</div>
         <div className="distribution-head"><h4>Clasificación nativa</h4><small>Porcentaje sobre eventos clasificados</small></div>
         <div className="distribution-list">{triage.data.clasificacion.map((item) => <div key={`${item.triageCodigo ?? 'null'}-${item.triageDescripcion ?? ''}`}><span><b>{item.triageCodigo ?? 'Sin código'} · {item.triageDescripcion ?? 'Sin descripción'}</b><small>{integer.format(item.eventos)} eventos</small></span><meter min="0" max="100" value={item.porcentajeSobreClasificados ?? 0}/><strong>{percent(item.porcentajeSobreClasificados)}</strong></div>)}</div>
+      </section>}
+      {attention.data && <section className="panel triage"><div className="panel-head"><div><span className="eyebrow">Atención médica</span><h3>Cobertura del hito registrado</h3></div><strong>{percent(attention.data?.resumen.coberturaPct ?? null)}</strong></div>
+        <div className="triage-grid"><div><b>{integer.format(attention.data?.resumen.eventosConAtencion ?? 0)}</b><span>con fechaate</span></div><div><b>{integer.format(attention.data?.resumen.universoTotal ?? 0)}</b><span>universo total</span></div><div><b>{metric(attention.data?.resumen.promedioMinutos ?? null, ' min')}</b><span>tiempo registrado promedio</span></div><div><b>{integer.format(attention.data?.resumen.eventosSinAtencion ?? 0)}</b><span>sin fechaate</span></div></div>
+        <p className="context"><code>fechaate</code> es el timestamp registrado del hito de Atención médica; no representa presencia física continua ni acredita por sí solo que la atención ocurrió en ese momento. Su ausencia no excluye el evento del universo. El intervalo desde Ingreso conserva los extremos y sólo usa secuencias cronológicamente interpretables.</p>
+        {(attention.data.resumen.invertidos > 0 || attention.data.resumen.mayorIgual24h > 0 || attention.data.resumen.mayorIgual7d > 0) && <div className="notice quality">Calidad visible: {integer.format(attention.data.resumen.invertidos)} secuencias a revisar, {integer.format(attention.data.resumen.mayorIgual24h)} casos ≥24 h y {integer.format(attention.data.resumen.mayorIgual7d)} casos ≥7 días entre Ingreso y Atención médica.</div>}
+        <div className="distribution-head"><h4>Bandas de tiempo Ingreso → Atención médica</h4><small>Bandas exclusivas sobre secuencias evaluables</small></div>
+        <div className="band-grid"><div><b>Mismo minuto</b><strong>{integer.format(attention.data.resumen.mismoMinuto)}</strong></div><div><b>0–30 min</b><strong>{integer.format(attention.data.resumen.de0a30)}</strong></div><div><b>31–60 min</b><strong>{integer.format(attention.data.resumen.de31a60)}</strong></div><div><b>61–120 min</b><strong>{integer.format(attention.data.resumen.de61a120)}</strong></div><div><b>121–240 min</b><strong>{integer.format(attention.data.resumen.de121a240)}</strong></div><div><b>&gt;240 min</b><strong>{integer.format(attention.data.resumen.mayor240)}</strong></div></div>
+        <div className="coverage-list">{attention.data?.servicios.map((item) => <div key={item.codigoServicio}><span><b>{item.servicio}</b><small>{item.centro} · {integer.format(item.eventosConAtencion)} de {integer.format(item.universoTotal)}</small></span><meter min="0" max="100" value={item.coberturaPct ?? 0}/><strong>{percent(item.coberturaPct)}</strong></div>)}</div>
       </section>}
       {(resolution.data || frequentation.data) && <section className="analytics-grid">
         {resolution.data && <article className="panel"><div className="panel-head"><div><span className="eyebrow">Resolución</span><h3>Destino de los eventos</h3></div></div><p className="context">Categorías nativas; sin fusionar destino, motivo de alta, N.E. o ausencia.</p><div className="distribution-list">{resolution.data.categorias.map((item) => <div key={`${item.destinoUrgPk ?? 'null'}-${item.destino ?? ''}`}><span><b>{item.destino ?? 'Sin registro'}</b><small>Clave {item.destinoUrgPk ?? 'sin dato'} · {integer.format(item.eventos)} eventos</small></span><meter min="0" max="100" value={item.porcentaje ?? 0}/><strong>{percent(item.porcentaje)}</strong></div>)}</div></article>}

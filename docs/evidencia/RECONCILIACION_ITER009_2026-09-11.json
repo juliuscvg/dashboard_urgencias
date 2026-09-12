@@ -1,0 +1,196 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-09-12T04:07:21.271Z",
+  "context": {
+    "desde": "2026-08-01",
+    "hasta": "2026-08-01",
+    "centro": null,
+    "codigoServicio": null,
+    "source": "dbo.vUrgencias",
+    "apiBase": "http://localhost:3002/api",
+    "secretsIncluded": false,
+    "directIdentifiersIncluded": false
+  },
+  "results": {
+    "URG-ATE-01": {
+      "sql": {
+        "resumen": {
+          "universoTotal": 354,
+          "eventosConAtencion": 335,
+          "eventosSinAtencion": 19,
+          "coberturaPct": 94.63,
+          "evaluables": 335,
+          "invertidos": 0,
+          "promedioMinutos": 205.46,
+          "mismoMinuto": 1,
+          "de0a30": 127,
+          "de31a60": 45,
+          "de61a120": 49,
+          "de121a240": 69,
+          "mayor240": 44,
+          "mayorIgual24h": 10,
+          "mayorIgual7d": 0
+        },
+        "servicios": [
+          {
+            "centro": "FAA",
+            "codigoServicio": 152,
+            "servicio": "URG ADULTOS FAA",
+            "universoTotal": 123,
+            "eventosConAtencion": 116,
+            "coberturaPct": 94.31
+          },
+          {
+            "centro": "FAA",
+            "codigoServicio": 435,
+            "servicio": "URG GINE FAA",
+            "universoTotal": 3,
+            "eventosConAtencion": 3,
+            "coberturaPct": 100
+          },
+          {
+            "centro": "FAA",
+            "codigoServicio": 118,
+            "servicio": "URG PEDIATRIA FAA",
+            "universoTotal": 42,
+            "eventosConAtencion": 41,
+            "coberturaPct": 97.62
+          },
+          {
+            "centro": "FAA",
+            "codigoServicio": 61,
+            "servicio": "URG TOCO FAA",
+            "universoTotal": 20,
+            "eventosConAtencion": 18,
+            "coberturaPct": 90
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 153,
+            "servicio": "URG ADULTOS JIM",
+            "universoTotal": 74,
+            "eventosConAtencion": 73,
+            "coberturaPct": 98.65
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 339,
+            "servicio": "URG ORTOPEDIA Y TRAUMA",
+            "universoTotal": 13,
+            "eventosConAtencion": 12,
+            "coberturaPct": 92.31
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 154,
+            "servicio": "URG PEDIATRIA JIM",
+            "universoTotal": 33,
+            "eventosConAtencion": 33,
+            "coberturaPct": 100
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 56,
+            "servicio": "URG. TOCO JIM",
+            "universoTotal": 46,
+            "eventosConAtencion": 39,
+            "coberturaPct": 84.78
+          }
+        ]
+      },
+      "api": {
+        "resumen": {
+          "universoTotal": 354,
+          "eventosConAtencion": 335,
+          "eventosSinAtencion": 19,
+          "coberturaPct": 94.63,
+          "evaluables": 335,
+          "invertidos": 0,
+          "promedioMinutos": 205.46,
+          "mismoMinuto": 1,
+          "de0a30": 127,
+          "de31a60": 45,
+          "de61a120": 49,
+          "de121a240": 69,
+          "mayor240": 44,
+          "mayorIgual24h": 10,
+          "mayorIgual7d": 0
+        },
+        "servicios": [
+          {
+            "centro": "FAA",
+            "codigoServicio": 152,
+            "servicio": "URG ADULTOS FAA",
+            "universoTotal": 123,
+            "eventosConAtencion": 116,
+            "coberturaPct": 94.31
+          },
+          {
+            "centro": "FAA",
+            "codigoServicio": 435,
+            "servicio": "URG GINE FAA",
+            "universoTotal": 3,
+            "eventosConAtencion": 3,
+            "coberturaPct": 100
+          },
+          {
+            "centro": "FAA",
+            "codigoServicio": 118,
+            "servicio": "URG PEDIATRIA FAA",
+            "universoTotal": 42,
+            "eventosConAtencion": 41,
+            "coberturaPct": 97.62
+          },
+          {
+            "centro": "FAA",
+            "codigoServicio": 61,
+            "servicio": "URG TOCO FAA",
+            "universoTotal": 20,
+            "eventosConAtencion": 18,
+            "coberturaPct": 90
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 153,
+            "servicio": "URG ADULTOS JIM",
+            "universoTotal": 74,
+            "eventosConAtencion": 73,
+            "coberturaPct": 98.65
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 339,
+            "servicio": "URG ORTOPEDIA Y TRAUMA",
+            "universoTotal": 13,
+            "eventosConAtencion": 12,
+            "coberturaPct": 92.31
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 154,
+            "servicio": "URG PEDIATRIA JIM",
+            "universoTotal": 33,
+            "eventosConAtencion": 33,
+            "coberturaPct": 100
+          },
+          {
+            "centro": "JIM",
+            "codigoServicio": 56,
+            "servicio": "URG. TOCO JIM",
+            "universoTotal": 46,
+            "eventosConAtencion": 39,
+            "coberturaPct": 84.78
+          }
+        ]
+      },
+      "sqlElapsedMs": 4799,
+      "apiElapsedMs": 2611,
+      "exactResumen": true,
+      "exactServicios": true,
+      "exact": true
+    }
+  },
+  "summary": {
+    "allExact": true
+  }
+}

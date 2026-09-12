@@ -10,6 +10,8 @@ const bandEvidence = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), '../
 const permanence = bandEvidence.results['URG-EJ-03'].api;
 const active = bandEvidence.results['URG-ACT-01'].api;
 const triageTime = bandEvidence.results['URG-TRI-03'].api;
+const attentionEvidence = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), '../docs/evidencia/RECONCILIACION_ITER009_2026-09-11.json'), 'utf8'));
+const attention = attentionEvidence.results['URG-ATE-01'].api;
 
 const queryData: Record<string, unknown> = {
   catalogs: { centros: [], servicios: [] },
@@ -42,6 +44,7 @@ const queryData: Record<string, unknown> = {
     servicios: [],
     clasificacion: evidence.results['URG-TRI-02'].apiRows,
   },
+  attention,
   resolution: { categorias: evidence.results['URG-MOD-05'].apiRows },
   frequentation: { bandas: evidence.results['URG-MOD-09'].apiRows },
   episodes: { total: 0, page: 1, pageSize: 20, rows: [] },
@@ -68,5 +71,20 @@ describe('accepted modules UI', () => {
   it('shows the URG-CAL-01 quality warning for Triage time when there are cases ≥24h or ≥7d', () => {
     const html = renderToStaticMarkup(<App />);
     expect(html).toContain('Calidad visible: 7 casos ≥24 h y 3 casos ≥7 días entre Ingreso y Triage.');
+  });
+});
+
+describe('Atención médica (URG-ATE-01)', () => {
+  it('renders coverage, bands and the URG-CAL-01 quality warning without denoting waiting time or clinical start', () => {
+    const html = renderToStaticMarkup(<App />);
+    for (const expected of [
+      'Atención médica', 'Cobertura del hito registrado', 'con fechaate', 'sin fechaate',
+      'Bandas de tiempo Ingreso → Atención médica', '0–30 min', '31–60 min', '61–120 min', '121–240 min',
+      `${attention.resumen.eventosConAtencion}`, `${attention.resumen.mismoMinuto}`, `${attention.resumen.de0a30}`,
+      `Calidad visible: ${attention.resumen.invertidos} secuencias a revisar, ${attention.resumen.mayorIgual24h} casos ≥24 h y ${attention.resumen.mayorIgual7d} casos ≥7 días entre Ingreso y Atención médica.`,
+    ]) expect(html).toContain(expected);
+    expect(html.toLowerCase()).not.toContain('tiempo de espera');
+    expect(html.toLowerCase()).not.toContain('oportunidad');
+    expect(html.toLowerCase()).not.toContain('inicio clínico real');
   });
 });

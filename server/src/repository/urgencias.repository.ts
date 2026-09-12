@@ -240,6 +240,43 @@ export async function fetchEpisodes(filters: DetailFilters): Promise<{ total: nu
   };
 }
 
+export async function fetchAttention(filters: DashboardFilters): Promise<{ resumen: Record<string, unknown>; servicios: unknown[] }> {
+  const pool = await getPool();
+  const result = await bindFilters(pool.request(), filters).query(`
+    ${eventScopeSql()}
+    SELECT
+      COUNT_BIG(*) AS universoTotal,
+      SUM(CASE WHEN fechaate IS NOT NULL THEN CONVERT(bigint, 1) ELSE 0 END) AS eventosConAtencion,
+      SUM(CASE WHEN fechaate IS NULL THEN CONVERT(bigint, 1) ELSE 0 END) AS eventosSinAtencion,
+      CAST(100.0 * SUM(CASE WHEN fechaate IS NOT NULL THEN CONVERT(decimal(20, 4), 1) ELSE 0 END)
+        / NULLIF(COUNT_BIG(*), 0) AS decimal(9, 2)) AS coberturaPct,
+      SUM(CASE WHEN fechaate >= Fechaing THEN CONVERT(bigint, 1) ELSE 0 END) AS evaluables,
+      SUM(CASE WHEN fechaate < Fechaing THEN CONVERT(bigint, 1) ELSE 0 END) AS invertidos,
+      CAST(AVG(CASE WHEN fechaate >= Fechaing THEN DATEDIFF(MINUTE, Fechaing, fechaate) * 1.0 END) AS decimal(18, 2)) AS promedioMinutos,
+      SUM(CASE WHEN fechaate = Fechaing THEN CONVERT(bigint, 1) ELSE 0 END) AS mismoMinuto,
+      SUM(CASE WHEN fechaate > Fechaing AND fechaate <= DATEADD(MINUTE, 30, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS de0a30,
+      SUM(CASE WHEN fechaate > DATEADD(MINUTE, 30, Fechaing) AND fechaate <= DATEADD(MINUTE, 60, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS de31a60,
+      SUM(CASE WHEN fechaate > DATEADD(MINUTE, 60, Fechaing) AND fechaate <= DATEADD(MINUTE, 120, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS de61a120,
+      SUM(CASE WHEN fechaate > DATEADD(MINUTE, 120, Fechaing) AND fechaate <= DATEADD(MINUTE, 240, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS de121a240,
+      SUM(CASE WHEN fechaate > DATEADD(MINUTE, 240, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS mayor240,
+      SUM(CASE WHEN fechaate >= DATEADD(HOUR, 24, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS mayorIgual24h,
+      SUM(CASE WHEN fechaate >= DATEADD(DAY, 7, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS mayorIgual7d
+    FROM EventScope;
+
+    ${eventScopeSql()}
+    SELECT centro, codigo_servicio AS codigoServicio, servicio,
+      COUNT_BIG(*) AS universoTotal,
+      SUM(CASE WHEN fechaate IS NOT NULL THEN CONVERT(bigint, 1) ELSE 0 END) AS eventosConAtencion,
+      CAST(100.0 * SUM(CASE WHEN fechaate IS NOT NULL THEN CONVERT(decimal(20, 4), 1) ELSE 0 END)
+        / NULLIF(COUNT_BIG(*), 0) AS decimal(9, 2)) AS coberturaPct
+    FROM EventScope
+    GROUP BY centro, codigo_servicio, servicio
+    ORDER BY centro, servicio, codigo_servicio;
+  `);
+  const sets = result.recordsets as sql.IRecordSet<Record<string, unknown>>[];
+  return { resumen: sets[0]?.[0] ?? {}, servicios: sets[1] ?? [] };
+}
+
 export async function fetchTriage(filters: DashboardFilters): Promise<{ resumen: Record<string, unknown>; servicios: unknown[]; clasificacion: unknown[] }> {
   const pool = await getPool();
   const result = await bindFilters(pool.request(), filters).query(`

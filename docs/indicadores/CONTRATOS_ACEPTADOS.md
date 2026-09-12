@@ -177,6 +177,19 @@ Los estados técnicos siguen [la convención HCG](https://github.com/juliuscvg/d
 - Cobertura: con Triage, universo y evaluables acompañan el promedio.
 - Implementación: `fetchTriage`, `/triage`, resumen contextual.
 
+## URG-ATE-01 — Atención médica registrada
+
+- Estado funcional: ACEPTADO CON OBSERVACIONES (decisión institucional, ITER-009). Estado técnico: RECONCILIADO CON FUENTE.
+- Definición/propósito: cobertura y tiempo registrado del hito de Atención médica dentro de U-ING, usando el timestamp canónico `fechaate` (`datetime`, nullable).
+- Unidad/granularidad: evento / `id_urgencia`. Numerador: eventos con `fechaate` no nulo. Denominador: U-ING del mismo periodo, centro y servicio.
+- NULL/exclusiones: la ausencia de `fechaate` no excluye el evento del universo; se cuantifica como `eventosSinAtencion`. No se usa `atencion_fecha` para completar valores; su equivalencia permanece POR DEFINIR y no forma parte de este contrato.
+- Temporalidad: `Fechaing→fechaate`; sólo pares no negativos (`fechaate>=Fechaing`) son evaluables para duración. Los pares negativos se cuentan como `invertidos` y no integran el promedio ni las bandas, pero tampoco se excluyen del universo.
+- Bandas: mismo minuto, 0–30, 31–60, 61–120, 121–240 y >240 min, exclusivas sobre secuencias evaluables. Señales adicionales de calidad (`invertidos`, `mayorIgual24h`, `mayorIgual7d`) siguen `URG-CAL-01`.
+- Limitaciones: `fechaate` acredita un timestamp registrado, no presencia física continua ni que la atención ocurrió exactamente en ese instante; no se denomina "tiempo de espera" ni "oportunidad asistencial", y no se afirma inicio clínico real. Es complementario: no requiere Triage, Alta Médica o Egreso y no sustituye esos hitos.
+- SQL: [URG-ATE-01_ATENCION_MEDICA.sql](../../scripts/sql/indicadores/URG-ATE-01_ATENCION_MEDICA.sql).
+- Benchmark/evidencia: cobertura 12/24/36 meses 94.1141% / 92.7560% / 88.0736% (validación funcional previa, [ITER-006](../iteraciones/ITER-006.md)); reconciliación SQL→API exacta sobre ventana operativa en [ITER-009](../iteraciones/ITER-009.md).
+- Implementación: `fetchAttention`, `getAttention`, `/api/urgencias/attention`, panel "Atención médica" con cobertura, bandas, cobertura por servicio y advertencia de calidad URG-CAL-01 en UI.
+
 ## URG-CAL-01 — Calidad de datos (capa transversal)
 
 - Estado funcional: DEFINIDO FUNCIONALMENTE. Estado técnico: RECONCILIADO CON FUENTE.
@@ -196,6 +209,8 @@ Los estados técnicos siguen [la convención HCG](https://github.com/juliuscvg/d
     `activosFechaIngresoFutura`) → URG-ACT-01.
   - Secuencia Triage invertida (`secuenciasInvertidas`) y tiempos ≥24h/≥7d
     (`tiemposMayorIgual24h`, `tiemposMayorIgual7d`) → URG-TRI-03.
+  - Secuencia Ingreso→Atención invertida y tiempos ≥24h/≥7d (`invertidos`,
+    `mayorIgual24h`, `mayorIgual7d` de Atención médica) → URG-ATE-01 (ITER-009).
 - NULL/exclusiones: NO APLICA; cada señal conserva las exclusiones de su
   indicador dueño, declaradas en su propio contrato.
 - Gap cerrado en ITER-008: `tiemposMayorIgual24h`/`tiemposMayorIgual7d` se

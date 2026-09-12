@@ -1,5 +1,5 @@
-import type { DashboardFilters, DetailFilters, DemandPoint, EpisodeRow, FrequentationBand, ResolutionItem, ServiceDemand, Summary, TriageCategory } from '../domain/types.js';
-import { fetchCurrent, fetchDemand, fetchEpisodes, fetchFrequentation, fetchReadmissions, fetchResolution, fetchSummaryBase, fetchTriage } from '../repository/urgencias.repository.js';
+import type { AttentionServiceCoverage, AttentionSummary, DashboardFilters, DetailFilters, DemandPoint, EpisodeRow, FrequentationBand, ResolutionItem, ServiceDemand, Summary, TriageCategory } from '../domain/types.js';
+import { fetchAttention, fetchCurrent, fetchDemand, fetchEpisodes, fetchFrequentation, fetchReadmissions, fetchResolution, fetchSummaryBase, fetchTriage } from '../repository/urgencias.repository.js';
 
 const asNumber = (value: unknown): number => Number(value ?? 0);
 const nullableNumber = (value: unknown): number | null => value === null || value === undefined ? null : Number(value);
@@ -65,6 +65,32 @@ export async function getEpisodes(filters: DetailFilters): Promise<{ total: numb
   return { ...result, page: filters.page, pageSize: filters.pageSize };
 }
 
+
+export async function getAttention(filters: DashboardFilters): Promise<{ resumen: AttentionSummary; servicios: AttentionServiceCoverage[] }> {
+  const result = await fetchAttention(filters);
+  const row = result.resumen;
+  return {
+    resumen: {
+      universoTotal: asNumber(row.universoTotal),
+      eventosConAtencion: asNumber(row.eventosConAtencion),
+      eventosSinAtencion: asNumber(row.eventosSinAtencion),
+      coberturaPct: nullableNumber(row.coberturaPct),
+      evaluables: asNumber(row.evaluables),
+      invertidos: asNumber(row.invertidos),
+      promedioMinutos: nullableNumber(row.promedioMinutos),
+      mismoMinuto: asNumber(row.mismoMinuto),
+      de0a30: asNumber(row.de0a30), de31a60: asNumber(row.de31a60),
+      de61a120: asNumber(row.de61a120), de121a240: asNumber(row.de121a240),
+      mayor240: asNumber(row.mayor240),
+      mayorIgual24h: asNumber(row.mayorIgual24h), mayorIgual7d: asNumber(row.mayorIgual7d),
+    },
+    servicios: result.servicios.map((item: any): AttentionServiceCoverage => ({
+      centro: String(item.centro), codigoServicio: asNumber(item.codigoServicio), servicio: String(item.servicio),
+      universoTotal: asNumber(item.universoTotal), eventosConAtencion: asNumber(item.eventosConAtencion),
+      coberturaPct: nullableNumber(item.coberturaPct),
+    })),
+  };
+}
 
 export async function getTriage(filters: DashboardFilters) {
   const result = await fetchTriage(filters);

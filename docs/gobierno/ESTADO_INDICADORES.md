@@ -18,14 +18,14 @@ Corte: 2026-09-11. Fuente canónica de estados; las fórmulas residen en [contra
 | URG-TRI-01 | Cobertura de Triage | ACEPTADO | RECONCILIADO CON FUENTE | SQL, servicios API y UI exactos |
 | URG-TRI-02 | Clasificación de Triage | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y UI exactos; cobertura conjunta |
 | URG-TRI-03 | Tiempo registrado a Triage | ACEPTADO CON OBSERVACIONES | RECONCILIADO CON FUENTE | Resumen, anomalías, extremos y bandas SQL/API/UI exactos |
-| URG-PEND-01 | Atención médica | DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | `fechaate` canónico actual del hito registrado; URG-ATE-01; sin API/UI |
+| URG-ATE-01 | Atención médica registrada | ACEPTADO CON OBSERVACIONES | RECONCILIADO CON FUENTE | `fechaate`; cobertura, tiempo registrado, bandas y señales CAL-01 SQL/API/UI exactos |
 | URG-PEND-02 | Alta médica | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | `fechamed` canónico actual del hito registrado; `altamed_fecha` auxiliar; sin API/UI |
 | URG-PEND-03 | Secuencias temporales completas | POR DEFINIR | VALIDADO CON FUENTE / NO IMPLEMENTADO | Análisis complementario de consistencia; no filtro ni KPI principal |
 | URG-PEND-04 | Población | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | Edad, sexo y residencia nativos; sin API/UI |
 | URG-PEND-05 | Diagnósticos | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | Ingreso y egreso codificados, texto de egreso no codificado y cobertura; sin API/UI |
 | URG-PEND-06 | Motivo de urgencia | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | Categoría nativa y texto libre complementario; sin API/UI |
 | URG-PEND-07 | Localización / cama | DIFERIDO | NO IMPLEMENTADO | Fuera de fase |
-| URG-CAL-01 | Calidad de datos | DEFINIDO FUNCIONALMENTE | RECONCILIADO CON FUENTE | Señales asociadas a EJ-01/EJ-03/ACT-01/TRI-03, todas visibles en UI |
+| URG-CAL-01 | Calidad de datos | DEFINIDO FUNCIONALMENTE | RECONCILIADO CON FUENTE | Señales asociadas a EJ-01/EJ-03/ACT-01/TRI-03/ATE-01, todas visibles en UI |
 
 ## Resultado de reconciliación real 2026-09-09
 
@@ -62,3 +62,7 @@ Cada señal de calidad existente (conflicto de identidad, multiplicación físic
 ## Cierre del gap UI de Triage (URG-TRI-03) — 2026-09-11
 
 `tiemposMayorIgual24h`/`tiemposMayorIgual7d` quedan visibles como advertencia de calidad condicional (`notice quality`) en el panel de Triage, con el mismo tratamiento visual que la señal de EJ-01, sin campo, fórmula, umbral ni SQL nuevos. `URG-CAL-01` queda `RECONCILIADO CON FUENTE`: sus cuatro indicadores dueño (EJ-01, EJ-03, ACT-01, TRI-03) tienen ya todas sus señales visibles en UI. Ver [ITER-008](../iteraciones/ITER-008.md).
+
+## Promoción y aceptación de Atención médica (URG-ATE-01) — 2026-09-11
+
+Decisión institucional: `URG-ATE-01` pasa de `EN VALIDACIÓN` a `ACEPTADO CON OBSERVACIONES`. Se implementó y reconcilió SQL→API→UI: cobertura de `fechaate` sobre U-ING, tiempo registrado `Fechaing→fechaate` con bandas mismo minuto/0–30/31–60/61–120/121–240/>240 min, y señales de calidad (invertidos, ≥24h, ≥7d) integradas a `URG-CAL-01` como advertencia condicional. No se usó `atencion_fecha` para completar valores; no se denomina el intervalo "tiempo de espera" ni "oportunidad", ni se afirma inicio clínico real; sin metas ni semáforos institucionales. Reconciliación SQL→API exacta y cifras de cobertura consistentes con la validación previa (94.1141%/92.7560%/88.0736% en 12/24/36 meses). Ver [ITER-009](../iteraciones/ITER-009.md).

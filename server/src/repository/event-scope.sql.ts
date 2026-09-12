@@ -20,6 +20,7 @@ WITH RawScope AS
     V.Fechaing,
     V.fechaegr,
     V.fechatri,
+    V.fechaate,
     V.triage_codigo,
     V.triage_desc,
     V.destino_urg_pk,
@@ -61,6 +62,8 @@ EventScope AS
       THEN MIN(fechaegr) END AS fechaegr,
     CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(33), fechatri, 126), '<NULL>')) = 1
       THEN MIN(fechatri) END AS fechatri,
+    CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(33), fechaate, 126), '<NULL>')) = 1
+      THEN MIN(fechaate) END AS fechaate,
     CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(40), triage_codigo), '<NULL>')) = 1
       THEN MIN(triage_codigo) END AS triage_codigo,
     CASE WHEN COUNT(DISTINCT ISNULL(CONVERT(varchar(4000), triage_desc), '<NULL>')) = 1
