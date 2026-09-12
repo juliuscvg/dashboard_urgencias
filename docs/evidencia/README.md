@@ -14,3 +14,4 @@ La evidencia no se deduce del build ni de una respuesta HTTP. Toda corrida debe 
 
 Los SQL de descubrimiento `01_validacion_estructura` y `02_validacion_funcional` no sustituyen las consultas canónicas por indicador. Sin conexión DB, se declara la capa no ejecutada y los benchmarks no se alteran.
 - [Validación funcional de Atención médica 2026-09-11](VALIDACION_ATENCION_MEDICA_2026-09-11.md) ([JSON](VALIDACION_ATENCION_MEDICA_2026-09-11.json))
+- [Medición de longitud vertical ITER-010 2026-09-12](MEDICION_VERTICAL_ITER010.md) y [capturas de las tres perspectivas](capturas/ITER-010/)
