@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { api, type Attention, type DetailScope, type Filters, type Summary, type Triage } from './api';
 import { contextLabel, readDashboardView, readFilters, writeContext, type DashboardView } from './dashboardView';
 import DetailDrawer, { type DetailRequest } from './DetailDrawer';
+import InfoDrawer from './InfoDrawer';
 import MetricTooltip from './MetricTooltip';
 import { METRIC_HELP } from './metricDefinitions';
 import { dateTime, defaultDates, integer, metric, percent, shortDate } from './format';
@@ -128,7 +129,7 @@ function BandGrid({ bands, indicator, onDetail }: { bands: Band[]; indicator: st
 
 function Trend({ points }: { points: Array<{ fecha: string; atenciones: number }> }) {
   if (!points.length) return <div className="empty">No hay atenciones para graficar en el periodo.</div>;
-  const width = 900, height = 190, pad = 26;
+  const width = 900, height = 138, pad = 22;
   const max = Math.max(...points.map((point) => point.atenciones), 1);
   const coords = points.map((point, index) => ({
     ...point, x: pad + index * ((width - pad * 2) / Math.max(points.length - 1, 1)),
@@ -149,23 +150,38 @@ function Trend({ points }: { points: Array<{ fecha: string; atenciones: number }
 const CoverageList = ({ rows }: { rows: Array<{ key: string; title: string; note: string; pct: number | null }> }) =>
   <div className="coverage-list">{rows.map((row) => <div key={row.key}><span><b>{row.title}</b><small>{row.note}</small></span><meter min="0" max="100" value={row.pct ?? 0} /><strong>{percent(row.pct)}</strong></div>)}</div>;
 
+// Resumen ejecutivo compacto de una distribución nativa: una fila de
+// etiquetas, sin fusionar ni recortar categorías (todas quedan presentes),
+// dejando el desglose con porcentaje y detalle completo al drawer bajo
+// demanda (ITER-011, ajuste acordado #2 y #5).
+const ChipList = ({ items }: { items: Array<{ key: string; label: string; value: number }> }) =>
+  <div className="chip-list">{items.map((item) => <span className="chip" key={item.key}><b>{integer.format(item.value)}</b>{item.label}</span>)}</div>;
+
 /* ------------------------------------------------------------- perspectivas */
 
 type DemandData = { tendencia: Array<{ fecha: string; atenciones: number }>; servicios: Array<{ centro: string; codigoServicio: number; servicio: string; atenciones: number }> };
 type ResolutionData = { categorias: Array<{ destinoUrgPk: number | null; destino: string | null; eventos: number; porcentaje: number | null }> };
 
+// Sólo un panel de ficha secundaria a la vez (ITER-011): la clasificación
+// nativa de Triage, la cobertura por servicio y el desglose extenso de
+// destinos se consultan bajo demanda en el mismo drawer, sin ocupar bloque
+// permanente en la vista ejecutiva (ajuste acordado #2).
+type OperationInfo = 'triage' | 'atencion' | 'resolucion' | null;
+
 function OperationPerspective({ summary, triage, attention, demand, resolution, onDetail }: {
   summary?: Summary; triage?: Triage; attention?: Attention; demand?: DemandData; resolution?: ResolutionData; onDetail: DetailOpener;
 }) {
+  const [info, setInfo] = useState<OperationInfo>(null);
   if (!summary) return null;
+
   return <>
     <section className="kpis">
       <Kpi accent label="Atenciones" value={integer.format(summary.atenciones)} note="Eventos únicos en el periodo" help={METRIC_HELP.atenciones}
         onDetail={onDetail} detail={{ scope: 'atenciones', title: 'Atenciones', indicator: 'URG-EJ-01', expectedTotal: summary.atenciones }} />
       <Kpi label="Promedio diario" value={metric(summary.promedioDiario)} note={summary.diasCompletos + ' días completos'} help={METRIC_HELP.promedioDiario} />
-      <Kpi label="Estancia registrada" value={metric(summary.permanenciaPromedioHoras, ' h')} note={integer.format(summary.eventosCompletados) + ' eventos evaluables'} help={METRIC_HELP.permanencia}
+      <Kpi label="Estancia promedio registrada" value={metric(summary.permanenciaPromedioHoras, ' h')} note={integer.format(summary.eventosCompletados) + ' eventos evaluables'} help={METRIC_HELP.permanencia}
         onDetail={onDetail} detail={{ scope: 'permanencia_evaluables', title: 'Estancia registrada evaluable', indicator: 'URG-EJ-03', expectedTotal: summary.eventosCompletados }} />
-      <Kpi label="Activos probables" value={integer.format(summary.activosProbables)} note="Corte actual, fuera del periodo" help={METRIC_HELP.activos} />
+      <Kpi label="Activos al corte" value={integer.format(summary.activosProbables)} note="Fotografía al corte, fuera del periodo" help={METRIC_HELP.activos} />
     </section>
 
     {summary.periodoParcial && <div className="notice warning">El día actual es parcial y se excluye del promedio diario.</div>}
@@ -173,12 +189,12 @@ function OperationPerspective({ summary, triage, attention, demand, resolution, 
     <section className="grid two-one">
       <Panel wide eyebrow="Demanda" title="Atenciones por día" help={METRIC_HELP.demanda}><Trend points={demand?.tendencia ?? []} /></Panel>
       <Panel eyebrow="Cobertura" title="Servicios de urgencias" help={METRIC_HELP.servicios}>
-        <div className="service-list">{demand?.servicios.map((item) => <div className="service" key={item.codigoServicio}><div><b>{item.servicio}</b><small>{item.centro} · {item.codigoServicio}</small></div><span className={item.atenciones ? '' : 'zero'}>{integer.format(item.atenciones)}</span></div>)}</div>
+        <div className="service-list">{demand?.servicios.map((item) => <div className="service" key={item.codigoServicio} title={'Código ' + item.codigoServicio}><div><b>{item.servicio}</b><small>{item.centro}</small></div><span className={item.atenciones ? '' : 'zero'}>{integer.format(item.atenciones)}</span></div>)}</div>
       </Panel>
     </section>
 
     <section className="grid two">
-      <Panel eyebrow="Permanencia" title="Bandas de estancia registrada" help={METRIC_HELP.permanenciaBandas}>
+      <Panel eyebrow="Permanencia · periodo filtrado" title="Bandas de estancia registrada" help={METRIC_HELP.permanenciaBandas} aside={<span className="scope-badge">Episodios del periodo</span>}>
         <p className="context">Bandas exclusivas sobre {integer.format(summary.eventosCompletados)} secuencias evaluables; se conservan {integer.format(summary.permanenciaInvertidos)} inversiones y {integer.format(summary.permanenciaSinEgreso)} eventos sin egreso.</p>
         <BandGrid indicator="URG-EJ-03" onDetail={onDetail} bands={[
           { label: '<12 h', value: summary.permanenciaMenor12h, scope: 'permanencia_menor12h' },
@@ -188,27 +204,24 @@ function OperationPerspective({ summary, triage, attention, demand, resolution, 
           { label: '>72 h', value: summary.permanenciaMayor72h, scope: 'permanencia_mayor72h' },
         ]} />
       </Panel>
-      <Panel eyebrow="Activos probables" title="Antigüedad al corte" help={METRIC_HELP.activosAntiguedad}>
-        <p className="context">Señales acumulativas al corte de observación; no representan bandas exclusivas.</p>
+      <Panel eyebrow="Activos probables · corte actual" title="Antigüedad al corte" help={METRIC_HELP.activosAntiguedad} aside={<span className="scope-badge alt">Fotografía al corte</span>}>
+        <p className="context">Señales acumulativas al corte de observación; no representan bandas exclusivas ni periodo.</p>
         <BandGrid indicator="URG-ACT-01" bands={[
           { label: '>24 h', value: summary.activosMayor24h }, { label: '>48 h', value: summary.activosMayor48h },
           { label: '>72 h', value: summary.activosMayor72h }, { label: 'No evaluable', value: summary.activosAntiguedadNoEvaluable },
-          { label: 'Ingreso futuro', value: summary.activosFechaIngresoFutura },
         ]} />
+        {summary.activosFechaIngresoFutura > 0 && <div className="notice quality">Calidad: {integer.format(summary.activosFechaIngresoFutura)} registros presentan fecha de ingreso futura respecto al corte (URG-CAL-01).</div>}
       </Panel>
     </section>
 
     {triage && attention && <section className="grid two">
       <Panel eyebrow="Triage" title="Cobertura de registro" help={METRIC_HELP.triageCobertura} aside={<strong className="panel-figure">{percent(triage.resumen.coberturaPct)}</strong>}>
-        <div className="mini-grid">
+        <div className="mini-grid two">
           <button type="button" className="mini clickable" onClick={() => onDetail({ scope: 'triage_registrado', title: 'Eventos con Triage registrado', indicator: 'URG-TRI-01', expectedTotal: triage.resumen.eventosConTriage })}><b>{integer.format(triage.resumen.eventosConTriage)}</b><span>con Triage</span></button>
-          <div className="mini"><b>{integer.format(triage.resumen.universoTotal)}</b><span>universo total</span></div>
           <div className="mini"><b>{metric(triage.resumen.tiempoPromedioMinutos, ' min')}</b><span>tiempo registrado promedio <MetricTooltip label="Tiempo registrado a Triage" text={METRIC_HELP.triageTiempo} /></span></div>
-          <div className="mini"><b>{integer.format(triage.resumen.secuenciasInvertidas)}</b><span>secuencias a revisar</span></div>
         </div>
-        <p className="context">La ausencia de Triage no excluye atenciones. El tiempo usa sólo secuencias cronológicamente interpretables y conserva los extremos.</p>
         {(triage.resumen.tiemposMayorIgual24h > 0 || triage.resumen.tiemposMayorIgual7d > 0) && <div className="notice quality">Calidad visible: {integer.format(triage.resumen.tiemposMayorIgual24h)} casos ≥24 h y {integer.format(triage.resumen.tiemposMayorIgual7d)} casos ≥7 días entre Ingreso y Triage.</div>}
-        <div className="distribution-head"><h4>Bandas de tiempo Ingreso → Triage</h4><small>Bandas exclusivas sobre secuencias evaluables</small></div>
+        <div className="distribution-head"><h4>Bandas de tiempo Ingreso → Triage</h4><button type="button" className="link-button" onClick={() => setInfo('triage')}>Clasificación y cobertura por servicio</button></div>
         <BandGrid indicator="URG-TRI-03" bands={[
           { label: 'Mismo minuto', value: triage.resumen.mismoMinuto }, { label: '1–10 min', value: triage.resumen.de1a10 },
           { label: '11–30 min', value: triage.resumen.de11a30 }, { label: '31–60 min', value: triage.resumen.de31a60 },
@@ -218,15 +231,14 @@ function OperationPerspective({ summary, triage, attention, demand, resolution, 
       </Panel>
 
       <Panel eyebrow="Atención médica" title="Cobertura del hito registrado" help={METRIC_HELP.atencionCobertura} aside={<strong className="panel-figure">{percent(attention.resumen.coberturaPct)}</strong>}>
-        <div className="mini-grid">
+        <div className="mini-grid three">
           <button type="button" className="mini clickable" onClick={() => onDetail({ scope: 'atencion_registrada', title: 'Eventos con Atención médica registrada', indicator: 'URG-ATE-01', expectedTotal: attention.resumen.eventosConAtencion })}><b>{integer.format(attention.resumen.eventosConAtencion)}</b><span>con fechaate</span></button>
-          <div className="mini"><b>{integer.format(attention.resumen.universoTotal)}</b><span>universo total</span></div>
           <div className="mini"><b>{metric(attention.resumen.promedioMinutos, ' min')}</b><span>tiempo registrado promedio <MetricTooltip label="Tiempo registrado a Atención médica" text={METRIC_HELP.atencionTiempo} /></span></div>
           <div className="mini"><b>{integer.format(attention.resumen.eventosSinAtencion)}</b><span>sin fechaate</span></div>
         </div>
-        <p className="context"><code>fechaate</code> es el timestamp registrado del hito de Atención médica; no representa presencia física continua ni acredita por sí solo que la atención ocurrió en ese momento. Su ausencia no excluye el evento del universo. El intervalo desde Ingreso conserva los extremos y sólo usa secuencias cronológicamente interpretables.</p>
+        <p className="context"><code>fechaate</code> es el timestamp registrado del hito de Atención médica; no representa presencia física continua ni acredita por sí solo que la atención ocurrió en ese momento. Su ausencia no excluye el evento del universo.</p>
         {(attention.resumen.invertidos > 0 || attention.resumen.mayorIgual24h > 0 || attention.resumen.mayorIgual7d > 0) && <div className="notice quality">Calidad visible: {integer.format(attention.resumen.invertidos)} secuencias a revisar, {integer.format(attention.resumen.mayorIgual24h)} casos ≥24 h y {integer.format(attention.resumen.mayorIgual7d)} casos ≥7 días entre Ingreso y Atención médica.</div>}
-        <div className="distribution-head"><h4>Bandas de tiempo Ingreso → Atención médica</h4><small>Bandas exclusivas sobre secuencias evaluables</small></div>
+        <div className="distribution-head"><h4>Bandas de tiempo Ingreso → Atención médica</h4><button type="button" className="link-button" onClick={() => setInfo('atencion')}>Cobertura por servicio</button></div>
         <BandGrid indicator="URG-ATE-01" bands={[
           { label: 'Mismo minuto', value: attention.resumen.mismoMinuto }, { label: '0–30 min', value: attention.resumen.de0a30 },
           { label: '31–60 min', value: attention.resumen.de31a60 }, { label: '61–120 min', value: attention.resumen.de61a120 },
@@ -236,31 +248,35 @@ function OperationPerspective({ summary, triage, attention, demand, resolution, 
     </section>}
 
     <section className="grid two">
-      {triage && <Panel eyebrow="Triage" title="Clasificación nativa" help={METRIC_HELP.triageClasificacion}>
-        <div className="distribution-list">{triage.clasificacion.map((item) => <div key={(item.triageCodigo ?? 'null') + '-' + (item.triageDescripcion ?? '')}><span><b>{item.triageCodigo ?? 'Sin código'} · {item.triageDescripcion ?? 'Sin descripción'}</b><small>{integer.format(item.eventos)} eventos</small></span><meter min="0" max="100" value={item.porcentajeSobreClasificados ?? 0} /><strong>{percent(item.porcentajeSobreClasificados)}</strong></div>)}</div>
+      {resolution && <Panel eyebrow="Resolución resumida" title="Destino de los eventos" help={METRIC_HELP.resolucion} aside={<button type="button" className="link-button" onClick={() => setInfo('resolucion')}>Ver desglose completo</button>}>
+        <p className="context">Categorías nativas sin fusionar; el desglose con porcentaje por destino está en el detalle.</p>
+        <ChipList items={resolution.categorias.map((item) => ({ key: (item.destinoUrgPk ?? 'null') + '-' + (item.destino ?? ''), label: item.destino ?? 'Sin registro', value: item.eventos }))} />
       </Panel>}
-      {resolution && <Panel eyebrow="Resolución" title="Destino de los eventos" help={METRIC_HELP.resolucion}>
-        <p className="context">Categorías nativas; sin fusionar destino, motivo de alta, N.E. o ausencia.</p>
-        <div className="distribution-list">{resolution.categorias.map((item) => <div key={(item.destinoUrgPk ?? 'null') + '-' + (item.destino ?? '')}><span><b>{item.destino ?? 'Sin registro'}</b><small>Clave {item.destinoUrgPk ?? 'sin dato'} · {integer.format(item.eventos)} eventos</small></span><meter min="0" max="100" value={item.porcentaje ?? 0} /><strong>{percent(item.porcentaje)}</strong></div>)}</div>
+      {(summary.eventosConConflicto > 0 || summary.filasMultiplicadas > 0) && <Panel eyebrow="Calidad del dato" title="Señales de auditoría" help={METRIC_HELP.calidad}>
+        <p className="context">Señales del registro que no modifican los indicadores; se muestran para que la cifra pueda auditarse.</p>
+        <BandGrid indicator="URG-CAL-01" onDetail={onDetail} bands={[
+          { label: 'Eventos con conflicto', value: summary.eventosConConflicto, scope: 'conflicto' },
+          { label: 'Filas físicas adicionales', value: summary.filasMultiplicadas },
+        ]} />
       </Panel>}
     </section>
 
-    {triage && attention && <section className="grid two">
-      <Panel eyebrow="Triage" title="Cobertura por servicio" help={METRIC_HELP.triageCobertura}>
-        <CoverageList rows={triage.servicios.map((item) => ({ key: 't-' + item.codigoServicio, title: item.servicio, note: item.centro + ' · ' + integer.format(item.eventosConTriage) + ' de ' + integer.format(item.universoTotal), pct: item.coberturaPct }))} />
-      </Panel>
-      <Panel eyebrow="Atención médica" title="Cobertura por servicio" help={METRIC_HELP.atencionCobertura}>
-        <CoverageList rows={attention.servicios.map((item) => ({ key: 'a-' + item.codigoServicio, title: item.servicio, note: item.centro + ' · ' + integer.format(item.eventosConAtencion) + ' de ' + integer.format(item.universoTotal), pct: item.coberturaPct }))} />
-      </Panel>
-    </section>}
+    {info === 'triage' && triage && <InfoDrawer eyebrow="Detalle auditable · URG-TRI-01/02" title="Triage: clasificación y cobertura por servicio" onClose={() => setInfo(null)}>
+      <div className="distribution-head"><h4>Clasificación nativa</h4><small>Sobre eventos clasificados</small></div>
+      <div className="distribution-list">{triage.clasificacion.map((item) => <div key={(item.triageCodigo ?? 'null') + '-' + (item.triageDescripcion ?? '')}><span><b>{item.triageCodigo ?? 'Sin código'} · {item.triageDescripcion ?? 'Sin descripción'}</b><small>{integer.format(item.eventos)} eventos</small></span><meter min="0" max="100" value={item.porcentajeSobreClasificados ?? 0} /><strong>{percent(item.porcentajeSobreClasificados)}</strong></div>)}</div>
+      <div className="distribution-head"><h4>Cobertura por servicio</h4><small>Eventos con Triage sobre universo del servicio</small></div>
+      <CoverageList rows={triage.servicios.map((item) => ({ key: 't-' + item.codigoServicio, title: item.servicio, note: item.centro + ' · ' + integer.format(item.eventosConTriage) + ' de ' + integer.format(item.universoTotal), pct: item.coberturaPct }))} />
+    </InfoDrawer>}
 
-    {(summary.eventosConConflicto > 0 || summary.filasMultiplicadas > 0) && <section className="quality-strip">
-      <div><span className="eyebrow">Calidad del dato <MetricTooltip label="Calidad del dato" text={METRIC_HELP.calidad} /></span><p>Señales del registro que no modifican los indicadores; se muestran para que la cifra pueda auditarse.</p></div>
-      <BandGrid indicator="URG-CAL-01" onDetail={onDetail} bands={[
-        { label: 'Eventos con conflicto', value: summary.eventosConConflicto, scope: 'conflicto' },
-        { label: 'Filas físicas adicionales', value: summary.filasMultiplicadas },
-      ]} />
-    </section>}
+    {info === 'atencion' && attention && <InfoDrawer eyebrow="Detalle auditable · URG-ATE-01" title="Atención médica: cobertura por servicio" onClose={() => setInfo(null)}>
+      <p className="context">Universo total {integer.format(attention.resumen.universoTotal)} · {integer.format(attention.resumen.eventosSinAtencion)} eventos sin <code>fechaate</code>.</p>
+      <CoverageList rows={attention.servicios.map((item) => ({ key: 'a-' + item.codigoServicio, title: item.servicio, note: item.centro + ' · ' + integer.format(item.eventosConAtencion) + ' de ' + integer.format(item.universoTotal), pct: item.coberturaPct }))} />
+    </InfoDrawer>}
+
+    {info === 'resolucion' && resolution && <InfoDrawer eyebrow="Detalle auditable · URG-MOD-05" title="Destino de los eventos" onClose={() => setInfo(null)}>
+      <p className="context">Categorías nativas; sin fusionar destino, motivo de alta, N.E. o ausencia.</p>
+      <div className="distribution-list">{resolution.categorias.map((item) => <div key={(item.destinoUrgPk ?? 'null') + '-' + (item.destino ?? '')}><span><b>{item.destino ?? 'Sin registro'}</b><small>Clave {item.destinoUrgPk ?? 'sin dato'} · {integer.format(item.eventos)} eventos</small></span><meter min="0" max="100" value={item.porcentaje ?? 0} /><strong>{percent(item.porcentaje)}</strong></div>)}</div>
+    </InfoDrawer>}
   </>;
 }
 

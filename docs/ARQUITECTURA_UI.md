@@ -1,10 +1,10 @@
 # Arquitectura de interfaz vigente — Urgencias
 
-Estado: vigente desde ITER-010. Esta es la descripción canónica de **cómo está
-compuesta la interfaz**, para que una reconstrucción no tenga que inferirla del
-código. No define indicadores ni fórmulas: esas viven en
-[contratos aceptados](indicadores/CONTRATOS_ACEPTADOS.md) y
-[reglas de negocio](REGLAS_NEGOCIO.md), que mandan sobre este documento.
+Estado: vigente desde ITER-010, compactada en Operación por ITER-011. Esta es
+la descripción canónica de **cómo está compuesta la interfaz**, para que una
+reconstrucción no tenga que inferirla del código. No define indicadores ni
+fórmulas: esas viven en [contratos aceptados](indicadores/CONTRATOS_ACEPTADOS.md)
+y [reglas de negocio](REGLAS_NEGOCIO.md), que mandan sobre este documento.
 
 ## Decisión de homologación visual
 
@@ -56,6 +56,29 @@ reubicarse; la iteración sólo redistribuyó módulos ya aceptados.
 | Preservación de contexto | `HCG-FIL-003`, `HCG-VIS-002` | [`dashboardView.ts`](../client/src/dashboardView.ts); el detalle hereda los filtros vigentes y los muestra |
 | Estados independientes | `HCG-UX-003`, `HCG-UX-004` | Carga/error/vacío por módulo; el fallo de uno no borra los demás |
 | Exportación de detalle | `HCG-DET-010` | CSV limitado a la página cargada del drawer |
+
+## Ficha secundaria bajo demanda (ITER-011)
+
+Operación se compactó reduciendo la información secundaria visible de forma
+permanente, sin quitarle acceso (`HCG-UX-007`, `HCG-DET-007`). La clasificación
+nativa de Triage, la cobertura de Triage y de Atención médica por servicio, y
+el desglose con porcentaje del destino de los eventos ya no ocupan bloque fijo:
+se abren bajo demanda en [`InfoDrawer.tsx`](../client/src/InfoDrawer.tsx), un
+segundo componente de overlay que reutiliza el mismo patrón visual e
+interactivo que `DetailDrawer.tsx` (backdrop, cierre con Escape, `aria-modal`),
+pero **no** consulta al servidor ni pagina: sólo repliega agregados que la
+perspectiva ya solicitó. No sustituye al drawer de episodios, que sigue siendo
+el único punto donde se lista un evento por paciente.
+
+La vista ejecutiva de Operación conserva sólo el resumen necesario de cada
+módulo (cobertura, tiempo promedio registrado, bandas resumidas y señal de
+calidad cuando existe); el resto queda a un clic. La banda "Ingreso futuro" de
+Activos probables dejó de presentarse junto a las bandas acumulativas
+operativas (`>24 h`, `>48 h`, `>72 h`): es una señal de `URG-CAL-01` y se
+muestra como advertencia de calidad separada, nunca como KPI ni semáforo.
+Permanencia (periodo filtrado) y Activos probables (fotografía al corte)
+llevan una insignia visual (`scope-badge`) que distingue explícitamente su
+semántica temporal.
 
 ## Recortes de detalle
 

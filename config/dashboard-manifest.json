@@ -3,7 +3,7 @@
   "dashboard": "dashboard_urgencias",
   "domain": "Urgencias HCG",
   "contractVersion": "2026-09-08.1",
-  "uiVersion": "2026-09-12.1",
+  "uiVersion": "2026-09-12.2",
   "portability": {
     "criterion": "Un dashboard se considera portable sólo si puede ser reconstruido, auditado y continuado por otro agente a partir exclusivamente del repositorio, sin depender de memoria de chat, prompts históricos ni conocimiento tácito del desarrollador.",
     "handoff": "docs/HANDOFF_IA.md",
@@ -46,6 +46,7 @@
     "essentialComponents": [
       "client/src/App.tsx",
       "client/src/DetailDrawer.tsx",
+      "client/src/InfoDrawer.tsx",
       "client/src/MetricTooltip.tsx",
       "client/src/metricTooltipPosition.ts",
       "client/src/metricDefinitions.ts",

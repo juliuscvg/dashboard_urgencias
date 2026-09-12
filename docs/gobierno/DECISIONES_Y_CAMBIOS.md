@@ -469,3 +469,37 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - La verificación deja de ser manual: `scripts/check-portability.mjs` detecta rutas rotas, referencias obsoletas y componentes esenciales ausentes (`HCG-POR-007`).
 - La equivalencia semántica se valida contra cifras y reconciliaciones versionadas, no contra apariencia (`HCG-POR-008`).
 - Evidencia: [ITER-010](../iteraciones/ITER-010.md).
+
+### URG-GOV-058 — Compactación visual/UX de la perspectiva Operación
+
+- Estado: ADOPTADA. Alcance: presentación únicamente, sobre `URG-GOV-056`.
+- Decisión: Operación reduce la información secundaria visible de forma
+  permanente, sin quitarle acceso. La clasificación nativa de Triage, la
+  cobertura de Triage y de Atención médica por servicio, y el desglose con
+  porcentaje del destino de los eventos se consultan bajo demanda en un nuevo
+  componente de overlay (`InfoDrawer.tsx`) que reutiliza el mismo patrón
+  visual e interactivo que el drawer de episodios (`HCG-UX-007`,
+  `HCG-DET-007`), sin precargar nada nuevo ni consultar al servidor: sólo
+  repliega agregados que la perspectiva ya solicitó.
+- Decisión: la banda "Ingreso futuro" de Activos probables deja de mostrarse
+  junto a las bandas acumulativas operativas (`>24 h`, `>48 h`, `>72 h`). Es
+  una señal de `URG-CAL-01` (anomalía de calidad, `HCG-CAL-010`) y se presenta
+  como advertencia de calidad separada y condicional, nunca como KPI,
+  desempeño ni semáforo.
+- Decisión: Permanencia (bandas de estancia, periodo filtrado) y Activos
+  probables (antigüedad, fotografía al corte) llevan una insignia visual que
+  distingue explícitamente su semántica temporal, para que no se lean como la
+  misma unidad de análisis.
+- Decisión: los KPI superiores se renombran a "Atenciones", "Promedio diario",
+  "Estancia promedio registrada" y "Activos al corte" (antes "Estancia
+  registrada" y "Activos probables"), sin cambiar su tooltip, cálculo,
+  universo ni el que sean o no clicables.
+- Límites respetados: ningún universo, fórmula, SQL, denominador, ventana
+  temporal, categoría nativa ni contrato funcional cambió; no se agregó ni
+  quitó ningún indicador; no se fusionó ninguna categoría (todas siguen
+  presentes, sólo se reparten entre resumen ejecutivo y detalle bajo demanda);
+  no se modificaron Población ni Indicadores de desempeño.
+- Verificación: altura de Operación 2 320 px → 1 705 px (viewport y método
+  idénticos a ITER-010, `HCG-VIS-006`); server 17 y client 27 pruebas PASS;
+  builds server/client PASS; portabilidad y enlaces PASS.
+- Arquitectura vigente: [ARQUITECTURA_UI.md](../ARQUITECTURA_UI.md). Evidencia: [ITER-011](../iteraciones/ITER-011.md).

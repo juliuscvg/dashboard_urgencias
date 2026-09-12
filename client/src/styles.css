@@ -87,6 +87,9 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
 .panel h3 { margin-top: 2px; color: #193d31; font-size: var(--fs-3xl); }
 .panel h4 { color: #193d31; font-size: var(--fs-xl); }
 .panel-figure { color: var(--teal); font: 700 var(--fs-5xl) 'Space Grotesk'; }
+.scope-badge { padding: 3px 9px; border: 1px solid #b7ccc6; color: #2a5c53; font-size: var(--fs-2xs); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+.scope-badge.alt { border-color: #cbb98a; color: #8a6a1f; }
+.link-button { padding: 0; border: 0; background: none; color: var(--teal); font-size: var(--fs-sm); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
 .panel.pending { border-style: dashed; background: rgba(255, 255, 255, .6); }
 .panel.methodology { max-width: 100%; }
 .context { padding: 6px 0; color: var(--muted); font-size: var(--fs-md); }
@@ -99,6 +102,8 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
 .band b { display: block; color: var(--muted); font-size: var(--fs-sm); font-weight: 600; }
 .band strong { display: block; margin-top: 4px; color: #1e4135; font: 700 var(--fs-4xl) 'Space Grotesk'; }
 .mini-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.mini-grid.two { grid-template-columns: repeat(2, 1fr); }
+.mini-grid.three { grid-template-columns: repeat(3, 1fr); }
 .mini { display: block; width: 100%; padding: 10px 12px; border: 1px solid #e2eae7; background: #f5f9f7; color: inherit; text-align: left; }
 .mini b { display: block; color: #1e4135; font: 700 var(--fs-4xl) 'Space Grotesk'; }
 .mini span { display: block; color: var(--muted); font-size: var(--fs-sm); }
@@ -110,6 +115,9 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
 .distribution-list span small, .coverage-list span small { display: block; margin-top: 2px; color: var(--muted); }
 .distribution-list meter, .coverage-list meter { width: 100%; accent-color: var(--teal); }
 .distribution-list > div > strong, .coverage-list > div > strong { text-align: right; }
+.chip-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: baseline; gap: 5px; padding: 5px 10px; border: 1px solid #e2eae7; background: #f5f9f7; color: var(--muted); font-size: var(--fs-sm); }
+.chip b { color: #1e4135; font: 700 var(--fs-lg) 'Space Grotesk'; }
 .service-list { max-height: 226px; overflow: auto; }
 .service { display: flex; align-items: center; justify-content: space-between; padding: 9px 2px; border-bottom: 1px solid #eef2f0; }
 .service b { font-size: var(--fs-md); }

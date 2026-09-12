@@ -88,14 +88,33 @@ describe('arquitectura de perspectivas (HCG-VIS-001..003)', () => {
 });
 
 describe('módulos aceptados reubicados sin cambio funcional', () => {
-  it('conserva bandas, clasificación y destino en Operación', () => {
+  it('conserva bandas, resumen de destino y bandas de Triage en Operación (ITER-011: resumen ejecutivo)', () => {
     const html = render();
     for (const expected of [
-      'Destino de los eventos', 'HOSP. PISO', 'Clasificación nativa', 'Urgencia',
+      'Destino de los eventos', 'HOSP. PISO', 'Ver desglose completo',
       'Bandas de estancia registrada', '12–&lt;24 h', 'Antigüedad al corte',
       'Señales acumulativas al corte', 'Bandas de tiempo Ingreso → Triage', '121–240 min', '204', '21', '18',
     ]) expect(html).toContain(expected);
     expect(html).not.toContain('Destinos y altas');
+    // Clasificación nativa y cobertura por servicio se compactaron a un
+    // acceso bajo demanda (ITER-011, ajuste #2): no ocupan bloque permanente,
+    // sólo el botón que abre el detalle.
+    expect(html).not.toContain('<h3>Clasificación nativa');
+    expect(html).not.toContain('<h3>Cobertura por servicio');
+    expect(html).toContain('Clasificación y cobertura por servicio');
+    expect(html).toContain('>Cobertura por servicio<');
+  });
+
+  it('diferencia visualmente Permanencia del periodo frente a Activos al corte (ITER-011, ajuste #3)', () => {
+    const html = render();
+    expect(html).toContain('Episodios del periodo');
+    expect(html).toContain('Fotografía al corte');
+  });
+
+  it('presenta "Ingreso futuro" como señal de calidad separada, nunca como banda operativa (ITER-011, ajuste #4)', () => {
+    const html = render();
+    expect(html).not.toContain('Ingreso futuro');
+    expect(html).toContain(`Calidad: ${active.fechaIngresoFutura} registros presentan fecha de ingreso futura respecto al corte`);
   });
 
   it('conserva frecuentación en Población', () => {
@@ -126,7 +145,7 @@ describe('Atención médica (URG-ATE-01)', () => {
 describe('tooltip obligatorio y patrón clicable (HCG-UX-016/017)', () => {
   it('acompaña cada KPI y ficha agregada con un tooltip en lenguaje sencillo', () => {
     const html = render();
-    for (const label of ['Atenciones', 'Promedio diario', 'Estancia registrada', 'Activos probables']) {
+    for (const label of ['Atenciones', 'Promedio diario', 'Estancia promedio registrada', 'Activos al corte']) {
       expect(html).toContain(`aria-label="Definición de ${label}"`);
     }
     // El texto es para un perfil directivo: sin jerga SQL ni de código.
