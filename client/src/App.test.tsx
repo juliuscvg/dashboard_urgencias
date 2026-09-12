@@ -33,8 +33,9 @@ const queryData: Record<string, unknown> = {
     resumen: {
       universoTotal: triageTime.universoTotal, eventosConTriage: triageTime.conTriage, coberturaPct: 14.41,
       eventosEvaluablesTiempo: triageTime.evaluables, tiempoPromedioMinutos: triageTime.promedioMinutos,
-      secuenciasInvertidas: triageTime.invertidos, tiemposMayorIgual24h: triageTime.mayorIgual24h,
-      tiemposMayorIgual7d: triageTime.mayorIgual7d, mismoMinuto: triageTime.mismoMinuto,
+      secuenciasInvertidas: triageTime.invertidos,
+      // Sintéticos (evidencia real trae 0/0): fuerzan la rama de advertencia URG-CAL-01.
+      tiemposMayorIgual24h: 7, tiemposMayorIgual7d: 3, mismoMinuto: triageTime.mismoMinuto,
       de1a10: triageTime.de1a10, de11a30: triageTime.de11a30, de31a60: triageTime.de31a60,
       de61a120: triageTime.de61a120, de121a240: triageTime.de121a240, mayor240: triageTime.mayor240,
     },
@@ -62,5 +63,10 @@ describe('accepted modules UI', () => {
       'Señales acumulativas al corte', 'Bandas de tiempo Ingreso → Triage', '121–240 min', '204', '21', '18',
     ]) expect(html).toContain(expected);
     expect(html).not.toContain('Destinos y altas');
+  });
+
+  it('shows the URG-CAL-01 quality warning for Triage time when there are cases ≥24h or ≥7d', () => {
+    const html = renderToStaticMarkup(<App />);
+    expect(html).toContain('Calidad visible: 7 casos ≥24 h y 3 casos ≥7 días entre Ingreso y Triage.');
   });
 });

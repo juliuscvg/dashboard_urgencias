@@ -428,3 +428,12 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Gap declarado: `tiemposMayorIgual24h`/`tiemposMayorIgual7d` de TRI-03 se calculan y exponen por `/urgencias/triage`, pero no se renderizan en `App.tsx`; queda pendiente de una iteración de implementación futura.
 - Límite: no se crean metas, semáforos ni umbrales institucionales; no cambia ningún universo, fórmula o regla clínica; no se implementó código, API ni UI en esta iteración.
 - Contrato: [URG-CAL-01](../indicadores/CONTRATOS_ACEPTADOS.md). Evidencia: [ITER-007](../iteraciones/ITER-007.md).
+
+### URG-GOV-054 — Cierre del gap UI de tiempos de Triage (URG-TRI-03)
+
+- Estado: IMPLEMENTADO Y RECONCILIADO CON FUENTE.
+- Corrección a URG-GOV-053: al revisar el código se encontró que `tiemposMayorIgual24h`/`tiemposMayorIgual7d` ya se mostraban como texto contextual en el panel de Triage desde el commit `2fdae1c`, anterior a ITER-007; el "gap" declarado entonces fue una lectura incompleta, no una ausencia real de dato. El gap real cerrado aquí es de presentación: faltaba el tratamiento de advertencia de calidad (`notice quality`) que ya reciben las señales de EJ-01, y el texto aparecía siempre, incluso en cero.
+- Decisión: ambos campos se presentan como advertencia condicional en el panel de Triage, visible sólo cuando alguno es mayor a cero, con el mismo estilo visual usado para `eventosConConflicto`/`filasMultiplicadas` de EJ-01.
+- Alcance: sólo `client/src/App.tsx` y `client/src/App.test.tsx`. Sin cambios en SQL, API, contratos, universos, fórmulas ni umbrales; sin fuentes nuevas ni otros indicadores.
+- `URG-CAL-01` queda `RECONCILIADO CON FUENTE`: sus cuatro indicadores dueño (EJ-01, EJ-03, ACT-01, TRI-03) tienen ya todas sus señales visibles en UI.
+- Contrato: [URG-CAL-01](../indicadores/CONTRATOS_ACEPTADOS.md). Evidencia: [ITER-008](../iteraciones/ITER-008.md).

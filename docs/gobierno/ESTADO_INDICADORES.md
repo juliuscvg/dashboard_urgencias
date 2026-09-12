@@ -25,7 +25,7 @@ Corte: 2026-09-11. Fuente canónica de estados; las fórmulas residen en [contra
 | URG-PEND-05 | Diagnósticos | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | Ingreso y egreso codificados, texto de egreso no codificado y cobertura; sin API/UI |
 | URG-PEND-06 | Motivo de urgencia | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | Categoría nativa y texto libre complementario; sin API/UI |
 | URG-PEND-07 | Localización / cama | DIFERIDO | NO IMPLEMENTADO | Fuera de fase |
-| URG-CAL-01 | Calidad de datos | DEFINIDO FUNCIONALMENTE | VALIDADO TÉCNICAMENTE | Señales asociadas a EJ-01/EJ-03/ACT-01/TRI-03; gap declarado en tiempos ≥24h/≥7d de Triage |
+| URG-CAL-01 | Calidad de datos | DEFINIDO FUNCIONALMENTE | RECONCILIADO CON FUENTE | Señales asociadas a EJ-01/EJ-03/ACT-01/TRI-03, todas visibles en UI |
 
 ## Resultado de reconciliación real 2026-09-09
 
@@ -57,4 +57,8 @@ La validación de `fechaate` cubre cohortes U-ING cerradas de 12, 24 y 36 meses.
 
 ## Definición funcional de Calidad de datos (URG-CAL-01) — 2026-09-11
 
-Cada señal de calidad existente (conflicto de identidad, multiplicación física, inversión de permanencia, evento sin egreso, antigüedad no evaluable, ingreso futuro y anomalías de Triage) queda asociada a su indicador dueño (EJ-01, EJ-03, ACT-01, TRI-03) según [contrato URG-CAL-01](../indicadores/CONTRATOS_ACEPTADOS.md). Sólo son advertencia visible en UI las señales de indicadores `ACEPTADO`/`ACEPTADO CON OBSERVACIONES`; las de bloques EN VALIDACIÓN/POR DEFINIR/EN PROCESO/DIFERIDO permanecen como auditoría técnica en evidencia/SQL. Gap declarado: `tiemposMayorIgual24h`/`tiemposMayorIgual7d` de TRI-03 ya se calculan y exponen por API, pendientes de UI. Ver [ITER-007](../iteraciones/ITER-007.md).
+Cada señal de calidad existente (conflicto de identidad, multiplicación física, inversión de permanencia, evento sin egreso, antigüedad no evaluable, ingreso futuro y anomalías de Triage) queda asociada a su indicador dueño (EJ-01, EJ-03, ACT-01, TRI-03) según [contrato URG-CAL-01](../indicadores/CONTRATOS_ACEPTADOS.md). Sólo son advertencia visible en UI las señales de indicadores `ACEPTADO`/`ACEPTADO CON OBSERVACIONES`; las de bloques EN VALIDACIÓN/POR DEFINIR/EN PROCESO/DIFERIDO permanecen como auditoría técnica en evidencia/SQL. Ver [ITER-007](../iteraciones/ITER-007.md).
+
+## Cierre del gap UI de Triage (URG-TRI-03) — 2026-09-11
+
+`tiemposMayorIgual24h`/`tiemposMayorIgual7d` quedan visibles como advertencia de calidad condicional (`notice quality`) en el panel de Triage, con el mismo tratamiento visual que la señal de EJ-01, sin campo, fórmula, umbral ni SQL nuevos. `URG-CAL-01` queda `RECONCILIADO CON FUENTE`: sus cuatro indicadores dueño (EJ-01, EJ-03, ACT-01, TRI-03) tienen ya todas sus señales visibles en UI. Ver [ITER-008](../iteraciones/ITER-008.md).

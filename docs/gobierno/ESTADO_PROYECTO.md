@@ -1,10 +1,10 @@
 # Estado vigente — Dashboard Urgencias
 
 - Proyecto/rama: `juliuscvg/dashboard_urgencias` / `main`.
-- HEAD base de ITER-007: `f345c911ba7384f441ba9504239ea4eb167bc20c`.
+- HEAD base de ITER-008: `bf44792609153615ed61bae9b096de85063fe58e`.
 - Corte documental: 2026-09-11, America/Mexico_City.
 - Fase: validación funcional y reconciliación incremental.
-- Estado: ITER-007 completada; URG-CAL-01 definida funcionalmente.
+- Estado: ITER-008 completada; URG-CAL-01 con todas sus señales visibles en UI.
 
 ## Capacidades disponibles
 
@@ -18,4 +18,4 @@ Aplicación read-only con universo central por `id_urgencia`, filtros dinámicos
 
 - Funcionales: decisión institucional sobre eventual KPI de Atención médica, Alta Médica, Población, Diagnósticos y Motivo de Urgencia; secuencia completa POR DEFINIR como KPI.
 - Técnicos: bloques EN VALIDACIÓN permanecen sin SQL productivo, API o UI.
-- Gobierno: URG-CAL-01 ya definida funcionalmente (ver [ITER-007](../iteraciones/ITER-007.md)); pendiente de implementación futura exponer en UI `tiemposMayorIgual24h`/`tiemposMayorIgual7d` de TRI-03.
+- Gobierno: `URG-CAL-01` cerrada sin pendiente UI (ver [ITER-008](../iteraciones/ITER-008.md)).

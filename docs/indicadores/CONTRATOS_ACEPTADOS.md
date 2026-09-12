@@ -179,7 +179,7 @@ Los estados técnicos siguen [la convención HCG](https://github.com/juliuscvg/d
 
 ## URG-CAL-01 — Calidad de datos (capa transversal)
 
-- Estado funcional: DEFINIDO FUNCIONALMENTE. Estado técnico: VALIDADO TÉCNICAMENTE.
+- Estado funcional: DEFINIDO FUNCIONALMENTE. Estado técnico: RECONCILIADO CON FUENTE.
 - Definición/propósito: capa transversal que asocia las señales de calidad ya
   existentes en los indicadores aceptados a su indicador dueño; no introduce
   campo, fuente, fórmula ni universo propio.
@@ -198,10 +198,14 @@ Los estados técnicos siguen [la convención HCG](https://github.com/juliuscvg/d
     (`tiemposMayorIgual24h`, `tiemposMayorIgual7d`) → URG-TRI-03.
 - NULL/exclusiones: NO APLICA; cada señal conserva las exclusiones de su
   indicador dueño, declaradas en su propio contrato.
-- Gap declarado: `tiemposMayorIgual24h`/`tiemposMayorIgual7d` ya se calculan y
-  se exponen por `/urgencias/triage`, pero no se renderizan en `client/src/App.tsx`;
-  pendiente de implementación UI en una iteración futura.
+- Gap cerrado en ITER-008: `tiemposMayorIgual24h`/`tiemposMayorIgual7d` se
+  exponían por `/urgencias/triage` y ya se mostraban como texto contextual;
+  ahora se presentan como advertencia de calidad condicional
+  (`notice quality`), visible sólo cuando alguno es mayor a cero, con el
+  mismo tratamiento visual que la señal de EJ-01. Sin campo, fórmula, umbral
+  ni SQL nuevos.
 - SQL: NO APLICA (reutiliza los SQL de cada indicador dueño, sin SQL propio).
 - Implementación: avisos y bandas ya presentes en `client/src/App.tsx` para
   cada indicador dueño listado arriba; sin endpoint ni tabla propios.
-- Evidencia: [ITER-007](../iteraciones/ITER-007.md).
+- Evidencia: [ITER-007](../iteraciones/ITER-007.md) (definición e inventario);
+  [ITER-008](../iteraciones/ITER-008.md) (cierre del gap UI de TRI-03).
