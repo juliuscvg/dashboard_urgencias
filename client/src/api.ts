@@ -55,6 +55,13 @@ export type Episodes = {
     permanenciaHoras: number | null; filasFisicas: number; conflicto: boolean }>;
 };
 
+
+/** Recortes de detalle expuestos por el servidor; el universo de cada uno vive en el backend. */
+export type DetailScope =
+  | 'atenciones' | 'permanencia_evaluables'
+  | 'permanencia_menor12h' | 'permanencia_12a24h' | 'permanencia_24a48h' | 'permanencia_48a72h' | 'permanencia_mayor72h'
+  | 'hospitalizacion' | 'triage_registrado' | 'atencion_registrada' | 'conflicto';
+
 const params = (values: Record<string, string | number | undefined>) => {
   const result = new URLSearchParams();
   Object.entries(values).forEach(([key, value]) => { if (value !== undefined && value !== '') result.set(key, String(value)); });
@@ -75,5 +82,6 @@ export const api = {
   demand: (filters: Filters) => get<Demand>(`/api/urgencias/demand?${params(filters)}`),
   resolution: (filters: Filters) => get<Resolution>(`/api/urgencias/resolution?${params(filters)}`),
   frequentation: (filters: Filters) => get<Frequentation>(`/api/urgencias/frequentation?${params(filters)}`),
-  episodes: (filters: Filters, page: number) => get<Episodes>(`/api/urgencias/episodes?${params({ ...filters, page, pageSize: 20 })}`),
+  episodes: (filters: Filters, page: number, pageSize = 25, metrica?: DetailScope) =>
+    get<Episodes>(`/api/urgencias/episodes?${params({ ...filters, page, pageSize, metrica })}`),
 };

@@ -446,3 +446,26 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Límites respetados: no se usa `atencion_fecha` para completar `fechaate` (su equivalencia sigue POR DEFINIR); no se denomina el intervalo "tiempo de espera" ni "oportunidad asistencial", ni se afirma inicio clínico real; no se crean metas ni semáforos institucionales; no se modificó ningún otro indicador, universo, fórmula o regla clínica; no se abrió ninguna fuente adicional.
 - Verificación: reconciliación SQL→API exacta (resumen y cobertura por servicio) sobre ventana operativa; cobertura de la ventana cerrada de 12 meses (94.11%) reproduce la cifra ya validada en ITER-006. Server 10 pruebas, client 5 pruebas, builds server/client PASS.
 - Contrato: [URG-ATE-01](../indicadores/CONTRATOS_ACEPTADOS.md#urg-ate-01--atención-médica-registrada). Evidencia: [ITER-009](../iteraciones/ITER-009.md).
+
+### URG-GOV-056 — Homologación visual con CEX y arquitectura de perspectivas
+
+- Estado: ADOPTADA. Alcance: presentación únicamente.
+- Decisión: Urgencias adopta el lenguaje visual de `dashboard_cex` (tipografía, escala tipográfica por tokens, densidad, tarjetas, rejillas y navegación por perspectivas) bajo `HCG-VIS-005`, conservando su propia paleta institucional. Se adopta lenguaje visual, NO reglas de negocio, fórmulas, universos, códigos ni semántica clínica de CEX.
+- Decisión: la página vertical única se sustituye por tres perspectivas sobre el mismo universo filtrado — Operación, Población e Indicadores de desempeño (`HCG-VIS-001..003`) —, persistidas en la URL junto con los filtros.
+- Reubicación sin cambio funcional: Operación (EJ-01, EJ-02, EJ-03, ACT-01, MOD-01, TRI-01/02/03, ATE-01, MOD-05, señales CAL-01); Población (EJ-06, EJ-07, MOD-09); Desempeño (EJ-04, EJ-05). Ningún indicador cambió de fórmula, universo, denominador ni contrato.
+- El perfil demográfico (`URG-PEND-04`) se declara explícitamente NO IMPLEMENTADO en la perspectiva Población en lugar de aproximarse (`HCG-VIS-004`).
+- La cobertura de registro de Triage y de Atención médica NO se presenta como desempeño: es calidad del dato y permanece en Operación (`HCG-CAL-010`).
+- Se adoptan además tooltip obligatorio por métrica agregada (`HCG-UX-016`), patrón clicable→drawer sólo donde existe detalle (`HCG-UX-017`), detalle bajo demanda paginado del lado servidor con reconciliación visible (`HCG-UX-006/007/015`) y exportación CSV limitada a la página cargada (`HCG-DET-010`).
+- Límites respetados: sin indicadores nuevos, sin fuentes nuevas, sin metas ni semáforos institucionales, sin cambios en SQL de resultado. El refactor de `fetchSummaryBase` a predicados compartidos es textualmente equivalente y no altera ninguna cifra.
+- Arquitectura vigente: [ARQUITECTURA_UI.md](../ARQUITECTURA_UI.md). Evidencia: [ITER-010](../iteraciones/ITER-010.md).
+
+### URG-GOV-057 — Criterio de portabilidad y handoff explícito para otro agente
+
+- Estado: ADOPTADA. Alcance: gobierno y documentación.
+- Decisión: Urgencias adopta el criterio transversal `HCG-POR-001`: un dashboard es portable sólo si puede ser reconstruido, auditado y continuado por otro agente a partir exclusivamente del repositorio, sin depender de memoria de chat, prompts históricos ni conocimiento tácito del desarrollador.
+- Se crea [HANDOFF_IA.md](../HANDOFF_IA.md) como punto de entrada para un agente sin historial: qué leer, en qué orden, qué documentos son autoridad, qué reglas son transversales, qué reglas son locales y NO transferibles, cómo continuar una iteración y cómo validar equivalencia semántica (`HCG-POR-002`).
+- Se declara explícitamente la frontera entre reglas transversales HCG reutilizables y reglas propias de Urgencias no transferibles (U-ING, `codigo_area=2`, `codigo_cliente`, `destino_urg_pk=5`, activo probable, ventanas de reingreso, hitos registrados de Triage y Atención médica) (`HCG-POR-004`).
+- La referencia a `dashboard_hcg_specs` pasa de `ab245b2` (obsoleta) a `dab9a84` y debe mantenerse vigente (`HCG-POR-005`).
+- La verificación deja de ser manual: `scripts/check-portability.mjs` detecta rutas rotas, referencias obsoletas y componentes esenciales ausentes (`HCG-POR-007`).
+- La equivalencia semántica se valida contra cifras y reconciliaciones versionadas, no contra apariencia (`HCG-POR-008`).
+- Evidencia: [ITER-010](../iteraciones/ITER-010.md).

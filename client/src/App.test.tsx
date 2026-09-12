@@ -28,7 +28,7 @@ const queryData: Record<string, unknown> = {
     activosProbables: active.activosProbables, activosAntiguedadNoEvaluable: active.antiguedadNoEvaluable,
     activosFechaIngresoFutura: active.fechaIngresoFutura, activosMayor24h: active.mayor24h,
     activosMayor48h: active.mayor48h, activosMayor72h: active.mayor72h,
-    eventosConConflicto: 0, filasMultiplicadas: 0, observadoEn: '2026-09-10T22:52:10.000Z',
+    eventosConConflicto: 4, filasMultiplicadas: 6, observadoEn: '2026-09-10T22:52:10.000Z',
   },
   demand: { tendencia: [{ fecha: '2026-08-01', atenciones: 354 }], servicios: [] },
   triage: {
@@ -47,36 +47,70 @@ const queryData: Record<string, unknown> = {
   attention,
   resolution: { categorias: evidence.results['URG-MOD-05'].apiRows },
   frequentation: { bandas: evidence.results['URG-MOD-09'].apiRows },
-  episodes: { total: 0, page: 1, pageSize: 20, rows: [] },
 };
 
 vi.mock('@tanstack/react-query', () => ({
   useQuery: ({ queryKey }: { queryKey: string[] }) => ({
-    data: queryData[queryKey[0]], isLoading: false, isError: false, error: null,
+    data: queryData[queryKey[0]], isLoading: false, isError: false, isFetching: false, error: null,
   }),
 }));
 
-describe('accepted modules UI', () => {
-  it('renders accepted categorical modules and all three band structures', () => {
-    const html = renderToStaticMarkup(<App />);
+function render(view?: 'population' | 'performance') {
+  window.history.replaceState(null, '', view ? `/?vista=${view}` : '/');
+  return renderToStaticMarkup(<App />);
+}
+
+describe('arquitectura de perspectivas (HCG-VIS-001..003)', () => {
+  it('expone las tres perspectivas y activa Operación por defecto', () => {
+    const html = render();
+    for (const label of ['Operación', 'Población', 'Indicadores de desempeño']) expect(html).toContain(label);
+    expect(html).toContain('Perspectiva de análisis');
+    expect(html).toContain('aria-current="page"');
+  });
+
+  it('cada perspectiva muestra sólo sus módulos y no la página vertical anterior', () => {
+    const operation = render();
+    expect(operation).toContain('Atenciones por día');
+    expect(operation).toContain('Cobertura del hito registrado');
+    // Desempeño y Población no se renderizan dentro de Operación.
+    expect(operation).not.toContain('Eventos por paciente');
+    expect(operation).not.toContain('Alcance de esta perspectiva');
+
+    const population = render('population');
+    expect(population).toContain('Eventos por paciente');
+    expect(population).not.toContain('Atenciones por día');
+    expect(population).not.toContain('Bandas de tiempo Ingreso → Triage');
+
+    const performance = render('performance');
+    expect(performance).toContain('Alcance de esta perspectiva');
+    expect(performance).not.toContain('Atenciones por día');
+  });
+});
+
+describe('módulos aceptados reubicados sin cambio funcional', () => {
+  it('conserva bandas, clasificación y destino en Operación', () => {
+    const html = render();
     for (const expected of [
-      'Destino de los eventos', 'HOSP. PISO', 'Eventos por paciente', '322',
-      'Clasificación nativa', 'Urgencia', 'Porcentaje sobre eventos clasificados',
+      'Destino de los eventos', 'HOSP. PISO', 'Clasificación nativa', 'Urgencia',
       'Bandas de estancia registrada', '12–&lt;24 h', 'Antigüedad al corte',
       'Señales acumulativas al corte', 'Bandas de tiempo Ingreso → Triage', '121–240 min', '204', '21', '18',
     ]) expect(html).toContain(expected);
     expect(html).not.toContain('Destinos y altas');
   });
 
-  it('shows the URG-CAL-01 quality warning for Triage time when there are cases ≥24h or ≥7d', () => {
-    const html = renderToStaticMarkup(<App />);
-    expect(html).toContain('Calidad visible: 7 casos ≥24 h y 3 casos ≥7 días entre Ingreso y Triage.');
+  it('conserva frecuentación en Población', () => {
+    const html = render('population');
+    for (const expected of ['Eventos por paciente', '322', 'Pacientes únicos']) expect(html).toContain(expected);
+  });
+
+  it('muestra la advertencia URG-CAL-01 de Triage cuando hay casos ≥24 h o ≥7 d', () => {
+    expect(render()).toContain('Calidad visible: 7 casos ≥24 h y 3 casos ≥7 días entre Ingreso y Triage.');
   });
 });
 
 describe('Atención médica (URG-ATE-01)', () => {
-  it('renders coverage, bands and the URG-CAL-01 quality warning without denoting waiting time or clinical start', () => {
-    const html = renderToStaticMarkup(<App />);
+  it('conserva cobertura, bandas y advertencia sin denotar espera ni inicio clínico', () => {
+    const html = render();
     for (const expected of [
       'Atención médica', 'Cobertura del hito registrado', 'con fechaate', 'sin fechaate',
       'Bandas de tiempo Ingreso → Atención médica', '0–30 min', '31–60 min', '61–120 min', '121–240 min',
@@ -86,5 +120,61 @@ describe('Atención médica (URG-ATE-01)', () => {
     expect(html.toLowerCase()).not.toContain('tiempo de espera');
     expect(html.toLowerCase()).not.toContain('oportunidad');
     expect(html.toLowerCase()).not.toContain('inicio clínico real');
+  });
+});
+
+describe('tooltip obligatorio y patrón clicable (HCG-UX-016/017)', () => {
+  it('acompaña cada KPI y ficha agregada con un tooltip en lenguaje sencillo', () => {
+    const html = render();
+    for (const label of ['Atenciones', 'Promedio diario', 'Estancia registrada', 'Activos probables']) {
+      expect(html).toContain(`aria-label="Definición de ${label}"`);
+    }
+    // El texto es para un perfil directivo: sin jerga SQL ni de código.
+    for (const jargon of ['SELECT', 'JOIN', 'GROUP BY', 'NULL ']) expect(html).not.toContain(jargon);
+  });
+
+  it('hace clicable sólo la métrica que tiene detalle disponible', () => {
+    const html = render();
+    expect(html).toContain('kpi accent clickable');
+    expect(html).toContain('Ver detalle');
+    // Promedio diario y Activos probables no exponen detalle y no se presentan como clicables.
+    expect(html).toContain('<article class="kpi">');
+    const performance = render('performance');
+    expect(performance).toContain('kpi accent clickable');
+  });
+
+  it('no precarga el detalle de pacientes: el drawer no está en el árbol inicial', () => {
+    expect(render()).not.toContain('drawer-backdrop');
+  });
+});
+
+describe('separación entre calidad de dato y desempeño (HCG-CAL-010)', () => {
+  it('mantiene la cobertura de registro fuera de la perspectiva de desempeño', () => {
+    const html = render('performance');
+    expect(html).toContain('Hospitalización');
+    expect(html).toContain('Reingreso &lt;72 h');
+    expect(html).not.toContain('Cobertura de registro');
+    expect(html).not.toContain('Cobertura del hito registrado');
+    expect(html).toContain('se presenta como desempeño');
+  });
+
+  it('no introduce metas ni semáforos institucionales', () => {
+    const html = render('performance');
+    // La única mención admitida es la declaración de que NO existen.
+    expect(html).toContain('No existen metas ni semáforos institucionales aprobados');
+    // Ninguna cifra se califica con meta, umbral o semáforo.
+    for (const forbidden of ['Meta:', 'Objetivo:', 'Cumple', 'No cumple', 'semaforo', 'class="target"', 'Umbral']) {
+      expect(html).not.toContain(forbidden);
+    }
+  });
+});
+
+describe('perspectiva sin contrato aceptado (HCG-VIS-004)', () => {
+  it('declara Población demográfica como no implementada en lugar de aproximarla', () => {
+    const html = render('population');
+    expect(html).toContain('Perfil demográfico');
+    expect(html).toContain('No implementado');
+    expect(html).toContain('URG-PEND-04');
+    for (const forbidden of ['Sexo', 'Edad promedio', 'Procedencia']) expect(html).not.toContain(forbidden);
   });
 });

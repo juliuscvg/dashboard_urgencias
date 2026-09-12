@@ -22,6 +22,7 @@ const expectedSql = [
   'URG-EJ-07_ATENCIONES_POR_PACIENTE.sql','URG-ACT-01_ACTIVOS_PROBABLES.sql','URG-MOD-01_DEMANDA.sql',
   'URG-MOD-05_RESOLUCION.sql','URG-MOD-09_FRECUENTACION.sql','URG-TRI-01_COBERTURA.sql',
   'URG-TRI-02_CLASIFICACION.sql','URG-TRI-03_TIEMPO_REGISTRADO.sql',
+  'URG-ATE-01_ATENCION_MEDICA.sql',
 ];
 for (const expected of expectedSql) if (!sqlFiles.includes(expected)) errors.push('SQL faltante: ' + expected);
 
@@ -51,12 +52,92 @@ if (operativeCheckpoints.length !== 1 || operativeCheckpoints[0] !== 'CHECKPOINT
 }
 const contracts = fs.readFileSync(path.join(root, 'docs/indicadores/CONTRATOS_ACEPTADOS.md'), 'utf8');
 for (const expected of expectedSql) if (!contracts.includes(expected)) errors.push('Contrato sin asociación SQL: ' + expected);
+
+// --- Paquete portable (HCG-POR-001..008) ---------------------------------
+// Detecta rutas rotas, referencias obsoletas y componentes esenciales ausentes
+// sin necesitar base de datos. No valida cifras: eso exige acceso a la fuente.
+
+// Handoff mínimo: debe existir y responder las siete preguntas exigidas.
+const handoffPath = manifest.portability?.handoff;
+if (!handoffPath) errors.push('Manifiesto sin handoff declarado');
+else if (!fs.existsSync(path.join(root, handoffPath))) errors.push('Handoff inexistente: ' + handoffPath);
+else {
+  const handoff = fs.readFileSync(path.join(root, handoffPath), 'utf8');
+  const questions = [
+    'Qué archivos leer', 'En qué orden', 'Qué documentos son autoridad',
+    'Qué reglas son transversales', 'Qué reglas son locales y NO deben transferirse',
+    'Cómo continuar una nueva iteración', 'Cómo validar que una reconstrucción es semánticamente equivalente',
+  ];
+  for (const question of questions) {
+    if (!handoff.toLowerCase().includes(question.toLowerCase())) errors.push('Handoff sin la pregunta: ' + question);
+  }
+  if (!manifest.portability.criterion?.includes('sin depender de memoria de chat')) {
+    errors.push('Manifiesto sin el criterio de portabilidad vigente');
+  }
+}
+
+// Referencia a dashboard_hcg_specs: vigente y con forma de commit completo.
+const specsCommit = manifest.hcgSpecs?.commit ?? '';
+if (!/^[0-9a-f]{40}$/.test(specsCommit)) errors.push('Referencia a dashboard_hcg_specs sin commit completo: ' + specsCommit);
+
+// Componentes esenciales del paquete portable.
+for (const component of manifest.ui?.essentialComponents ?? []) {
+  if (!fs.existsSync(path.join(root, component))) errors.push('Componente esencial ausente: ' + component);
+}
+if (!manifest.ui?.architecture || !fs.existsSync(path.join(root, manifest.ui.architecture))) {
+  errors.push('Arquitectura UI no declarada o inexistente');
+}
+
+// Las perspectivas declaradas deben existir en el código y en su documento.
+// Un manifiesto mal formado se reporta como error, no revienta el verificador.
+const viewModulePath = path.join(root, 'client/src/dashboardView.ts');
+const viewModule = fs.existsSync(viewModulePath) ? fs.readFileSync(viewModulePath, 'utf8') : '';
+if (!viewModule) errors.push('Componente esencial ausente: client/src/dashboardView.ts');
+const uiArchitecturePath = manifest.ui?.architecture ? path.join(root, manifest.ui.architecture) : null;
+const uiArchitecture = uiArchitecturePath && fs.existsSync(uiArchitecturePath) ? fs.readFileSync(uiArchitecturePath, 'utf8') : '';
+const perspectives = manifest.ui?.perspectives ?? [];
+if (perspectives.length !== 3) errors.push('Se esperaban tres perspectivas declaradas, hay ' + perspectives.length);
+for (const perspective of perspectives) {
+  if (!viewModule.includes(`'${perspective.id}'`)) errors.push('Perspectiva no implementada: ' + perspective.id);
+  if (!uiArchitecture.includes(perspective.label)) errors.push('Perspectiva no documentada: ' + perspective.label);
+}
+
+// Todo indicador ubicado en una perspectiva debe existir en el estado vigente,
+// y ninguno declarado como no implementado puede presentarse como implementado.
+const indicatorStatesPath = path.join(root, manifest.paths.indicatorStates ?? '');
+const indicatorStates = manifest.paths.indicatorStates && fs.existsSync(indicatorStatesPath) ? fs.readFileSync(indicatorStatesPath, 'utf8') : '';
+for (const perspective of perspectives) {
+  for (const indicator of perspective.indicators ?? []) {
+    if (!indicatorStates.includes(indicator)) errors.push('Indicador sin estado vigente: ' + indicator);
+  }
+  for (const pending of perspective.declaredNotImplemented ?? []) {
+    if (!indicatorStates.includes(pending)) errors.push('Pendiente declarado sin estado vigente: ' + pending);
+  }
+}
+
+// Los recortes de detalle viven sólo en el servidor y paginan del lado servidor.
+const scopeDefinition = manifest.ui?.detailScopes?.definition;
+const scopePath = scopeDefinition ? path.join(root, scopeDefinition) : null;
+const scopeModule = scopePath && fs.existsSync(scopePath) ? fs.readFileSync(scopePath, 'utf8') : '';
+if (!scopeModule) errors.push('Definición de recortes de detalle ausente');
+for (const required of ['DETAIL_SCOPES', 'detailScopeWhere']) {
+  if (scopeModule && !scopeModule.includes(required)) errors.push('Definición de recortes incompleta: falta ' + required);
+}
+if (manifest.ui?.detailScopes?.preloaded !== false) errors.push('El detalle no puede declararse precargado');
+const drawerPath = path.join(root, 'client/src/DetailDrawer.tsx');
+const drawer = fs.existsSync(drawerPath) ? fs.readFileSync(drawerPath, 'utf8') : '';
+if (!drawer.includes('hasReconciliationMismatch')) errors.push('El detalle no reconcilia contra el agregado');
+if (!/pageSize/.test(drawer)) errors.push('El detalle no pagina del lado servidor');
 if (errors.length) {
   console.error(JSON.stringify({ sqlFiles: sqlFiles.length, errors }, null, 2));
   process.exit(1);
 }
 console.log(JSON.stringify({
   manifest: manifest.schemaVersion,
+  handoff: manifest.portability?.handoff,
+  hcgSpecsCommit: specsCommit.slice(0, 7),
+  perspectives: perspectives.length,
+  essentialComponents: (manifest.ui?.essentialComponents ?? []).length,
   sqlFiles: sqlFiles.length,
   readOnly: true,
   compatibility100: true,

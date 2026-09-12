@@ -1,21 +1,78 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "dashboard": "dashboard_urgencias",
   "domain": "Urgencias HCG",
   "contractVersion": "2026-09-08.1",
+  "uiVersion": "2026-09-12.1",
+  "portability": {
+    "criterion": "Un dashboard se considera portable sólo si puede ser reconstruido, auditado y continuado por otro agente a partir exclusivamente del repositorio, sin depender de memoria de chat, prompts históricos ni conocimiento tácito del desarrollador.",
+    "handoff": "docs/HANDOFF_IA.md",
+    "validator": "scripts/check-portability.mjs",
+    "adoptedRules": "HCG-POR-001..008"
+  },
   "hcgSpecs": {
     "repository": "juliuscvg/dashboard_hcg_specs",
-    "commit": "ab245b2ab85371ac5b475b974c98488d0fd47432",
-    "adoption": "docs/gobierno/ADOPCION_HCG.md"
+    "commit": "dab9a8442f8b66e15cf10d3fd5577393db1e0c0c",
+    "adoption": "docs/gobierno/ADOPCION_HCG.md",
+    "adoptionData": "config/adopcion-hcg.json"
+  },
+  "ui": {
+    "architecture": "docs/ARQUITECTURA_UI.md",
+    "visualHomologation": {
+      "source": "juliuscvg/dashboard_cex",
+      "scope": "Lenguaje visual: tipografía, escala, paleta de densidad, tarjetas, rejillas y navegación por perspectivas",
+      "excluded": "Reglas de negocio, fórmulas, universos, códigos y semántica clínica u operativa de CEX",
+      "rule": "HCG-VIS-005"
+    },
+    "perspectives": [
+      {
+        "id": "operation",
+        "label": "Operación",
+        "indicators": ["URG-EJ-01", "URG-EJ-02", "URG-EJ-03", "URG-ACT-01", "URG-MOD-01", "URG-TRI-01", "URG-TRI-02", "URG-TRI-03", "URG-ATE-01", "URG-MOD-05", "URG-CAL-01"]
+      },
+      {
+        "id": "population",
+        "label": "Población",
+        "indicators": ["URG-EJ-06", "URG-EJ-07", "URG-MOD-09"],
+        "declaredNotImplemented": ["URG-PEND-04"]
+      },
+      {
+        "id": "performance",
+        "label": "Indicadores de desempeño",
+        "indicators": ["URG-EJ-04", "URG-EJ-05"]
+      }
+    ],
+    "visualContracts": ["HCG-VIS-001", "HCG-VIS-002", "HCG-VIS-003", "HCG-VIS-004", "HCG-VIS-005", "HCG-VIS-006", "HCG-VIS-007", "HCG-UX-016", "HCG-UX-017", "HCG-DET-010", "HCG-CAL-010"],
+    "essentialComponents": [
+      "client/src/App.tsx",
+      "client/src/DetailDrawer.tsx",
+      "client/src/MetricTooltip.tsx",
+      "client/src/metricTooltipPosition.ts",
+      "client/src/metricDefinitions.ts",
+      "client/src/dashboardView.ts",
+      "client/src/detailReconciliation.ts",
+      "server/src/repository/detail-scopes.sql.ts"
+    ],
+    "detailScopes": {
+      "endpoint": "/api/urgencias/episodes",
+      "parameter": "metrica",
+      "definition": "server/src/repository/detail-scopes.sql.ts",
+      "serverSidePagination": true,
+      "preloaded": false
+    }
   },
   "paths": {
     "rebuild": "docs/RECONSTRUIR_DASHBOARD.md",
+    "handoff": "docs/HANDOFF_IA.md",
+    "agents": "AGENTS.md",
     "checkpoint": "docs/gobierno/CHECKPOINT_ACTUAL.md",
     "status": "docs/gobierno/ESTADO_PROYECTO.md",
     "indicatorContracts": [
       "docs/indicadores/CONTRATOS_ACEPTADOS.md"
     ],
     "indicatorStates": "docs/gobierno/ESTADO_INDICADORES.md",
+    "businessRules": "docs/REGLAS_NEGOCIO.md",
+    "limitations": "docs/DESCUBRIMIENTOS_Y_LIMITACIONES.md",
     "dictionary": "docs/diccionarios/DICCIONARIO_vUrgencias.md",
     "sources": "docs/diccionarios/FUENTES_Y_GRANULARIDAD.md",
     "verifiableSql": "scripts/sql/indicadores/",
@@ -23,6 +80,8 @@
     "benchmarks": "docs/evidencia/BENCHMARKS_VIGENTES.md",
     "decisions": "docs/gobierno/DECISIONES_Y_CAMBIOS.md",
     "traceability": "docs/gobierno/TRAZABILIDAD.md",
-    "architecture": "docs/ARQUITECTURA_FUTURA.md"
+    "architecture": "docs/ARQUITECTURA_FUTURA.md",
+    "uiArchitecture": "docs/ARQUITECTURA_UI.md",
+    "iterations": "docs/iteraciones/"
   }
 }

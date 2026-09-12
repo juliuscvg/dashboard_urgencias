@@ -1,10 +1,10 @@
 {
-  "commit_specs": "ab245b2ab85371ac5b475b974c98488d0fd47432",
+  "commit_specs": "dab9a8442f8b66e15cf10d3fd5577393db1e0c0c",
   "fecha": "2026-09-09",
   "responsable": "Codex, evaluación documental solicitada; aprobación institucional no documentada",
   "alcance": "Adopción documental y técnica; reconciliación DB de aplicación pendiente",
   "totales": {
-    "ADOPTADA": 65,
+    "ADOPTADA": 84,
     "PARCIAL": 5,
     "NO_APLICA": 0,
     "PENDIENTE": 2,
@@ -660,5 +660,19 @@
       "documento": "../REGLAS_NEGOCIO.md"
     }
   ],
-  "baseline_origen": "717f681e6d979798a2b1d680dda64d765bb3b051"
+  "baseline_origen": "717f681e6d979798a2b1d680dda64d765bb3b051",
+  "fecha_ampliacion": "2026-09-12",
+  "ampliacion": {
+    "commit": "dab9a8442f8b66e15cf10d3fd5577393db1e0c0c",
+    "iteracion": "ITER-010",
+    "familias": [
+      "HCG-VIS-001..007",
+      "HCG-UX-016..017",
+      "HCG-DET-010",
+      "HCG-CAL-010",
+      "HCG-POR-001..008"
+    ],
+    "estado": "ADOPTADA",
+    "detalle": "docs/gobierno/ADOPCION_HCG.md"
+  }
 }

@@ -43,4 +43,8 @@ Columnas base candidatas: ingreso, centro, servicio, registro, paciente, edad, s
 
 Datos personales sólo para auditoría autorizada; roles/exportación identificable pendientes. Sin logs con nombres, CURP, teléfonos, direcciones o datos personales innecesarios. Médico: Atenciones asociadas / Actividad registrada, no productividad ni mejor/peor; staff triage separado y registro/egreso en auditoría.
 
-[Adopción HCG](gobierno/ADOPCION_HCG.md) · [Arquitectura](ARQUITECTURA_FUTURA.md) · [Casos](evidencia/CASOS_PATRON_VIGENTES.md).
+## Arquitectura de interfaz vigente (ITER-010)
+
+Este contrato define **qué** debe cumplir la interfaz. **Cómo** está compuesta hoy —perspectivas Operación/Población/Desempeño, tooltip obligatorio, patrón clicable→drawer, recortes de detalle y contratos visuales transversales adoptados— se describe en [ARQUITECTURA_UI.md](ARQUITECTURA_UI.md), que no sustituye a este contrato ni a los [contratos de indicadores](indicadores/CONTRATOS_ACEPTADOS.md).
+
+[Adopción HCG](gobierno/ADOPCION_HCG.md) · [Arquitectura de interfaz](ARQUITECTURA_UI.md) · [Arquitectura futura](ARQUITECTURA_FUTURA.md) · [Casos](evidencia/CASOS_PATRON_VIGENTES.md).

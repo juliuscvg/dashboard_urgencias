@@ -106,3 +106,31 @@ Referencia inmutable HCG Specs: `ab245b2ab85371ac5b475b974c98488d0fd47432`.
 - UX, filtros y detalle permanecen PARCIAL donde la implementación de primera fase aún tiene deuda.
 
 La matriz transversal autoritativa reside en `dashboard_hcg_specs/adopcion/MATRIZ_ADOPCION.md`. Este documento conserva el detalle local y no la duplica.
+
+## Ampliación transversal `dab9a84` — 2026-09-12 (ITER-010)
+
+Familias formalizadas en `dashboard_hcg_specs` después del baseline `ab245b2` y adoptadas por Urgencias en la iteración de homologación visual y portabilidad. La referencia vigente del manifiesto pasa a `dab9a84`.
+
+| ID | Principio en origen | Estado origen | Adopción local | Motivo | Evidencia documental local |
+|---|---|---|---|---|---|
+| HCG-VIS-001 | La navegación separa al menos tres lentes analíticos independientes: operación, población y desempeño. | VALIDADO_EN_CEX | ADOPTADA | Sustituye la página vertical única sin cambiar indicadores. | [Arquitectura UI](../ARQUITECTURA_UI.md) |
+| HCG-VIS-002 | Cambiar de perspectiva no descarta el contexto de filtros vigente. | VALIDADO_EN_CEX | ADOPTADA | `vista=` se persiste en la URL junto a los filtros. | [Arquitectura UI](../ARQUITECTURA_UI.md) |
+| HCG-VIS-003 | Los nombres de las perspectivas pueden traducirse al lenguaje del dominio. | VALIDADO_EN_CEX | ADOPTADA | Se conservan las etiquetas Operación/Población/Indicadores de desempeño. | [Arquitectura UI](../ARQUITECTURA_UI.md) |
+| HCG-VIS-004 | Una perspectiva sin contrato aceptado se declara no implementada. | CANDIDATO | ADOPTADA | Población declara `URG-PEND-04` no implementado en vez de aproximarlo; primera aplicación real. | [ITER-010](../iteraciones/ITER-010.md) |
+| HCG-VIS-005 | Un dominio puede adoptar el lenguaje visual de otro dashboard HCG sin heredar sus reglas de negocio. | VALIDADO_EN_CEX | ADOPTADA | Se adopta el lenguaje visual de CEX; no sus reglas, fórmulas ni universos. | `URG-GOV-056` |
+| HCG-VIS-006 | La homologación visual se declara como decisión versionada por dominio. | CANDIDATO | ADOPTADA | Registrada en `URG-GOV-056` y en el manifiesto (`ui.visualHomologation`). | [Decisiones](DECISIONES_Y_CAMBIOS.md) |
+| HCG-VIS-007 | Un componente de interacción reutilizado conserva su contrato de comportamiento. | VALIDADO_EN_CEX | ADOPTADA | `MetricTooltip` portado desde CEX conservando comportamiento; implementación local. | [Arquitectura UI](../ARQUITECTURA_UI.md) |
+| HCG-UX-016 | Toda métrica o ficha agregada expone tooltip en lenguaje sencillo para perfil directivo. | VALIDADO_EN_CEX | ADOPTADA | Textos parafrasean el contrato aceptado; sin jerga SQL ni reglas nuevas. | `client/src/metricDefinitions.ts` |
+| HCG-UX-017 | Toda métrica con detalle correspondiente es clicable; sin detalle no se presenta como clicable. | VALIDADO_EN_CEX | ADOPTADA | Razones y conteos sobre otra unidad quedan deliberadamente no clicables. | [Arquitectura UI](../ARQUITECTURA_UI.md) |
+| HCG-DET-010 | Exportación limitada a la página/recorte cargado, condicional a autorización del dominio. | VALIDADO_EN_CEX | ADOPTADA | CSV de la página cargada del drawer; el dominio lo autoriza sólo para el recorte visible. | `client/src/DetailDrawer.tsx` |
+| HCG-CAL-010 | Una señal de calidad no se presenta como indicador de desempeño sin decisión funcional explícita. | CANDIDATO | ADOPTADA | Cobertura de Triage y de Atención médica permanece en Operación. | `URG-GOV-056` |
+| HCG-POR-001 | Criterio de portabilidad: reconstruible desde el repositorio, sin memoria de chat. | CANDIDATO | ADOPTADA | Criterio incorporado al manifiesto y verificado automáticamente. | `URG-GOV-057` |
+| HCG-POR-002 | Handoff mínimo y explícito que responde siete preguntas. | CANDIDATO | ADOPTADA | [HANDOFF_IA.md](../HANDOFF_IA.md); verificado por `check-portability`. | [Handoff](../HANDOFF_IA.md) |
+| HCG-POR-003 | El handoff no duplica información ya versionada. | CANDIDATO | ADOPTADA | El handoff enlaza; no copia fórmulas ni reglas. | [Handoff](../HANDOFF_IA.md) |
+| HCG-POR-004 | Se declara qué reglas son transversales y cuáles locales no transferibles. | CANDIDATO | ADOPTADA | Sección 5 del handoff enumera las reglas locales de Urgencias. | [Handoff](../HANDOFF_IA.md) |
+| HCG-POR-005 | La referencia a `dashboard_hcg_specs` se versiona y se mantiene vigente. | CANDIDATO | ADOPTADA | `ab245b2` → `dab9a84`; el verificador exige commit completo. | [Manifiesto](../../config/dashboard-manifest.json) |
+| HCG-POR-006 | El manifiesto enumera la arquitectura de interfaz vigente. | CANDIDATO | ADOPTADA | `ui.perspectives`, `ui.visualContracts` y `ui.essentialComponents`. | [Arquitectura UI](../ARQUITECTURA_UI.md) |
+| HCG-POR-007 | Existe validación ejecutable de rutas rotas, referencias obsoletas y componentes ausentes. | CANDIDATO | ADOPTADA | `npm run docs:check-portability`, probado también en negativo. | `scripts/check-portability.mjs` |
+| HCG-POR-008 | La equivalencia semántica se valida contra cifras, no contra apariencia. | CANDIDATO | ADOPTADA | Sección 7 del handoff fija el procedimiento. | [Handoff](../HANDOFF_IA.md) |
+
+Ningún principio se promueve a `VALIDADO_MULTIDOMINIO`.

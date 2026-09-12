@@ -66,3 +66,14 @@ Cada señal de calidad existente (conflicto de identidad, multiplicación físic
 ## Promoción y aceptación de Atención médica (URG-ATE-01) — 2026-09-11
 
 Decisión institucional: `URG-ATE-01` pasa de `EN VALIDACIÓN` a `ACEPTADO CON OBSERVACIONES`. Se implementó y reconcilió SQL→API→UI: cobertura de `fechaate` sobre U-ING, tiempo registrado `Fechaing→fechaate` con bandas mismo minuto/0–30/31–60/61–120/121–240/>240 min, y señales de calidad (invertidos, ≥24h, ≥7d) integradas a `URG-CAL-01` como advertencia condicional. No se usó `atencion_fecha` para completar valores; no se denomina el intervalo "tiempo de espera" ni "oportunidad", ni se afirma inicio clínico real; sin metas ni semáforos institucionales. Reconciliación SQL→API exacta y cifras de cobertura consistentes con la validación previa (94.1141%/92.7560%/88.0736% en 12/24/36 meses). Ver [ITER-009](../iteraciones/ITER-009.md).
+
+## Reubicación en perspectivas (ITER-010) — 2026-09-12
+
+La homologación visual con CEX reubicó los módulos ya aceptados en tres perspectivas (Operación, Población, Indicadores de desempeño) **sin cambiar ningún estado de esta tabla**: ninguna fórmula, universo, denominador, ventana, categoría nativa ni umbral fue modificado, y no se incorporó indicador alguno. El reparto vigente está en [ARQUITECTURA_UI.md](../ARQUITECTURA_UI.md).
+
+Dos consecuencias de gobierno, ambas sin efecto sobre los estados:
+
+- `URG-PEND-04` (Población) se declara explícitamente **no implementado** dentro de la perspectiva Población, en lugar de aproximarse con otra fuente (`HCG-VIS-004`). Sigue `EN VALIDACIÓN`.
+- La cobertura de registro de `URG-TRI-01` y `URG-ATE-01` permanece en Operación y **no** se presenta como indicador de desempeño: mide completitud del dato (`HCG-CAL-010`). Sus estados no cambian.
+
+Ver [ITER-010](../iteraciones/ITER-010.md) y `URG-GOV-056`.

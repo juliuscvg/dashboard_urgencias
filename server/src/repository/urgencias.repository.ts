@@ -2,6 +2,11 @@ import sql from 'mssql';
 import type { DashboardFilters, DetailFilters, EpisodeRow, FilterOption } from '../domain/types.js';
 import { getPool } from '../db/sql.js';
 import { eventScopeSql, READMISSION_PRIOR_SQL } from './event-scope.sql.js';
+import {
+  COMPLETADO, CONFLICTO_NUCLEO, detailScopeWhere, HOSPITALIZACION,
+  PERMANENCIA_12A24H, PERMANENCIA_24A48H, PERMANENCIA_48A72H, PERMANENCIA_MAYOR_72H, PERMANENCIA_MENOR_12H,
+  type DetailScope,
+} from './detail-scopes.sql.js';
 
 function bindFilters(request: sql.Request, filters: Partial<DashboardFilters>, includePeriod = true): sql.Request {
   if (includePeriod) {
@@ -40,9 +45,11 @@ export async function fetchCatalogs(centro?: string): Promise<{ centros: FilterO
   };
 }
 
-export async function fetchSummaryBase(filters: DashboardFilters): Promise<Record<string, unknown>> {
-  const pool = await getPool();
-  const result = await bindFilters(pool.request(), filters).query(`
+// SQL del resumen, expuesto como función pura para poder auditarlo sin base de
+// datos: las pruebas verifican que el KPI y su detalle comparten el mismo
+// predicado (reconciliación agregado ↔ detalle).
+export function fetchSummaryBaseSql(): string {
+  return `
     DECLARE @Hoy date = CONVERT(date, GETDATE());
     DECLARE @FinExclusivo datetime = DATEADD(DAY, 1, @Hasta);
     DECLARE @FinCompleto datetime =
@@ -61,28 +68,31 @@ export async function fetchSummaryBase(filters: DashboardFilters): Promise<Recor
       CAST(SUM(CASE WHEN Fechaing < @FinCompleto THEN CONVERT(decimal(20, 4), 1) ELSE 0 END)
         / NULLIF(@DiasCompletos, 0) AS decimal(18, 2)) AS promedioDiario,
       CASE WHEN @FinExclusivo > CONVERT(datetime, @Hoy) THEN 1 ELSE 0 END AS periodoParcial,
-      SUM(CASE WHEN Fechaing IS NOT NULL AND fechaegr IS NOT NULL AND fechaegr >= Fechaing
+      SUM(CASE WHEN ${COMPLETADO}
         THEN CONVERT(bigint, 1) ELSE 0 END) AS eventosCompletados,
-      CAST(AVG(CASE WHEN Fechaing IS NOT NULL AND fechaegr IS NOT NULL AND fechaegr >= Fechaing
+      CAST(AVG(CASE WHEN ${COMPLETADO}
         THEN DATEDIFF(MINUTE, Fechaing, fechaegr) / 60.0 END) AS decimal(18, 2)) AS permanenciaPromedioHoras,
       SUM(CASE WHEN fechaegr < Fechaing THEN CONVERT(bigint, 1) ELSE 0 END) AS permanenciaInvertidos,
       SUM(CASE WHEN fechaegr IS NULL THEN CONVERT(bigint, 1) ELSE 0 END) AS permanenciaSinEgreso,
-      SUM(CASE WHEN fechaegr >= Fechaing AND DATEDIFF(MINUTE, Fechaing, fechaegr) < 720 THEN CONVERT(bigint, 1) ELSE 0 END) AS permanenciaMenor12h,
-      SUM(CASE WHEN fechaegr >= DATEADD(HOUR, 12, Fechaing) AND fechaegr < DATEADD(HOUR, 24, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS permanencia12a24h,
-      SUM(CASE WHEN fechaegr >= DATEADD(HOUR, 24, Fechaing) AND fechaegr < DATEADD(HOUR, 48, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS permanencia24a48h,
-      SUM(CASE WHEN fechaegr >= DATEADD(HOUR, 48, Fechaing) AND fechaegr <= DATEADD(HOUR, 72, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS permanencia48a72h,
-      SUM(CASE WHEN fechaegr > DATEADD(HOUR, 72, Fechaing) THEN CONVERT(bigint, 1) ELSE 0 END) AS permanenciaMayor72h,
-      SUM(CASE WHEN Fechaing IS NOT NULL AND fechaegr IS NOT NULL AND fechaegr >= Fechaing
-        AND destino_urg_pk = 5 THEN CONVERT(bigint, 1) ELSE 0 END) AS hospitalizaciones,
-      CAST(100.0 * SUM(CASE WHEN Fechaing IS NOT NULL AND fechaegr IS NOT NULL AND fechaegr >= Fechaing
-        AND destino_urg_pk = 5 THEN CONVERT(decimal(20, 4), 1) ELSE 0 END)
-        / NULLIF(SUM(CASE WHEN Fechaing IS NOT NULL AND fechaegr IS NOT NULL AND fechaegr >= Fechaing
+      SUM(CASE WHEN ${PERMANENCIA_MENOR_12H} THEN CONVERT(bigint, 1) ELSE 0 END) AS permanenciaMenor12h,
+      SUM(CASE WHEN ${PERMANENCIA_12A24H} THEN CONVERT(bigint, 1) ELSE 0 END) AS permanencia12a24h,
+      SUM(CASE WHEN ${PERMANENCIA_24A48H} THEN CONVERT(bigint, 1) ELSE 0 END) AS permanencia24a48h,
+      SUM(CASE WHEN ${PERMANENCIA_48A72H} THEN CONVERT(bigint, 1) ELSE 0 END) AS permanencia48a72h,
+      SUM(CASE WHEN ${PERMANENCIA_MAYOR_72H} THEN CONVERT(bigint, 1) ELSE 0 END) AS permanenciaMayor72h,
+      SUM(CASE WHEN ${HOSPITALIZACION} THEN CONVERT(bigint, 1) ELSE 0 END) AS hospitalizaciones,
+      CAST(100.0 * SUM(CASE WHEN ${HOSPITALIZACION} THEN CONVERT(decimal(20, 4), 1) ELSE 0 END)
+        / NULLIF(SUM(CASE WHEN ${COMPLETADO}
           THEN CONVERT(decimal(20, 4), 1) ELSE 0 END), 0) AS decimal(9, 4)) AS hospitalizacionPct,
-      SUM(CASE WHEN conflicto_nucleo = 1 THEN CONVERT(bigint, 1) ELSE 0 END) AS eventosConConflicto,
+      SUM(CASE WHEN ${CONFLICTO_NUCLEO} THEN CONVERT(bigint, 1) ELSE 0 END) AS eventosConConflicto,
       SUM(filas_fisicas - 1) AS filasMultiplicadas,
       GETDATE() AS observadoEn
     FROM EventScope;
-  `);
+  `;
+}
+
+export async function fetchSummaryBase(filters: DashboardFilters): Promise<Record<string, unknown>> {
+  const pool = await getPool();
+  const result = await bindFilters(pool.request(), filters).query(fetchSummaryBaseSql());
   return result.recordset[0] ?? {};
 }
 
@@ -202,6 +212,7 @@ export async function fetchFrequentation(filters: DashboardFilters): Promise<unk
 }
 
 export async function fetchEpisodes(filters: DetailFilters): Promise<{ total: number; rows: EpisodeRow[] }> {
+  const scope: DetailScope = filters.metrica ?? 'atenciones';
   const pool = await getPool();
   const result = await bindFilters(pool.request(), filters)
     .input('Offset', sql.Int, (filters.page - 1) * filters.pageSize)
@@ -225,6 +236,7 @@ export async function fetchEpisodes(filters: DetailFilters): Promise<{ total: nu
           ROW_NUMBER() OVER (ORDER BY Fechaing DESC, id_urgencia DESC) AS rowNumber,
           COUNT_BIG(*) OVER() AS totalFilas
         FROM EventScope
+        ${detailScopeWhere(scope)}
       )
       SELECT idUrgencia, fechaIngreso, fechaEgreso, centro, codigoServicio, servicio, destino, motivoAlta,
         permanenciaHoras, filasFisicas, conflicto, totalFilas

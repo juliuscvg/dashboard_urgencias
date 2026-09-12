@@ -1,3 +1,5 @@
+import type { DetailScope } from '../repository/detail-scopes.sql.js';
+
 export interface DashboardFilters {
   desde: string;
   hasta: string;
@@ -9,6 +11,8 @@ export interface DashboardFilters {
 export interface DetailFilters extends DashboardFilters {
   page: number;
   pageSize: number;
+  /** Recorte canónico del detalle; ausente equivale al universo U-ING completo. */
+  metrica?: DetailScope;
 }
 
 export interface Summary {

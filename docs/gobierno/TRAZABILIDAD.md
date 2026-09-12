@@ -25,4 +25,22 @@ Cadena exigida: principio HCG → regla local → contrato → fuente/campos →
 | URG-PEND-04/05/07 | Reglas locales pendientes | Estado de indicadores | NO APLICA mientras no estén aceptados | No implementado | Validado o diferido según estado |
 | URG-PEND-06 Motivo de urgencia | HCG-TRZ-001; reglas locales de clínica secundaria | URG-MOT-01..03; vUrgencias.motivo_urgencia/motivo_urg_libre | SQL 07 read-only, no productivo | No implementado | [Evidencia Motivo](../evidencia/VALIDACION_MOTIVO_URGENCIA_2026-09-10.md); EN VALIDACIÓN |
 
+## Capa de presentación (ITER-010)
+
+La presentación no crea indicadores; hereda los de arriba. Se traza aparte para que una reconstrucción sepa qué contrato transversal cumple cada pieza.
+
+| Elemento | Principio HCG | Contrato local | Implementación | Validación/evidencia |
+|---|---|---|---|---|
+| Perspectivas Operación/Población/Desempeño | HCG-VIS-001..003 | `URG-GOV-056`; [arquitectura UI](../ARQUITECTURA_UI.md) | `client/src/dashboardView.ts`, `App.tsx` | `dashboardView.test.ts`; `App.test.tsx` |
+| Población sin contrato aceptado declarada no implementada | HCG-VIS-004 | `URG-PEND-04` EN VALIDACIÓN | `PopulationPerspective` en `App.tsx` | `App.test.tsx` |
+| Homologación visual con CEX | HCG-VIS-005/006 | `URG-GOV-056`; manifiesto `ui.visualHomologation` | `client/src/styles.css` | [Capturas ITER-010](../evidencia/capturas/ITER-010/) |
+| Tooltip por métrica agregada | HCG-UX-016; HCG-VIS-007 | Textos derivados de [contratos](../indicadores/CONTRATOS_ACEPTADOS.md) | `metricDefinitions.ts`, `MetricTooltip.tsx` | `App.test.tsx` |
+| Métrica clicable → detalle | HCG-UX-017 | Sólo donde existe recorte; ver [arquitectura UI](../ARQUITECTURA_UI.md) | `Kpi`/`BandGrid` en `App.tsx` | `App.test.tsx` |
+| Detalle bajo demanda y paginado server-side | HCG-UX-007/015; HCG-DET-003/007 | Universo U-ING y recortes de contratos aceptados | `DetailDrawer.tsx`; `/api/urgencias/episodes` | `detailReconciliation.test.ts` |
+| Recortes de detalle | HCG-DET-001; HCG-ANA-005 | Predicado compartido con el agregado | `server/src/repository/detail-scopes.sql.ts` | `detail-scopes.sql.test.ts` |
+| Reconciliación visible agregado ↔ detalle | HCG-UX-006; HCG-DET-006 | La discrepancia se muestra, no se corrige | `detailReconciliation.ts`, `DetailDrawer.tsx` | `detailReconciliation.test.ts` |
+| Exportación de la página cargada | HCG-DET-010 | Autorizada sólo para el recorte visible | `DetailDrawer.tsx` | Revisión visual ITER-010 |
+| Calidad de dato separada de desempeño | HCG-CAL-010 | `URG-CAL-01`; `URG-GOV-056` | `PerformancePerspective` en `App.tsx` | `App.test.tsx` |
+| Paquete portable y handoff | HCG-POR-001..008 | `URG-GOV-057` | [HANDOFF_IA.md](../HANDOFF_IA.md); `scripts/check-portability.mjs` | `npm run docs:check-portability` |
+
 Nombres completos y rutas están en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md). Casos en [evidencia](../evidencia/CASOS_PATRON_VIGENTES.md), decisiones en [bitácora](DECISIONES_Y_CAMBIOS.md) y adopción en [HCG](ADOPCION_HCG.md).
