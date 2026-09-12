@@ -176,3 +176,32 @@ Los estados técnicos siguen [la convención HCG](https://github.com/juliuscvg/d
 - Benchmark: NO DOCUMENTADO; señales >24 h y >7 días visibles.
 - Cobertura: con Triage, universo y evaluables acompañan el promedio.
 - Implementación: `fetchTriage`, `/triage`, resumen contextual.
+
+## URG-CAL-01 — Calidad de datos (capa transversal)
+
+- Estado funcional: DEFINIDO FUNCIONALMENTE. Estado técnico: VALIDADO TÉCNICAMENTE.
+- Definición/propósito: capa transversal que asocia las señales de calidad ya
+  existentes en los indicadores aceptados a su indicador dueño; no introduce
+  campo, fuente, fórmula ni universo propio.
+- Regla de promoción a UI: una señal sólo es advertencia visible si su
+  indicador está `ACEPTADO` o `ACEPTADO CON OBSERVACIONES`; el resto queda
+  como auditoría técnica en evidencia/SQL hasta decisión institucional de KPI
+  del bloque correspondiente.
+- Inventario vigente:
+  - Conflicto de identidad/multiplicación física (`eventosConConflicto`,
+    `filasMultiplicadas`, `conflicto`) → URG-EJ-01, transversal a EventScope.
+  - Inversión de permanencia y evento sin egreso (`permanenciaInvertidos`,
+    `permanenciaSinEgreso`) → URG-EJ-03.
+  - Antigüedad no evaluable e ingreso futuro (`activosAntiguedadNoEvaluable`,
+    `activosFechaIngresoFutura`) → URG-ACT-01.
+  - Secuencia Triage invertida (`secuenciasInvertidas`) y tiempos ≥24h/≥7d
+    (`tiemposMayorIgual24h`, `tiemposMayorIgual7d`) → URG-TRI-03.
+- NULL/exclusiones: NO APLICA; cada señal conserva las exclusiones de su
+  indicador dueño, declaradas en su propio contrato.
+- Gap declarado: `tiemposMayorIgual24h`/`tiemposMayorIgual7d` ya se calculan y
+  se exponen por `/urgencias/triage`, pero no se renderizan en `client/src/App.tsx`;
+  pendiente de implementación UI en una iteración futura.
+- SQL: NO APLICA (reutiliza los SQL de cada indicador dueño, sin SQL propio).
+- Implementación: avisos y bandas ya presentes en `client/src/App.tsx` para
+  cada indicador dueño listado arriba; sin endpoint ni tabla propios.
+- Evidencia: [ITER-007](../iteraciones/ITER-007.md).

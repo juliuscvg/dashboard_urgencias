@@ -419,3 +419,12 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Hallazgos: cobertura 94.1141% / 92.7560% / 88.0736% en 12/24/36 meses, cero conflictos y cero inversiones respecto de Ingreso; las inversiones Triage→Atención impiden imponer esa secuencia como regla.
 - Límite: el registro no acredita inicio clínico real, oportunidad ni presencia. `atencion_fecha` permanece auxiliar con equivalencia POR DEFINIR.
 - Contrato: [URG-ATE-01](../indicadores/CONTRATOS_EN_VALIDACION.md). Evidencia: [validación Atención médica](../evidencia/VALIDACION_ATENCION_MEDICA_2026-09-11.md).
+
+### URG-GOV-053 — Definición funcional de Calidad de datos (URG-CAL-01)
+
+- Estado: DEFINIDA FUNCIONALMENTE; capa transversal, sin campo, fuente ni fórmula propios.
+- Decisión: cada señal de calidad ya existente en código (`eventosConConflicto`, `filasMultiplicadas`, `conflicto`, `permanenciaInvertidos`, `permanenciaSinEgreso`, `activosAntiguedadNoEvaluable`, `activosFechaIngresoFutura`, `secuenciasInvertidas`, `tiemposMayorIgual24h`, `tiemposMayorIgual7d`) queda asociada a su indicador dueño (EJ-01, EJ-03, ACT-01, TRI-03).
+- Regla de promoción a UI: una señal sólo es advertencia visible si su indicador es `ACEPTADO`/`ACEPTADO CON OBSERVACIONES`. Las señales de AMED, secuencia completa, Atención médica, Población, Diagnósticos y Motivo de Urgencia permanecen como auditoría técnica en evidencia/SQL hasta decisión institucional de KPI de cada bloque.
+- Gap declarado: `tiemposMayorIgual24h`/`tiemposMayorIgual7d` de TRI-03 se calculan y exponen por `/urgencias/triage`, pero no se renderizan en `App.tsx`; queda pendiente de una iteración de implementación futura.
+- Límite: no se crean metas, semáforos ni umbrales institucionales; no cambia ningún universo, fórmula o regla clínica; no se implementó código, API ni UI en esta iteración.
+- Contrato: [URG-CAL-01](../indicadores/CONTRATOS_ACEPTADOS.md). Evidencia: [ITER-007](../iteraciones/ITER-007.md).
