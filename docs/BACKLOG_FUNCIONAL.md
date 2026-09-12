@@ -11,14 +11,13 @@
 ## En proceso
 
 - Validar edad al momento del evento y precisión en meses/días para pediatría.
-- Definir cobertura y consistencia de atención médica `fechaate`.
 - Ampliar señales de secuencias temporales sin excluir eventos del universo.
 - Medir rendimiento en frío/caliente antes de introducir caché.
 - Definir autorización explícita para detalle o exportación con datos personales.
 
 ## Por definir
 
-- KPI ejecutivo de atención médica y semántica independiente de alta médica.
+- Decisión institucional sobre eventual KPI de Atención médica; su semántica independiente ya está definida en URG-ATE-01.
 - Diagnósticos, motivo de urgencia y contratos de búsqueda.
 - Comparativos interanuales homólogos cerrados.
 - Metas institucionales y semáforos, sólo cuando exista definición formal.

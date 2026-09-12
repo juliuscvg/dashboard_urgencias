@@ -15,3 +15,5 @@ Los scripts SQL requieren acceso autorizado. No son migraciones ni modifican dat
 - `check-iter004-reconciliation.mjs`: valida la evidencia, rutas, servicio y proyección UI de ITER-004.
 - `run-iter005-reconciliation.mjs`: compara las bandas aceptadas de EJ-03, ACT-01 y TRI-03 con la API usando filtros y corte reproducibles.
 - `check-iter005-reconciliation.mjs`: valida coincidencia exacta, invariantes de bandas/señales y proyección UI de ITER-005.
+- `run-atencion-medica-validation.mjs` y `sql/08_validacion_atencion_medica.sql`: reproducen la validación agregada read-only de `fechaate` en 12/24/36 meses.
+- `check-atencion-medica-validation.mjs`: valida universos, cobertura, cronología, resguardo y carácter read-only de ITER-006.

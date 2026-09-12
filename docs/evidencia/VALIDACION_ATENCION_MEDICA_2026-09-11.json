@@ -1,0 +1,710 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-09-12T01:23:32.469Z",
+  "context": {
+    "source": "dbo.vUrgencias",
+    "supportDimensions": [
+      "dbo.servicios",
+      "dbo.centros"
+    ],
+    "cutoff": "2026-09-01",
+    "periodSemantics": "Fechaing >= desde AND Fechaing < hastaExclusivo",
+    "readOnly": true,
+    "secretsIncluded": false,
+    "directIdentifiersIncluded": false
+  },
+  "metadata": {
+    "columna": "fechaate",
+    "tipo": "datetime",
+    "longitud": null,
+    "permite_null": "YES"
+  },
+  "windows": {
+    "12m": {
+      "id": "12m",
+      "desde": "2025-09-01",
+      "hastaExclusivo": "2026-09-01",
+      "elapsedMs": 21719,
+      "resumen": {
+        "resultado": "ATE01_RESUMEN",
+        "universo": "159822",
+        "con_fechaate": "150415",
+        "sin_fechaate": "9407",
+        "conflictos_fechaate": "0",
+        "cobertura_pct": 94.1141,
+        "ing_ate_evaluables": "150415",
+        "ing_ate_interpretables": "150415",
+        "ing_ate_invertidos": "0",
+        "ing_ate_mismo_instante": "1221",
+        "ing_ate_min_minutos": 0,
+        "ing_ate_max_minutos": 18582,
+        "ing_ate_promedio_interpretable_min": 109.72,
+        "tri_ate_evaluables": "18290",
+        "tri_ate_interpretables": "3244",
+        "tri_ate_invertidos": "15046",
+        "tri_ate_mismo_instante": "86",
+        "ate_egr_evaluables": "150412",
+        "ate_egr_interpretables": "150385",
+        "ate_egr_invertidos": "27",
+        "ate_egr_mismo_instante": "491",
+        "ate_egr_min_minutos": -3634,
+        "ate_egr_max_minutos": 165872,
+        "ate_egr_promedio_interpretable_min": 1427.08
+      },
+      "centros": [
+        {
+          "resultado": "ATE02_CENTRO",
+          "centro": "FAA",
+          "universo": "85479",
+          "con_fechaate": "80878",
+          "cobertura_pct": 94.6174,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE02_CENTRO",
+          "centro": "JIM",
+          "universo": "74343",
+          "con_fechaate": "69537",
+          "cobertura_pct": 93.5354,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        }
+      ],
+      "servicios": [
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "universo": "48094",
+          "con_fechaate": "46745",
+          "cobertura_pct": 97.1951,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 417,
+          "servicio": "URG COVID19 FAA",
+          "universo": "8",
+          "con_fechaate": "8",
+          "cobertura_pct": 100,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "universo": "1310",
+          "con_fechaate": "658",
+          "cobertura_pct": 50.229,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 118,
+          "servicio": "URG PEDIATRIA FAA",
+          "universo": "23738",
+          "con_fechaate": "23393",
+          "cobertura_pct": 98.5466,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 61,
+          "servicio": "URG TOCO FAA",
+          "universo": "12321",
+          "con_fechaate": "10066",
+          "cobertura_pct": 81.6979,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 445,
+          "servicio": "URGADUPROCE",
+          "universo": "6",
+          "con_fechaate": "6",
+          "cobertura_pct": 100,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 446,
+          "servicio": "URGPEDPROCE",
+          "universo": "2",
+          "con_fechaate": "2",
+          "cobertura_pct": 100,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "universo": "30181",
+          "con_fechaate": "29601",
+          "cobertura_pct": 98.0783,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "universo": "5709",
+          "con_fechaate": "5560",
+          "cobertura_pct": 97.3901,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 154,
+          "servicio": "URG PEDIATRIA JIM",
+          "universo": "17170",
+          "con_fechaate": "16947",
+          "cobertura_pct": 98.7012,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "universo": "21283",
+          "con_fechaate": "17429",
+          "cobertura_pct": 81.8917,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        }
+      ],
+      "anios": [
+        {
+          "resultado": "ATE04_ANIO",
+          "anio": 2025,
+          "universo": "51497",
+          "con_fechaate": "48813",
+          "cobertura_pct": 94.788,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE04_ANIO",
+          "anio": 2026,
+          "universo": "108325",
+          "con_fechaate": "101602",
+          "cobertura_pct": 93.7937,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        }
+      ],
+      "fechaateAFechamed": {
+        "resultado": "AMED03_PARES",
+        "par": "fechaate→fechamed",
+        "evaluables": "146088",
+        "invertidos": "25",
+        "mismo_instante": "2461",
+        "min_minutos": -3634,
+        "max_minutos": 193402,
+        "promedio_minutos": 872.21
+      }
+    },
+    "24m": {
+      "id": "24m",
+      "desde": "2024-09-01",
+      "hastaExclusivo": "2026-09-01",
+      "elapsedMs": 37760,
+      "resumen": {
+        "resultado": "ATE01_RESUMEN",
+        "universo": "327400",
+        "con_fechaate": "303683",
+        "sin_fechaate": "23717",
+        "conflictos_fechaate": "0",
+        "cobertura_pct": 92.756,
+        "ing_ate_evaluables": "303683",
+        "ing_ate_interpretables": "303683",
+        "ing_ate_invertidos": "0",
+        "ing_ate_mismo_instante": "3322",
+        "ing_ate_min_minutos": 0,
+        "ing_ate_max_minutos": 265573,
+        "ing_ate_promedio_interpretable_min": 176.12,
+        "tri_ate_evaluables": "38256",
+        "tri_ate_interpretables": "7589",
+        "tri_ate_invertidos": "30667",
+        "tri_ate_mismo_instante": "156",
+        "ate_egr_evaluables": "303680",
+        "ate_egr_interpretables": "303577",
+        "ate_egr_invertidos": "103",
+        "ate_egr_mismo_instante": "6386",
+        "ate_egr_min_minutos": -8803,
+        "ate_egr_max_minutos": 281656,
+        "ate_egr_promedio_interpretable_min": 1179.16
+      },
+      "centros": [
+        {
+          "resultado": "ATE02_CENTRO",
+          "centro": "FAA",
+          "universo": "176030",
+          "con_fechaate": "165170",
+          "cobertura_pct": 93.8306,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE02_CENTRO",
+          "centro": "HCO",
+          "universo": "1",
+          "con_fechaate": "1",
+          "cobertura_pct": 100,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE02_CENTRO",
+          "centro": "JIM",
+          "universo": "151369",
+          "con_fechaate": "138512",
+          "cobertura_pct": 91.5062,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        }
+      ],
+      "servicios": [
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "universo": "98804",
+          "con_fechaate": "93765",
+          "cobertura_pct": 94.9,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 417,
+          "servicio": "URG COVID19 FAA",
+          "universo": "27",
+          "con_fechaate": "21",
+          "cobertura_pct": 77.7778,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "universo": "2297",
+          "con_fechaate": "1155",
+          "cobertura_pct": 50.283,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 118,
+          "servicio": "URG PEDIATRIA FAA",
+          "universo": "50499",
+          "con_fechaate": "49414",
+          "cobertura_pct": 97.8514,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 61,
+          "servicio": "URG TOCO FAA",
+          "universo": "24373",
+          "con_fechaate": "20790",
+          "cobertura_pct": 85.2993,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 445,
+          "servicio": "URGADUPROCE",
+          "universo": "14",
+          "con_fechaate": "11",
+          "cobertura_pct": 78.5714,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 446,
+          "servicio": "URGPEDPROCE",
+          "universo": "16",
+          "con_fechaate": "14",
+          "cobertura_pct": 87.5,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "HCO",
+          "codigo_servicio": 473,
+          "servicio": "CO URGENCIAS ADUL",
+          "universo": "1",
+          "con_fechaate": "1",
+          "cobertura_pct": 100,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "universo": "60068",
+          "con_fechaate": "58005",
+          "cobertura_pct": 96.5656,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "universo": "17026",
+          "con_fechaate": "16579",
+          "cobertura_pct": 97.3746,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 154,
+          "servicio": "URG PEDIATRIA JIM",
+          "universo": "34322",
+          "con_fechaate": "33679",
+          "cobertura_pct": 98.1266,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "universo": "39953",
+          "con_fechaate": "30249",
+          "cobertura_pct": 75.7115,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        }
+      ],
+      "anios": [
+        {
+          "resultado": "ATE04_ANIO",
+          "anio": 2024,
+          "universo": "60122",
+          "con_fechaate": "53862",
+          "cobertura_pct": 89.5878,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE04_ANIO",
+          "anio": 2025,
+          "universo": "158953",
+          "con_fechaate": "148219",
+          "cobertura_pct": 93.2471,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE04_ANIO",
+          "anio": 2026,
+          "universo": "108325",
+          "con_fechaate": "101602",
+          "cobertura_pct": 93.7937,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        }
+      ],
+      "fechaateAFechamed": {
+        "resultado": "AMED03_PARES",
+        "par": "fechaate→fechamed",
+        "evaluables": "289650",
+        "invertidos": "84",
+        "mismo_instante": "9686",
+        "min_minutos": -8803,
+        "max_minutos": 281656,
+        "promedio_minutos": 826.27
+      }
+    },
+    "36m": {
+      "id": "36m",
+      "desde": "2023-09-01",
+      "hastaExclusivo": "2026-09-01",
+      "elapsedMs": 66797,
+      "resumen": {
+        "resultado": "ATE01_RESUMEN",
+        "universo": "484161",
+        "con_fechaate": "426418",
+        "sin_fechaate": "57743",
+        "conflictos_fechaate": "0",
+        "cobertura_pct": 88.0736,
+        "ing_ate_evaluables": "426418",
+        "ing_ate_interpretables": "426418",
+        "ing_ate_invertidos": "0",
+        "ing_ate_mismo_instante": "5064",
+        "ing_ate_min_minutos": 0,
+        "ing_ate_max_minutos": 643525,
+        "ing_ate_promedio_interpretable_min": 335.04,
+        "tri_ate_evaluables": "44983",
+        "tri_ate_interpretables": "8694",
+        "tri_ate_invertidos": "36289",
+        "tri_ate_mismo_instante": "169",
+        "ate_egr_evaluables": "426414",
+        "ate_egr_interpretables": "426259",
+        "ate_egr_invertidos": "155",
+        "ate_egr_mismo_instante": "16866",
+        "ate_egr_min_minutos": -8803,
+        "ate_egr_max_minutos": 640800,
+        "ate_egr_promedio_interpretable_min": 1152.78
+      },
+      "centros": [
+        {
+          "resultado": "ATE02_CENTRO",
+          "centro": "FAA",
+          "universo": "259118",
+          "con_fechaate": "241589",
+          "cobertura_pct": 93.2351,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE02_CENTRO",
+          "centro": "HCO",
+          "universo": "2",
+          "con_fechaate": "2",
+          "cobertura_pct": 100,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE02_CENTRO",
+          "centro": "JIM",
+          "universo": "225041",
+          "con_fechaate": "184827",
+          "cobertura_pct": 82.1304,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        }
+      ],
+      "servicios": [
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 152,
+          "servicio": "URG ADULTOS FAA",
+          "universo": "142771",
+          "con_fechaate": "134226",
+          "cobertura_pct": 94.0149,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 417,
+          "servicio": "URG COVID19 FAA",
+          "universo": "102",
+          "con_fechaate": "59",
+          "cobertura_pct": 57.8431,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 435,
+          "servicio": "URG GINE FAA",
+          "universo": "2983",
+          "con_fechaate": "1304",
+          "cobertura_pct": 43.7144,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 118,
+          "servicio": "URG PEDIATRIA FAA",
+          "universo": "75560",
+          "con_fechaate": "73771",
+          "cobertura_pct": 97.6323,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 61,
+          "servicio": "URG TOCO FAA",
+          "universo": "37658",
+          "con_fechaate": "32190",
+          "cobertura_pct": 85.4798,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 445,
+          "servicio": "URGADUPROCE",
+          "universo": "21",
+          "con_fechaate": "18",
+          "cobertura_pct": 85.7143,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "FAA",
+          "codigo_servicio": 446,
+          "servicio": "URGPEDPROCE",
+          "universo": "23",
+          "con_fechaate": "21",
+          "cobertura_pct": 91.3043,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "HCO",
+          "codigo_servicio": 473,
+          "servicio": "CO URGENCIAS ADUL",
+          "universo": "2",
+          "con_fechaate": "2",
+          "cobertura_pct": 100,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 153,
+          "servicio": "URG ADULTOS JIM",
+          "universo": "88328",
+          "con_fechaate": "75466",
+          "cobertura_pct": 85.4384,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 339,
+          "servicio": "URG ORTOPEDIA Y TRAUMA",
+          "universo": "29495",
+          "con_fechaate": "27684",
+          "cobertura_pct": 93.86,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 154,
+          "servicio": "URG PEDIATRIA JIM",
+          "universo": "50130",
+          "con_fechaate": "46460",
+          "cobertura_pct": 92.679,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE03_SERVICIO",
+          "centro": "JIM",
+          "codigo_servicio": 56,
+          "servicio": "URG. TOCO JIM",
+          "universo": "57088",
+          "con_fechaate": "35217",
+          "cobertura_pct": 61.689,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        }
+      ],
+      "anios": [
+        {
+          "resultado": "ATE04_ANIO",
+          "anio": 2023,
+          "universo": "50705",
+          "con_fechaate": "38588",
+          "cobertura_pct": 76.1029,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE04_ANIO",
+          "anio": 2024,
+          "universo": "166178",
+          "con_fechaate": "138009",
+          "cobertura_pct": 83.0489,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE04_ANIO",
+          "anio": 2025,
+          "universo": "158953",
+          "con_fechaate": "148219",
+          "cobertura_pct": 93.2471,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        },
+        {
+          "resultado": "ATE04_ANIO",
+          "anio": 2026,
+          "universo": "108325",
+          "con_fechaate": "101602",
+          "cobertura_pct": 93.7937,
+          "conflictos_fechaate": "0",
+          "ing_ate_invertidos": "0"
+        }
+      ],
+      "fechaateAFechamed": {
+        "resultado": "AMED03_PARES",
+        "par": "fechaate→fechamed",
+        "evaluables": "393541",
+        "invertidos": "126",
+        "mismo_instante": "20323",
+        "min_minutos": -8803,
+        "max_minutos": 640800,
+        "promedio_minutos": 839.23
+      }
+    }
+  },
+  "priorEvidence": {
+    "source": "VALIDACION_AMED_SECUENCIA_2026-09-10.json",
+    "triageAFechaateInvertidos36m": "36289"
+  }
+}

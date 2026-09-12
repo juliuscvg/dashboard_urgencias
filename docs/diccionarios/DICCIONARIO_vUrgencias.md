@@ -1,6 +1,6 @@
 # Diccionario semántico — dbo.vUrgencias
 
-Versión: 2026-09-10.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no incluidos en evidencia versionada se declaran `NO DOCUMENTADO`; deben verificarse con el script estructural antes de asumir conversiones.
+Versión: 2026-09-11.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no incluidos en evidencia versionada se declaran `NO DOCUMENTADO`; deben verificarse con el script estructural antes de asumir conversiones.
 
 | Campo físico | Tipo | Fuente | Semántica | Uso analítico | Rol | NULL | Relaciones/equivalencias | Limitaciones | Indicadores consumidores |
 |---|---|---|---|---|---|---|---|---|---|
@@ -18,7 +18,7 @@ Versión: 2026-09-10.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no
 | categoria_triage | NO DOCUMENTADO | vUrgencias | Categoría complementaria comunicada | Auditoría | AUXILIAR | Sí | No equiparar a nivel | Semántica pendiente | Triage |
 | login_triage | NO DOCUMENTADO | vUrgencias | Login de captura Triage | Auditoría autorizada | AUXILIAR SENSIBLE | Sí | Puede relacionarse con usuario_triage | No exponer en agregado/logs | Auditoría |
 | usuario_triage | NO DOCUMENTADO | vUrgencias | Usuario asociado a Triage | Auditoría autorizada | AUXILIAR SENSIBLE | Sí | No sustituye personal médico | Privacidad | Auditoría |
-| fechaate | NO DOCUMENTADO | vUrgencias | Inicio registrado de atención médica | Tiempo complementario | CANÓNICO PROPUESTO | Sí | derivado preferido frente a atencion_fecha | Contrato EN PROCESO | PEND-01 |
+| fechaate | datetime, nullable | vUrgencias; origen base POR DEFINIR | Hito registrado de Atención médica | Cobertura y tiempo registrado desde Ingreso | CANÓNICO PROPUESTO CON EVIDENCIA | Sí; ausencia no excluye U-ING | No equivale ni se completa desde atencion_fecha | 88.0736% 36m; extremos e inversiones con otros hitos se preservan | URG-ATE-01 |
 | atencion_fecha | NO DOCUMENTADO | vUrgencias | Fuente/equivalente comunicado de atención | Auditoría | AUXILIAR | Sí | Equivalencia con fechaate pendiente | No sustituir automáticamente | PEND-01 |
 | fechamed | datetime, nullable | vUrgencias | Hito registrado de Alta Médica | Hito independiente | CANÓNICO PROPUESTO CON EVIDENCIA | Sí | No equivale a altamed_fecha; no sustituye fechaegr | EN VALIDACIÓN; no implementar | PEND-02 |
 | altamed_fecha | datetime, nullable | vUrgencias | Fecha auxiliar de Alta Médica observada a medianoche | Auditoría | AUXILIAR | Sí | No equivale a fechamed; no sustituir | No completa ni normaliza fechamed | PEND-02 |
@@ -41,6 +41,22 @@ Versión: 2026-09-10.1. Fuente física principal: `dbo.vUrgencias`. Los tipos no
 ## Campos no identificados inequívocamente
 
 Sexo, estado, municipio, localidad, médico, localización, cama, usuarios de registro/egreso, seguridad social, pagador y origen siguen sin nombre físico inequívoco versionado. No inventar columnas ni reutilizar campos de Triage.
+
+## Campo validado en ITER-006 — Atención médica
+
+### fechaate
+
+- Metadato físico: `datetime`, nullable, expuesto por `dbo.vUrgencias`.
+- Origen: campo expuesto por la vista; tabla/campo base y derivación previa, POR DEFINIR.
+- Semántica validada: timestamp canónico actual del hito registrado de Atención médica.
+- Concepto/rol: hito temporal complementario; CANÓNICO PROPUESTO CON EVIDENCIA.
+- NULL/conflictos: ausencia o conflicto no excluye U-ING; cero conflictos entre filas físicas del mismo evento en 12/24/36 meses.
+- Población/cobertura: U-ING con valor canónico no nulo; 94.1141% / 92.7560% / 88.0736% en 12/24/36 meses.
+- Cronología: `Fechaing→fechaate` tuvo cero inversiones; sólo pares no negativos son interpretables. Mismo instante y extremos se preservan.
+- Relaciones: independiente de Triage, Alta Médica y Egreso; no equivale ni se completa desde `atencion_fecha`.
+- Anomalías/limitaciones: predominan inversiones `fechatri→fechaate`; existen pocas inversiones hacia Alta Médica/Egreso y extremos de hasta 643,525 minutos desde Ingreso. No acredita inicio clínico real, espera, oportunidad ni presencia.
+- Consumidor: URG-ATE-01; sin SQL productivo, API o UI.
+- Estado/evidencia: DEFINIDO FUNCIONALMENTE / VALIDADO CON FUENTE / NO IMPLEMENTADO; [evidencia ITER-006](../evidencia/VALIDACION_ATENCION_MEDICA_2026-09-11.md).
 
 ## Campos validados en ITER-002 — Motivo de Urgencia
 

@@ -410,3 +410,12 @@ Evidencia común: [validación SQL funcional](../evidencia/VALIDACION_SQL_FUNCIO
 - Presentación: Permanencia y Triage muestran bandas exclusivas; Activos probables muestra umbrales acumulativos a un corte explícito.
 - Reconciliación: tres comparaciones SQL→API exactas; la UI renderiza las proyecciones API preservadas mediante prueba automatizada.
 - Evidencia: [reconciliación ITER-005](../evidencia/RECONCILIACION_ITER005_2026-09-10.md).
+
+### URG-GOV-052 — Atención médica registrada
+
+- Estado: DEFINIDA FUNCIONALMENTE / VALIDADA CON FUENTE; no KPI ni API/UI.
+- Decisión: `fechaate` queda como timestamp canónico actual del hito registrado de Atención médica, con población evaluable y cobertura propias sobre U-ING.
+- Cronología: `Fechaing→fechaate` usa sólo pares no negativos para duración; la ausencia y las anomalías de pares con otros hitos no excluyen eventos.
+- Hallazgos: cobertura 94.1141% / 92.7560% / 88.0736% en 12/24/36 meses, cero conflictos y cero inversiones respecto de Ingreso; las inversiones Triage→Atención impiden imponer esa secuencia como regla.
+- Límite: el registro no acredita inicio clínico real, oportunidad ni presencia. `atencion_fecha` permanece auxiliar con equivalencia POR DEFINIR.
+- Contrato: [URG-ATE-01](../indicadores/CONTRATOS_EN_VALIDACION.md). Evidencia: [validación Atención médica](../evidencia/VALIDACION_ATENCION_MEDICA_2026-09-11.md).

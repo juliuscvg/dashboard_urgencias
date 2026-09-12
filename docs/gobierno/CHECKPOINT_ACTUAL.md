@@ -6,7 +6,7 @@ Dashboard Urgencias HCG
 
 ## Última actualización
 
-2026-09-10, America/Mexico_City
+2026-09-11, America/Mexico_City
 
 ## Rama
 
@@ -14,11 +14,11 @@ main
 
 ## HEAD base de la iteración
 
-fdadeb39186772b4051228480b78dcd32a4745d8
+2fdae1c2b91936030cad448e27f37c66a64a5664
 
 ## Iteración actual
 
-Implementación de las bandas API/UI de URG-EJ-03, URG-ACT-01 y URG-TRI-03. Ver [ITER-005](../iteraciones/ITER-005.md).
+Cierre funcional de URG-PEND-01, Atención médica registrada mediante `fechaate`. Ver [ITER-006](../iteraciones/ITER-006.md).
 
 ## Estado de la iteración
 
@@ -26,49 +26,50 @@ COMPLETADA
 
 ## Completado
 
-- [x] URG-EJ-03 expone faltantes, inversiones y cinco bandas exclusivas en `/api/urgencias/summary` y UI.
-- [x] URG-ACT-01 expone corte reproducible, no evaluables, futuros y señales acumulativas >24/>48/>72 h en `/api/urgencias/summary` y UI.
-- [x] URG-TRI-03 expone siete bandas exclusivas en `/api/urgencias/triage` y UI.
-- [x] Tres comparaciones SQL canónico→API exactas con los mismos filtros y corte.
-- [x] Renderizado UI validado con las proyecciones API reales preservadas.
-- [x] Universos, fórmulas, cortes, límites y SQL canónicos sin cambios.
-- [x] Sin fuentes ni indicadores adicionales.
+- [x] `fechaate datetime NULL` validado como timestamp canónico actual del hito registrado de Atención médica.
+- [x] Población evaluable y cobertura U-ING definidas para 12/24/36 meses.
+- [x] Cronología Ingreso→Atención validada sin inversiones; mismo instante y extremos preservados.
+- [x] Relaciones con Triage, Alta Médica y Egreso documentadas como contexto, sin imponer secuencia completa.
+- [x] URG-ATE-01 definido funcionalmente y mantenido EN VALIDACIÓN / NO IMPLEMENTADO.
+- [x] Sin fuentes, indicadores, SQL productivo, API o UI adicionales.
 
 ## Evidencia preservada
 
-- [Reconciliación ITER-005](../evidencia/RECONCILIACION_ITER005_2026-09-10.md).
-- [Resultado SQL/API agregado](../evidencia/RECONCILIACION_ITER005_2026-09-10.json).
-- `scripts/run-iter005-reconciliation.mjs` y `scripts/check-iter005-reconciliation.mjs`.
-- Pruebas de servicio y UI en `server/src/service/urgencias.service.test.ts` y `client/src/App.test.tsx`.
+- [Validación Atención médica](../evidencia/VALIDACION_ATENCION_MEDICA_2026-09-11.md).
+- [Artefacto agregado 12/24/36](../evidencia/VALIDACION_ATENCION_MEDICA_2026-09-11.json).
+- [Antecedente AMED](../evidencia/VALIDACION_AMED_SECUENCIA_2026-09-10.md).
+- `scripts/sql/08_validacion_atencion_medica.sql`, runner y checker asociados.
 
 ## Validaciones
 
+- Validador ITER-006: PASS.
+- Enlaces y portabilidad: PASS.
 - Server: 9 pruebas PASS.
 - Client: 3 pruebas PASS.
-- Build server/client PASS.
-- SQL→API: 3/3 comparaciones exactas.
-- Bandas exclusivas y señales acumulativas: invariantes PASS.
-- SQL canónico sin cambios.
+- Build server/client: PASS.
+- Diff: PASS.
 
 ## Limitaciones vigentes
 
-- ACT-01 permanece limitado por fuente viva sin snapshot y no confirma presencia física.
-- EJ-03 y TRI-03 conservan su interpretación como tiempos registrados, con anomalías y extremos visibles.
+- `fechaate` acredita un hito registrado; no inicio clínico real, oportunidad, espera ni presencia física.
+- `fechatri→fechaate` no define orden obligatorio por la alta frecuencia de inversiones.
+- `atencion_fecha` permanece auxiliar; origen y equivalencia con `fechaate`, POR DEFINIR.
+- Atención médica no es KPI aceptado y no autoriza implementación productiva.
 
 ## Pendientes gobernados
 
 - Decisión institucional sobre AMED, Población, Diagnósticos y Motivo de Urgencia.
-- Cierre funcional de URG-PEND-01 y definición de consumidor de URG-CAL-01.
+- Definición de consumidor de URG-CAL-01.
 
 ## NO REPETIR
 
-- Reconciliación SQL→API de EJ-03, ACT-01 y TRI-03 para la cohorte 2026-08-01 y corte 2026-09-09T21:03:28.000Z.
-- Reconciliaciones ITER-003/004 y validaciones funcionales anteriores ya preservadas.
+- Validación de cobertura y cronología de `fechaate` para ventanas con fin exclusivo 2026-09-01.
+- Validación integral AMED y reconciliaciones ITER-004/005 ya preservadas.
 
 ## Próxima acción exacta
 
-Ninguna acción adicional en ITER-005. Los pendientes restantes requieren otra iteración con alcance explícito.
+Ninguna acción adicional en ITER-006. Los pendientes restantes requieren otra iteración con alcance explícito.
 
 ## Commit de cierre
 
-Consolidado en el commit `[URG][API] Exponer bandas de permanencia activos y Triage` (ver `git log`).
+Consolidado en el commit `[URG][ATE] Cerrar hito registrado de Atención médica` (ver `git log`).

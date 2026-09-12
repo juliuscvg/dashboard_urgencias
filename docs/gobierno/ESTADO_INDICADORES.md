@@ -1,6 +1,6 @@
 # Estado vigente de indicadores
 
-Corte: 2026-09-10. Fuente canónica de estados; las fórmulas residen en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md).
+Corte: 2026-09-11. Fuente canónica de estados; las fórmulas residen en [contratos](../indicadores/CONTRATOS_ACEPTADOS.md).
 
 | ID | Indicador | Estado funcional | Estado técnico | Alcance técnico |
 |---|---|---|---|---|
@@ -18,7 +18,7 @@ Corte: 2026-09-10. Fuente canónica de estados; las fórmulas residen en [contra
 | URG-TRI-01 | Cobertura de Triage | ACEPTADO | RECONCILIADO CON FUENTE | SQL, servicios API y UI exactos |
 | URG-TRI-02 | Clasificación de Triage | ACEPTADO | RECONCILIADO CON FUENTE | SQL, API y UI exactos; cobertura conjunta |
 | URG-TRI-03 | Tiempo registrado a Triage | ACEPTADO CON OBSERVACIONES | RECONCILIADO CON FUENTE | Resumen, anomalías, extremos y bandas SQL/API/UI exactos |
-| URG-PEND-01 | Atención médica | EN PROCESO | NO IMPLEMENTADO | `Fechaing→fechaate`; contrato final pendiente |
+| URG-PEND-01 | Atención médica | DEFINIDO FUNCIONALMENTE / EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | `fechaate` canónico actual del hito registrado; URG-ATE-01; sin API/UI |
 | URG-PEND-02 | Alta médica | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | `fechamed` canónico actual del hito registrado; `altamed_fecha` auxiliar; sin API/UI |
 | URG-PEND-03 | Secuencias temporales completas | POR DEFINIR | VALIDADO CON FUENTE / NO IMPLEMENTADO | Análisis complementario de consistencia; no filtro ni KPI principal |
 | URG-PEND-04 | Población | EN VALIDACIÓN | VALIDADO CON FUENTE / NO IMPLEMENTADO | Edad, sexo y residencia nativos; sin API/UI |
@@ -50,3 +50,7 @@ MOD-05, MOD-09 y TRI-02 cerraron su brecha API/UI sin cambios funcionales. Las t
 ## Reconciliación ITER-005 — 2026-09-10
 
 EJ-03, ACT-01 y TRI-03 cerraron su brecha de bandas API/UI sin cambios funcionales. Las tres proyecciones coincidieron exactamente con sus SQL aceptados; la UI distingue bandas exclusivas de señales acumulativas y se validó con las proyecciones API preservadas. Ver [evidencia ITER-005](../evidencia/RECONCILIACION_ITER005_2026-09-10.md).
+
+## Validación Atención médica 2026-09-11
+
+La validación de `fechaate` cubre cohortes U-ING cerradas de 12, 24 y 36 meses. Confirma cobertura, cero inversiones respecto de Ingreso y heterogeneidad frente a Triage y por servicio. Cierra URG-PEND-01 como interpretación funcional mediante URG-ATE-01, sin aceptar KPI ni autorizar SQL productivo/API/UI. Ver [evidencia Atención médica](../evidencia/VALIDACION_ATENCION_MEDICA_2026-09-11.md).
